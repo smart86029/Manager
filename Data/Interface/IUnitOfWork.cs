@@ -1,18 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Manager.Data
 {
-    public interface IUnitOfWork : IDisposable
+    /// <summary>
+    /// 工作單元介面
+    /// </summary>
+    public interface IUnitOfWork
     {
-        IMenuRepository MenuRepository { get; }
+        /// <summary>
+        /// 提交認可到資料庫。
+        /// </summary>
+        void Commit();
 
-        IRoleRepository RoleRepository { get; }
-
-        IUserRepository UserRepository { get; }
-
-        void SaveChanges();
-
-        Task SaveChangesAsync();
+        /// <summary>
+        /// 非同步提交認可到資料庫。
+        /// </summary>
+        /// <returns>表示非同步提交認可作業的工作。</returns>
+        Task CommitAsync();
     }
 }
