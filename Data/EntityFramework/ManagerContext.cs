@@ -20,34 +20,34 @@ namespace Manager.Data.EntityFramework
         }
 
         /// <summary>
-        /// 取得或設定商業實體。
+        /// 取得或設定商業實體的集合。
         /// </summary>
         /// <value>
-        /// 商業實體。
+        /// 商業實體的集合。
         /// </value>
         public DbSet<BusinessEntity> BusinessEntiteis { get; set; }
 
         /// <summary>
-        /// 取得或設定菜單。
+        /// 取得或設定菜單的集合。
         /// </summary>
         /// <value>
-        /// 菜單。
+        /// 菜單的集合。
         /// </value>
         public DbSet<Menu> Menus { get; set; }
 
         /// <summary>
-        /// 取得或設定使用者。
+        /// 取得或設定使用者的集合。
         /// </summary>
         /// <value>
-        /// 使用者。
+        /// 使用者的集合。
         /// </value>
         public DbSet<User> Users { get; set; }
 
         /// <summary>
-        /// 取得或設定角色。
+        /// 取得或設定角色的集合。
         /// </summary>
         /// <value>
-        /// 角色。
+        /// 角色的集合。
         /// </value>
         public DbSet<Role> Roles { get; set; }
 

@@ -48,18 +48,18 @@ namespace Manager.Models
         public bool IsActivated { get; set; }
 
         /// <summary>
-        /// 取得或設定使用者。
+        /// 取得或設定使用者的集合。
         /// </summary>
         /// <value>
-        /// 使用者。
+        /// 使用者的集合。
         /// </value>
         public virtual ICollection<User> Users { get; set; }
 
         /// <summary>
-        /// 取得或設定菜單。
+        /// 取得或設定菜單的集合。
         /// </summary>
         /// <value>
-        /// 菜單。
+        /// 菜單的集合。
         /// </value>
         public virtual ICollection<Menu> Menus { get; set; }
     }
