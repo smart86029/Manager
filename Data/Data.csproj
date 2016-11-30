@@ -49,8 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\MenuRepository.cs" />
     <Compile Include="EntityFramework\Repository.cs" />
+    <Compile Include="EntityFramework\RoleRepository.cs" />
     <Compile Include="EntityFramework\UnitOfWork.cs" />
+    <Compile Include="EntityFramework\UserRepository.cs" />
     <Compile Include="Interface\IMenuRepository.cs" />
     <Compile Include="Interface\IUnitOfWork.cs" />
     <Compile Include="Interface\IRepository.cs" />
