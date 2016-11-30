@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\Repository.cs" />
     <Compile Include="EntityFramework\UnitOfWork.cs" />
     <Compile Include="Interface\IMenuRepository.cs" />
     <Compile Include="Interface\IUnitOfWork.cs" />
