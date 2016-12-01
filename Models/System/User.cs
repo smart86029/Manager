@@ -76,10 +76,10 @@ namespace Manager.Models
         public virtual BusinessEntity BusinessEntity { get; set; }
 
         /// <summary>
-        /// 取得或設定角色。
+        /// 取得或設定角色的集合。
         /// </summary>
         /// <value>
-        /// 角色。
+        /// 角色的集合。
         /// </value>
         public virtual ICollection<Role> Roles { get; set; }
     }
