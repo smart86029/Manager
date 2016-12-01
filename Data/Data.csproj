@@ -59,11 +59,11 @@
     <Compile Include="EntityFramework\RoleRepository.cs" />
     <Compile Include="EntityFramework\UnitOfWork.cs" />
     <Compile Include="EntityFramework\UserRepository.cs" />
-    <Compile Include="Interface\IMenuRepository.cs" />
-    <Compile Include="Interface\IUnitOfWork.cs" />
-    <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="Interface\IUserRepository.cs" />
-    <Compile Include="Interface\IRoleRepository.cs" />
+    <Compile Include="Interfaces\IMenuRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Interfaces\IRoleRepository.cs" />
     <Compile Include="Migrations\201611301357401_Initial.cs" />
     <Compile Include="Migrations\201611301357401_Initial.Designer.cs">
       <DependentUpon>201611301357401_Initial.cs</DependentUpon>
