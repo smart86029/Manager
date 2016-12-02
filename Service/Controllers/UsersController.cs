@@ -1,8 +1,8 @@
-﻿using Manager.Data;
-using Manager.Models;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Manager.Data;
+using Manager.Models;
 
 namespace Manager.Service.Controllers
 {
