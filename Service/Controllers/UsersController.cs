@@ -12,7 +12,7 @@ namespace Manager.Service.Controllers
     public class UsersController : ApiController
     {
         private IUnitOfWork unitOfWork;
-        private IRepository<User> userRepository;
+        private IUserRepository userRepository;
 
         /// <summary>
         /// 初始化 <see cref="UsersController"/> 類別的新執行個體。
