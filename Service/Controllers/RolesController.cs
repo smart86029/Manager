@@ -45,6 +45,9 @@ namespace Manager.Service.Controllers
         {
             var role = await roleRepository.FindAsync(id);
 
+            if (role == null)
+                return NotFound();
+
             return Ok(role);
         }
 
@@ -91,8 +94,6 @@ namespace Manager.Service.Controllers
         public async Task<IHttpActionResult> Delete(int id)
         {
             var role = await roleRepository.FindAsync(id);
-            if (role == null)
-                return NotFound();
 
             roleRepository.Delete(role);
             await unitOfWork.CommitAsync();
