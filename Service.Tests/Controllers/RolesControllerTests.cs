@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
+using Manager.Common;
 using Manager.Data;
 using Manager.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -79,7 +80,7 @@ namespace Manager.Service.Controllers.Tests
             var createdResult = actionResult as CreatedAtRouteNegotiatedContentResult<Role>;
 
             Assert.IsNotNull(createdResult);
-            Assert.AreEqual("DefaultApi", createdResult.RouteName);
+            Assert.AreEqual(Constant.RouteName, createdResult.RouteName);
             Assert.AreEqual(createdResult.Content.RoleId, createdResult.RouteValues["id"]);
         }
 

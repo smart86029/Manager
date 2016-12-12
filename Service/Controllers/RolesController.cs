@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Manager.Common;
 using Manager.Data;
 using Manager.Models;
 
@@ -64,7 +65,7 @@ namespace Manager.Service.Controllers
             roleRepository.Create(role);
             await unitOfWork.CommitAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = role.RoleId }, role);
+            return CreatedAtRoute(Constant.RouteName, new { id = role.RoleId }, role);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Manager.Common;
 
 namespace Manager.Service
 {
@@ -12,7 +13,7 @@ namespace Manager.Service
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: Constant.RouteName,
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
