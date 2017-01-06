@@ -1,0 +1,8 @@
+﻿<h3>Top Roles</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let role of roles" [routerLink]="['/detail', role.id]" class="col-1-4">
+    <div class="module role">
+      <h4>{{role.name}}</h4>
+    </div>
+  </a>
+</div>
