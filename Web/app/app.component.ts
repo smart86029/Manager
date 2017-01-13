@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
+declare var $: any;
 
 @Component({
   moduleId: module.id,
   selector: 'my-app',
-  template: `
-    <h1>{{title}}</h1>
-    <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-      <a routerLink="/roles" routerLinkActive="active">Roles</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
-  styleUrls: ['app.component.css'],
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css']
 })
 export class AppComponent {
   title = 'Manager';
+
+  ngAfterViewInit(): void {
+    $('.collapsible').collapsible();
+  }
 }

@@ -1,33 +1,34 @@
-﻿h1 {
-  font-size: 1.2em;
-  color: #999;
-  margin-bottom: 0;
+﻿header, main, footer {
+  padding-left: 300px;
 }
 
-h2 {
-  font-size: 2em;
-  margin-top: 0;
-  padding-top: 0;
-}
-
-nav a {
-  padding: 5px 10px;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
+nav {
+  box-shadow: none;
   background-color: #eee;
-  border-radius: 4px;
+  padding: 0 15px;
 }
 
-  nav a:visited, a:link {
-    color: #607D8B;
+  nav .brand-logo, nav ul a {
+    color: #555;
   }
 
-  nav a:hover {
-    color: #039be5;
-    background-color: #CFD8DC;
-  }
+.btn-just-icon {
+  font-size: 20px;
+  line-height: 1em;
+}
 
-  nav a.active {
-    color: #039be5;
+.form-search input {
+  margin: 0;
+}
+
+.btn-just-icon i {
+  position: relative;
+  top: -7px;
+}
+
+@media(min-width: 768px) {
+  .form-search {
+    display: inline-block;
+    margin-bottom: 0;
   }
+}

@@ -6,7 +6,7 @@ import { RolesComponent } from './roles.component';
 import { RoleDetailComponent } from './role-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  //{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: RoleDetailComponent },
   { path: 'roles', component: RolesComponent }

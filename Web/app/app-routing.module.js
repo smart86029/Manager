@@ -14,7 +14,7 @@ var dashboard_component_1 = require('./dashboard.component');
 var roles_component_1 = require('./roles.component');
 var role_detail_component_1 = require('./role-detail.component');
 var routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    //{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'detail/:id', component: role_detail_component_1.RoleDetailComponent },
     { path: 'roles', component: roles_component_1.RolesComponent }

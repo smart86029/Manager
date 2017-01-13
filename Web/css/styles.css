@@ -1,0 +1,9 @@
+/** {
+  font-family: "Helvetica Neue", Helvetica, Arial, "LiHei Pro", "Microsoft JhengHei", sans-serif;
+}*/
+
+@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+html, body {
+  font-family: 'Noto Sans TC', sans-serif;
+}
