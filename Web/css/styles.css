@@ -2,10 +2,80 @@
   font-family: "Helvetica Neue", Helvetica, Arial, "LiHei Pro", "Microsoft JhengHei", sans-serif;
 }*/
 
-@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
+/*@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);*/
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/notosans/NotoSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/notosans/NotoSans-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/notosans/NotoSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/notosans/NotoSans-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/notosanstc/NotoSansCJKtc-Bold.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/notosanstc/NotoSansCJKtc-Light.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/notosanstc/NotoSansCJKtc-Regular.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/notosanstc/NotoSansCJKtc-Medium.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/notosanstc/NotoSansCJKtc-Bold.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 900;
+  src: url("../fonts/notosanstc/NotoSansCJKtc-Black.otf") format('opentype');
+}
 
 html, body {
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans TC', sans-serif;
 }
 
 .container-fluid {

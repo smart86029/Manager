@@ -103,6 +103,15 @@
     <Content Include="fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="fonts\notosanstc\NotoSansCJKtc-Black.otf" />
+    <Content Include="fonts\notosanstc\NotoSansCJKtc-Bold.otf" />
+    <Content Include="fonts\notosanstc\NotoSansCJKtc-Light.otf" />
+    <Content Include="fonts\notosanstc\NotoSansCJKtc-Medium.otf" />
+    <Content Include="fonts\notosanstc\NotoSansCJKtc-Regular.otf" />
+    <Content Include="fonts\notosans\NotoSans-Bold.ttf" />
+    <Content Include="fonts\notosans\NotoSans-BoldItalic.ttf" />
+    <Content Include="fonts\notosans\NotoSans-Italic.ttf" />
+    <Content Include="fonts\notosans\NotoSans-Regular.ttf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
