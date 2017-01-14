@@ -13,9 +13,9 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var dashboard_component_1 = require('./dashboard.component');
-var role_detail_component_1 = require('./role-detail.component');
-var roles_component_1 = require('./roles.component');
-var role_service_1 = require('./role.service');
+var role_detail_component_1 = require('./roles/role-detail.component');
+var roles_component_1 = require('./roles/roles.component');
+var role_service_1 = require('./roles/role.service');
 var app_routing_module_1 = require('./app-routing.module');
 var AppModule = (function () {
     function AppModule() {

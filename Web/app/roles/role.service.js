@@ -9,24 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'Manager';
+var mock_roles_1 = require('./mock-roles');
+var RoleService = (function () {
+    function RoleService() {
     }
-    AppComponent.prototype.ngAfterViewInit = function () {
-        $(".button-collapse").sideNav();
-        $('.collapsible').collapsible();
+    RoleService.prototype.getRoles = function () {
+        return Promise.resolve(mock_roles_1.ROLES);
     };
-    AppComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-app',
-            templateUrl: 'app.component.html',
-            styleUrls: ['app.component.css']
-        }), 
+    RoleService.prototype.getRole = function (id) {
+        return this.getRoles()
+            .then(function (roles) { return roles.find(function (role) { return role.id === id; }); });
+    };
+    RoleService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], RoleService);
+    return RoleService;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.RoleService = RoleService;
+//# sourceMappingURL=role.service.js.map

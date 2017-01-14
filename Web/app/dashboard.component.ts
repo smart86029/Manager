@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { Role } from './role';
-import { RoleService } from './role.service';
+import { Role } from './roles/role';
+import { RoleService } from './roles/role.service';
 
 @Component({
   moduleId: module.id,

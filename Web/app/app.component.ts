@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'Manager';
 
   ngAfterViewInit(): void {
+    $(".button-collapse").sideNav();
     $('.collapsible').collapsible();
   }
 }

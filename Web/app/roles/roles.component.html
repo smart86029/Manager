@@ -1,0 +1,36 @@
+﻿<div class="card">
+  <div class="card-header card-header-icon pink">
+    <i class="material-icons white-text">assignment</i>
+  </div>
+  <div class="card-content">
+    <h4 class="card-title">角色</h4>
+    <table class="highlight responsive-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of roles">
+          <td>{{role.id}}</td>
+          <td>{{role.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--<ul class="roles">
+  <li *ngFor="let role of roles"
+      [class.selected]="role === selectedRole"
+      (click)="onSelect(role)">
+    <span class="badge">{{role.id}}</span> {{role.name}}
+  </li>
+</ul>-->
+<!--<div *ngIf="selectedRole">
+  <h2>
+    {{selectedRole.name | uppercase}} is my role
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>-->
