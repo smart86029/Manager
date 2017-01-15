@@ -242,5 +242,5 @@ ModelManifest.xml
 .fake/
 
 # Angular2
-app/**/*.js
-app/**/*.map
+Web/app/**/*.js
+Web/app/**/*.map
