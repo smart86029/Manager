@@ -20,10 +20,9 @@ var RoleDetailComponent = (function () {
         this.location = location;
     }
     RoleDetailComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params
-            .switchMap(function (params) { return _this.roleService.getRole(+params['id']); })
-            .subscribe(function (role) { return _this.role = role; });
+        //this.route.params
+        //  .switchMap((params: Params) => this.roleService.getRole(+params['id']))
+        //  .subscribe(role => this.role = role);
     };
     RoleDetailComponent.prototype.goBack = function () {
         this.location.back();

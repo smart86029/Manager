@@ -21,9 +21,9 @@ export class RoleDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params
-      .switchMap((params: Params) => this.roleService.getRole(+params['id']))
-      .subscribe(role => this.role = role);
+    //this.route.params
+    //  .switchMap((params: Params) => this.roleService.getRole(+params['id']))
+    //  .subscribe(role => this.role = role);
   }
 
   goBack(): void {

@@ -1,4 +1,7 @@
 ﻿export class Role {
-  id: number;
-  name: string;
+  RoleId: number;
+  Name: string;
+  IsActivated: boolean;
+  Users: any;
+  Menus: any;
 }

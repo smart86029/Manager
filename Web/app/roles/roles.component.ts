@@ -13,13 +13,17 @@ import { RoleService } from './role.service';
 export class RolesComponent implements OnInit {
   roles: Role[];
   selectedRole: Role;
+  errorMessage: string;
 
   constructor(
     private router: Router,
     private roleService: RoleService) { }
 
   getRoles(): void {
-    this.roleService.getRoles().then(roles => this.roles = roles);
+    this.roleService.getRoles()
+      .subscribe(
+        roles => this.roles = roles,
+        error => this.errorMessage = <any>error);
   }
 
   ngOnInit(): void {
@@ -31,6 +35,6 @@ export class RolesComponent implements OnInit {
   }
 
   gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedRole.id]);
+    this.router.navigate(['/detail', this.selectedRole.RoleId]);
   }
 }

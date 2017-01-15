@@ -18,7 +18,8 @@ var RolesComponent = (function () {
     }
     RolesComponent.prototype.getRoles = function () {
         var _this = this;
-        this.roleService.getRoles().then(function (roles) { return _this.roles = roles; });
+        this.roleService.getRoles()
+            .subscribe(function (roles) { return _this.roles = roles; }, function (error) { return _this.errorMessage = error; });
     };
     RolesComponent.prototype.ngOnInit = function () {
         this.getRoles();
@@ -27,7 +28,7 @@ var RolesComponent = (function () {
         this.selectedRole = role;
     };
     RolesComponent.prototype.gotoDetail = function () {
-        this.router.navigate(['/detail', this.selectedRole.id]);
+        this.router.navigate(['/detail', this.selectedRole.RoleId]);
     };
     RolesComponent = __decorate([
         core_1.Component({

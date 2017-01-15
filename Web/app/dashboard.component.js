@@ -16,9 +16,8 @@ var DashboardComponent = (function () {
         this.roles = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.roleService.getRoles()
-            .then(function (roles) { return _this.roles = roles.slice(1, 5); });
+        //this.roleService.getRoles()
+        //  .then(roles => this.roles = roles.slice(1, 5));
     };
     DashboardComponent = __decorate([
         core_1.Component({

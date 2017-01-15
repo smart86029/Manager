@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   constructor(private roleService: RoleService) { }
 
   ngOnInit(): void {
-    this.roleService.getRoles()
-      .then(roles => this.roles = roles.slice(1, 5));
+    //this.roleService.getRoles()
+    //  .then(roles => this.roles = roles.slice(1, 5));
   }
 }

@@ -135,7 +135,6 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\dashboard.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\roles\mock-roles.ts" />
     <TypeScriptCompile Include="app\roles\role-detail.component.ts" />
     <TypeScriptCompile Include="app\roles\role.service.ts" />
     <TypeScriptCompile Include="app\roles\role.ts" />
