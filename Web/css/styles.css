@@ -84,3 +84,14 @@ html, body {
   margin-right: auto;
   margin-left: auto;
 }
+
+.btn-action {
+  padding: 5px;
+}
+
+i.square {
+  width: 1.5em;
+  text-align: center;
+  top: -5px;
+  position: relative;
+}

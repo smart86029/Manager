@@ -1,5 +1,5 @@
 ﻿import { Injectable } from              '@angular/core';
-import { Headers, Response, Http } from '@angular/http';
+import { Headers, Response, Http, RequestOptions } from '@angular/http';
 
 import { Role } from       './role';
 import { Observable } from 'rxjs/Observable';
@@ -22,6 +22,16 @@ export class RoleService {
   //  return this.getRoles()
   //    .then(roles => roles.find(role => role.roleId === id));
   //}
+
+  addRole(role: Role): Observable<Role> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(this.rolesUrl, { name }, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body;
