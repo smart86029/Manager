@@ -3,7 +3,7 @@
     <i class="material-icons white-text">assignment</i>
   </div>
   <div class="card-content">
-    <h4 class="card-title">角色</h4>
+    <h4 class="card-title">角色<a class="btn btn-action waves-effect pink right"><i class="material-icons square" (click)="showDialog = !showDialog">add</i></a></h4>
     <table class="highlight responsive-table">
       <thead>
         <tr>
@@ -25,7 +25,10 @@
     </table>
   </div>
 </div>
-
+<manager-dialog [(visible)]="showDialog">
+  <h1>Hello World</h1>
+  <button (click)="showDialog = !showDialog" class="btn">Close</button>
+</manager-dialog>
 <!--<ul class="roles">
   <li *ngFor="let role of roles"
       [class.selected]="role === selectedRole"

@@ -14,6 +14,7 @@ export class RolesComponent implements OnInit {
   roles: Role[];
   selectedRole: Role;
   errorMessage: string;
+  showDialog = false;
 
   constructor(
     private router: Router,

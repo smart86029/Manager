@@ -3,12 +3,13 @@ import { Headers, Response, Http, RequestOptions } from '@angular/http';
 
 import { Role } from       './role';
 import { Observable } from 'rxjs/Observable';
-import                     'rxjs/add/operator/map';
-import                     'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class RoleService {
   private rolesUrl = 'http://localhost:51900/api/Roles';
+
 
   constructor(private http: Http) { }
 
@@ -27,7 +28,7 @@ export class RoleService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.rolesUrl, { name }, options)
+    return this.http.post(this.rolesUrl, { role }, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
