@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Role } from './role';
 import { RoleService } from './role.service';
 
@@ -12,6 +11,7 @@ import { RoleService } from './role.service';
 })
 export class RolesComponent implements OnInit {
   roles: Role[];
+  newRole: Role;
   selectedRole: Role;
   errorMessage: string;
   showDialog = false;
@@ -25,6 +25,8 @@ export class RolesComponent implements OnInit {
       .subscribe(
         roles => this.roles = roles,
         error => this.errorMessage = <any>error);
+
+    this.newRole = new Role();
   }
 
   ngOnInit(): void {
@@ -37,5 +39,10 @@ export class RolesComponent implements OnInit {
 
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedRole.RoleId]);
+  }
+
+  submitForm(form: any): void {
+    console.log('Form Data: ');
+    console.log(form);
   }
 }
