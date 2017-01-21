@@ -43,8 +43,8 @@ namespace Manager.Data.Migrations
 
             var roles = new List<Role>
             {
-                new Role { Name = "Administrator", IsActivated = true, Users = context.Users.ToList(), Menus = context.Menus.ToList() },
-                new Role { Name = "HumanResources", IsActivated = true, Users = context.Users.ToList(), Menus = context.Menus.ToList() },
+                new Role { Name = "Administrator", IsEnabled = true, Users = context.Users.ToList(), Menus = context.Menus.ToList() },
+                new Role { Name = "HumanResources", IsEnabled = true, Users = context.Users.ToList(), Menus = context.Menus.ToList() },
             };
             roles.ForEach(s => context.Roles.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();

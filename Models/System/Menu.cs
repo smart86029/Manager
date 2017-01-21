@@ -88,7 +88,7 @@ namespace Manager.Models
         /// </value>
         [Display(Name = "是否啟用")]
         [Required]
-        public bool IsActivated { get; set; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// 取得或設定父節點ID。

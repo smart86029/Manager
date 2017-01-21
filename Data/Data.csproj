@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201611301357401_Initial.Designer.cs">
       <DependentUpon>201611301357401_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701210334296_IsEnabled.cs" />
+    <Compile Include="Migrations\201701210334296_IsEnabled.Designer.cs">
+      <DependentUpon>201701210334296_IsEnabled.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +92,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611301357401_Initial.resx">
       <DependentUpon>201611301357401_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701210334296_IsEnabled.resx">
+      <DependentUpon>201701210334296_IsEnabled.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
