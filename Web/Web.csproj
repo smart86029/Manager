@@ -76,7 +76,6 @@
     <Content Include="app\roles\role-detail.component.html" />
     <Content Include="app\roles\roles.component.css" />
     <Content Include="app\roles\roles.component.html" />
-    <Content Include="app\shared\dialog.component.css" />
     <Content Include="css\materialize.css" />
     <Content Include="css\materialize.min.css" />
     <Content Include="js\materialize.js" />
@@ -113,7 +112,6 @@
     <Content Include="fonts\notosans\NotoSans-BoldItalic.ttf" />
     <Content Include="fonts\notosans\NotoSans-Italic.ttf" />
     <Content Include="fonts\notosans\NotoSans-Regular.ttf" />
-    <Content Include="app\shared\dialog.component.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -141,12 +139,13 @@
     <TypeScriptCompile Include="app\roles\role.service.ts" />
     <TypeScriptCompile Include="app\roles\role.ts" />
     <TypeScriptCompile Include="app\roles\roles.component.ts" />
-    <TypeScriptCompile Include="app\shared\dialog.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\shared\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

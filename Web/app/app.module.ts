@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { DialogComponent } from './shared/dialog.component'
 import { DashboardComponent } from './dashboard.component';
 import { RoleDetailComponent } from './roles/role-detail.component';
 import { RolesComponent } from './roles/roles.component';
@@ -21,7 +20,6 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   declarations: [
     AppComponent,
-    DialogComponent,
     DashboardComponent,
     RoleDetailComponent,
     RolesComponent

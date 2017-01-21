@@ -95,3 +95,19 @@ i.square {
   top: -5px;
   position: relative;
 }
+
+.dialog-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+.dialog-footer .btn + .btn {
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+.dialog-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+.dialog-footer .btn-block + .btn-block {
+  margin-left: 0;
+}

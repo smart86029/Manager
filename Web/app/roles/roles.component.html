@@ -3,7 +3,7 @@
     <i class="material-icons white-text">assignment</i>
   </div>
   <div class="card-content">
-    <h4 class="card-title">角色<a class="btn btn-action waves-effect pink right"><i class="material-icons square" (click)="showDialog = !showDialog">add</i></a></h4>
+    <h4 class="card-title">角色<a class="btn btn-action waves-effect pink right modal-trigger" href="#modal-new-role"><i class="material-icons square">add</i></a></h4>
     <table class="highlight responsive-table">
       <thead>
         <tr>
@@ -25,20 +25,24 @@
     </table>
   </div>
 </div>
-<manager-dialog [(visible)]="showDialog">
-  <h2>新增角色</h2>
-  <form #addForm="ngForm" (ngSubmit)="submitForm(addForm.value)">
-    <div class="input-field">
-      <input type="text" class="validate" id="new-role-name" [(ngModel)]="newRole.Name" [ngModelOptions]="{standalone: true}" />
-      <label for="new-role-name">名稱</label>
-    </div>
-    <p>
-      <input type="checkbox" class="filled-in" id="new-role-is-activated" [(ngModel)]="newRole.IsActivated" [ngModelOptions]="{standalone: true}" />
-      <label for="new-role-is-activated">是否啟用</label>
-    </p>
-  </form>
-  <button class="btn" (click)="showDialog = !showDialog">Close</button>
-</manager-dialog>
+<div class="modal modal-fixed-footer" id="modal-new-role">
+  <div class="modal-content">
+    <h4>新增角色</h4>
+    <form #addForm="ngForm" (ngSubmit)="submitForm(addForm.value)">
+      <div class="input-field">
+        <input type="text" class="validate" id="new-role-name" [(ngModel)]="newRole.Name" [ngModelOptions]="{standalone: true}" />
+        <label for="new-role-name">名稱</label>
+      </div>
+      <p>
+        <input type="checkbox" class="filled-in" id="new-role-is-enabled" [(ngModel)]="newRole.IsEnabled" [ngModelOptions]="{standalone: true}" />
+        <label for="new-role-is-enabled">是否啟用</label>
+      </p>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-flat modal-action modal-close waves-effect">Close</a>
+  </div>
+</div>
 <!--<ul class="roles">
   <li *ngFor="let role of roles"
       [class.selected]="role === selectedRole"

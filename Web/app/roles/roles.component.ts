@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Role } from './role';
 import { RoleService } from './role.service';
 
+declare var $: any;
+
 @Component({
   moduleId: module.id,
   selector: 'my-roles',
@@ -31,6 +33,7 @@ export class RolesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoles();
+    $('.modal').modal();
   }
 
   onSelect(role: Role): void {
