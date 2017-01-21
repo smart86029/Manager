@@ -21,8 +21,8 @@ namespace Manager.Service.Controllers.Tests
         {
             var roles = new List<Role>
             {
-                new Role { RoleId = 1, Name = "Administraoter", IsActivated = true },
-                new Role { RoleId = 2, Name = "Member", IsActivated = true }
+                new Role { RoleId = 1, Name = "Administraoter", IsEnabled = true },
+                new Role { RoleId = 2, Name = "Member", IsEnabled = true }
             };
             var unitOfWork = new Mock<IUnitOfWork>();
             var roleRepository = new Mock<IRoleRepository>();
@@ -41,7 +41,7 @@ namespace Manager.Service.Controllers.Tests
         [TestMethod]
         public async Task Get_ReturnRole_WithExistentRoleId()
         {
-            var role = new Role { RoleId = 10, Name = "Test Role", IsActivated = true };
+            var role = new Role { RoleId = 10, Name = "Test Role", IsEnabled = true };
             var unitOfWork = new Mock<IUnitOfWork>();
             var roleRepository = new Mock<IRoleRepository>();
             roleRepository.Setup(r => r.FindAsync(10))
@@ -71,7 +71,7 @@ namespace Manager.Service.Controllers.Tests
         [TestMethod]
         public async Task Post_ReturnCreated_WithNewRole()
         {
-            var role = new Role { Name = "New Role", IsActivated = true };
+            var role = new Role { Name = "New Role", IsEnabled = true };
             var unitOfWork = new Mock<IUnitOfWork>();
             var roleRepository = new Mock<IRoleRepository>();
             var controller = new RolesController(unitOfWork.Object, roleRepository.Object);
@@ -87,7 +87,7 @@ namespace Manager.Service.Controllers.Tests
         [TestMethod]
         public async Task Put_ReturnNoContent_WithSameRoleId()
         {
-            var role = new Role { RoleId = 10, Name = "New Role", IsActivated = true };
+            var role = new Role { RoleId = 10, Name = "New Role", IsEnabled = true };
             var unitOfWork = new Mock<IUnitOfWork>();
             var roleRepository = new Mock<IRoleRepository>();
             var controller = new RolesController(unitOfWork.Object, roleRepository.Object);
@@ -102,7 +102,7 @@ namespace Manager.Service.Controllers.Tests
         [TestMethod]
         public async Task Put_ReturnNoContent_WithDifferentRoleId()
         {
-            var role = new Role { RoleId = 10, Name = "New Role", IsActivated = true };
+            var role = new Role { RoleId = 10, Name = "New Role", IsEnabled = true };
             var unitOfWork = new Mock<IUnitOfWork>();
             var roleRepository = new Mock<IRoleRepository>();
             var controller = new RolesController(unitOfWork.Object, roleRepository.Object);
