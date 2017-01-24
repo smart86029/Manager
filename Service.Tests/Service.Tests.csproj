@@ -88,10 +88,6 @@
       <Project>{13AFCDA3-D62D-4D51-80F4-430139A478B6}</Project>
       <Name>Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Service\Service.csproj">
-      <Project>{81E1928F-88E1-47CB-AFF7-55102C7A419E}</Project>
-      <Name>Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Http;
 
-namespace Manager.Service
+namespace Manager.Web
 {
     public class WebApiApplication : HttpApplication
     {

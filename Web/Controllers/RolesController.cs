@@ -2,28 +2,25 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Manager.Common;
-using Manager.Data;
 using Manager.Models;
+using Manager.Service;
 
-namespace Manager.Service.Controllers
+namespace Manager.Web.Controllers
 {
     /// <summary>
     /// 角色控制器。
     /// </summary>
     public class RolesController : ApiController
     {
-        private IUnitOfWork unitOfWork;
-        private IRoleRepository roleRepository;
+        private RoleService roleService;
 
         /// <summary>
         /// 初始化 <see cref="RolesController"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="unitOfWork">工作單元執行個體。</param>
-        /// <param name="roleRepository">角色倉儲執行個體。</param>
-        public RolesController(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
+        /// <param name="roleService">角色服務。</param>
+        public RolesController(RoleService roleService)
         {
-            this.unitOfWork = unitOfWork;
-            this.roleRepository = roleRepository;
+            this.roleService = roleService;
         }
 
         /// <summary>
@@ -32,7 +29,7 @@ namespace Manager.Service.Controllers
         /// <returns>表示非同步尋找作業的工作。 工作結果包含所有角色。</returns>
         public async Task<IHttpActionResult> Get()
         {
-            var roles = await roleRepository.ManyAsync(null);
+            var roles = await roleService.GetRolesAsync();
 
             return Ok(roles);
         }
@@ -44,7 +41,7 @@ namespace Manager.Service.Controllers
         /// <returns>表示非同步尋找作業的工作。 工作結果包含角色。</returns>
         public async Task<IHttpActionResult> Get(int id)
         {
-            var role = await roleRepository.FindAsync(id);
+            var role = await roleService.GetRoleAsync(id);
 
             if (role == null)
                 return NotFound();
@@ -62,8 +59,7 @@ namespace Manager.Service.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            roleRepository.Create(role);
-            await unitOfWork.CommitAsync();
+            await roleService.CreateAsync(role);
 
             return CreatedAtRoute(Constant.RouteName, new { id = role.RoleId }, role);
         }
@@ -81,8 +77,7 @@ namespace Manager.Service.Controllers
             if (id != role.RoleId)
                 return BadRequest();
 
-            roleRepository.Update(role);
-            await unitOfWork.CommitAsync();
+            await roleService.UpdateAsync(role, new string[0]);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -94,10 +89,7 @@ namespace Manager.Service.Controllers
         /// <returns>表示非同步尋找作業的工作。 工作結果包含 204 NoContent。</returns>
         public async Task<IHttpActionResult> Delete(int id)
         {
-            var role = await roleRepository.FindAsync(id);
-
-            roleRepository.Delete(role);
-            await unitOfWork.CommitAsync();
+            await roleService.DeleteAsync(id);
 
             return StatusCode(HttpStatusCode.NoContent);
         }

@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class RoleService {
-  private rolesUrl = 'http://localhost:51900/api/Roles';
+  private rolesUrl = 'api/Roles';
 
 
   constructor(private http: Http) { }
@@ -26,10 +26,9 @@ export class RoleService {
 
   addRole(role: Role): Observable<Role> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    headers.append('Access-Control-Allow-Origin', '*');
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.rolesUrl, { role }, options)
+    return this.http.post(this.rolesUrl, role, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
