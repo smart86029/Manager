@@ -16,24 +16,30 @@ export class RolesComponent implements OnInit {
   newRole: Role;
   selectedRole: Role;
   errorMessage: string;
-  showDialog = false;
 
   constructor(
     private router: Router,
     private roleService: RoleService) { }
+
+  ngOnInit(): void {
+    this.getRoles();
+    this.newRole = new Role();
+    $('.modal').modal();
+  }
 
   getRoles(): void {
     this.roleService.getRoles()
       .subscribe(
         roles => this.roles = roles,
         error => this.errorMessage = <any>error);
-
-    this.newRole = new Role();
   }
 
-  ngOnInit(): void {
-    this.getRoles();
-    $('.modal').modal();
+  addRole() {
+    console.log("2");
+    this.roleService.addRole(this.newRole)
+      .subscribe(
+        role => this.roles.push(role),
+        error => this.errorMessage = <any>error);
   }
 
   onSelect(role: Role): void {
@@ -42,10 +48,5 @@ export class RolesComponent implements OnInit {
 
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedRole.RoleId]);
-  }
-
-  submitForm(form: any): void {
-    console.log('Form Data: ');
-    console.log(form);
   }
 }

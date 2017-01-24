@@ -26,9 +26,10 @@
   </div>
 </div>
 <div class="modal modal-fixed-footer" id="modal-new-role">
-  <div class="modal-content">
-    <h4>新增角色</h4>
-    <form #addForm="ngForm" (ngSubmit)="submitForm(addForm.value)">
+  <form #addForm="ngForm" (ngSubmit)="addRole()">
+    <div class="modal-content">
+      <h4>新增角色</h4>
+
       <div class="input-field">
         <input type="text" class="validate" id="new-role-name" [(ngModel)]="newRole.Name" [ngModelOptions]="{standalone: true}" />
         <label for="new-role-name">名稱</label>
@@ -37,11 +38,12 @@
         <input type="checkbox" class="filled-in" id="new-role-is-enabled" [(ngModel)]="newRole.IsEnabled" [ngModelOptions]="{standalone: true}" />
         <label for="new-role-is-enabled">是否啟用</label>
       </p>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <a class="btn btn-flat modal-action modal-close waves-effect">Close</a>
-  </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-flat waves-effect modal-action">Submit</button>
+      <a class="btn btn-flat waves-effect modal-action modal-close">Close</a>
+    </div>
+  </form>
 </div>
 <!--<ul class="roles">
   <li *ngFor="let role of roles"
