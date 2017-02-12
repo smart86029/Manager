@@ -17,7 +17,7 @@
           <td>{{role.Name}}</td>
           <td class="right">
             <a class="btn btn-action waves-effect green"><i class="material-icons square">person</i></a>
-            <a class="btn btn-action waves-effect yellow"><i class="material-icons square">edit</i></a>
+            <a class="btn btn-action waves-effect yellow modal-trigger" href="#modal-edit-role" (click)="onSelect(role)"><i class="material-icons square">edit</i></a>
             <a class="btn btn-action waves-effect red"><i class="material-icons square">close</i></a>
           </td>
         </tr>
@@ -29,7 +29,6 @@
   <form #addForm="ngForm" (ngSubmit)="addRole()">
     <div class="modal-content">
       <h4>新增角色</h4>
-
       <div class="input-field">
         <input type="text" class="validate" id="new-role-name" [(ngModel)]="newRole.Name" [ngModelOptions]="{standalone: true}" />
         <label for="new-role-name">名稱</label>
@@ -45,16 +44,23 @@
     </div>
   </form>
 </div>
-<!--<ul class="roles">
-  <li *ngFor="let role of roles"
-      [class.selected]="role === selectedRole"
-      (click)="onSelect(role)">
-    <span class="badge">{{role.id}}</span> {{role.name}}
-  </li>
-</ul>-->
-<!--<div *ngIf="selectedRole">
-  <h2>
-    {{selectedRole.name | uppercase}} is my role
-  </h2>
-  <button (click)="gotoDetail()">View Details</button>
-</div>-->
+<div class="modal modal-fixed-footer" id="modal-edit-role">
+  <form #editForm="ngForm" (ngSubmit)="editRole()">
+    <div class="modal-content">
+      <h4>編輯角色</h4>
+      <!--<input type="hidden" id="selected-role-id" [(ngModel)]="selectedRole.RoleId" [ngModelOptions]="{standalone: true}" />-->
+      <div class="input-field">
+        <input type="text" class="validate" id="selected-role-name" [(ngModel)]="selectedRole.Name" [ngModelOptions]="{standalone: true}" />
+        <label for="selected-role-name">名稱</label>
+      </div>
+      <p>
+        <input type="checkbox" class="filled-in" id="selected-role-is-enabled" [(ngModel)]="selectedRole.IsEnabled" [ngModelOptions]="{standalone: true}" />
+        <label for="selected-role-is-enabled">是否啟用</label>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-flat waves-effect modal-action">Submit</button>
+      <a class="btn btn-flat waves-effect modal-action modal-close">Close</a>
+    </div>
+  </form>
+</div>

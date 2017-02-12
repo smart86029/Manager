@@ -10,7 +10,6 @@ import 'rxjs/add/operator/catch';
 export class RoleService {
   private rolesUrl = 'api/Roles';
 
-
   constructor(private http: Http) { }
 
   getRoles(): Observable<Role[]> {
@@ -27,8 +26,15 @@ export class RoleService {
   addRole(role: Role): Observable<Role> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-
     return this.http.post(this.rolesUrl, role, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  editRole(role: Role): Observable<Role> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(`${this.rolesUrl}/${role.RoleId}`, role, options)
       .map(this.extractData)
       .catch(this.handleError);
   }

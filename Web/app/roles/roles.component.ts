@@ -24,6 +24,7 @@ export class RolesComponent implements OnInit {
   ngOnInit(): void {
     this.getRoles();
     this.newRole = new Role();
+    this.selectedRole = new Role();
     $('.modal').modal();
   }
 
@@ -34,16 +35,24 @@ export class RolesComponent implements OnInit {
         error => this.errorMessage = <any>error);
   }
 
-  addRole() {
-    console.log("2");
+  addRole(): void {
     this.roleService.addRole(this.newRole)
       .subscribe(
         role => this.roles.push(role),
         error => this.errorMessage = <any>error);
   }
 
+  editRole(): void {
+    console.log("2");
+    this.roleService.editRole(this.selectedRole)
+      .subscribe(
+        role => { },
+        error => this.errorMessage = <any>error);
+  }
+
   onSelect(role: Role): void {
     this.selectedRole = role;
+    console.log("3");
   }
 
   gotoDetail(): void {
