@@ -38,21 +38,25 @@ export class RolesComponent implements OnInit {
   addRole(): void {
     this.roleService.addRole(this.newRole)
       .subscribe(
-        role => this.roles.push(role),
-        error => this.errorMessage = <any>error);
+      role => {
+        this.roles.push(role);
+        $('#modal-new-role').modal('close');
+      },
+      error => this.errorMessage = <any>error);
   }
 
   editRole(): void {
-    console.log("2");
     this.roleService.editRole(this.selectedRole)
       .subscribe(
-        role => { },
-        error => this.errorMessage = <any>error);
+      role => {
+        $('#modal-edit-role').modal('close');
+      },
+      error => this.errorMessage = <any>error);
   }
 
   onSelect(role: Role): void {
     this.selectedRole = role;
-    console.log("3");
+
   }
 
   gotoDetail(): void {
