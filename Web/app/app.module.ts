@@ -8,6 +8,8 @@ import { DashboardComponent } from './dashboard.component';
 import { RoleDetailComponent } from './roles/role-detail.component';
 import { RolesComponent } from './roles/roles.component';
 import { RoleService } from './roles/role.service';
+import { UserListComponent } from './users/user-list.component';
+import { UserService } from './users/user.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,9 +24,13 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     DashboardComponent,
     RoleDetailComponent,
-    RolesComponent
+    RolesComponent,
+    UserListComponent
   ],
-  providers: [RoleService],
+  providers: [
+    RoleService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
