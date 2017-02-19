@@ -56,7 +56,6 @@ export class RolesComponent implements OnInit {
 
   onSelect(role: Role): void {
     this.selectedRole = role;
-
   }
 
   gotoDetail(): void {
