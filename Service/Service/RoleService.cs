@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Manager.Data;
 using Manager.Models;
 
 namespace Manager.Service
 {
+    /// <summary>
+    /// 角色服務。
+    /// </summary>
     public class RoleService
     {
         private IUnitOfWork unitOfWork;
         private IRoleRepository roleRepository;
 
+        /// <summary>
+        /// 初始化 <see cref="RoleService"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="unitOfWork">工作單元。</param>
+        /// <param name="roleRepository">角色倉儲。</param>
         public RoleService(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
         {
             this.unitOfWork = unitOfWork;
@@ -22,10 +29,11 @@ namespace Manager.Service
         /// <summary>
         /// 取得角色。
         /// </summary>
-        /// <returns></returns>
+        /// <returns>符合的角色。</returns>
         public async Task<Role> GetRoleAsync(int id)
         {
             var role = await roleRepository.FindAsync(id);
+
             return role;
         }
 
@@ -54,8 +62,8 @@ namespace Manager.Service
         /// <summary>
         /// 新增角色。
         /// </summary>
-        /// <param name="user">要新增的角色。</param>
-        /// <returns></returns>
+        /// <param name="role">要新增的角色。</param>
+        /// <returns>新增成功傳回是，否則為否。</returns>
         public async Task<bool> CreateAsync(Role role)
         {
             if (role == null)
@@ -72,7 +80,7 @@ namespace Manager.Service
         /// </summary>
         /// <param name="role">要更新的角色。</param>
         /// <param name="selectedUsers">使用者清單選擇的使用者。</param>
-        /// <returns></returns>
+        /// <returns>更新成功傳回是，否則為否。</returns>
         public async Task<bool> UpdateAsync(Role role, string[] selectedUsers)
         {
             if (role == null)
@@ -89,7 +97,7 @@ namespace Manager.Service
         /// 刪除角色。
         /// </summary>
         /// <param name="id">指定的 Id。</param>
-        /// <returns></returns>
+        /// <returns>刪除成功傳回是，否則為否。 如果找不到符合的角色，則這個方法也會傳回否。</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             var role = await roleRepository.FindAsync(id);

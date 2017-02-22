@@ -72,7 +72,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Controllers\RolesControllerTests.cs" />
+    <Compile Include="Controllers\RoleServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +87,10 @@
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{13AFCDA3-D62D-4D51-80F4-430139A478B6}</Project>
       <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{AC5B6026-A37E-4475-BE75-E0E1F72EE7DE}</Project>
+      <Name>Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
