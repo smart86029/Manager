@@ -65,23 +65,23 @@ namespace Manager.Service
             return user;
         }
 
-        ///// <summary>
-        ///// 取得所有使用者。
-        ///// </summary>
-        ///// <returns></returns>
-        //public async Task<ICollection<User>> GetUsersAsync()
-        //{
-        //    var users = userRepository.ManyAsync(null);
+        /// <summary>
+        /// 取得所有使用者。
+        /// </summary>
+        /// <returns>所有使用者。</returns>
+        public async Task<ICollection<User>> GetUsersAsync()
+        {
+            var users = await userRepository.ManyAsync(null);
 
-        //    return users.ToList();
-        //}
+            return users.ToList();
+        }
 
         /// <summary>
         /// 新增使用者。
         /// </summary>
         /// <param name="user">要新增的使用者。</param>
-        /// <exception cref="ArgumentNullException"><paramref name="user"/> 為 null。</exception>
         /// <returns>新增成功傳回是，否則為否。</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="user"/> 為 null。</exception>
         public async Task<bool> CreateAsync(User user)
         {
             if (user == null)
@@ -100,13 +100,28 @@ namespace Manager.Service
         /// <param name="selectedRoles">角色清單選擇的角色。</param>
         /// <returns>更新成功傳回是，否則為否。</returns>
         /// <exception cref="ArgumentNullException"><paramref name="user"/> 為 null。</exception>
-        public async Task<bool> UpdateAsync(User user, string[] selectedRoles)
+        public async Task<bool> UpdateAsync(User user)
         {
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
 
-            //await UpdateRoles(user, selectedRoles);
-            userRepository.Update(user);
+            var originalUser = await userRepository.FirstOrDefaultAsync(u => u.UserId == user.UserId, u => u.Roles);
+            if (originalUser == null)
+                return false;
+
+            originalUser.UserName = user.UserName;
+            originalUser.IsEnabled = user.IsEnabled;
+
+            var roles = await roleRepository.ManyAsync(null);
+            var roleIdsToAdd = user.Roles.Select(r => r.RoleId).Except(originalUser.Roles.Select(r => r.RoleId));
+            var roleIdsToRemove = originalUser.Roles.Select(r => r.RoleId).Except(user.Roles.Select(r => r.RoleId));
+
+            foreach (var id in roleIdsToAdd)
+                user.Roles.Add(roles.Single(r => r.RoleId == id));
+            foreach (var id in roleIdsToRemove)
+                user.Roles.Remove(roles.Single(r => r.RoleId == id));
+
+            userRepository.Update(originalUser);
             await unitOfWork.CommitAsync();
 
             return true;
@@ -127,41 +142,6 @@ namespace Manager.Service
             await unitOfWork.CommitAsync();
 
             return true;
-        }
-
-        /// <summary>
-        /// 更新關聯角色。
-        /// </summary>
-        /// <param name="user">使用者。</param>
-        /// <param name="selectedRoles">角色清單選擇的角色。</param>
-        /// <exception cref="ArgumentNullException"><paramref name="user"/> 為 null。</exception>
-        private async Task UpdateRoles(User user, string[] selectedRoles)
-        {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
-
-            if (selectedRoles == null)
-            {
-                user.Roles = new List<Role>();
-                return;
-            }
-
-            var roles = await roleRepository.ManyAsync(null);
-            var currentRoleIds = user.Roles.Select(r => r.RoleId);
-
-            foreach (var role in roles)
-            {
-                if (selectedRoles.Contains(role.RoleId.ToString()))
-                {
-                    if (!currentRoleIds.Contains(role.RoleId))
-                        user.Roles.Add(role);
-                }
-                else
-                {
-                    if (currentRoleIds.Contains(role.RoleId))
-                        user.Roles.Remove(role);
-                }
-            }
         }
     }
 }

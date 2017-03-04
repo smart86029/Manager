@@ -1,7 +1,8 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Manager.Data;
+using Manager.Common;
 using Manager.Models;
 
 namespace Manager.Service.Controllers
@@ -11,18 +12,16 @@ namespace Manager.Service.Controllers
     /// </summary>
     public class UsersController : ApiController
     {
-        private IUnitOfWork unitOfWork;
-        private IUserRepository userRepository;
+        private UserService userService;
 
         /// <summary>
         /// 初始化 <see cref="UsersController"/> 類別的新執行個體。
         /// </summary>
         /// <param name="unitOfWork">工作單元執行個體。</param>
         /// <param name="userRepository">使用者倉儲執行個體。</param>
-        public UsersController(IUnitOfWork unitOfWork, IUserRepository userRepository)
+        public UsersController(UserService userService)
         {
-            this.unitOfWork = unitOfWork;
-            this.userRepository = userRepository;
+            this.userService = userService;
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace Manager.Service.Controllers
         /// <returns>表示非同步尋找作業的工作。 工作結果包含所有使用者。</returns>
         public async Task<IHttpActionResult> Get()
         {
-            var users = await userRepository.ManyAsync(null);
+            var users = await userService.GetUsersAsync();
 
             return Ok(users);
         }
@@ -43,7 +42,7 @@ namespace Manager.Service.Controllers
         /// <returns>表示非同步尋找作業的工作。 工作結果包含使用者。</returns>
         public async Task<IHttpActionResult> Get(int id)
         {
-            var user = await userRepository.FindAsync(id);
+            var user = await userService.GetUserByIdAsync(id);
 
             return Ok(user);
         }
@@ -58,10 +57,9 @@ namespace Manager.Service.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            userRepository.Create(user);
-            await unitOfWork.CommitAsync();
+            await userService.CreateAsync(user);
 
-            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
+            return CreatedAtRoute(Constant.RouteName, new { id = user.UserId }, user);
         }
 
         /// <summary>
@@ -77,8 +75,7 @@ namespace Manager.Service.Controllers
             if (id != user.UserId)
                 return BadRequest();
 
-            userRepository.Update(user);
-            await unitOfWork.CommitAsync();
+            await userService.UpdateAsync(user);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -90,12 +87,7 @@ namespace Manager.Service.Controllers
         /// <returns>表示非同步尋找作業的工作。 工作結果包含 204 NoContent。</returns>
         public async Task<IHttpActionResult> Delete(int id)
         {
-            var user = await userRepository.FindAsync(id);
-            if (user == null)
-                return NotFound();
-
-            userRepository.Delete(user);
-            await unitOfWork.CommitAsync();
+            await userService.DeleteAsync(id);
 
             return StatusCode(HttpStatusCode.NoContent);
         }

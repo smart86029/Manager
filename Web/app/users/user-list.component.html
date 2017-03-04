@@ -57,6 +57,13 @@
         <input type="checkbox" class="filled-in" id="selected-user-is-enabled" [(ngModel)]="selectedUser.IsEnabled" [ngModelOptions]="{standalone: true}" />
         <label for="selected-user-is-enabled">是否啟用</label>
       </p>
+      <p>角色</p>
+      <ul>
+        <li *ngFor="let role of roles">
+          <input type="checkbox" class="filled-in" id="role-{{role.RoleId}}" (change)="changeRole(role)" />
+          <label for="role-{{role.RoleId}}">{{role.Name}}</label>
+        </li>
+      </ul>
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-flat waves-effect modal-action">Submit</button>

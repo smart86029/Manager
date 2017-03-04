@@ -26,3 +26,7 @@
     line-height: 1em;
     margin-top: 0;
   }
+
+ul {
+  columns: 3;
+}

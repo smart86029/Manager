@@ -2,6 +2,8 @@
 import { Router } from '@angular/router';
 import { User } from './user';
 import { UserService } from './user.service';
+import { Role } from '../roles/role';
+import { RoleService } from '../roles/role.service';
 
 declare var $: any;
 
@@ -15,11 +17,13 @@ export class UserListComponent implements OnInit {
   users: User[];
   newUser: User;
   selectedUser: User;
+  roles: Role[];
   errorMessage: string;
 
   constructor(
     private router: Router,
-    private userService: UserService) { }
+    private userService: UserService,
+    private roleService: RoleService) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -56,6 +60,18 @@ export class UserListComponent implements OnInit {
 
   onSelect(user: User): void {
     this.selectedUser = user;
+    this.roleService.getRoles()
+      .subscribe(
+      roles => this.roles = roles,
+      error => this.errorMessage = <any>error);
+  }
+
+  changeRole(role: Role): void {
+    var index = this.selectedUser.Roles.indexOf(role);
+    if (index > -1)
+      this.selectedUser.Roles.splice(index, 0);
+    else
+      this.selectedUser.Roles.push(role);
   }
 
   gotoDetail(): void {

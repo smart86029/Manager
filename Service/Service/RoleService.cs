@@ -29,6 +29,7 @@ namespace Manager.Service
         /// <summary>
         /// 取得角色。
         /// </summary>
+        /// <param name="id">指定的 Id。</param>
         /// <returns>符合的角色。</returns>
         public async Task<Role> GetRoleAsync(int id)
         {
@@ -40,7 +41,8 @@ namespace Manager.Service
         /// <summary>
         /// 取得角色，包含使用者。
         /// </summary>
-        /// <returns></returns>
+        /// <param name="id">指定的 Id。</param>
+        /// <returns>符合的角色。</returns>
         public async Task<Role> GetRoleIncludeUsersAsync(int id)
         {
             var role = await roleRepository.FirstOrDefaultAsync(r => r.RoleId == id, r => r.Users);
@@ -51,7 +53,7 @@ namespace Manager.Service
         /// <summary>
         /// 取得所有角色。
         /// </summary>
-        /// <returns></returns>
+        /// <returns>所有角色。</returns>
         public async Task<ICollection<Role>> GetRolesAsync()
         {
             var roles = await roleRepository.ManyAsync(null);
@@ -64,6 +66,7 @@ namespace Manager.Service
         /// </summary>
         /// <param name="role">要新增的角色。</param>
         /// <returns>新增成功傳回是，否則為否。</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="role"/> 為 null。</exception>
         public async Task<bool> CreateAsync(Role role)
         {
             if (role == null)
@@ -81,6 +84,7 @@ namespace Manager.Service
         /// <param name="role">要更新的角色。</param>
         /// <param name="selectedUsers">使用者清單選擇的使用者。</param>
         /// <returns>更新成功傳回是，否則為否。</returns>
+        /// <<exception cref="ArgumentNullException"><paramref name="role"/> 為 null。</exception>
         public async Task<bool> UpdateAsync(Role role, string[] selectedUsers)
         {
             if (role == null)
