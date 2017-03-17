@@ -17,8 +17,7 @@ namespace Manager.Service.Controllers
         /// <summary>
         /// 初始化 <see cref="UsersController"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="unitOfWork">工作單元執行個體。</param>
-        /// <param name="userRepository">使用者倉儲執行個體。</param>
+        /// <param name="userService">使用者服務。</param>
         public UsersController(UserService userService)
         {
             this.userService = userService;
