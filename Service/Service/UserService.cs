@@ -85,7 +85,9 @@ namespace Manager.Service
         public async Task<bool> CreateAsync(User user)
         {
             if (user == null)
+            {
                 throw new ArgumentNullException(nameof(user));
+            }
 
             userRepository.Create(user);
             await unitOfWork.CommitAsync();
@@ -103,11 +105,15 @@ namespace Manager.Service
         public async Task<bool> UpdateAsync(User user)
         {
             if (user == null)
+            {
                 throw new ArgumentNullException(nameof(user));
+            }
 
             var originalUser = await userRepository.FirstOrDefaultAsync(u => u.UserId == user.UserId, u => u.Roles);
             if (originalUser == null)
+            {
                 return false;
+            }
 
             originalUser.UserName = user.UserName;
             originalUser.IsEnabled = user.IsEnabled;
@@ -117,9 +123,13 @@ namespace Manager.Service
             var roleIdsToRemove = originalUser.Roles.Select(r => r.RoleId).Except(user.Roles.Select(r => r.RoleId));
 
             foreach (var id in roleIdsToAdd)
-                user.Roles.Add(roles.Single(r => r.RoleId == id));
+            {
+                originalUser.Roles.Add(roles.Single(r => r.RoleId == id));
+            }
             foreach (var id in roleIdsToRemove)
-                user.Roles.Remove(roles.Single(r => r.RoleId == id));
+            {
+                originalUser.Roles.Remove(roles.Single(r => r.RoleId == id));
+            }
 
             userRepository.Update(originalUser);
             await unitOfWork.CommitAsync();
@@ -136,7 +146,9 @@ namespace Manager.Service
         {
             var user = await userRepository.FindAsync(id);
             if (user == null)
+            {
                 return false;
+            }
 
             userRepository.Delete(user);
             await unitOfWork.CommitAsync();

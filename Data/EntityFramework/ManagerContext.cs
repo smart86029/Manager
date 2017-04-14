@@ -60,10 +60,11 @@ namespace Manager.Data.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             if (modelBuilder == null)
+            {
                 throw new ArgumentNullException(nameof(modelBuilder));
+            }
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
             modelBuilder.Entity<Role>()
                 .HasMany(r => r.Menus)
                 .WithMany(m => m.Roles)
@@ -73,7 +74,6 @@ namespace Manager.Data.EntityFramework
                     m.MapRightKey("MenuId");
                     m.ToTable("RoleMenu", "System");
                 });
-
             modelBuilder.Entity<Role>()
                 .HasMany(r => r.Users)
                 .WithMany(u => u.Roles)
