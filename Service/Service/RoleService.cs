@@ -70,9 +70,7 @@ namespace Manager.Service
         public async Task<bool> CreateAsync(Role role)
         {
             if (role == null)
-            {
                 throw new ArgumentNullException(nameof(role));
-            }
 
             roleRepository.Create(role);
             await unitOfWork.CommitAsync();
@@ -90,9 +88,7 @@ namespace Manager.Service
         public async Task<bool> UpdateAsync(Role role, string[] selectedUsers)
         {
             if (role == null)
-            {
                 throw new ArgumentNullException(nameof(role));
-            }
 
             //await UpdateUsers(role, selectedUsers);
             roleRepository.Update(role);
@@ -110,9 +106,7 @@ namespace Manager.Service
         {
             var role = await roleRepository.FindAsync(id);
             if (role == null)
-            {
                 return false;
-            }
 
             roleRepository.Delete(role);
             await unitOfWork.CommitAsync();

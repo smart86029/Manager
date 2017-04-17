@@ -66,9 +66,7 @@ namespace Manager.Data.EntityFramework
             var query = db.Set<TEntity>().AsQueryable();
 
             foreach (var path in paths)
-            {
                 query = query.Include(path);
-            }
 
             return query.FirstOrDefault(predicate);
         }
@@ -84,9 +82,7 @@ namespace Manager.Data.EntityFramework
             var query = db.Set<TEntity>().AsQueryable();
 
             foreach (var path in paths)
-            {
                 query = query.Include(path);
-            }
 
             return await query.FirstOrDefaultAsync(predicate);
         }
@@ -102,13 +98,10 @@ namespace Manager.Data.EntityFramework
             var query = db.Set<TEntity>().AsQueryable();
 
             foreach (var path in paths)
-            {
                 query = query.Include(path);
-            }
+
             if (predicate != null)
-            {
                 query = query.Where(predicate);
-            }
 
             return query.ToList();
         }
@@ -124,13 +117,10 @@ namespace Manager.Data.EntityFramework
             var query = db.Set<TEntity>().AsQueryable();
 
             foreach (var path in paths)
-            {
                 query = query.Include(path);
-            }
+
             if (predicate != null)
-            {
                 query = query.Where(predicate);
-            }
 
             return await query.ToListAsync();
         }
