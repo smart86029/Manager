@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Manager.Data;
 using Manager.Models;
 
-namespace Manager.Service
+namespace Manager.Services
 {
     /// <summary>
     /// 使用者服務。

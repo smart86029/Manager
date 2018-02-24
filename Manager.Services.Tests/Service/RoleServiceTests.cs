@@ -5,7 +5,7 @@ using Manager.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Manager.Service.Tests
+namespace Manager.Services.Tests
 {
     [TestClass]
     public class RoleServiceTests

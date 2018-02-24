@@ -2,7 +2,7 @@
 using System.Linq;
 using Autofac;
 
-namespace Manager.Service
+namespace Manager.Services
 {
     /// <summary>
     /// 服務模組。
