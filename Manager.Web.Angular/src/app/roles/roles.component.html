@@ -1,0 +1,23 @@
+<p>
+  roles works!
+</p>
+
+<table class="highlight responsive-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let role of roles">
+      <td>{{role.RoleId}}</td>
+      <td>{{role.Name}}</td>
+      <td class="right">
+        <a class="btn btn-action waves-effect green"><i class="material-icons square">person</i></a>
+        <a class="btn btn-action waves-effect yellow modal-trigger" href="#modal-edit-role" (click)="onSelect(role)"><i class="material-icons square">edit</i></a>
+        <a class="btn btn-action waves-effect red"><i class="material-icons square">close</i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
