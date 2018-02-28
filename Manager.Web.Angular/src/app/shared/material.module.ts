@@ -11,17 +11,12 @@ import {
 } from '@angular/material';
 
 @NgModule({
-  imports:[
-    MatIconModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatTableModule
-  ],
   exports:[
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatTableModule
+    MatTableModule,
+    MatToolbarModule
   ]
 })
 export class MaterialModule { }

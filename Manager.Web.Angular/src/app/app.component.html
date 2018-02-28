@@ -1,8 +1,16 @@
+<div>
 <header>
   <nav>
-    <a *ngFor="let menu of menus" routerLink="{{menu.Url}}" routerLinkActive="active" mat-button>{{menu.Name}}</a>
+   
+    <mat-toolbar color="primary">
+      <a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a>
+      <a *ngFor="let menu of menus" routerLink="{{menu.Url}}" routerLinkActive="active" mat-button>{{menu.Name}}</a>
+      
+    </mat-toolbar>
+
   </nav>
 </header>
+</div>
 <main>
   <router-outlet></router-outlet>
 </main>
