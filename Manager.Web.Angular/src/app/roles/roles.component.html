@@ -1,23 +1,12 @@
-<p>
-  roles works!
-</p>
-
-<table class="highlight responsive-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let role of roles">
-      <td>{{role.RoleId}}</td>
-      <td>{{role.Name}}</td>
-      <td class="right">
-        <a class="btn btn-action waves-effect green"><i class="material-icons square">person</i></a>
-        <a class="btn btn-action waves-effect yellow modal-trigger" href="#modal-edit-role" (click)="onSelect(role)"><i class="material-icons square">edit</i></a>
-        <a class="btn btn-action waves-effect red"><i class="material-icons square">close</i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<mat-table [dataSource]="roles">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+    <mat-cell *matCellDef="let role">{{role.RoleId}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let role">{{role.Name}}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
