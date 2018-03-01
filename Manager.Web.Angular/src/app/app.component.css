@@ -16,3 +16,24 @@ main {
     left: 0;
     right: 0;
 }
+
+mat-sidenav-container{
+    position: absolute;
+    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+
+  mat-sidenav{
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    width: 256px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }

@@ -1,16 +1,22 @@
-<div>
 <header>
   <nav>
-   
+      
     <mat-toolbar color="primary">
+        
       <a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a>
-      <a *ngFor="let menu of menus" routerLink="{{menu.Url}}" routerLinkActive="active" mat-button>{{menu.Name}}</a>
+      <button mat-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
       
     </mat-toolbar>
-
   </nav>
 </header>
-</div>
 <main>
-  <router-outlet></router-outlet>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" fixedTopGap="64">
+      <a *ngFor="let menu of menus" routerLink="{{menu.Url}}" routerLinkActive="active" mat-button>{{menu.Name}}</a>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </main>

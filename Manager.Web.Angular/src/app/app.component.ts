@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Menu } from './menu';
+import { MatSidenav, MatDrawerToggleResult } from '@angular/material';
 
 @Component({
   selector: 'app-root',
