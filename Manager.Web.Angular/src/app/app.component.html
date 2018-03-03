@@ -1,21 +1,26 @@
 <header>
   <nav>
-      
     <mat-toolbar color="primary">
-        
       <a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a>
-      <button mat-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-      
+      <button mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
     </mat-toolbar>
   </nav>
 </header>
 <main>
   <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side" [(opened)]="opened" fixedTopGap="64">
-      <a *ngFor="let menu of menus" routerLink="{{menu.Url}}" routerLinkActive="active" mat-button>{{menu.Name}}</a>
+    <mat-sidenav #sidenav mode="side" opened="true">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            會員管理
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a *ngFor="let menu of menus" class="menu-item" routerLink="{{menu.Url}}" routerLinkActive="active" mat-button>{{menu.Name}}</a>
+      </mat-expansion-panel>
     </mat-sidenav>
     <mat-sidenav-content>
-      
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

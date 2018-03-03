@@ -9,10 +9,10 @@ import { Role } from './role';
 export class RoleService {
   private rolesUrl = 'api/roles';
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   getRoles (): Observable<Role[]> {
-    return this.http.get<Role[]>(this.rolesUrl)
+    return this.httpClient.get<Role[]>(this.rolesUrl) 
       .pipe(
         tap(roles => this.log(`fetched roles`)),
         catchError(this.handleError('getRoles', []))
