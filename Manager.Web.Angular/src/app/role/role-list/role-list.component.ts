@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleService } from './role.service';
-import { Role } from './role';
+
+import { Role } from '../role';
+import { RoleService } from '../role.service';
 
 @Component({
-  selector: 'app-roles',
-  templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.css']
+  selector: 'app-role-list',
+  templateUrl: './role-list.component.html',
+  styleUrls: ['./role-list.component.css']
 })
-export class RolesComponent implements OnInit {
+export class RoleListComponent implements OnInit {
   displayedColumns = ['id', 'name'];
   roles: Role[];
 

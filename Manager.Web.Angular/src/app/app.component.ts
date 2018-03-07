@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Menu } from './menu';
 
 @Component({
