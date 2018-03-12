@@ -12,11 +12,11 @@ export class AuthService {
 
   constructor() { }
 
-  login(): Observable<boolean> {
+  signIn(): Observable<boolean> {
     return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
   }
 
-  logout(): void {
+  signOut(): void {
     this.isLoggedIn = false;
   }
 }

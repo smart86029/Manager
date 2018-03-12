@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
   signIn() {
     this.message = 'Trying to log in ...';
 
-    this.authService.login().subscribe(() => {
+    this.authService.signIn().subscribe(() => {
       this.setMessage();
       if (this.authService.isLoggedIn) {
         // Get the redirect URL from our auth service
@@ -37,7 +37,7 @@ export class SignInComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.logout();
+    this.authService.signOut();
     this.setMessage();
   }
 }
