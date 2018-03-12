@@ -39,3 +39,7 @@ mat-sidenav {
   width: 100%;
   text-align: left;
 }
+
+.menu-title {
+  vertical-align: middle;
+}

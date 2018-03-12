@@ -11,10 +11,12 @@
 <main>
   <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" opened="true">
+        <a class="menu-item" routerLink="/admin" routerLinkActive="active" mat-button>管理</a>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            會員管理
+            <mat-icon>group</mat-icon>
+            <span class="menu-title">會員管理</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <a *ngFor="let menu of menus" class="menu-item" routerLink="{{menu.Url}}" routerLinkActive="active" mat-button>{{menu.Name}}</a>

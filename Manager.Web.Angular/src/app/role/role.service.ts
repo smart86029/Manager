@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -11,21 +12,21 @@ export class RoleService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getRoles (): Observable<Role[]> {
-    return this.httpClient.get<Role[]>(this.rolesUrl) 
+  getRoles(): Observable<Role[]> {
+    return this.httpClient.get<Role[]>(this.rolesUrl)
       .pipe(
-        tap(roles => this.log(`fetched roles`)),
-        catchError(this.handleError('getRoles', []))
+      tap(roles => this.log(`fetched roles`)),
+      catchError(this.handleError('getRoles', []))
       );
   }
 
-    /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T> (operation = 'operation', result?: T) {
+  /**
+ * Handle Http operation that failed.
+ * Let the app continue.
+ * @param operation - name of the operation that failed
+ * @param result - optional value to return as the observable result
+ */
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
@@ -41,6 +42,6 @@ export class RoleService {
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    //this.messageService.add('HeroService: ' + message);
+    // this.messageService.add('HeroService: ' + message);
   }
 }
