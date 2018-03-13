@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from '../core/auth.guard';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminDashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'roles', loadChildren: 'app/role/role.module#RoleModule', canLoad: [AuthGuard] }
+    ]
   }
 ];
 

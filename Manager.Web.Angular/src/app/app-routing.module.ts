@@ -8,8 +8,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: 'app/admin/admin.module#AdminModule',
     canLoad: [AuthGuard]
-  },
-  { path: 'roles', loadChildren: 'app/role/role.module#RoleModule', canLoad: [AuthGuard] }
+  }
 ];
 
 @NgModule({

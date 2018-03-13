@@ -13,7 +13,6 @@ import { SignInRoutingModule } from './sign-in/sign-in-routing.module';
     SignInRoutingModule
   ],
   providers: [
-    AuthGuard
   ],
   declarations: [SignInComponent]
 })
