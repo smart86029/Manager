@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-body{
-    margin: 0;
+html,
+main {
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+body {
+  margin: 0;
 }

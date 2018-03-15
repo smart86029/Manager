@@ -1,6 +1,27 @@
-<h2>登入</h2>
-<p>{{message}}</p>
-<p>
-  <button (click)="signIn()"  *ngIf="!authService.isLoggedIn">登入</button>
-  <button (click)="signOut()" *ngIf="authService.isLoggedIn">登出</button>
-</p>
+<main>
+  <div class="full-page"></div>
+  <div class="overlay"></div>
+  <div class="inner">
+    <form>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <h2>登入</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput type="text" class="input-text" placeholder="帳號">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="password" class="input-text" placeholder="密碼">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="signIn()">登入</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</main>
+<footer>2018</footer>
