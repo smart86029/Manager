@@ -46,9 +46,9 @@ namespace Manager.Services
         /// </summary>
         /// <param name="userName">指定的使用者名稱</param>
         /// <returns>符合的使用者。</returns>
-        public async Task<User> GetUserByNameAsync(string userName)
+        public async Task<User> GetUserAsync(string userName, string passwordHash)
         {
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == userName);
+            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash, u => u.Roles);
 
             return user;
         }

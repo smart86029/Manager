@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using Manager.Common;
 using Manager.Data.EntityFramework;
 using Manager.Models;
 
@@ -27,6 +28,7 @@ namespace Manager.Data.Migrations
         {
             var users = new List<User>
             {
+                new User { UserName = "Admin", PasswordHash = CryptographyUtility.Hash("123fff"), IsEnabled = true }
             };
             users.ForEach(s => context.Users.AddOrUpdate(p => p.UserName, s));
             context.SaveChanges();

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager.Services.Tests", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager.Web", "Manager.Web\Manager.Web.csproj", "{411E7753-F818-448B-A632-377044FF49EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager.ViewModels", "Manager.ViewModels\Manager.ViewModels.csproj", "{975C293D-61BC-4387-815B-04BD4654D45A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{411E7753-F818-448B-A632-377044FF49EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411E7753-F818-448B-A632-377044FF49EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{411E7753-F818-448B-A632-377044FF49EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975C293D-61BC-4387-815B-04BD4654D45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975C293D-61BC-4387-815B-04BD4654D45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975C293D-61BC-4387-815B-04BD4654D45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975C293D-61BC-4387-815B-04BD4654D45A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

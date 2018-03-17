@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { AuthGuard } from './auth.guard';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignInRoutingModule } from './sign-in/sign-in-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { LogService } from './log.service';
+import { SignInRoutingModule } from './sign-in/sign-in-routing.module';
+import { SignInComponent } from './sign-in/sign-in.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     SignInRoutingModule
   ],
   providers: [
+    LogService
   ],
   declarations: [SignInComponent]
 })

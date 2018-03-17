@@ -8,7 +8,7 @@ using Manager.Services;
 namespace Manager.Service.Controllers
 {
     /// <summary>
-    /// 使用者控制器
+    /// 使用者控制器。
     /// </summary>
     public class UsersController : ApiController
     {

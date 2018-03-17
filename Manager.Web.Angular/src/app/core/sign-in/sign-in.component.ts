@@ -9,6 +9,8 @@ import { SharedModule} from '../../shared/shared.module';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+  userName: string ;
+  password: string;
   message: string;
 
   constructor(public authService: AuthService, public router: Router) {
@@ -25,7 +27,7 @@ export class SignInComponent implements OnInit {
   signIn() {
     this.message = 'Trying to log in ...';
 
-    this.authService.signIn().subscribe(() => {
+    this.authService.signIn(this.userName, this.password).subscribe(() => {
       this.setMessage();
       if (this.authService.isLoggedIn) {
         // Get the redirect URL from our auth service

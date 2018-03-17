@@ -5,7 +5,7 @@ import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     loadChildren: 'app/admin/admin.module#AdminModule',
     canLoad: [AuthGuard]
   }
