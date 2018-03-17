@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+
 import { Role } from './role';
 
 @Injectable()
@@ -13,11 +13,10 @@ export class RoleService {
   constructor(private httpClient: HttpClient) { }
 
   getRoles(): Observable<Role[]> {
-    return this.httpClient.get<Role[]>(this.rolesUrl)
-      .pipe(
+    return this.httpClient.get<Role[]>(this.rolesUrl).pipe(
       tap(roles => this.log(`fetched roles`)),
       catchError(this.handleError('getRoles', []))
-      );
+    );
   }
 
   /**

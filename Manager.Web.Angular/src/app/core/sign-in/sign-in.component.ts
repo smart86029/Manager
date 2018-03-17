@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
       if (this.authService.isLoggedIn) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
+        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
 
         this.router.navigate([redirect]);
       }

@@ -1,13 +1,10 @@
-import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LogService } from './log.service';
-import { catchError, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { catchError, tap } from 'rxjs/operators';
+
+import { LogService } from './log.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,9 +24,9 @@ export class AuthService {
       Password: password
     };
 
-    // return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
     return this.httpClient.post<string>(this.tokensUrl, body, httpOptions).pipe(
-      tap((token: string) => this.logService.log('signIn 201')),
+      tap((token: string) => localStorage.setItem('access_token', token)),
+      tap((token: string) => this.isLoggedIn = true),
       catchError(this.handleError('signIn', null))
     );
   }
@@ -38,7 +35,7 @@ export class AuthService {
     this.isLoggedIn = false;
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return of(result as T);
