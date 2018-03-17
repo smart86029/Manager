@@ -4,12 +4,14 @@ using System.Web.Http;
 using Manager.Common;
 using Manager.Models;
 using Manager.Services;
+using Manager.Web.Helpers;
 
 namespace Manager.Web.Controllers
 {
     /// <summary>
     /// 角色控制器。
     /// </summary>
+    [JwtAuthorize]
     public class RolesController : ApiController
     {
         private RoleService roleService;
