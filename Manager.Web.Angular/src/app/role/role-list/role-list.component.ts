@@ -9,7 +9,7 @@ import { RoleService } from '../role.service';
   styleUrls: ['./role-list.component.css']
 })
 export class RoleListComponent implements OnInit {
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'action'];
   roles: Role[];
 
   constructor(private roleService: RoleService) { }

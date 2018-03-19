@@ -14,8 +14,19 @@ export class RoleService {
 
   getRoles(): Observable<Role[]> {
     return this.httpClient.get<Role[]>(this.rolesUrl).pipe(
-      tap(roles => this.log(`fetched roles`)),
       catchError(this.handleError('getRoles', []))
+    );
+  }
+
+  getRole(id: Number): Observable<Role> {
+    return this.httpClient.get<Role>(`${this.rolesUrl}/${id}`).pipe(
+      catchError(this.handleError('getRole', null))
+    );
+  }
+
+  updateRole(role: Role): Observable<Role> {
+    return this.httpClient.put<Role>(`${this.rolesUrl}/${role.RoleId}`, role).pipe(
+      catchError(this.handleError('updateRole', role))
     );
   }
 
@@ -31,16 +42,8 @@ export class RoleService {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
-
-  /** Log a HeroService message with the MessageService */
-  private log(message: string) {
-    // this.messageService.add('HeroService: ' + message);
   }
 }

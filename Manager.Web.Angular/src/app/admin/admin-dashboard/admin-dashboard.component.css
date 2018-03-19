@@ -1,46 +1,58 @@
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mat-sidenav-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mat-sidenav {
   
-  main {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 64px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  mat-sidenav-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  mat-sidenav {
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: absolute;
-    width: 256px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .menu-item {
-    width: 100%;
-    text-align: left;
-  }
-  
-  .menu-title {
-    vertical-align: middle;
-  }
-  
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  width: 256px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.sidebar-background{
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  display: block;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center
+}
+
+.menu-item {
+  width: 100%;
+  text-align: left;
+}
+
+.menu-title {
+  vertical-align: middle;
+}
