@@ -17,8 +17,17 @@ export class RoleDetailComponent implements OnInit {
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.roleService.getRole(id)
-      .subscribe(role => this.role = role);
+    if (id > 0) {
+      this.roleService.getRole(id)
+        .subscribe(role => this.role = role);
+    } else {
+      this.role = new Role();
+    }
+  }
+
+  create() {
+    this.roleService.createRole(this.role)
+      .subscribe(role => this.location.back());
   }
 
   update() {

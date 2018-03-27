@@ -6,7 +6,8 @@ import { RoleDetailComponent } from './role-detail/role-detail.component';
 
 const routes: Routes = [
   { path: '', component: RoleListComponent },
-  { path: ':id', component: RoleDetailComponent }
+  { path: ':id', component: RoleDetailComponent },
+  { path: 'create', component: RoleDetailComponent }
 ];
 
 @NgModule({
