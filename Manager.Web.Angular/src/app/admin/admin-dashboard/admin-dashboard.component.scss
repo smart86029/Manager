@@ -1,0 +1,89 @@
+@import '~@angular/material/theming';
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mat-sidenav-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mat-sidenav {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  width: 256px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.menu-item {
+  width: 100%;
+  text-align: left;
+}
+
+.menu-title {
+  vertical-align: middle;
+}
+
+.toolbar-seprator {
+  flex: 1;
+}
+
+.theme-panel{
+  background-color: #fff;
+  padding: 8px;
+}
+
+.theme-picker {
+  display: block;
+  min-width: 176px;
+  max-width: 280px;
+  background-color: #fff;
+}
+
+.theme-cell {
+  height: 36px;
+  width: 36px;
+  margin: 8px;
+  overflow: hidden;
+}
+
+.strawberry-primary {
+  color: #fff;
+  background-color: map-get($mat-pink, 500);
+}
+
+.forest-primary {
+  color: #fff;
+  background-color: map-get($mat-teal, 500);
+}
+
+.ocean-primary {
+  color: #fff;
+  background-color: map-get($mat-blue, 500);
+}
+
+.grape-primary {
+  color: white;
+  background-color: map-get($mat-deep-purple, 500);
+}
