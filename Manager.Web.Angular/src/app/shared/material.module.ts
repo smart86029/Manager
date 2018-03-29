@@ -11,6 +11,7 @@ import {
   MatMenuModule,
   MatRippleModule,
   MatSidenavModule,
+  MatSlideToggleModule,
   MatTableModule,
   MatToolbarModule,
 } from '@angular/material';
@@ -28,6 +29,7 @@ import {
     MatMenuModule,
     MatRippleModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatTableModule,
     MatToolbarModule,
   ]
