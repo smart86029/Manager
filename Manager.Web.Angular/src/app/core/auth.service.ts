@@ -13,7 +13,7 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
   private tokensUrl = 'api/tokens';
-  isLoggedIn = false;
+  isLoggedIn = true;
   redirectUrl: string;
 
   constructor(private httpClient: HttpClient, private logService: LogService) { }

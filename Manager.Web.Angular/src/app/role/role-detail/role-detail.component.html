@@ -1,3 +1,18 @@
-<p>
-  role-detail works!
-</p>
+<form>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{role.RoleId ? "修改" : "新增"}}角色</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="role.Name">
+      </mat-form-field>
+      <div>
+        <mat-slide-toggle name="isEnabled" [(ngModel)]="role.IsEnabled">是否啟用</mat-slide-toggle>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="role.RoleId ? update() : create()">儲存</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
