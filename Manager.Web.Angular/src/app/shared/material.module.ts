@@ -1,35 +1,33 @@
-import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
   MatExpansionModule,
+  MatGridListModule,
   MatIconModule,
   MatInputModule,
+  MatMenuModule,
+  MatRippleModule,
   MatSidenavModule,
   MatTableModule,
   MatToolbarModule,
-  MatGridListModule,
-  MatRippleModule,
-  MatMenuModule,
 } from '@angular/material';
 
 @NgModule({
   exports: [
     MatButtonModule,
     MatButtonToggleModule,
+    MatCardModule,
     MatExpansionModule,
+    MatGridListModule,
     MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatRippleModule,
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
-    MatCardModule,
-    MatInputModule,
-    OverlayModule,
-    MatGridListModule,
-    MatRippleModule,
-    MatMenuModule,
   ]
 })
 export class MaterialModule { }
