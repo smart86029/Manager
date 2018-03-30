@@ -1,6 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
-
 html,
 main {
   font-family: 'Noto Sans TC', sans-serif;
@@ -8,4 +6,8 @@ main {
 
 body {
   margin: 0;
+}
+
+.container {
+  margin: 10px;
 }

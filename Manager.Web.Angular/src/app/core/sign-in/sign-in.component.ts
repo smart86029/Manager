@@ -21,7 +21,7 @@ export class SignInComponent implements OnInit {
   }
 
   setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+    this.message = 'Logged ' + (this.authService.isauthorized ? 'in' : 'out');
   }
 
   signIn() {
@@ -29,7 +29,7 @@ export class SignInComponent implements OnInit {
 
     this.authService.signIn(this.userName, this.password).subscribe(() => {
       this.setMessage();
-      if (this.authService.isLoggedIn) {
+      if (this.authService.isauthorized) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
         const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';

@@ -7,10 +7,8 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
-    const url: string = state.url;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const url = state.url;
 
     return this.checkLogin(url);
   }
@@ -22,14 +20,13 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(url: string): boolean {
-    return true;
-    if (this.authService.isLoggedIn) { return true; }
+    if (this.authService.isauthorized) {
+      return true;
+    }
 
-    // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;
-
-    // Navigate to the login page with extras
     this.router.navigate(['/signin']);
+
     return false;
   }
 }

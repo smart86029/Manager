@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { LogService } from './log.service';
 
 const httpOptions = {
@@ -13,10 +13,13 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
   private tokensUrl = 'api/tokens';
-  isLoggedIn = true;
   redirectUrl: string;
+  isauthorized = () => !this.jwtHelper.isTokenExpired();
 
-  constructor(private httpClient: HttpClient, private logService: LogService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private logService: LogService,
+    private jwtHelper: JwtHelperService) { }
 
   signIn(userName: string, password: string): Observable<boolean> {
     const body = {
@@ -26,13 +29,11 @@ export class AuthService {
 
     return this.httpClient.post<string>(this.tokensUrl, body, httpOptions).pipe(
       tap((token: string) => localStorage.setItem('access_token', token)),
-      tap((token: string) => this.isLoggedIn = true),
       catchError(this.handleError('signIn', null))
     );
   }
 
   signOut(): void {
-    this.isLoggedIn = false;
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

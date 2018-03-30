@@ -49,7 +49,7 @@ main {
   flex: 1;
 }
 
-.theme-panel{
+.theme-panel {
   background-color: #fff;
   padding: 8px;
 }
@@ -66,24 +66,21 @@ main {
   width: 36px;
   margin: 8px;
   overflow: hidden;
+  color: #fff;
 }
 
 .strawberry-primary {
-  color: #fff;
   background-color: map-get($mat-pink, 500);
 }
 
 .forest-primary {
-  color: #fff;
   background-color: map-get($mat-teal, 500);
 }
 
 .ocean-primary {
-  color: #fff;
   background-color: map-get($mat-blue, 500);
 }
 
 .grape-primary {
-  color: white;
   background-color: map-get($mat-deep-purple, 500);
 }
