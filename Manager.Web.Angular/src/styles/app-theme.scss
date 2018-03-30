@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
-@include mat-core();
+$app-typography: mat-typography-config($font-family: 'Noto Sans TC, sans-serif');
+@include mat-core($app-typography);
 $strawberry-primary: mat-palette($mat-pink);
 $strawberry-accent: mat-palette($mat-pink);
 $strawberry-warn: mat-palette($mat-brown);

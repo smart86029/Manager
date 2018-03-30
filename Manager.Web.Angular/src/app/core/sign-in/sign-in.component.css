@@ -37,16 +37,10 @@ footer {
 .mat-card {
   background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  font-family: 'Noto Sans TC', sans-serif;
-}
-
-.mat-raised-button {
-  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .mat-card-content>* {
   width: 100%;
-  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .avatar {
