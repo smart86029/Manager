@@ -6,7 +6,7 @@ import { RoleService } from '../role.service';
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
-  styleUrls: ['./role-list.component.css']
+  styleUrls: ['./role-list.component.scss']
 })
 export class RoleListComponent implements OnInit {
   displayedColumns = ['id', 'name', 'isEnabled', 'action'];
@@ -18,7 +18,7 @@ export class RoleListComponent implements OnInit {
     this.getRoles();
   }
 
-  getRoles(): void {
+  private getRoles(): void {
     this.roleService.getRoles()
       .subscribe(roles => this.roles = roles);
   }

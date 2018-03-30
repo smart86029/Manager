@@ -4,12 +4,14 @@ using System.Web.Http;
 using Manager.Common;
 using Manager.Models;
 using Manager.Services;
+using Manager.Web.Helpers;
 
 namespace Manager.Service.Controllers
 {
     /// <summary>
     /// 使用者控制器。
     /// </summary>
+    [JwtAuthorize]
     public class UsersController : ApiController
     {
         private UserService userService;

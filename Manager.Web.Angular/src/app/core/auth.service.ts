@@ -14,7 +14,7 @@ const httpOptions = {
 export class AuthService {
   private tokensUrl = 'api/tokens';
   redirectUrl: string;
-  isauthorized = () => !this.jwtHelper.isTokenExpired();
+  isAuthorized = () => !this.jwtHelper.isTokenExpired();
 
   constructor(
     private httpClient: HttpClient,

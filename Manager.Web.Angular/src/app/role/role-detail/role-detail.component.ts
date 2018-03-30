@@ -1,15 +1,15 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { SaveMode } from '../../shared/save-mode/save-mode.enum';
 import { Role } from '../role';
 import { RoleService } from '../role.service';
-import { SaveMode } from '../../shared/save-mode/save-mode.enum';
 
 @Component({
   selector: 'app-role-detail',
   templateUrl: './role-detail.component.html',
-  styleUrls: ['./role-detail.component.css']
+  styleUrls: ['./role-detail.component.scss']
 })
 export class RoleDetailComponent implements OnInit {
   saveMode = SaveMode.Create;

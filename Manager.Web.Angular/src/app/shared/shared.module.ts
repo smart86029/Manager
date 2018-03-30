@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module';
 import { ActionNamePipe } from './save-mode/action-name.pipe';
+import { YesNoPipe } from './yes-no.pipe';
 
 @NgModule({
   imports: [
@@ -18,10 +19,12 @@ import { ActionNamePipe } from './save-mode/action-name.pipe';
     FormsModule,
     MaterialModule,
     FlexLayoutModule,
-    ActionNamePipe
+    ActionNamePipe,
+    YesNoPipe
   ],
   declarations: [
-    ActionNamePipe
+    ActionNamePipe,
+    YesNoPipe
   ]
 })
 export class SharedModule { }

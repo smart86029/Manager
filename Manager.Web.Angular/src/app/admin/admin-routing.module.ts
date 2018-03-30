@@ -10,6 +10,7 @@ const routes: Routes = [
     component: AdminDashboardComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: 'users', loadChildren: 'app/user/user.module#UserModule', canLoad: [AuthGuard] },
       { path: 'roles', loadChildren: 'app/role/role.module#RoleModule', canLoad: [AuthGuard] }
     ]
   }

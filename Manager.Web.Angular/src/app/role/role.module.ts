@@ -13,7 +13,8 @@ import { RoleDetailComponent } from './role-detail/role-detail.component';
   ],
   declarations: [
     RoleListComponent,
-    RoleDetailComponent],
+    RoleDetailComponent
+  ],
   providers: [
     RoleService
   ]

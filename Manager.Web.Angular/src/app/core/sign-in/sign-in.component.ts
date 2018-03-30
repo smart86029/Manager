@@ -6,34 +6,22 @@ import { SharedModule} from '../../shared/shared.module';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
   userName: string ;
   password: string;
-  message: string;
 
   constructor(public authService: AuthService, public router: Router) {
-    this.setMessage();
   }
 
   ngOnInit() {
   }
 
-  setMessage() {
-    this.message = 'Logged ' + (this.authService.isauthorized ? 'in' : 'out');
-  }
-
   signIn() {
-    this.message = 'Trying to log in ...';
-
     this.authService.signIn(this.userName, this.password).subscribe(() => {
-      this.setMessage();
-      if (this.authService.isauthorized) {
-        // Get the redirect URL from our auth service
-        // If no redirect has been set, use the default
+      if (this.authService.isAuthorized) {
         const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
-
         this.router.navigate([redirect]);
       }
     });
@@ -41,6 +29,5 @@ export class SignInComponent implements OnInit {
 
   signOut() {
     this.authService.signOut();
-    this.setMessage();
   }
 }
