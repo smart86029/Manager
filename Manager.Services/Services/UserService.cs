@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Manager.Data;
 using Manager.Models;
+using Manager.ViewModels.Users;
 
 namespace Manager.Services
 {
@@ -58,11 +59,24 @@ namespace Manager.Services
         /// </summary>
         /// <param name="id">指定的 Id。</param>
         /// <returns>符合的使用者。</returns>
-        public async Task<User> GetUserIncludeRolesAsync(int id)
+        public async Task<UserResult> GetUserIncludeRolesAsync(int id)
         {
+            var roles = await roleRepository.ManyAsync(null);
             var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == id, u => u.Roles);
+            var result = new UserResult
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                IsEnabled = user.IsEnabled,
+                Roles = roles.Select(r => new UserResult.Role
+                {
+                    RoleId = r.RoleId,
+                    Name = r.Name,
+                    IsChecked = user.Roles.Contains(r)
+                }).ToList()
+            };
 
-            return user;
+            return result;
         }
 
         /// <summary>
@@ -96,32 +110,23 @@ namespace Manager.Services
         /// <summary>
         /// 更新使用者。
         /// </summary>
-        /// <param name="user">要更新的使用者。</param>
-        /// <param name="selectedRoles">角色清單選擇的角色。</param>
+        /// <param name="query">更新使用者查詢。</param>
         /// <returns>更新成功傳回是，否則為否。</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="user"/> 為 null。</exception>
-        public async Task<bool> UpdateAsync(User user)
+        /// <exception cref="ArgumentNullException"><paramref name="query"/> 為 null。</exception>
+        public async Task<bool> UpdateAsync(PutUserQuery query)
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
 
-            var originalUser = await userRepository.FirstOrDefaultAsync(u => u.UserId == user.UserId, u => u.Roles);
-            if (originalUser == null)
+            var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == query.UserId, u => u.Roles);
+            if (user == null)
                 return false;
 
-            originalUser.UserName = user.UserName;
-            originalUser.IsEnabled = user.IsEnabled;
-
-            var roles = await roleRepository.ManyAsync(null);
-            var roleIdsToAdd = user.Roles.Select(r => r.RoleId).Except(originalUser.Roles.Select(r => r.RoleId));
-            var roleIdsToRemove = originalUser.Roles.Select(r => r.RoleId).Except(user.Roles.Select(r => r.RoleId));
-
-            foreach (var id in roleIdsToAdd)
-                user.Roles.Add(roles.Single(r => r.RoleId == id));
-            foreach (var id in roleIdsToRemove)
-                user.Roles.Remove(roles.Single(r => r.RoleId == id));
-
-            userRepository.Update(originalUser);
+            var roleIds = query.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
+            user.UserName = query.UserName;
+            user.IsEnabled = query.IsEnabled;
+            user.Roles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).ToList();
+            userRepository.Update(user);
             await unitOfWork.CommitAsync();
 
             return true;

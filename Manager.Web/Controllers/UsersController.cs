@@ -4,6 +4,7 @@ using System.Web.Http;
 using Manager.Common;
 using Manager.Models;
 using Manager.Services;
+using Manager.ViewModels.Users;
 using Manager.Web.Helpers;
 
 namespace Manager.Service.Controllers
@@ -43,7 +44,7 @@ namespace Manager.Service.Controllers
         /// <returns>表示非同步尋找作業的工作。 工作結果包含使用者。</returns>
         public async Task<IHttpActionResult> Get(int id)
         {
-            var user = await userService.GetUserByIdAsync(id);
+            var user = await userService.GetUserIncludeRolesAsync(id);
 
             return Ok(user);
         }
@@ -67,16 +68,16 @@ namespace Manager.Service.Controllers
         /// 非同步修改使用者。
         /// </summary>
         /// <param name="id">使用者ID。</param>
-        /// <param name="user">使用者。</param>
+        /// <param name="query">使用者。</param>
         /// <returns>表示非同步尋找作業的工作。 工作結果包含 204 NoContent。</returns>
-        public async Task<IHttpActionResult> Put(int id, [FromBody]User user)
+        public async Task<IHttpActionResult> Put(int id, [FromBody]PutUserQuery query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (id != user.UserId)
+            if (id != query.UserId)
                 return BadRequest();
 
-            await userService.UpdateAsync(user);
+            await userService.UpdateAsync(query);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
