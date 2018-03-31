@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Manager.Common;
 using Manager.Data;
 using Manager.Models;
 using Manager.ViewModels.Users;
@@ -80,6 +81,25 @@ namespace Manager.Services
         }
 
         /// <summary>
+        /// 取得新使用者。
+        /// </summary>
+        /// <returns>新使用者。</returns>
+        public async Task<UserResult> GetNewUserAsync()
+        {
+            var roles = await roleRepository.ManyAsync(null);
+            var result = new UserResult
+            {
+                Roles = roles.Select(r => new UserResult.Role
+                {
+                    RoleId = r.RoleId,
+                    Name = r.Name
+                }).ToList()
+            };
+
+            return result;
+        }
+
+        /// <summary>
         /// 取得所有使用者。
         /// </summary>
         /// <returns>所有使用者。</returns>
@@ -93,18 +113,27 @@ namespace Manager.Services
         /// <summary>
         /// 新增使用者。
         /// </summary>
-        /// <param name="user">要新增的使用者。</param>
-        /// <returns>新增成功傳回是，否則為否。</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="user"/> 為 null。</exception>
-        public async Task<bool> CreateAsync(User user)
+        /// <param name="query">新增使用者查詢。</param>
+        /// <returns>使用者。</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="query"/> 為 null。</exception>
+        public async Task<User> CreateAsync(CreateUserQuery query)
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
+
+            var roleIds = query.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
+            var user = new User
+            {
+                UserName = query.UserName,
+                PasswordHash = CryptographyUtility.Hash(query.Password),
+                IsEnabled = query.IsEnabled,
+                Roles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).ToList()
+            };
 
             userRepository.Create(user);
             await unitOfWork.CommitAsync();
 
-            return true;
+            return user;
         }
 
         /// <summary>
@@ -113,7 +142,7 @@ namespace Manager.Services
         /// <param name="query">更新使用者查詢。</param>
         /// <returns>更新成功傳回是，否則為否。</returns>
         /// <exception cref="ArgumentNullException"><paramref name="query"/> 為 null。</exception>
-        public async Task<bool> UpdateAsync(PutUserQuery query)
+        public async Task<bool> UpdateAsync(UpdateUserQuery query)
         {
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
@@ -124,6 +153,9 @@ namespace Manager.Services
 
             var roleIds = query.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
             user.UserName = query.UserName;
+            if (!string.IsNullOrWhiteSpace(query.Password))
+                user.PasswordHash = CryptographyUtility.Hash(query.Password);
+
             user.IsEnabled = query.IsEnabled;
             user.Roles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).ToList();
             userRepository.Update(user);

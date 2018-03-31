@@ -50,27 +50,39 @@ namespace Manager.Service.Controllers
         }
 
         /// <summary>
+        /// 非同步取得使用者。
+        /// </summary>
+        /// <returns>表示非同步尋找作業的工作。 工作結果包含使用者。</returns>
+        [Route("api/Users/New")]
+        public async Task<IHttpActionResult> GetNew()
+        {
+            var user = await userService.GetNewUserAsync();
+
+            return Ok(user);
+        }
+
+        /// <summary>
         /// 非同步新增使用者。
         /// </summary>
-        /// <param name="user">使用者。</param>
+        /// <param name="query">新增使用者查詢。</param>
         /// <returns>表示非同步尋找作業的工作。 工作結果包含 201 Created。</returns>
-        public async Task<IHttpActionResult> Post([FromBody]User user)
+        public async Task<IHttpActionResult> Post([FromBody]CreateUserQuery query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await userService.CreateAsync(user);
+            var user = await userService.CreateAsync(query);
 
-            return CreatedAtRoute(Constant.RouteName, new { id = user.UserId }, user);
+            return CreatedAtRoute(Constant.RouteName, new { id = user.UserId }, query);
         }
 
         /// <summary>
         /// 非同步修改使用者。
         /// </summary>
         /// <param name="id">使用者ID。</param>
-        /// <param name="query">使用者。</param>
+        /// <param name="query">更新使用者查詢。</param>
         /// <returns>表示非同步尋找作業的工作。 工作結果包含 204 NoContent。</returns>
-        public async Task<IHttpActionResult> Put(int id, [FromBody]PutUserQuery query)
+        public async Task<IHttpActionResult> Put(int id, [FromBody]UpdateUserQuery query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

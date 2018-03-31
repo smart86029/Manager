@@ -2,10 +2,11 @@
 
 namespace Manager.ViewModels.Users
 {
-    public class PutUserQuery
+    public class UpdateUserQuery
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string Password { get; set; }
         public bool IsEnabled { get; set; }
         public ICollection<Role> Roles { get; set; }
 

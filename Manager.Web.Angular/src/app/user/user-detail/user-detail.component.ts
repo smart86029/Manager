@@ -27,9 +27,10 @@ export class UserDetailComponent implements OnInit {
     if (id > 0) {
       this.saveMode = SaveMode.Update;
       this.userService.getUser(id)
-        .subscribe(user => {this.user = user;console.log(this.user);});
+        .subscribe(user => this.user = user);
     } else {
-      this.user = new User();
+      this.userService.getNewUser()
+        .subscribe(user => this.user = user);
     }
   }
 
