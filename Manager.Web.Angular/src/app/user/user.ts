@@ -1,5 +1,9 @@
+import { Role } from "../role/role";
+
 export class User {
-  UserId: string;
+  UserId: number;
   UserName: string;
+  Password: string;
   IsEnabled: boolean;
+  Roles: Role[];
 }

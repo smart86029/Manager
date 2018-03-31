@@ -78,6 +78,10 @@
       <Project>{926bbd94-6d45-4ab3-bc9b-d67b60f76985}</Project>
       <Name>Manager.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Manager.ViewModels\Manager.ViewModels.csproj">
+      <Project>{975C293D-61BC-4387-815B-04BD4654D45A}</Project>
+      <Name>Manager.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -2,7 +2,7 @@
   <nav>
     <mat-toolbar color="primary">
       <a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a>
-      <button mat-button (click)="sidenav.toggle()">
+      <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
       <span class="toolbar-seprator"></span>
@@ -46,7 +46,7 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" [opened]="!mobileQuery.matches">
       <mat-expansion-panel>
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header expandedHeight="48px">
           <mat-panel-title>
             <mat-icon>group</mat-icon>
             <span class="menu-title">會員管理</span>

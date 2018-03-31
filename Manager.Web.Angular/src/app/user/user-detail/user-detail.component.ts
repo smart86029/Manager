@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { SaveMode } from '../../shared/save-mode/save-mode.enum';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { Role } from '../../role/role';
+import { RoleService } from '../../role/role.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -15,7 +17,10 @@ export class UserDetailComponent implements OnInit {
   saveMode = SaveMode.Create;
   user = new User();
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private location: Location) { }
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private location: Location) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -24,7 +29,8 @@ export class UserDetailComponent implements OnInit {
       this.userService.getUser(id)
         .subscribe(user => this.user = user);
     } else {
-      this.user = new User();
+      this.userService.getNewUser()
+        .subscribe(user => this.user = user);
     }
   }
 
@@ -37,6 +43,10 @@ export class UserDetailComponent implements OnInit {
         this.update();
         break;
     }
+  }
+
+  back() {
+    this.location.back();
   }
 
   private create() {

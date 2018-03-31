@@ -24,6 +24,12 @@ export class UserService {
     );
   }
 
+  getNewUser(): Observable<User> {
+    return this.httpClient.get<User>(`${this.usersUrl}/new`).pipe(
+      catchError(this.handleError('getUser', null))
+    );
+  }
+
   createUser(user: User): Observable<User> {
     return this.httpClient.post<User>(`${this.usersUrl}`, user).pipe(
       catchError(this.handleError('createUser', user))
