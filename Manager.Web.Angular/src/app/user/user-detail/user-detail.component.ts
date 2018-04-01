@@ -22,7 +22,7 @@ export class UserDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.saveMode = SaveMode.Update;
@@ -34,7 +34,7 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
-  save() {
+  save(): void {
     switch (this.saveMode) {
       case SaveMode.Create:
         this.create();
@@ -45,16 +45,16 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
-  back() {
+  back(): void {
     this.location.back();
   }
 
-  private create() {
+  private create(): void {
     this.userService.createUser(this.user)
       .subscribe(user => this.location.back());
   }
 
-  private update() {
+  private update(): void {
     this.userService.updateUser(this.user)
       .subscribe(user => this.location.back());
   }

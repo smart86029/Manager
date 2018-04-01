@@ -17,7 +17,7 @@ export class RoleDetailComponent implements OnInit {
 
   constructor(private roleService: RoleService, private route: ActivatedRoute, private location: Location) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.saveMode = SaveMode.Update;
@@ -28,7 +28,7 @@ export class RoleDetailComponent implements OnInit {
     }
   }
 
-  save() {
+  save(): void {
     switch (this.saveMode) {
       case SaveMode.Create:
         this.create();
@@ -39,12 +39,12 @@ export class RoleDetailComponent implements OnInit {
     }
   }
 
-  private create() {
+  private create(): void {
     this.roleService.createRole(this.role)
       .subscribe(role => this.location.back());
   }
 
-  private update() {
+  private update(): void {
     this.roleService.updateRole(this.role)
       .subscribe(role => this.location.back());
   }

@@ -23,17 +23,17 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   constructor(private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.listener = () => this.changeDetectorRef.detectChanges();
     this.showSidenav = this.media.matchMedia('(min-width: 1600px)');
     this.showSidenav.addListener(this.listener);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.showSidenav.removeListener(this.listener);
   }
 
-  changeTheme(theme: Theme) {
+  changeTheme(theme: Theme): void {
     this.selectedTheme = theme;
   }
 }
