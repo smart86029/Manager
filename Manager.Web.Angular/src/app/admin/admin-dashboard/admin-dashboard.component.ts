@@ -10,8 +10,6 @@ import { Theme } from '../../theme.enum';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
-  private mobileQueryListener: () => void;
-
   title = 'Manager';
   selectedTheme = Theme.Strawberry;
   theme = Theme;
@@ -19,19 +17,20 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     { Name: '使用者', Url: '/users' },
     { Name: '角色', Url: '/roles' }
   ];
-  mobileQuery: MediaQueryList;
+  showSidenav: MediaQueryList;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQuery.addListener(this.mobileQueryListener);
-  }
+  private listener: () => void;
+
+  constructor(private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) { }
 
   ngOnInit() {
+    this.listener = () => this.changeDetectorRef.detectChanges();
+    this.showSidenav = this.media.matchMedia('(min-width: 1600px)');
+    this.showSidenav.addListener(this.listener);
   }
 
   ngOnDestroy() {
-    this.mobileQuery.removeListener(this.mobileQueryListener);
+    this.showSidenav.removeListener(this.listener);
   }
 
   changeTheme(theme: Theme) {

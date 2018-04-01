@@ -20,7 +20,7 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     this.authService.signIn(this.userName, this.password).subscribe(() => {
-      if (this.authService.isAuthorized) {
+      if (this.authService.isAuthorized()) {
         const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
         this.router.navigate([redirect]);
       }

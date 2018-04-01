@@ -44,7 +44,7 @@
 </header>
 <main class="{{selectedTheme}}">
   <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side" [opened]="!mobileQuery.matches">
+    <mat-sidenav #sidenav [mode]="showSidenav.matches ? 'side' : 'over'" [opened]="showSidenav.matches">
       <mat-expansion-panel>
         <mat-expansion-panel-header expandedHeight="48px">
           <mat-panel-title>

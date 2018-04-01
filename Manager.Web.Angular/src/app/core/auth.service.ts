@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
-import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { LogService } from './log.service';
 
 const httpOptions = {
@@ -12,9 +13,10 @@ const httpOptions = {
 
 @Injectable()
 export class AuthService {
-  private tokensUrl = 'api/tokens';
   redirectUrl: string;
-  isAuthorized = () => !this.jwtHelper.isTokenExpired();
+
+  private tokensUrl = 'api/tokens';
+  private tokenKey = 'access_token';
 
   constructor(
     private httpClient: HttpClient,
@@ -28,12 +30,19 @@ export class AuthService {
     };
 
     return this.httpClient.post<string>(this.tokensUrl, body, httpOptions).pipe(
-      tap((token: string) => localStorage.setItem('access_token', token)),
+      tap(token => localStorage.setItem(this.tokenKey, token)),
       catchError(this.handleError('signIn', null))
     );
   }
 
   signOut(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  isAuthorized() {
+    const token = localStorage.getItem(this.tokenKey);
+
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
