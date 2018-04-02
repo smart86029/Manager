@@ -8,14 +8,14 @@ using Manager.Services;
 namespace Manager.Web
 {
     /// <summary>
-    /// Autofac 設定類別。
+    /// Autofac 組態。
     /// </summary>
     public class AutofacConfig
     {
         /// <summary>
-        /// 註冊 Autofac。
+        /// 註冊。
         /// </summary>
-        public static void RegisterAutofac()
+        public static void Register()
         {
             var builder = new ContainerBuilder();
             var config = GlobalConfiguration.Configuration;

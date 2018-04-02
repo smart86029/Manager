@@ -8,7 +8,7 @@ namespace Manager.Web
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            AutofacConfig.RegisterAutofac();
+            AutofacConfig.Register();
         }
     }
 }
