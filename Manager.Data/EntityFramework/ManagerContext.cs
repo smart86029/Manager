@@ -64,6 +64,16 @@ namespace Manager.Data.EntityFramework
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Roles)
+                .WithMany(r => r.Users)
+                .Map(m =>
+                {
+                    m.MapLeftKey("UserId");
+                    m.MapRightKey("RoleId");
+                    m.ToTable("UserRole", "System");
+                });
+
             modelBuilder.Entity<Role>()
                 .HasMany(r => r.Menus)
                 .WithMany(m => m.Roles)
@@ -72,16 +82,6 @@ namespace Manager.Data.EntityFramework
                     m.MapLeftKey("RoleId");
                     m.MapRightKey("MenuId");
                     m.ToTable("RoleMenu", "System");
-                });
-
-            modelBuilder.Entity<Role>()
-                .HasMany(r => r.Users)
-                .WithMany(u => u.Roles)
-                .Map(m =>
-                {
-                    m.MapLeftKey("RoleId");
-                    m.MapRightKey("UserId");
-                    m.ToTable("RoleUser", "System");
                 });
         }
     }

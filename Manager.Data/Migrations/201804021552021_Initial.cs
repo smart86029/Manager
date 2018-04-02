@@ -26,7 +26,7 @@ namespace Manager.Data.Migrations
                         Action = c.String(maxLength: 50),
                         Description = c.String(maxLength: 100),
                         Order = c.Int(nullable: false),
-                        IsActivated = c.Boolean(nullable: false),
+                        IsEnabled = c.Boolean(nullable: false),
                         ParentId = c.Int(),
                     })
                 .PrimaryKey(t => t.MenuId)
@@ -39,7 +39,7 @@ namespace Manager.Data.Migrations
                     {
                         RoleId = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 20),
-                        IsActivated = c.Boolean(nullable: false),
+                        IsEnabled = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.RoleId);
             
@@ -50,7 +50,7 @@ namespace Manager.Data.Migrations
                         UserId = c.Int(nullable: false, identity: true),
                         UserName = c.String(nullable: false, maxLength: 20),
                         PasswordHash = c.String(),
-                        IsActivated = c.Boolean(nullable: false),
+                        IsEnabled = c.Boolean(nullable: false),
                         BusinessEntityId = c.Int(),
                     })
                 .PrimaryKey(t => t.UserId)
@@ -71,35 +71,35 @@ namespace Manager.Data.Migrations
                 .Index(t => t.MenuId);
             
             CreateTable(
-                "System.RoleUser",
+                "System.UserRole",
                 c => new
                     {
-                        RoleId = c.Int(nullable: false),
                         UserId = c.Int(nullable: false),
+                        RoleId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.RoleId, t.UserId })
-                .ForeignKey("System.Role", t => t.RoleId, cascadeDelete: true)
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
                 .ForeignKey("System.User", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.RoleId)
-                .Index(t => t.UserId);
+                .ForeignKey("System.Role", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("System.RoleUser", "UserId", "System.User");
-            DropForeignKey("System.RoleUser", "RoleId", "System.Role");
+            DropForeignKey("System.UserRole", "RoleId", "System.Role");
+            DropForeignKey("System.UserRole", "UserId", "System.User");
             DropForeignKey("System.User", "BusinessEntityId", "Generic.BusinessEntity");
             DropForeignKey("System.RoleMenu", "MenuId", "System.Menu");
             DropForeignKey("System.RoleMenu", "RoleId", "System.Role");
             DropForeignKey("System.Menu", "ParentId", "System.Menu");
-            DropIndex("System.RoleUser", new[] { "UserId" });
-            DropIndex("System.RoleUser", new[] { "RoleId" });
+            DropIndex("System.UserRole", new[] { "RoleId" });
+            DropIndex("System.UserRole", new[] { "UserId" });
             DropIndex("System.RoleMenu", new[] { "MenuId" });
             DropIndex("System.RoleMenu", new[] { "RoleId" });
             DropIndex("System.User", new[] { "BusinessEntityId" });
             DropIndex("System.Menu", new[] { "ParentId" });
-            DropTable("System.RoleUser");
+            DropTable("System.UserRole");
             DropTable("System.RoleMenu");
             DropTable("System.User");
             DropTable("System.Role");
