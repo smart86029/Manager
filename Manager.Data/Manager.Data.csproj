@@ -57,6 +57,7 @@
     <Compile Include="EntityFramework\ManagerContext.cs" />
     <Compile Include="EntityFramework\MenuRepository.cs" />
     <Compile Include="EntityFramework\Repository.cs" />
+    <Compile Include="EntityFramework\StoreRepository.cs" />
     <Compile Include="EntityFramework\RoleRepository.cs" />
     <Compile Include="EntityFramework\UnitOfWork.cs" />
     <Compile Include="EntityFramework\UserRepository.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRoleRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IStoreRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Migrations\201804021552021_Initial.cs" />
     <Compile Include="Migrations\201804021552021_Initial.Designer.cs">

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -49,6 +50,13 @@ namespace Manager.Data.Migrations
                 new Role { Name = "HumanResources", IsEnabled = true, Users = context.Users.ToList(), Menus = context.Menus.ToList() },
             };
             roles.ForEach(s => context.Roles.AddOrUpdate(p => p.Name, s));
+            context.SaveChanges();
+
+            var stores = new List<Store>
+            {
+                new Store { Name = "³Á·í³Ò", Description = "´ú¸Õder", CreatedBy = 1, CreatedOn = DateTime.Now, UpdatedBy = 1, UpdatedOn = DateTime.Now }
+            };
+            stores.ForEach(s => context.Stores.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();
         }
     }

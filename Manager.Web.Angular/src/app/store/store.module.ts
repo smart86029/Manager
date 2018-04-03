@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { StoreRoutingModule } from './store-routing.module';
+import { SharedModule } from '../shared/shared.module';
 import { StoreListComponent } from './store-list/store-list.component';
+import { StoreRoutingModule } from './store-routing.module';
+import { StoreService } from './store.service';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     StoreRoutingModule
   ],
-  declarations: [StoreListComponent]
+  declarations: [
+    StoreListComponent
+  ],
+  providers: [
+    StoreService
+  ]
 })
 export class StoreModule { }
