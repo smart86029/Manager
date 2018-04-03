@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Manager.Common;
 using Manager.Models;
 using Manager.Services;
@@ -30,6 +31,7 @@ namespace Manager.Service.Controllers
         /// 非同步取得所有使用者。
         /// </summary>
         /// <returns>表示非同步尋找作業的工作。 工作結果包含所有使用者。</returns>
+        [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> Get()
         {
             var users = await userService.GetUsersAsync();
@@ -42,6 +44,7 @@ namespace Manager.Service.Controllers
         /// </summary>
         /// <param name="id">使用者ID。</param>
         /// <returns>表示非同步尋找作業的工作。 工作結果包含使用者。</returns>
+        [ResponseType(typeof(UserResult))]
         public async Task<IHttpActionResult> Get(int id)
         {
             var user = await userService.GetUserIncludeRolesAsync(id);
@@ -54,6 +57,7 @@ namespace Manager.Service.Controllers
         /// </summary>
         /// <returns>表示非同步尋找作業的工作。 工作結果包含使用者。</returns>
         [Route("api/Users/New")]
+        [ResponseType(typeof(UserResult))]
         public async Task<IHttpActionResult> GetNew()
         {
             var user = await userService.GetNewUserAsync();

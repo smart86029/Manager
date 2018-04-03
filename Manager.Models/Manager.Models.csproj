@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commerce\Store.cs" />
     <Compile Include="Generic\BusinessEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\Menu.cs" />

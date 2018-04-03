@@ -6,7 +6,7 @@ using Manager.Models;
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 經紀人內容類別。
+    /// 經紀人內容。
     /// </summary>
     public class ManagerContext : DbContext
     {
@@ -20,36 +20,34 @@ namespace Manager.Data.EntityFramework
         }
 
         /// <summary>
+        /// 取得或設定店家的集合。
+        /// </summary>
+        /// <value>店家的集合。</value>
+        public DbSet<Store> Stores { get; set; }
+
+        /// <summary>
         /// 取得或設定商業實體的集合。
         /// </summary>
-        /// <value>
-        /// 商業實體的集合。
-        /// </value>
+        /// <value>商業實體的集合。</value>
         public DbSet<BusinessEntity> BusinessEntiteis { get; set; }
 
         /// <summary>
         /// 取得或設定菜單的集合。
         /// </summary>
-        /// <value>
-        /// 菜單的集合。
-        /// </value>
+        /// <value>菜單的集合。</value>
         public DbSet<Menu> Menus { get; set; }
-
-        /// <summary>
-        /// 取得或設定使用者的集合。
-        /// </summary>
-        /// <value>
-        /// 使用者的集合。
-        /// </value>
-        public DbSet<User> Users { get; set; }
 
         /// <summary>
         /// 取得或設定角色的集合。
         /// </summary>
-        /// <value>
-        /// 角色的集合。
-        /// </value>
+        /// <value>角色的集合。</value>
         public DbSet<Role> Roles { get; set; }
+
+        /// <summary>
+        /// 取得或設定使用者的集合。
+        /// </summary>
+        /// <value>使用者的集合。</value>
+        public DbSet<User> Users { get; set; }
 
         /// <summary>
         /// 此方法的呼叫時機是在初始化衍生內容的模型時，但在鎖定此模型及使用此模型初始化內容之前。 此方法的預設實作不會做任何事，
@@ -63,6 +61,8 @@ namespace Manager.Data.EntityFramework
                 throw new ArgumentNullException(nameof(modelBuilder));
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Store>().HasRequired(s => s.Updater).WithMany().WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Roles)

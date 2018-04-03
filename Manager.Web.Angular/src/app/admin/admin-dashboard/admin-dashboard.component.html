@@ -45,15 +45,26 @@
 <main class="{{selectedTheme}}">
   <mat-sidenav-container>
     <mat-sidenav #sidenav [mode]="showSidenav.matches ? 'side' : 'over'" [opened]="showSidenav.matches">
-      <mat-expansion-panel>
+      <mat-expansion-panel routerLinkActive="active">
         <mat-expansion-panel-header expandedHeight="48px">
           <mat-panel-title>
-            <mat-icon>group</mat-icon>
+            <mat-icon color="primary">group</mat-icon>
             <span class="menu-title">會員管理</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          <a *ngFor="let menu of menus" class="menu-item" routerLink="{{menu.Url}}" routerLinkActive="active" mat-list-item>{{menu.Name}}</a>
+          <a *ngFor="let menu of menus" class="menu-item" routerLink="{{menu.Url}}" mat-list-item>{{menu.Name}}</a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel routerLinkActive="active">
+        <mat-expansion-panel-header expandedHeight="48px">
+          <mat-panel-title>
+            <mat-icon color="primary">shopping_basket</mat-icon>
+            <span class="menu-title">團購管理</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a class="menu-item" routerLink="/stores" mat-list-item>店家管理</a>
         </mat-nav-list>
       </mat-expansion-panel>
       <div class="sidebar-background" style="background-image: url(/assets/images/jetty.jpg);"></div>
