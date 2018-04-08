@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Manager.Common
+﻿namespace Manager.Common
 {
     /// <summary>
     /// 常數類別。

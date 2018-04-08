@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Manager.Models
+namespace Manager.Models.System
 {
     /// <summary>
     /// 角色。
@@ -14,14 +14,12 @@ namespace Manager.Models
         /// 取得或設定主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        [Display(Name = "ID")]
         public int RoleId { get; set; }
 
         /// <summary>
         /// 取得或設定名稱。
         /// </summary>
         /// <value>名稱。</value>
-        [Display(Name = "名稱")]
         [Required]
         [StringLength(20, ErrorMessage = "長度不可超過 20")]
         public string Name { get; set; }
@@ -30,8 +28,6 @@ namespace Manager.Models
         /// 取得或設定值，這個值指出是否啟用。
         /// </summary>
         /// <value>如果啟用則為 <c>true</c>，否則為 <c>false</c>。</value>
-        [Display(Name = "是否啟用")]
-        [Required]
         public bool IsEnabled { get; set; }
 
         /// <summary>

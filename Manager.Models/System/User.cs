@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Manager.Models.Generic;
 
-namespace Manager.Models
+namespace Manager.Models.System
 {
     /// <summary>
     /// 使用者。
@@ -14,31 +15,26 @@ namespace Manager.Models
         /// 取得或設定主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        [Display(Name = "ID")]
         public int UserId { get; set; }
 
         /// <summary>
         /// 取得或設定使用者名稱。
         /// </summary>
         /// <value>使用者名稱。</value>
-        [Display(Name = "使用者名稱")]
         [Required]
-        [StringLength(20, ErrorMessage = "長度不可超過 20")]
+        [StringLength(32, ErrorMessage = "長度不可超過 32")]
         public string UserName { get; set; }
 
         /// <summary>
         /// 取得或設定密碼雜湊。
         /// </summary>
         /// <value>密碼雜湊。</value>
-        [Display(Name = "密碼雜湊")]
         public string PasswordHash { get; set; }
 
         /// <summary>
         /// 取得或設定值，這個值指出是否啟用。
         /// </summary>
         /// <value>如果啟用則為 <c>true</c>，否則為 <c>false</c>。</value>
-        [Display(Name = "是否啟用")]
-        [Required]
         public bool IsEnabled { get; set; }
 
         /// <summary>

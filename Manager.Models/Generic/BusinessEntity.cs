@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Manager.Models
+namespace Manager.Models.Generic
 {
     /// <summary>
     /// 商業實體。

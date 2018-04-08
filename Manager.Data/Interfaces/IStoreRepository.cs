@@ -1,4 +1,4 @@
-﻿using Manager.Models;
+﻿using Manager.Models.GroupBuying;
 
 namespace Manager.Data
 {

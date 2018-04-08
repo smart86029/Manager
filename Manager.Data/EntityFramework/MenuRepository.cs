@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Manager.Models;
+using Manager.Models.System;
 
 namespace Manager.Data.EntityFramework
 {

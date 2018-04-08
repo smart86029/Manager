@@ -1,4 +1,5 @@
 ﻿using Manager.Models;
+using Manager.Models.System;
 
 namespace Manager.Data
 {

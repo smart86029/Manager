@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Manager.Models
+namespace Manager.Models.System
 {
     /// <summary>
     /// 菜單類別。
@@ -13,19 +13,14 @@ namespace Manager.Models
         /// <summary>
         /// 取得或設定主鍵。
         /// </summary>
-        /// <value>
-        /// 主鍵。
-        /// </value>
+        /// <value>主鍵。</value>
         [Display(Name = "ID")]
         public int MenuId { get; set; }
 
         /// <summary>
         /// 取得或設定名稱。
         /// </summary>
-        /// <value>
-        /// 名稱。
-        /// </value>
-        [Display(Name = "名稱")]
+        /// <value>名稱。</value>
         [Required]
         [StringLength(50, ErrorMessage = "長度不可超過 50")]
         public string Name { get; set; }
@@ -33,9 +28,7 @@ namespace Manager.Models
         /// <summary>
         /// 取得或設定區域。
         /// </summary>
-        /// <value>
-        /// 區域。
-        /// </value>
+        /// <value>區域。</value>
         [Display(Name = "區域")]
         [StringLength(50, ErrorMessage = "長度不可超過 50")]
         public string Area { get; set; }

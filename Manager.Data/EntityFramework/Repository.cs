@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 倉儲類別。
+    /// 倉儲。
     /// </summary>
     /// <typeparam name="TEntity">實體的類型。</typeparam>
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class

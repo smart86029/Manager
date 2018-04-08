@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
-using Manager.Models;
+using Manager.Models.System;
 
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 使用者倉儲類別。
+    /// 使用者倉儲。
     /// </summary>
     public class UserRepository : Repository<User>, IUserRepository
     {

@@ -48,7 +48,7 @@ namespace Manager.Data.Migrations
                 c => new
                     {
                         UserId = c.Int(nullable: false, identity: true),
-                        UserName = c.String(nullable: false, maxLength: 20),
+                        UserName = c.String(nullable: false, maxLength: 32),
                         PasswordHash = c.String(),
                         IsEnabled = c.Boolean(nullable: false),
                         BusinessEntityId = c.Int(),
@@ -56,6 +56,40 @@ namespace Manager.Data.Migrations
                 .PrimaryKey(t => t.UserId)
                 .ForeignKey("Generic.BusinessEntity", t => t.BusinessEntityId)
                 .Index(t => t.BusinessEntityId);
+            
+            CreateTable(
+                "GroupBuying.Store",
+                c => new
+                    {
+                        StoreId = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 32),
+                        Description = c.String(maxLength: 512),
+                        Phone = c.String(maxLength: 32),
+                        Address = c.String(maxLength: 128),
+                        Remark = c.String(maxLength: 512),
+                        CreatedBy = c.Int(nullable: false),
+                        CreatedOn = c.DateTime(nullable: false),
+                        UpdatedBy = c.Int(nullable: false),
+                        UpdatedOn = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.StoreId)
+                .ForeignKey("System.User", t => t.CreatedBy, cascadeDelete: true)
+                .ForeignKey("System.User", t => t.UpdatedBy)
+                .Index(t => t.CreatedBy)
+                .Index(t => t.UpdatedBy);
+            
+            CreateTable(
+                "GroupBuying.Product",
+                c => new
+                    {
+                        ProductId = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 32),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        StoreId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ProductId)
+                .ForeignKey("GroupBuying.Store", t => t.StoreId, cascadeDelete: true)
+                .Index(t => t.StoreId);
             
             CreateTable(
                 "System.RoleMenu",
@@ -87,6 +121,9 @@ namespace Manager.Data.Migrations
         
         public override void Down()
         {
+            DropForeignKey("GroupBuying.Store", "UpdatedBy", "System.User");
+            DropForeignKey("GroupBuying.Product", "StoreId", "GroupBuying.Store");
+            DropForeignKey("GroupBuying.Store", "CreatedBy", "System.User");
             DropForeignKey("System.UserRole", "RoleId", "System.Role");
             DropForeignKey("System.UserRole", "UserId", "System.User");
             DropForeignKey("System.User", "BusinessEntityId", "Generic.BusinessEntity");
@@ -97,10 +134,15 @@ namespace Manager.Data.Migrations
             DropIndex("System.UserRole", new[] { "UserId" });
             DropIndex("System.RoleMenu", new[] { "MenuId" });
             DropIndex("System.RoleMenu", new[] { "RoleId" });
+            DropIndex("GroupBuying.Product", new[] { "StoreId" });
+            DropIndex("GroupBuying.Store", new[] { "UpdatedBy" });
+            DropIndex("GroupBuying.Store", new[] { "CreatedBy" });
             DropIndex("System.User", new[] { "BusinessEntityId" });
             DropIndex("System.Menu", new[] { "ParentId" });
             DropTable("System.UserRole");
             DropTable("System.RoleMenu");
+            DropTable("GroupBuying.Product");
+            DropTable("GroupBuying.Store");
             DropTable("System.User");
             DropTable("System.Role");
             DropTable("System.Menu");

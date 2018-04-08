@@ -17,6 +17,30 @@ export class StoreService {
     );
   }
 
+  getStore(id: number): Observable<Store> {
+    return this.httpClient.get<Store>(`${this.storesUrl}/${id}`).pipe(
+      catchError(this.handleError('getStore', null))
+    );
+  }
+
+  getNewStore(): Observable<Store> {
+    return this.httpClient.get<Store>(`${this.storesUrl}/new`).pipe(
+      catchError(this.handleError('getStore', null))
+    );
+  }
+
+  createStore(store: Store): Observable<Store> {
+    return this.httpClient.post<Store>(`${this.storesUrl}`, store).pipe(
+      catchError(this.handleError('createStore', store))
+    );
+  }
+
+  updateStore(store: Store): Observable<Store> {
+    return this.httpClient.put<Store>(`${this.storesUrl}/${store.StoreId}`, store).pipe(
+      catchError(this.handleError('updateStore', store))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

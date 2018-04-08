@@ -67,13 +67,9 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IStoreRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
-    <Compile Include="Migrations\201804021552021_Initial.cs" />
-    <Compile Include="Migrations\201804021552021_Initial.Designer.cs">
-      <DependentUpon>201804021552021_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804030748082_AddStore.cs" />
-    <Compile Include="Migrations\201804030748082_AddStore.Designer.cs">
-      <DependentUpon>201804030748082_AddStore.cs</DependentUpon>
+    <Compile Include="Migrations\201804080609470_Initial.cs" />
+    <Compile Include="Migrations\201804080609470_Initial.Designer.cs">
+      <DependentUpon>201804080609470_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modules\EFModule.cs" />
@@ -94,11 +90,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804021552021_Initial.resx">
-      <DependentUpon>201804021552021_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804030748082_AddStore.resx">
-      <DependentUpon>201804030748082_AddStore.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804080609470_Initial.resx">
+      <DependentUpon>201804080609470_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

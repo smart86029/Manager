@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Manager.Models;
+using Manager.Models.Generic;
+using Manager.Models.GroupBuying;
+using Manager.Models.System;
 
 namespace Manager.Data.EntityFramework
 {
@@ -24,6 +26,12 @@ namespace Manager.Data.EntityFramework
         /// </summary>
         /// <value>店家的集合。</value>
         public DbSet<Store> Stores { get; set; }
+
+        /// <summary>
+        /// 取得或設定商品的集合。
+        /// </summary>
+        /// <value>商品的集合。</value>
+        public DbSet<Product> Products { get; set; }
 
         /// <summary>
         /// 取得或設定商業實體的集合。

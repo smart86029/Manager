@@ -5,6 +5,8 @@ using System.Linq;
 using Manager.Common;
 using Manager.Data.EntityFramework;
 using Manager.Models;
+using Manager.Models.GroupBuying;
+using Manager.Models.System;
 
 namespace Manager.Data.Migrations
 {
@@ -54,9 +56,31 @@ namespace Manager.Data.Migrations
 
             var stores = new List<Store>
             {
-                new Store { Name = "³Á·í³Ò", Description = "´ú¸Õder", CreatedBy = 1, CreatedOn = DateTime.Now, UpdatedBy = 1, UpdatedOn = DateTime.Now }
+                new Store { Name = "Áú¿¯®c", Description = "´ú¸Õder", Phone = "2658-2882", Address = "¥x¥_¥«¤º´ò°Ï¦¿«nµó117¸¹", CreatedBy = 1, CreatedOn = DateTime.Now, UpdatedBy = 1, UpdatedOn = DateTime.Now }
             };
             stores.ForEach(s => context.Stores.AddOrUpdate(p => p.Name, s));
+            context.SaveChanges();
+
+            var products = new List<Product>
+            {
+                new Product { Name = "Áú¦¡¤û¦×¯N¦×¶º", Price = 90, StoreId = 1 },
+                new Product { Name = "Áú¦¡½Þ¦×¯N¦×¶º", Price = 90, StoreId = 1 },
+                new Product { Name = "Áú¦¡¤û¦×©Õ¶º", Price = 90, StoreId = 1 },
+                new Product { Name = "Áú¦¡½Þ¦×©Õ¶º", Price = 90, StoreId = 1 },
+                new Product { Name = "Áú¦¡»¶Âû©Õ¶º", Price = 90, StoreId = 1 },
+                new Product { Name = "­»¸zªwµæª£¶º", Price = 130, StoreId = 1 },
+                new Product { Name = "ÂC³½ªwµæª£¶º", Price = 130, StoreId = 1 },
+                new Product { Name = "®üÂA¨§»GÁç", Price = 130, StoreId = 1 },
+                new Product { Name = "®üÂAªwµæÁç", Price = 130, StoreId = 1 },
+                new Product { Name = "¤jÂæ´ö¶ºÁç", Price = 130, StoreId = 1 },
+                new Product { Name = "¨§»G»¶´öÁç", Price = 130, StoreId = 1 },
+                new Product { Name = "³¡¶¤Áç", Price = 150, StoreId = 1 },
+                new Product { Name = "»¶ª£ªwÄÑ", Price = 100, StoreId = 1 },
+                new Product { Name = "®üÂAª£ÄÑ", Price = 140, StoreId = 1 },
+                new Product { Name = "»¶ª£¦~¿|", Price = 130, StoreId = 1 },
+                new Product { Name = "®üÂA·Î»æ", Price = 150, StoreId = 1 },
+            };
+            products.ForEach(s => context.Products.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();
         }
     }

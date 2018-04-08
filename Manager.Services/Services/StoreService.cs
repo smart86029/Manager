@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Manager.Data;
-using Manager.Models;
+using Manager.Models.GroupBuying;
+using Manager.ViewModels.Stores;
 
 namespace Manager.Services
 {
@@ -31,11 +32,26 @@ namespace Manager.Services
         /// </summary>
         /// <param name="id">指定的 Id。</param>
         /// <returns>符合的店家。</returns>
-        public async Task<Store> GetStoreAsync(int id)
+        public async Task<StoreResult> GetStoreAsync(int id)
         {
-            var store = await storeRepository.FindAsync(id);
+            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == id, s => s.Products);
+            var result = new StoreResult
+            {
+                StoreId = store.StoreId,
+                Name = store.Name,
+                Description = store.Description,
+                Phone = store.Phone,
+                Address = store.Address,
+                Remark = store.Remark,
+                Products = store.Products.Select(p => new StoreResult.Product
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Price = p.Price
+                }).ToList()
+            };
 
-            return store;
+            return result;
         }
 
         /// <summary>

@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
-using Manager.Models;
+using Manager.Models.System;
 
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 角色倉儲類別。
+    /// 角色倉儲。
     /// </summary>
     public class RoleRepository : Repository<Role>, IRoleRepository
     {

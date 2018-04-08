@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Manager.Models.System;
 
-namespace Manager.Models
+namespace Manager.Models.GroupBuying
 {
     /// <summary>
     /// 店家。
     /// </summary>
-    [Table("Store", Schema = "Commerce")]
+    [Table("Store", Schema = "GroupBuying")]
     public class Store
     {
         /// <summary>
@@ -21,7 +23,7 @@ namespace Manager.Models
         /// </summary>
         /// <value>名稱。</value>
         [Required]
-        [StringLength(20, ErrorMessage = "長度不可超過 20")]
+        [StringLength(32, ErrorMessage = "長度不可超過 32")]
         public string Name { get; set; }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace Manager.Models
         /// 取得或設定電話。
         /// </summary>
         /// <value>電話。</value>
-        [StringLength(20, ErrorMessage = "長度不可超過 20")]
+        [StringLength(32, ErrorMessage = "長度不可超過 32")]
         public string Phone { get; set; }
 
         /// <summary>
@@ -46,9 +48,16 @@ namespace Manager.Models
         public string Address { get; set; }
 
         /// <summary>
-        /// 取得或設定新增者ID。
+        /// 取得或設定備註。
         /// </summary>
-        /// <value>新增者ID。</value>
+        /// <value>備註。</value>
+        [StringLength(512, ErrorMessage = "長度不可超過 512")]
+        public string Remark { get; set; }
+
+        /// <summary>
+        /// 取得或設定新增者 ID。
+        /// </summary>
+        /// <value>新增者 ID。</value>
         public int CreatedBy { get; set; }
 
         /// <summary>
@@ -58,9 +67,9 @@ namespace Manager.Models
         public DateTime CreatedOn { get; set; }
 
         /// <summary>
-        /// 取得或設定修改者ID。
+        /// 取得或設定修改者 ID。
         /// </summary>
-        /// <value>修改者ID。</value>
+        /// <value>修改者 ID。</value>
         public int UpdatedBy { get; set; }
 
         /// <summary>
@@ -73,23 +82,20 @@ namespace Manager.Models
         /// 取得或設定建立者。
         /// </summary>
         /// <value>建立者。</value>
-        [ForeignKey("CreatedBy")]
+        [ForeignKey(nameof(CreatedBy))]
         public virtual User Creator { get; set; }
 
         /// <summary>
         /// 取得或設定修改者。
         /// </summary>
         /// <value>修改者。</value>
-        [ForeignKey("UpdatedBy")]
+        [ForeignKey(nameof(UpdatedBy))]
         public virtual User Updater { get; set; }
 
         /// <summary>
-        /// Gets or sets the products.
+        /// 取得或設定商品。
         /// </summary>
-        /// <value>
-        /// The products.
-        /// </value>
-        //[InverseProperty("Store")]
-        //public virtual ICollection<Product> Products { get; set; }
+        /// <value>商品。</value>
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
