@@ -7,6 +7,9 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        <div class="loading-overlay" *ngIf="isLoading">
+          <mat-spinner *ngIf="isLoading"></mat-spinner>
+        </div>
         <div>
           <mat-form-field>
             <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="store.Name">

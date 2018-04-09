@@ -3,13 +3,12 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Manager.Common;
-using Manager.Models;
 using Manager.Models.System;
 using Manager.Services;
 using Manager.ViewModels.Users;
 using Manager.Web.Helpers;
 
-namespace Manager.Service.Controllers
+namespace Manager.Web.Controllers
 {
     /// <summary>
     /// 使用者控制器。

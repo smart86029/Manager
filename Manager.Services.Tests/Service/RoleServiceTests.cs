@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Manager.Data;
-using Manager.Models;
+using Manager.Models.System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

@@ -2,7 +2,7 @@
 using System.Web.Http;
 using Manager.Common;
 using Manager.Services;
-using Manager.ViewModels;
+using Manager.ViewModels.Tokens;
 
 namespace Manager.Web.Controllers
 {
@@ -16,7 +16,7 @@ namespace Manager.Web.Controllers
         /// <summary>
         /// 初始化 <see cref="TokensController"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="userService">使用者服務。</param>
+        /// <param name="tokenService">令牌服務。</param>
         public TokensController(TokenService tokenService)
         {
             this.tokenService = tokenService;

@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Manager.Common;
 using Manager.Data;
-using Manager.Models;
 using Manager.Models.System;
-using Manager.ViewModels;
+using Manager.ViewModels.Tokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Manager.Services

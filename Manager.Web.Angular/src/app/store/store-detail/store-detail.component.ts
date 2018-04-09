@@ -15,6 +15,7 @@ export class StoreDetailComponent implements OnInit {
   displayedColumns = ['name', 'price'];
   saveMode = SaveMode.Create;
   store = new Store();
+  isLoading = true;
 
   constructor(
     private storeService: StoreService,
@@ -26,10 +27,10 @@ export class StoreDetailComponent implements OnInit {
     if (id > 0) {
       this.saveMode = SaveMode.Update;
       this.storeService.getStore(id)
-        .subscribe(store => this.store = store);
+        .subscribe(store => this.store = store, () => {}, () => this.isLoading = false);
     } else {
       this.storeService.getNewStore()
-        .subscribe(store => this.store = store);
+        .subscribe(store => this.store = store, () => {}, () => this.isLoading = false);
     }
   }
 

@@ -1,4 +1,4 @@
-﻿namespace Manager.ViewModels
+﻿namespace Manager.ViewModels.Tokens
 {
     public class CreateTokenQuery
     {
