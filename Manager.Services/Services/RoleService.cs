@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Manager.Data;
-using Manager.Models;
 using Manager.Models.System;
 
 namespace Manager.Services
@@ -46,7 +45,7 @@ namespace Manager.Services
         /// <returns>符合的角色。</returns>
         public async Task<Role> GetRoleIncludeUsersAsync(int id)
         {
-            var role = await roleRepository.FirstOrDefaultAsync(r => r.RoleId == id, r => r.Users);
+            var role = await roleRepository.FirstOrDefaultAsync(r => r.RoleId == id);
 
             return role;
         }

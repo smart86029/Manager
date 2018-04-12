@@ -1,15 +1,16 @@
 ﻿using System.Threading.Tasks;
-using System.Web.Http;
 using Manager.Common;
 using Manager.Services;
 using Manager.ViewModels.Tokens;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers
 {
     /// <summary>
     /// 令牌控制器。
     /// </summary>
-    public class TokensController : ApiController
+    [Route("api/[controller]")]
+    public class TokensController : Controller
     {
         private TokenService tokenService;
 
@@ -23,17 +24,19 @@ namespace Manager.Web.Controllers
         }
 
         /// <summary>
-        /// 非同步新增令牌。
+        /// 新增令牌。
         /// </summary>
         /// <param name="query">新增令牌查詢。</param>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含 201 Created。</returns>
-        public async Task<IHttpActionResult> Post([FromBody]CreateTokenQuery query)
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]CreateTokenQuery query)
         {
             var token = await tokenService.CreateTokenAsync(query);
             if (string.IsNullOrWhiteSpace(token))
                 return Unauthorized();
 
-            return CreatedAtRoute(Constant.RouteName, new { id = 1 }, token);
+            return Created(string.Empty, new { token = token });
+            return CreatedAtRoute(Constant.RouteName, new { id = 1 }, "aa");
         }
     }
 }

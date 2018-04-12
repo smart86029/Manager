@@ -9,20 +9,20 @@
       <mat-card-content>
         <div>
           <mat-form-field>
-            <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="user.UserName">
+            <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="user.userName">
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-            <input matInput type="password" name="password" placeholder="密碼" [(ngModel)]="user.Password">
+            <input matInput type="password" name="password" placeholder="密碼" [(ngModel)]="user.password">
           </mat-form-field>
         </div>
         <div>
-          <mat-slide-toggle name="isEnabled" [(ngModel)]="user.IsEnabled">是否啟用</mat-slide-toggle>
+          <mat-slide-toggle name="isEnabled" [(ngModel)]="user.isEnabled">是否啟用</mat-slide-toggle>
         </div>
         <div>
           <p>角色</p>
-          <mat-checkbox *ngFor="let role of user.Roles; let i = index;" class="role" name="role{{role.RoleId}}" [(ngModel)]="role.IsChecked">{{role.Name}}</mat-checkbox>
+          <mat-checkbox *ngFor="let role of user.roles; let i = index;" class="role" name="role{{role.roleId}}" [(ngModel)]="role.isChecked">{{role.name}}</mat-checkbox>
         </div>
       </mat-card-content>
       <mat-card-actions>

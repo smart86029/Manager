@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using Manager.Models.System;
+﻿using Manager.Models.System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Data.EntityFramework
 {

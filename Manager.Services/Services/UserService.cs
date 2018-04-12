@@ -51,7 +51,7 @@ namespace Manager.Services
         /// <returns>符合的使用者。</returns>
         public async Task<User> GetUserAsync(string userName, string passwordHash)
         {
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash, u => u.Roles);
+            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash);
 
             return user;
         }
@@ -64,7 +64,7 @@ namespace Manager.Services
         public async Task<UserResult> GetUserIncludeRolesAsync(int id)
         {
             var roles = await roleRepository.ManyAsync(null);
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == id, u => u.Roles);
+            var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == id, u => u.UserRoles);
             var result = new UserResult
             {
                 UserId = user.UserId,
@@ -74,7 +74,7 @@ namespace Manager.Services
                 {
                     RoleId = r.RoleId,
                     Name = r.Name,
-                    IsChecked = user.Roles.Contains(r)
+                    IsChecked = user.UserRoles.Any(x => x.RoleId == r.RoleId)
                 }).ToList()
             };
 
@@ -128,7 +128,7 @@ namespace Manager.Services
                 UserName = query.UserName,
                 PasswordHash = CryptographyUtility.Hash(query.Password),
                 IsEnabled = query.IsEnabled,
-                Roles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).ToList()
+                UserRoles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).Select(r => new UserRole { Role = r }).ToList()
             };
 
             userRepository.Create(user);
@@ -148,7 +148,7 @@ namespace Manager.Services
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == query.UserId, u => u.Roles);
+            var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == query.UserId, u => u.UserRoles);
             if (user == null)
                 return false;
 
@@ -158,7 +158,7 @@ namespace Manager.Services
                 user.PasswordHash = CryptographyUtility.Hash(query.Password);
 
             user.IsEnabled = query.IsEnabled;
-            user.Roles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).ToList();
+            user.UserRoles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).Select(r => new UserRole { UserId = user.UserId, RoleId = r.RoleId }).ToList();
             userRepository.Update(user);
             await unitOfWork.CommitAsync();
 

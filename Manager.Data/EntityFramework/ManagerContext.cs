@@ -1,9 +1,7 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using Manager.Models.Generic;
+﻿using Manager.Models.Generic;
 using Manager.Models.GroupBuying;
 using Manager.Models.System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Data.EntityFramework
 {
@@ -15,10 +13,10 @@ namespace Manager.Data.EntityFramework
         /// <summary>
         /// 初始化 <see cref="ManagerContext"/> 類別的新執行個體。
         /// </summary>
-        public ManagerContext() : base("Manager")
+        public ManagerContext(DbContextOptions options) : base(options)
         {
-            Configuration.ProxyCreationEnabled = false;
-            Configuration.LazyLoadingEnabled = false;
+            //Configuration.ProxyCreationEnabled = false;
+            //Configuration.LazyLoadingEnabled = false;
         }
 
         /// <summary>
@@ -62,35 +60,34 @@ namespace Manager.Data.EntityFramework
         /// 但是可以在衍生類別中覆寫它，以便可以進一步設定此模型然後再將它鎖定。
         /// </summary>
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器。</param>
-        /// <exception cref="ArgumentNullException">模型的產生器為 null。</exception>
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (modelBuilder == null)
-                throw new ArgumentNullException(nameof(modelBuilder));
+            modelBuilder.Entity<Store>()
+                .HasOne(s => s.Updater)
+                .WithMany()
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<UserRole>(entity =>
+            {
+                entity.HasKey(x => new { x.UserId, x.RoleId });
+                entity.HasOne(x => x.User)
+                    .WithMany(u => u.UserRoles)
+                    .HasForeignKey(x => x.UserId);
+                entity.HasOne(x => x.Role)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(x => x.RoleId);
+            });
 
-            modelBuilder.Entity<Store>().HasRequired(s => s.Updater).WithMany().WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Roles)
-                .WithMany(r => r.Users)
-                .Map(m =>
-                {
-                    m.MapLeftKey("UserId");
-                    m.MapRightKey("RoleId");
-                    m.ToTable("UserRole", "System");
-                });
-
-            modelBuilder.Entity<Role>()
-                .HasMany(r => r.Menus)
-                .WithMany(m => m.Roles)
-                .Map(m =>
-                {
-                    m.MapLeftKey("RoleId");
-                    m.MapRightKey("MenuId");
-                    m.ToTable("RoleMenu", "System");
-                });
+            modelBuilder.Entity<RoleMenu>(entity =>
+            {
+                entity.HasKey(x => new { x.RoleId, x.MenuId });
+                entity.HasOne(x => x.Role)
+                    .WithMany(u => u.RoleMenus)
+                    .HasForeignKey(x => x.RoleId);
+                entity.HasOne(x => x.Menu)
+                    .WithMany(r => r.RoleMenus)
+                    .HasForeignKey(x => x.MenuId);
+            });
         }
     }
 }

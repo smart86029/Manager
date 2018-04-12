@@ -31,7 +31,7 @@ export class RoleService {
   }
 
   updateRole(role: Role): Observable<Role> {
-    return this.httpClient.put<Role>(`${this.rolesUrl}/${role.RoleId}`, role).pipe(
+    return this.httpClient.put<Role>(`${this.rolesUrl}/${role.roleId}`, role).pipe(
       catchError(this.handleError('updateRole', role))
     );
   }

@@ -7,6 +7,7 @@ using Manager.Common;
 using Manager.Data;
 using Manager.Models.System;
 using Manager.ViewModels.Tokens;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Manager.Services
@@ -16,9 +17,9 @@ namespace Manager.Services
     /// </summary>
     public class TokenService
     {
-        private const string Key = "D2089BE672953D1136FAA84079AF1B6F3967FED8932DABFFBA3032D30E3C0618";
         private const int ExpireMinutes = 120;
 
+        private IConfiguration config;
         private IUserRepository userRepository;
         private SymmetricSecurityKey securityKey;
 
@@ -26,10 +27,11 @@ namespace Manager.Services
         /// 初始化 <see cref="TokenService"/> 類別的新執行個體。
         /// </summary>
         /// <param name="userRepository">使用者倉儲。</param>
-        public TokenService(IUserRepository userRepository)
+        public TokenService(IConfiguration config, IUserRepository userRepository)
         {
+            this.config = config;
             this.userRepository = userRepository;
-            securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
+            securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
         }
 
         /// <summary>
@@ -40,24 +42,18 @@ namespace Manager.Services
         public async Task<string> CreateTokenAsync(CreateTokenQuery query)
         {
             var passwordHash = CryptographyUtility.Hash(query.Password);
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == query.UserName && u.PasswordHash == passwordHash, u => u.Roles);
+            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == query.UserName && u.PasswordHash == passwordHash);
             if (user == default(User))
                 return string.Empty;
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, user.UserName)
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(ExpireMinutes),
-                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature)
-            };
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(config["Jwt:Issuer"],
+                config["Jwt:Issuer"],
+                expires: DateTime.Now.AddMinutes(ExpireMinutes),
+                signingCredentials: credentials);
             var handler = new JwtSecurityTokenHandler();
-            var securityToken = handler.CreateToken(tokenDescriptor);
-            var token = handler.WriteToken(securityToken);
 
-            return token;
+            return handler.WriteToken(token);
         }
 
         /// <summary>
@@ -67,28 +63,29 @@ namespace Manager.Services
         /// <returns>宣告式身分識別。</returns>
         public ClaimsPrincipal GetPrincipal(string token)
         {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
-                if (jwtToken == null)
-                    return null;
+            return new ClaimsPrincipal();
+            //try
+            //{
+            //    var tokenHandler = new JwtSecurityTokenHandler();
+            //    var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+            //    if (jwtToken == null)
+            //        return null;
 
-                var validationParameters = new TokenValidationParameters
-                {
-                    RequireExpirationTime = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    IssuerSigningKey = securityKey
-                };
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validateToken);
+            //    var validationParameters = new TokenValidationParameters
+            //    {
+            //        RequireExpirationTime = true,
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false,
+            //        IssuerSigningKey = securityKey
+            //    };
+            //    var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validateToken);
 
-                return principal;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            //    return principal;
+            //}
+            //catch (Exception)
+            //{
+            //    return null;
+            //}
         }
     }
 }

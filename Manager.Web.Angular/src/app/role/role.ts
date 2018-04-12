@@ -1,8 +1,8 @@
 export class Role {
-  RoleId: number;
-  Name: string;
-  IsEnabled: boolean;
-  IsChecked: boolean;
+  roleId: number;
+  name: string;
+  isEnabled: boolean;
+  isChecked: boolean;
   Users: any;
   Menus: any;
 }

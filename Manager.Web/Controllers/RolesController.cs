@@ -1,19 +1,19 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Threading.Tasks;
 using Manager.Common;
-using Manager.Models;
 using Manager.Models.System;
 using Manager.Services;
-using Manager.Web.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers
 {
     /// <summary>
     /// 角色控制器。
     /// </summary>
-    [JwtAuthorize]
-    public class RolesController : ApiController
+    //[JwtAuthorize]
+    [Authorize]
+    [Route("api/[controller]")]
+    public class RolesController : Controller
     {
         private RoleService roleService;
 
@@ -27,10 +27,11 @@ namespace Manager.Web.Controllers
         }
 
         /// <summary>
-        /// 非同步取得所有角色。
+        /// 取得所有角色。
         /// </summary>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含所有角色。</returns>
-        public async Task<IHttpActionResult> Get()
+        /// <returns>所有角色。</returns>
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
             var roles = await roleService.GetRolesAsync();
 
@@ -38,11 +39,12 @@ namespace Manager.Web.Controllers
         }
 
         /// <summary>
-        /// 非同步取得角色。
+        /// 取得角色。
         /// </summary>
         /// <param name="id">角色ID。</param>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含角色。</returns>
-        public async Task<IHttpActionResult> Get(int id)
+        /// <returns>角色。</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
             var role = await roleService.GetRoleAsync(id);
 
@@ -53,11 +55,12 @@ namespace Manager.Web.Controllers
         }
 
         /// <summary>
-        /// 非同步新增角色。
+        /// 新增角色。
         /// </summary>
         /// <param name="role">角色。</param>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含 201 Created。</returns>
-        public async Task<IHttpActionResult> Post([FromBody]Role role)
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]Role role)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -68,12 +71,13 @@ namespace Manager.Web.Controllers
         }
 
         /// <summary>
-        /// 非同步修改角色。
+        /// 修改角色。
         /// </summary>
         /// <param name="id">角色ID。</param>
         /// <param name="role">角色。</param>
         /// <returns>表示非同步尋找作業的工作。 工作結果包含 204 NoContent。</returns>
-        public async Task<IHttpActionResult> Put(int id, [FromBody]Role role)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]Role role)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -82,19 +86,20 @@ namespace Manager.Web.Controllers
 
             await roleService.UpdateAsync(role, new string[0]);
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return NoContent();
         }
 
         /// <summary>
-        /// 非同步刪除角色。
+        /// 刪除角色。
         /// </summary>
         /// <param name="id">角色ID。</param>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含 204 NoContent。</returns>
-        public async Task<IHttpActionResult> Delete(int id)
+        /// <returns>204 NoContent。</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
             await roleService.DeleteAsync(id);
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return NoContent();
         }
     }
 }

@@ -16,9 +16,9 @@ namespace Manager.Services
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                   .Where(t => t.Name.EndsWith("Service"))
-                   .AsSelf()
-                   .InstancePerRequest();
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsSelf()
+                .InstancePerLifetimeScope();
         }
     }
 }

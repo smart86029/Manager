@@ -31,15 +31,17 @@ namespace Manager.Models.System
         public bool IsEnabled { get; set; }
 
         /// <summary>
-        /// 取得或設定使用者的集合。
+        /// 取得或設定使用者角色的集合。
         /// </summary>
-        /// <value>使用者的集合。</value>
-        public virtual ICollection<User> Users { get; set; } = new List<User>();
+        /// <value>使用者角色的集合。</value>
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 
         /// <summary>
-        /// 取得或設定菜單的集合。
+        /// 取得或設定角色菜單的集合。
         /// </summary>
-        /// <value>菜單的集合。</value>
-        public virtual ICollection<Menu> Menus { get; set; } = new List<Menu>();
+        /// <value>
+        /// 角色菜單的集合。
+        /// </value>
+        public virtual ICollection<RoleMenu> RoleMenus { get; set; } = new List<RoleMenu>();
     }
 }

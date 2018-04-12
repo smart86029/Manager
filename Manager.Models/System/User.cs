@@ -41,20 +41,18 @@ namespace Manager.Models.System
         /// 取得或設定商業實體ID。
         /// </summary>
         /// <value>商業實體ID。</value>
-        [Display(Name = "商業實體ID")]
         public int? BusinessEntityId { get; set; }
 
         /// <summary>
         /// 取得或設定商業實體。
         /// </summary>
         /// <value>商業實體。</value>
-        [ForeignKey("BusinessEntityId")]
         public virtual BusinessEntity BusinessEntity { get; set; }
 
         /// <summary>
-        /// 取得或設定角色的集合。
+        /// 取得或設定使用者角色的集合。
         /// </summary>
-        /// <value>角色的集合。</value>
-        public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+        /// <value>使用者角色的集合。</value>
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using Autofac;
 using Manager.Data.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Data
 {
@@ -18,10 +18,14 @@ namespace Manager.Data
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                   .Where(t => t.Name.EndsWith("Repository"))
-                   .AsImplementedInterfaces();
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
-            builder.RegisterType<ManagerContext>().As<DbContext>().InstancePerRequest();
+                .Where(t => t.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces();
+            builder.RegisterType<UnitOfWork>()
+                .As<IUnitOfWork>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ManagerContext>()
+                .As<DbContext>()
+                .InstancePerLifetimeScope();
         }
     }
 }

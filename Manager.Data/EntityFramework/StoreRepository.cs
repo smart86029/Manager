@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using Manager.Models.GroupBuying;
+﻿using Manager.Models.GroupBuying;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Data.EntityFramework
 {

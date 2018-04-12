@@ -36,7 +36,7 @@ export class StoreService {
   }
 
   updateStore(store: Store): Observable<Store> {
-    return this.httpClient.put<Store>(`${this.storesUrl}/${store.StoreId}`, store).pipe(
+    return this.httpClient.put<Store>(`${this.storesUrl}/${store.storeId}`, store).pipe(
       catchError(this.handleError('updateStore', store))
     );
   }

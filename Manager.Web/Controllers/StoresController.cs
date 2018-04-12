@@ -1,21 +1,22 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
+
 using Manager.Common;
 using Manager.Models;
 using Manager.Models.GroupBuying;
 using Manager.Services;
 using Manager.ViewModels.Stores;
-using Manager.Web.Helpers;
+//using Manager.Web.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers
 {
     /// <summary>
     /// 店家控制器。
     /// </summary>
-    [JwtAuthorize]
-    public class StoresController : ApiController
+    //[JwtAuthorize]
+    [Route("api/[controller]")]
+    public class StoresController : Controller
     {
         private StoreService storeService;
 
@@ -32,7 +33,8 @@ namespace Manager.Web.Controllers
         /// 取得所有店家。
         /// </summary>
         /// <returns>所有店家。</returns>
-        public async Task<IHttpActionResult> Get()
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
             var stores = await storeService.GetStoresAsync();
 
@@ -43,9 +45,9 @@ namespace Manager.Web.Controllers
         /// 取得店家。
         /// </summary>
         /// <param name="id">店家 ID。</param>
-        /// <returns>包含店家。</returns>
-        [ResponseType(typeof(StoreResult))]
-        public async Task<IHttpActionResult> Get(int id)
+        /// <returns>店家。</returns>
+        //[ResponseType(typeof(StoreResult))]
+        public async Task<IActionResult> Get(int id)
         {
             var store = await storeService.GetStoreAsync(id);
 
@@ -60,7 +62,7 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <param name="store">店家。</param>
         /// <returns>201 Created。</returns>
-        public async Task<IHttpActionResult> Post([FromBody]Store store)
+        public async Task<IActionResult> Post([FromBody]Store store)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -76,7 +78,7 @@ namespace Manager.Web.Controllers
         /// <param name="id">店家ID。</param>
         /// <param name="store">店家。</param>
         /// <returns>204 NoContent。</returns>
-        public async Task<IHttpActionResult> Put(int id, [FromBody]Store store)
+        public async Task<IActionResult> Put(int id, [FromBody]Store store)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -85,7 +87,7 @@ namespace Manager.Web.Controllers
 
             await storeService.UpdateAsync(store, new string[0]);
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return NoContent();
         }
 
         /// <summary>
@@ -93,11 +95,11 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <param name="id">店家ID。</param>
         /// <returns>204 NoContent。</returns>
-        public async Task<IHttpActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await storeService.DeleteAsync(id);
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return NoContent();
         }
     }
 }

@@ -30,7 +30,7 @@ export class AuthService {
     };
 
     return this.httpClient.post<string>(this.tokensUrl, body, httpOptions).pipe(
-      tap(token => localStorage.setItem(this.tokenKey, token)),
+      tap(data => localStorage.setItem(this.tokenKey, data['token'])),
       catchError(this.handleError('signIn', null))
     );
   }

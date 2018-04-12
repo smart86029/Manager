@@ -102,11 +102,11 @@ namespace Manager.Models.System
         public virtual Menu Parent { get; set; }
 
         /// <summary>
-        /// 取得或設定角色的集合。
+        /// 取得或設定角色菜單的集合。
         /// </summary>
         /// <value>
-        /// 角色的集合。
+        /// 角色菜單的集合。
         /// </value>
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<RoleMenu> RoleMenus { get; set; } = new List<RoleMenu>();
     }
 }
