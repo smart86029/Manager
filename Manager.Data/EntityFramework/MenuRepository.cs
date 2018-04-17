@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 菜單倉儲類別。
+    /// 菜單存放庫類別。
     /// </summary>
     public class MenuRepository : Repository<Menu>, IMenuRepository
     {

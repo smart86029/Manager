@@ -3,7 +3,7 @@
 namespace Manager.Data
 {
     /// <summary>
-    /// 店家倉儲介面。
+    /// 店家存放庫介面。
     /// </summary>
     public interface IStoreRepository : IRepository<Store>
     {

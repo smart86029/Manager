@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 using Manager.Common;
@@ -14,7 +15,6 @@ namespace Manager.Web.Controllers
     /// <summary>
     /// 店家控制器。
     /// </summary>
-    //[JwtAuthorize]
     [Route("api/[controller]")]
     public class StoresController : Controller
     {
@@ -34,6 +34,7 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <returns>所有店家。</returns>
         [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Store>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get()
         {
             var stores = await storeService.GetStoresAsync();
@@ -45,8 +46,9 @@ namespace Manager.Web.Controllers
         /// 取得店家。
         /// </summary>
         /// <param name="id">店家 ID。</param>
-        /// <returns>店家。</returns>
-        //[ResponseType(typeof(StoreResult))]
+        /// <returns>店家。</returns>     
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(StoreResult), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(int id)
         {
             var store = await storeService.GetStoreAsync(id);
@@ -60,14 +62,16 @@ namespace Manager.Web.Controllers
         /// <summary>
         /// 新增店家。
         /// </summary>
-        /// <param name="store">店家。</param>
+        /// <param name="query">新增店家查詢。</param>
         /// <returns>201 Created。</returns>
-        public async Task<IActionResult> Post([FromBody]Store store)
+        [HttpPost]
+        [ProducesResponseType(typeof(Store), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> Post([FromBody]CreateStoreQuery query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await storeService.CreateAsync(store);
+            var store = await storeService.CreateAsync(query);
 
             return CreatedAtRoute(Constant.RouteName, new { id = store.StoreId }, store);
         }
@@ -76,16 +80,18 @@ namespace Manager.Web.Controllers
         /// 修改店家。
         /// </summary>
         /// <param name="id">店家ID。</param>
-        /// <param name="store">店家。</param>
+        /// <param name="query">修改店家查詢。</param>
         /// <returns>204 NoContent。</returns>
-        public async Task<IActionResult> Put(int id, [FromBody]Store store)
+        [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> Put(int id, [FromBody]UpdateStoreQuery query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (id != store.StoreId)
+            if (id != query.StoreId)
                 return BadRequest();
 
-            await storeService.UpdateAsync(store, new string[0]);
+            await storeService.UpdateAsync(query);
 
             return NoContent();
         }
@@ -95,6 +101,8 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <param name="id">店家ID。</param>
         /// <returns>204 NoContent。</returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(int id)
         {
             await storeService.DeleteAsync(id);

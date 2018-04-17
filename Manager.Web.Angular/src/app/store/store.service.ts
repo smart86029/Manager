@@ -24,9 +24,7 @@ export class StoreService {
   }
 
   getNewStore(): Observable<Store> {
-    return this.httpClient.get<Store>(`${this.storesUrl}/new`).pipe(
-      catchError(this.handleError('getStore', null))
-    );
+    return of(new Store());
   }
 
   createStore(store: Store): Observable<Store> {

@@ -38,11 +38,19 @@
         <mat-table [dataSource]="store.products">
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
-            <mat-cell *matCellDef="let product">{{product.name}}</mat-cell>
+            <mat-cell *matCellDef="let product; let i = index;">
+              <mat-form-field>
+                <input matInput type="text" name="productName{{i}}" [(ngModel)]="product.name">
+              </mat-form-field>
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="price">
             <mat-header-cell *matHeaderCellDef>價格</mat-header-cell>
-            <mat-cell *matCellDef="let product">{{product.price}}</mat-cell>
+            <mat-cell *matCellDef="let product; let i = index;">
+              <mat-form-field>
+                <input matInput type="text" name="productPrice{{i}}" [(ngModel)]="product.price">
+              </mat-form-field>
+            </mat-cell>
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -53,5 +61,6 @@
         <button mat-button (click)="back()">返回</button>
       </mat-card-actions>
     </mat-card>
+
   </form>
 </div>

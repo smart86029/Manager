@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Manager.Common;
 using Manager.Models.System;
 using Manager.Services;
@@ -44,7 +45,7 @@ namespace Manager.Web.Controllers
         /// <param name="id">角色ID。</param>
         /// <returns>角色。</returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             var role = await roleService.GetRoleAsync(id);
 
@@ -59,7 +60,9 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <param name="role">角色。</param>
         /// <returns>201 Created。</returns>
+        /// <response code="201">Returns the newly-created item</response>
         [HttpPost]
+        [ProducesResponseType(typeof(Role), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Post([FromBody]Role role)
         {
             if (!ModelState.IsValid)
@@ -75,8 +78,9 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <param name="id">角色ID。</param>
         /// <param name="role">角色。</param>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含 204 NoContent。</returns>
+        /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Put(int id, [FromBody]Role role)
         {
             if (!ModelState.IsValid)
@@ -95,6 +99,7 @@ namespace Manager.Web.Controllers
         /// <param name="id">角色ID。</param>
         /// <returns>204 NoContent。</returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(int id)
         {
             await roleService.DeleteAsync(id);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 使用者倉儲。
+    /// 使用者存放庫。
     /// </summary>
     public class UserRepository : Repository<User>, IUserRepository
     {

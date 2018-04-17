@@ -20,7 +20,7 @@ namespace Manager.Services
         /// 初始化 <see cref="StoreService"/> 類別的新執行個體。
         /// </summary>
         /// <param name="unitOfWork">工作單元。</param>
-        /// <param name="storeRepository">店家倉儲。</param>
+        /// <param name="storeRepository">店家存放庫。</param>
         public StoreService(IUnitOfWork unitOfWork, IStoreRepository storeRepository)
         {
             this.unitOfWork = unitOfWork;
@@ -71,28 +71,53 @@ namespace Manager.Services
         /// <param name="store">要新增的店家。</param>
         /// <returns>新增成功傳回是，否則為否。</returns>
         /// <exception cref="ArgumentNullException"><paramref name="store"/> 為 null。</exception>
-        public async Task<bool> CreateAsync(Store store)
+        public async Task<Store> CreateAsync(CreateStoreQuery query)
         {
-            if (store == null)
-                throw new ArgumentNullException(nameof(store));
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
+
+            var store = new Store
+            {
+                Name = query.Name,
+                Description = query.Description,
+                Phone = query.Phone,
+                Address = query.Address,
+                Remark = query.Remark,
+                CreatedBy = 1,
+                CreatedOn = DateTime.Now,
+                UpdatedBy = 1,
+                UpdatedOn = DateTime.Now,
+                Products = query.Products.Select(p => new Product { Name = p.Name, Price = p.Price }).ToList()
+            };
 
             storeRepository.Create(store);
             await unitOfWork.CommitAsync();
 
-            return true;
+            return store;
         }
 
         /// <summary>
         /// 更新店家。
         /// </summary>
         /// <param name="store">要更新的店家。</param>
-        /// <param name="selectedUsers">使用者清單選擇的使用者。</param>
         /// <returns>更新成功傳回是，否則為否。</returns>
         /// <<exception cref="ArgumentNullException"><paramref name="store"/> 為 null。</exception>
-        public async Task<bool> UpdateAsync(Store store, string[] selectedUsers)
+        public async Task<bool> UpdateAsync(UpdateStoreQuery query)
         {
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
+
+            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == query.StoreId, s => s.Products);
             if (store == null)
-                throw new ArgumentNullException(nameof(store));
+                return false;
+
+            store.Name = query.Name;
+            store.Description = query.Description;
+            store.Phone = query.Phone;
+            store.Address = query.Address;
+            store.Remark = query.Remark;
+            store.UpdatedBy = 1;
+            store.UpdatedOn = DateTime.Now;
 
             storeRepository.Update(store);
             await unitOfWork.CommitAsync();

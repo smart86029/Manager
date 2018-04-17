@@ -26,7 +26,7 @@ namespace Manager.Services
         /// <summary>
         /// 初始化 <see cref="TokenService"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="userRepository">使用者倉儲。</param>
+        /// <param name="userRepository">使用者存放庫。</param>
         public TokenService(IConfiguration config, IUserRepository userRepository)
         {
             this.config = config;

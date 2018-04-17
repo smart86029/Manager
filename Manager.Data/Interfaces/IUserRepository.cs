@@ -3,7 +3,7 @@
 namespace Manager.Data
 {
     /// <summary>
-    /// 使用者倉儲介面。
+    /// 使用者存放庫介面。
     /// </summary>
     public interface IUserRepository : IRepository<User>
     {

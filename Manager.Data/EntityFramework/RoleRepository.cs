@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 角色倉儲。
+    /// 角色存放庫。
     /// </summary>
     public class RoleRepository : Repository<Role>, IRoleRepository
     {

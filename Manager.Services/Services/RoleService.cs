@@ -19,7 +19,7 @@ namespace Manager.Services
         /// 初始化 <see cref="RoleService"/> 類別的新執行個體。
         /// </summary>
         /// <param name="unitOfWork">工作單元。</param>
-        /// <param name="roleRepository">角色倉儲。</param>
+        /// <param name="roleRepository">角色存放庫。</param>
         public RoleService(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
         {
             this.unitOfWork = unitOfWork;

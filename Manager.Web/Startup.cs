@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Manager.Web
 {
@@ -47,6 +49,15 @@ namespace Manager.Web
             });
             services.AddMvc();
             services.AddDbContext<ManagerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ManagerDatabase")));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Manager API", Version = "v1" });
+                c.CustomSchemaIds(x => x.FullName);
+
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = Path.Combine(basePath, "Manager.Web.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ServiceModule());
@@ -64,6 +75,12 @@ namespace Manager.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Manager V1");
+            });
 
             app.UseAuthentication();
             app.UseMvc();

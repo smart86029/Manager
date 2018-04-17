@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
-
 using Manager.Common;
 using Manager.Models.System;
 using Manager.Services;
@@ -32,8 +32,8 @@ namespace Manager.Web.Controllers
         /// 取得所有使用者。
         /// </summary>
         /// <returns>所有使用者。</returns>
-        //[ResponseType(typeof(User))]
         [HttpGet]
+        [ProducesResponseType(typeof(ICollection<User>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get()
         {
             var users = await userService.GetUsersAsync();
@@ -46,8 +46,8 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <param name="id">使用者ID。</param>
         /// <returns>使用者。</returns>
-        //[ResponseType(typeof(UserResult))]
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(UserResult), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(int id)
         {
             var user = await userService.GetUserIncludeRolesAsync(id);
@@ -59,9 +59,8 @@ namespace Manager.Web.Controllers
         /// 取得新使用者。
         /// </summary>
         /// <returns>新使用者。</returns>
-        //[Route("api/Users/New")]
         [HttpGet("New")]
-        //[ResponseType(typeof(UserResult))]
+        [ProducesResponseType(typeof(UserResult), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetNew()
         {
             var user = await userService.GetNewUserAsync();
@@ -75,6 +74,7 @@ namespace Manager.Web.Controllers
         /// <param name="query">新增使用者查詢。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
+        [ProducesResponseType(typeof(User), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Post([FromBody]CreateUserQuery query)
         {
             if (!ModelState.IsValid)
@@ -92,6 +92,7 @@ namespace Manager.Web.Controllers
         /// <param name="query">更新使用者查詢。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Put(int id, [FromBody]UpdateUserQuery query)
         {
             if (!ModelState.IsValid)
@@ -110,6 +111,7 @@ namespace Manager.Web.Controllers
         /// <param name="id">使用者ID。</param>
         /// <returns>204 NoContent。</returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(int id)
         {
             await userService.DeleteAsync(id);

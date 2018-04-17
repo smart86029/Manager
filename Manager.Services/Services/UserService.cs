@@ -23,8 +23,8 @@ namespace Manager.Services
         /// 初始化 <see cref="UserService"/> 類別的新執行個體。
         /// </summary>
         /// <param name="unitOfWork">工作單元。</param>
-        /// <param name="userRepository">使用者倉儲。</param>
-        /// <param name="roleRepository">角色倉儲。</param>
+        /// <param name="userRepository">使用者存放庫。</param>
+        /// <param name="roleRepository">角色存放庫。</param>
         public UserService(IUnitOfWork unitOfWork, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.unitOfWork = unitOfWork;

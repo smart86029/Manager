@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 店家倉儲。
+    /// 店家存放庫。
     /// </summary>
     public class StoreRepository : Repository<Store>, IStoreRepository
     {
