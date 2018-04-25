@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Menu } from '../../menu';
 import { Theme } from '../../theme.enum';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -21,12 +22,16 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   private listener: () => void;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) { }
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private media: MediaMatcher,
+    private overlayContainer: OverlayContainer) { }
 
   ngOnInit(): void {
     this.listener = () => this.changeDetectorRef.detectChanges();
     this.showSidenav = this.media.matchMedia('(min-width: 1600px)');
     this.showSidenav.addListener(this.listener);
+    this.overlayContainer.getContainerElement().classList.add(this.selectedTheme);
   }
 
   ngOnDestroy(): void {
@@ -34,6 +39,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   changeTheme(theme: Theme): void {
+    this.overlayContainer.getContainerElement().classList.remove(this.selectedTheme);
+    this.overlayContainer.getContainerElement().classList.add(theme);
     this.selectedTheme = theme;
   }
 }

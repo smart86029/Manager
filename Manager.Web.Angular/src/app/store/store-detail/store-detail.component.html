@@ -35,21 +35,28 @@
             <textarea matInput name="remark" placeholder="備註" [(ngModel)]="store.remark"></textarea>
           </mat-form-field>
         </div>
-        <mat-table [dataSource]="store.products">
+        <mat-table [dataSource]="store.products" #tableProducts>
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
-            <mat-cell *matCellDef="let product; let i = index;">
-              <mat-form-field>
-                <input matInput type="text" name="productName{{i}}" [(ngModel)]="product.name">
-              </mat-form-field>
+            <mat-cell *matCellDef="let product;">
+              {{product.name}}
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="price">
             <mat-header-cell *matHeaderCellDef>價格</mat-header-cell>
+            <mat-cell *matCellDef="let product;">
+              {{product.price}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef>操作</mat-header-cell>
             <mat-cell *matCellDef="let product; let i = index;">
-              <mat-form-field>
-                <input matInput type="text" name="productPrice{{i}}" [(ngModel)]="product.price">
-              </mat-form-field>
+              <button mat-icon-button color="primary" (click)="editProduct(product)">
+                <mat-icon>create</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" (click)="deleteProduct(i)">
+                <mat-icon>delete_sweep</mat-icon>
+              </button>
             </mat-cell>
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

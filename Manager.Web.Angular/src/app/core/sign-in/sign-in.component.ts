@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { SharedModule} from '../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,7 +9,7 @@ import { SharedModule} from '../../shared/shared.module';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  userName: string ;
+  userName: string;
   password: string;
 
   constructor(public authService: AuthService, public router: Router) {

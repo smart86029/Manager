@@ -5,6 +5,7 @@ import { StoreListComponent } from './store-list/store-list.component';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreService } from './store.service';
 import { StoreDetailComponent } from './store-detail/store-detail.component';
+import { ProductDetailDialogComponent } from './product-detail-dialog/product-detail-dialog.component';
 
 @NgModule({
   imports: [
@@ -13,10 +14,14 @@ import { StoreDetailComponent } from './store-detail/store-detail.component';
   ],
   declarations: [
     StoreListComponent,
-    StoreDetailComponent
+    StoreDetailComponent,
+    ProductDetailDialogComponent
   ],
   providers: [
     StoreService
+  ],
+  entryComponents: [
+    ProductDetailDialogComponent
   ]
 })
 export class StoreModule { }

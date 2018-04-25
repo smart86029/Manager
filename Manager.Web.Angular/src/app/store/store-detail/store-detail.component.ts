@@ -1,8 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTable } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 
 import { SaveMode } from '../../shared/save-mode/save-mode.enum';
+import { Product } from '../product';
+import { ProductDetailDialogComponent } from '../product-detail-dialog/product-detail-dialog.component';
 import { Store } from '../store';
 import { StoreService } from '../store.service';
 
@@ -12,7 +15,9 @@ import { StoreService } from '../store.service';
   styleUrls: ['./store-detail.component.scss']
 })
 export class StoreDetailComponent implements OnInit {
-  displayedColumns = ['name', 'price'];
+  @ViewChild('tableProducts')
+  tableProducts: MatTable<Product>;
+  displayedColumns = ['name', 'price', 'action'];
   saveMode = SaveMode.Create;
   store = new Store();
   isLoading = true;
@@ -20,17 +25,18 @@ export class StoreDetailComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.saveMode = SaveMode.Update;
       this.storeService.getStore(id)
-        .subscribe(store => this.store = store, () => {}, () => this.isLoading = false);
+        .subscribe(store => this.store = store, () => { }, () => this.isLoading = false);
     } else {
       this.storeService.getNewStore()
-        .subscribe(store => this.store = store, () => {}, () => this.isLoading = false);
+        .subscribe(store => this.store = store, () => { }, () => this.isLoading = false);
     }
   }
 
@@ -47,6 +53,27 @@ export class StoreDetailComponent implements OnInit {
 
   back(): void {
     this.location.back();
+  }
+
+  editProduct(product: Product): void {
+    let dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+      data: {
+        name: product.name,
+        price: product.price
+      }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        product.name = data.name;
+        product.price = data.price;
+      }
+    });
+  }
+
+  deleteProduct(index: number): void {
+    this.store.products.splice(index, 1);
+    console.log(index);
+    this.tableProducts.renderRows();
   }
 
   private create(): void {

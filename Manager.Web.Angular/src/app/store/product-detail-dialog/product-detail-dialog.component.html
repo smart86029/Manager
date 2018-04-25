@@ -1,0 +1,19 @@
+<form>
+  <h2 matDialogTitle>修改商品</h2>
+  <mat-dialog-content>
+    <div>
+      <mat-form-field>
+        <input matInput type="text" name="productName" placeholder="名稱" [(ngModel)]="data.name">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput type="text" name="productPrice" placeholder="價格" [(ngModel)]="data.price">
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit" color="primary" [matDialogClose]="data">儲存</button>
+    <button mat-button type="button" matDialogClose>返回</button>
+  </mat-dialog-actions>
+</form>
