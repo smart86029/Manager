@@ -55,7 +55,22 @@ export class StoreDetailComponent implements OnInit {
     this.location.back();
   }
 
-  editProduct(product: Product): void {
+  createProduct(): void {
+    let dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        const product = new Product();
+        product.name = data.name;
+        product.price = data.price;
+        this.store.products.push(product);
+        this.tableProducts.renderRows();
+      }
+    });
+  }
+
+  updateProduct(product: Product): void {
     let dialogRef = this.dialog.open(ProductDetailDialogComponent, {
       data: {
         name: product.name,
@@ -72,7 +87,6 @@ export class StoreDetailComponent implements OnInit {
 
   deleteProduct(index: number): void {
     this.store.products.splice(index, 1);
-    console.log(index);
     this.tableProducts.renderRows();
   }
 
