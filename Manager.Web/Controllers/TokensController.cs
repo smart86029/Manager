@@ -36,7 +36,6 @@ namespace Manager.Web.Controllers
                 return Unauthorized();
 
             return Created(string.Empty, new { token = token });
-            return CreatedAtRoute(Constant.RouteName, new { id = 1 }, "aa");
         }
     }
 }

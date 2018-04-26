@@ -12,9 +12,11 @@ using Manager.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -58,6 +60,10 @@ namespace Manager.Web
                 var xmlPath = Path.Combine(basePath, "Manager.Web.xml");
                 c.IncludeXmlComments(xmlPath);
             });
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ServiceModule());
@@ -81,6 +87,9 @@ namespace Manager.Web
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Manager V1");
             });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseMvc();

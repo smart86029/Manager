@@ -118,6 +118,22 @@ namespace Manager.Services
             store.Remark = query.Remark;
             store.UpdatedBy = 1;
             store.UpdatedOn = DateTime.Now;
+            store.Products = query.Products.Select(p =>
+            {
+                if (p.ProductId == 0)
+                    return new Product
+                    {
+                        ProductId = p.ProductId,
+                        Name = p.Name,
+                        Price = p.Price,
+                        StoreId = store.StoreId
+                    };
+
+                var product = store.Products.Single(x => x.ProductId == p.ProductId);
+                product.Name = p.Name;
+                product.Price = p.Price;
+                return product;
+            }).ToList();
 
             storeRepository.Update(store);
             await unitOfWork.CommitAsync();
