@@ -7,6 +7,15 @@
   <ItemGroup>
     <Compile Remove="Migrations\20180411153151_Initial.cs" />
     <Compile Remove="Migrations\20180412112818_Initial.cs" />
+    <Compile Remove="Migrations\20180412130156_Initial.cs" />
+    <Compile Remove="Migrations\20180427063807_Group.cs" />
+    <Compile Remove="Migrations\20180427070135_Initial.cs" />
+    <Compile Remove="Migrations\20180427073032_Initial.cs" />
+    <Compile Remove="Migrations\20180427073324_Group.cs" />
+    <Compile Remove="Migrations\20180427073449_Group.cs" />
+    <Compile Remove="Migrations\20180427092420_Initial.cs" />
+    <Compile Remove="Migrations\20180427092525_Initial.cs" />
+    <Compile Remove="Migrations\20180427092709_Initial.cs" />
   </ItemGroup>
 
   <ItemGroup>

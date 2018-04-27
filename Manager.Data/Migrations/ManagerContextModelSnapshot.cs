@@ -75,15 +75,9 @@ namespace Manager.Data.Migrations
                     b.Property<string>("Remark")
                         .HasMaxLength(512);
 
-                    b.Property<int>("UpdatedBy");
-
-                    b.Property<DateTime>("UpdatedOn");
-
                     b.HasKey("StoreId");
 
                     b.HasIndex("CreatedBy");
-
-                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("Store","GroupBuying");
                 });
@@ -131,7 +125,7 @@ namespace Manager.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(32);
 
                     b.HasKey("RoleId");
 
@@ -200,10 +194,6 @@ namespace Manager.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Manager.Models.System.User", "Updater")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
                 });
 
             modelBuilder.Entity("Manager.Models.System.Menu", b =>

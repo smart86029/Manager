@@ -11,7 +11,6 @@ namespace Manager.Web.Controllers
     /// <summary>
     /// 角色控制器。
     /// </summary>
-    //[JwtAuthorize]
     [Authorize]
     [Route("api/[controller]")]
     public class RolesController : Controller
@@ -45,7 +44,7 @@ namespace Manager.Web.Controllers
         /// <param name="id">角色ID。</param>
         /// <returns>角色。</returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var role = await roleService.GetRoleAsync(id);
 

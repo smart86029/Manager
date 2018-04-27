@@ -14,7 +14,6 @@ namespace Manager.Models.System
         /// 取得或設定主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        [Display(Name = "ID")]
         public int MenuId { get; set; }
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace Manager.Models.System
         /// 取得或設定區域。
         /// </summary>
         /// <value>區域。</value>
-        [Display(Name = "區域")]
         [StringLength(50, ErrorMessage = "長度不可超過 50")]
         public string Area { get; set; }
 
@@ -39,7 +37,6 @@ namespace Manager.Models.System
         /// <value>
         /// 控制器。
         /// </value>
-        [Display(Name = "控制器")]
         [StringLength(50, ErrorMessage = "長度不可超過 50")]
         public string Controller { get; set; }
 
@@ -49,7 +46,6 @@ namespace Manager.Models.System
         /// <value>
         /// 動作。
         /// </value>
-        [Display(Name = "動作")]
         [StringLength(50, ErrorMessage = "長度不可超過 50")]
         public string Action { get; set; }
 
@@ -59,7 +55,6 @@ namespace Manager.Models.System
         /// <value>
         /// 描述。
         /// </value>
-        [Display(Name = "描述")]
         [StringLength(100, ErrorMessage = "長度不可超過 100")]
         public string Description { get; set; }
 
@@ -69,8 +64,6 @@ namespace Manager.Models.System
         /// <value>
         /// 排序。
         /// </value>
-        [Display(Name = "排序")]
-        [Required]
         public int Order { get; set; }
 
         /// <summary>
@@ -79,8 +72,6 @@ namespace Manager.Models.System
         /// <value>
         /// 如果啟用則為 <c>true</c>，否則為 <c>false</c>。
         /// </value>
-        [Display(Name = "是否啟用")]
-        [Required]
         public bool IsEnabled { get; set; }
 
         /// <summary>
@@ -89,7 +80,6 @@ namespace Manager.Models.System
         /// <value>
         /// 父節點ID。
         /// </value>
-        [Display(Name = "父節點ID")]
         public int? ParentId { get; set; }
 
         /// <summary>
@@ -99,7 +89,7 @@ namespace Manager.Models.System
         /// 父節點。
         /// </value>
         [ForeignKey("ParentId")]
-        public virtual Menu Parent { get; set; }
+        public Menu Parent { get; set; }
 
         /// <summary>
         /// 取得或設定角色菜單的集合。
@@ -107,6 +97,6 @@ namespace Manager.Models.System
         /// <value>
         /// 角色菜單的集合。
         /// </value>
-        public virtual ICollection<RoleMenu> RoleMenus { get; set; } = new List<RoleMenu>();
+        public ICollection<RoleMenu> RoleMenus { get; set; } = new List<RoleMenu>();
     }
 }

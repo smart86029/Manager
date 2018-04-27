@@ -67,7 +67,7 @@ namespace Manager.Data.Migrations
                     RoleId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsEnabled = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(maxLength: 20, nullable: false)
+                    Name = table.Column<string>(maxLength: 32, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,9 +138,7 @@ namespace Manager.Data.Migrations
                     Description = table.Column<string>(maxLength: 512, nullable: true),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     Phone = table.Column<string>(maxLength: 32, nullable: true),
-                    Remark = table.Column<string>(maxLength: 512, nullable: true),
-                    UpdatedBy = table.Column<int>(nullable: false),
-                    UpdatedOn = table.Column<DateTime>(nullable: false)
+                    Remark = table.Column<string>(maxLength: 512, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -152,13 +150,6 @@ namespace Manager.Data.Migrations
                         principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Store_User_UpdatedBy",
-                        column: x => x.UpdatedBy,
-                        principalSchema: "System",
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,12 +213,6 @@ namespace Manager.Data.Migrations
                 schema: "GroupBuying",
                 table: "Store",
                 column: "CreatedBy");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Store_UpdatedBy",
-                schema: "GroupBuying",
-                table: "Store",
-                column: "UpdatedBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Menu_ParentId",

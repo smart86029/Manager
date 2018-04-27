@@ -24,12 +24,12 @@ namespace Manager.Models.System
         /// 取得或設定角色。
         /// </summary>
         /// <value>角色。</value>
-        public virtual Role Role { get; set; }
+        public Role Role { get; set; }
 
         /// <summary>
         /// 取得或設定菜單。
         /// </summary>
         /// <value>菜單。</value>
-        public virtual Menu Menu { get; set; }
+        public Menu Menu { get; set; }
     }
 }

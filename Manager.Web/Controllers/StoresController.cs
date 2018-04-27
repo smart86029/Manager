@@ -7,6 +7,7 @@ using Manager.Models;
 using Manager.Models.GroupBuying;
 using Manager.Services;
 using Manager.ViewModels.Stores;
+using Microsoft.AspNetCore.Authorization;
 //using Manager.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace Manager.Web.Controllers
     /// <summary>
     /// 店家控制器。
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     public class StoresController : Controller
     {

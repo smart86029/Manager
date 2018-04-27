@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Manager.Common;
 using Manager.Services;
 using Manager.ViewModels.Tokens;
 using Microsoft.AspNetCore.Mvc;

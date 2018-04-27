@@ -85,8 +85,6 @@ namespace Manager.Services
                 Remark = query.Remark,
                 CreatedBy = 1,
                 CreatedOn = DateTime.Now,
-                UpdatedBy = 1,
-                UpdatedOn = DateTime.Now,
                 Products = query.Products.Select(p => new Product { Name = p.Name, Price = p.Price }).ToList()
             };
 
@@ -116,8 +114,6 @@ namespace Manager.Services
             store.Phone = query.Phone;
             store.Address = query.Address;
             store.Remark = query.Remark;
-            store.UpdatedBy = 1;
-            store.UpdatedOn = DateTime.Now;
             store.Products = query.Products.Select(p =>
             {
                 if (p.ProductId == 0)

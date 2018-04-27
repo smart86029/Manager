@@ -39,7 +39,6 @@ namespace Manager.Models.GroupBuying
         /// 取得或設定店家。
         /// </summary>
         /// <value>店家。</value>
-        [ForeignKey(nameof(StoreId))]
         public virtual Store Store { get; set; }
     }
 }

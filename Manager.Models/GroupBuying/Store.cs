@@ -67,35 +67,22 @@ namespace Manager.Models.GroupBuying
         public DateTime CreatedOn { get; set; }
 
         /// <summary>
-        /// 取得或設定修改者 ID。
-        /// </summary>
-        /// <value>修改者 ID。</value>
-        public int UpdatedBy { get; set; }
-
-        /// <summary>
-        /// 取得或設定修改者。
-        /// </summary>
-        /// <value>修改者。</value>
-        public DateTime UpdatedOn { get; set; }
-
-        /// <summary>
         /// 取得或設定建立者。
         /// </summary>
         /// <value>建立者。</value>
         [ForeignKey(nameof(CreatedBy))]
-        public virtual User Creator { get; set; }
+        public User Creator { get; set; }
 
         /// <summary>
-        /// 取得或設定修改者。
-        /// </summary>
-        /// <value>修改者。</value>
-        [ForeignKey(nameof(UpdatedBy))]
-        public virtual User Updater { get; set; }
-
-        /// <summary>
-        /// 取得或設定商品。
+        /// 取得或設定商品的集合。
         /// </summary>
         /// <value>商品。</value>
-        public virtual ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
+
+        ///// <summary>
+        ///// 取得或設定團店家的集合。
+        ///// </summary>
+        ///// <value>團店家的集合。</value>
+        //public ICollection<GroupStore> GroupStores { get; set; } = new List<GroupStore>();
     }
 }

@@ -20,16 +20,22 @@ namespace Manager.Data.EntityFramework
         }
 
         /// <summary>
-        /// 取得或設定店家的集合。
+        /// 取得或設定團的集合。
         /// </summary>
-        /// <value>店家的集合。</value>
-        public DbSet<Store> Stores { get; set; }
+        /// <value>團的集合。</value>
+        //public DbSet<Group> Groups { get; set; }
 
         /// <summary>
         /// 取得或設定商品的集合。
         /// </summary>
         /// <value>商品的集合。</value>
         public DbSet<Product> Products { get; set; }
+
+        /// <summary>
+        /// 取得或設定店家的集合。
+        /// </summary>
+        /// <value>店家的集合。</value>
+        public DbSet<Store> Stores { get; set; }
 
         /// <summary>
         /// 取得或設定商業實體的集合。
@@ -62,32 +68,14 @@ namespace Manager.Data.EntityFramework
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器。</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Store>()
-                .HasOne(s => s.Updater)
-                .WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull);
+            //modelBuilder.Entity<GroupStore>()
+            //    .HasKey(x => new { x.GroupId, x.StoreId });
 
-            modelBuilder.Entity<UserRole>(entity =>
-            {
-                entity.HasKey(x => new { x.UserId, x.RoleId });
-                entity.HasOne(x => x.User)
-                    .WithMany(u => u.UserRoles)
-                    .HasForeignKey(x => x.UserId);
-                entity.HasOne(x => x.Role)
-                    .WithMany(r => r.UserRoles)
-                    .HasForeignKey(x => x.RoleId);
-            });
+            modelBuilder.Entity<UserRole>()
+                .HasKey(x => new { x.UserId, x.RoleId });
 
-            modelBuilder.Entity<RoleMenu>(entity =>
-            {
-                entity.HasKey(x => new { x.RoleId, x.MenuId });
-                entity.HasOne(x => x.Role)
-                    .WithMany(u => u.RoleMenus)
-                    .HasForeignKey(x => x.RoleId);
-                entity.HasOne(x => x.Menu)
-                    .WithMany(r => r.RoleMenus)
-                    .HasForeignKey(x => x.MenuId);
-            });
+            modelBuilder.Entity<RoleMenu>()
+                .HasKey(x => new { x.RoleId, x.MenuId });
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Manager.Data.EntityFramework
 
             var stores = new List<Store>
             {
-                new Store { Name = "韓膳宮", Description = "測試der", Phone = "2658-2882", Address = "台北市內湖區江南街117號", CreatedBy = 1, CreatedOn = DateTime.Now, UpdatedBy = 1, UpdatedOn = DateTime.Now }
+                new Store { Name = "韓膳宮", Description = "測試der", Phone = "2658-2882", Address = "台北市內湖區江南街117號", CreatedBy = 1, CreatedOn = DateTime.Now }
             };
             stores.ForEach(s => context.Stores.Add(s));
             context.SaveChanges();
