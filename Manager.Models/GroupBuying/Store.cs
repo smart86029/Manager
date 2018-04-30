@@ -79,10 +79,10 @@ namespace Manager.Models.GroupBuying
         /// <value>商品。</value>
         public ICollection<Product> Products { get; set; } = new List<Product>();
 
-        ///// <summary>
-        ///// 取得或設定團店家的集合。
-        ///// </summary>
-        ///// <value>團店家的集合。</value>
-        //public ICollection<GroupStore> GroupStores { get; set; } = new List<GroupStore>();
+        /// <summary>
+        /// 取得或設定團店家的集合。
+        /// </summary>
+        /// <value>團店家的集合。</value>
+        public ICollection<GroupStore> GroupStores { get; set; } = new List<GroupStore>();
     }
 }

@@ -68,8 +68,20 @@ namespace Manager.Data.EntityFramework
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器。</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<GroupStore>()
-            //    .HasKey(x => new { x.GroupId, x.StoreId });
+            modelBuilder.Entity<Group>()
+                .HasOne(x => x.Creator)
+                .WithMany()
+                .HasForeignKey(x => x.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Store>()
+                .HasOne(x => x.Creator)
+                .WithMany()
+                .HasForeignKey(x => x.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GroupStore>()
+                .HasKey(x => new { x.GroupId, x.StoreId });
 
             modelBuilder.Entity<UserRole>()
                 .HasKey(x => new { x.UserId, x.RoleId });
