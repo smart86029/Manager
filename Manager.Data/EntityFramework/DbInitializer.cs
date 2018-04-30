@@ -54,12 +54,14 @@ namespace Manager.Data.EntityFramework
             stores.ForEach(s => context.Stores.Add(s));
             context.SaveChanges();
 
-            var productCategory = new List<ProductCategory>
+            var productCategories = new List<ProductCategory>
             {
                 new ProductCategory { Name = "飯類", StoreId = 1 },
                 new ProductCategory { Name = "鍋類", StoreId = 1 },
                 new ProductCategory { Name = "特色餐點", StoreId = 1 },
             };
+            productCategories.ForEach(x => context.Add(x));
+            context.SaveChanges();
 
             var products = new List<Product>
             {

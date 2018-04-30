@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Manager.Models.GroupBuying
@@ -34,5 +35,11 @@ namespace Manager.Models.GroupBuying
         /// </summary>
         /// <value>店家。</value>
         public Store Store { get; set; }
+
+        /// <summary>
+        /// 取得或設定商品的集合。
+        /// </summary>
+        /// <value>商品的集合。</value>
+        public ICollection<Product> Products { get; set; }
     }
 }

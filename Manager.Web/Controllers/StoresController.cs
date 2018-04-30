@@ -16,7 +16,7 @@ namespace Manager.Web.Controllers
     /// <summary>
     /// 店家控制器。
     /// </summary>
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     public class StoresController : Controller
     {

@@ -10,7 +10,14 @@ namespace Manager.ViewModels.Stores
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Remark { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; }
+
+        public class ProductCategory
+        {
+            public int ProductCategoryId { get; set; }
+            public string Name { get; set; }
+            public ICollection<Product> Products { get; set; }
+        }
 
         public class Product
         {
