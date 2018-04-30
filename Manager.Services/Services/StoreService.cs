@@ -34,7 +34,7 @@ namespace Manager.Services
         /// <returns>符合的店家。</returns>
         public async Task<StoreResult> GetStoreAsync(int id)
         {
-            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == id, s => s.Products);
+            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == id, s => s.ProductCategories);
             var result = new StoreResult
             {
                 StoreId = store.StoreId,
@@ -43,12 +43,12 @@ namespace Manager.Services
                 Phone = store.Phone,
                 Address = store.Address,
                 Remark = store.Remark,
-                Products = store.Products.Select(p => new StoreResult.Product
-                {
-                    ProductId = p.ProductId,
-                    Name = p.Name,
-                    Price = p.Price
-                }).ToList()
+                //Products = store.Products.Select(p => new StoreResult.Product
+                //{
+                //    ProductId = p.ProductId,
+                //    Name = p.Name,
+                //    Price = p.Price
+                //}).ToList()
             };
 
             return result;
@@ -85,7 +85,7 @@ namespace Manager.Services
                 Remark = query.Remark,
                 CreatedBy = 1,
                 CreatedOn = DateTime.Now,
-                Products = query.Products.Select(p => new Product { Name = p.Name, Price = p.Price }).ToList()
+                //Products = query.Products.Select(p => new Product { Name = p.Name, Price = p.Price }).ToList()
             };
 
             storeRepository.Create(store);
@@ -105,7 +105,7 @@ namespace Manager.Services
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == query.StoreId, s => s.Products);
+            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == query.StoreId, s => s.ProductCategories);
             if (store == null)
                 return false;
 
@@ -114,22 +114,22 @@ namespace Manager.Services
             store.Phone = query.Phone;
             store.Address = query.Address;
             store.Remark = query.Remark;
-            store.Products = query.Products.Select(p =>
-            {
-                if (p.ProductId == 0)
-                    return new Product
-                    {
-                        ProductId = p.ProductId,
-                        Name = p.Name,
-                        Price = p.Price,
-                        StoreId = store.StoreId
-                    };
+            //store.Products = query.Products.Select(p =>
+            //{
+            //    if (p.ProductId == 0)
+            //        return new Product
+            //        {
+            //            ProductId = p.ProductId,
+            //            Name = p.Name,
+            //            Price = p.Price,
+            //            StoreId = store.StoreId
+            //        };
 
-                var product = store.Products.Single(x => x.ProductId == p.ProductId);
-                product.Name = p.Name;
-                product.Price = p.Price;
-                return product;
-            }).ToList();
+            //    var product = store.Products.Single(x => x.ProductId == p.ProductId);
+            //    product.Name = p.Name;
+            //    product.Price = p.Price;
+            //    return product;
+            //}).ToList();
 
             storeRepository.Update(store);
             await unitOfWork.CommitAsync();

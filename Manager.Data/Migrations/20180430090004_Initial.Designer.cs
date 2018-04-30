@@ -11,8 +11,8 @@ using System;
 namespace Manager.Data.Migrations
 {
     [DbContext(typeof(ManagerContext))]
-    [Migration("20180430061314_Group")]
-    partial class Group
+    [Migration("20180430090004_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,13 +78,31 @@ namespace Manager.Data.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int>("StoreId");
+                    b.Property<int>("ProductCategoryId");
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("StoreId");
+                    b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Product","GroupBuying");
+                });
+
+            modelBuilder.Entity("Manager.Models.GroupBuying.ProductCategory", b =>
+                {
+                    b.Property<int>("ProductCategoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32);
+
+                    b.Property<int>("StoreId");
+
+                    b.HasKey("ProductCategoryId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("ProductCategory","GroupBuying");
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.Store", b =>
@@ -240,8 +258,16 @@ namespace Manager.Data.Migrations
 
             modelBuilder.Entity("Manager.Models.GroupBuying.Product", b =>
                 {
+                    b.HasOne("Manager.Models.GroupBuying.ProductCategory", "ProductCategory")
+                        .WithMany()
+                        .HasForeignKey("ProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Manager.Models.GroupBuying.ProductCategory", b =>
+                {
                     b.HasOne("Manager.Models.GroupBuying.Store", "Store")
-                        .WithMany("Products")
+                        .WithMany("ProductCategories")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

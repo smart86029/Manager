@@ -74,10 +74,10 @@ namespace Manager.Models.GroupBuying
         public User Creator { get; set; }
 
         /// <summary>
-        /// 取得或設定商品的集合。
+        /// 取得或設定商品分類的集合。
         /// </summary>
-        /// <value>商品。</value>
-        public ICollection<Product> Products { get; set; } = new List<Product>();
+        /// <value>商品分類。</value>
+        public ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
         /// <summary>
         /// 取得或設定團店家的集合。

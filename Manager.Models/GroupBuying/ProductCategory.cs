@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Manager.Models.GroupBuying
 {
     /// <summary>
-    /// 商品。
+    /// 商品分類。
     /// </summary>
-    [Table("Product", Schema = "GroupBuying")]
-    public class Product
+    [Table("ProductCategory", Schema = "GroupBuying")]
+    public class ProductCategory
     {
         /// <summary>
         /// 取得或設定主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        public int ProductId { get; set; }
+        public int ProductCategoryId { get; set; }
 
         /// <summary>
         /// 取得或設定名稱。
@@ -24,21 +24,15 @@ namespace Manager.Models.GroupBuying
         public string Name { get; set; }
 
         /// <summary>
-        /// 取得或設定價格。
+        /// 取得或設定店家 ID。
         /// </summary>
-        /// <value>價格。</value>
-        public decimal Price { get; set; }
+        /// <value>店家 ID。</value>
+        public int StoreId { get; set; }
 
         /// <summary>
-        /// 取得或設定商品分類 ID。
+        /// 取得或設定店家。
         /// </summary>
-        /// <value>商品分類 ID。</value>
-        public int ProductCategoryId { get; set; }
-
-        /// <summary>
-        /// 取得或設定商品分類。
-        /// </summary>
-        /// <value>商品分類。</value>
-        public ProductCategory ProductCategory { get; set; }
+        /// <value>店家。</value>
+        public Store Store { get; set; }
     }
 }
