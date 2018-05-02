@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Manager.Data.Migrations
 {
     [DbContext(typeof(ManagerContext))]
-    partial class ManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20180502025103_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,6 +75,8 @@ namespace Manager.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
+                    b.Property<decimal>("Price");
+
                     b.Property<int>("ProductCategoryId");
 
                     b.HasKey("ProductId");
@@ -99,56 +102,6 @@ namespace Manager.Data.Migrations
                     b.HasIndex("StoreId");
 
                     b.ToTable("ProductCategory","GroupBuying");
-                });
-
-            modelBuilder.Entity("Manager.Models.GroupBuying.ProductItem", b =>
-                {
-                    b.Property<int>("ProductItemId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(32);
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("ProductItemId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductItem","GroupBuying");
-                });
-
-            modelBuilder.Entity("Manager.Models.GroupBuying.ProductOption", b =>
-                {
-                    b.Property<int>("ProductOptionId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32);
-
-                    b.Property<int>("ProductOptionType");
-
-                    b.HasKey("ProductOptionId");
-
-                    b.HasIndex("ProductOptionType");
-
-                    b.ToTable("ProductOption","GroupBuying");
-                });
-
-            modelBuilder.Entity("Manager.Models.GroupBuying.ProductProductOption", b =>
-                {
-                    b.Property<int>("ProductId");
-
-                    b.Property<int>("ProductOptionId");
-
-                    b.HasKey("ProductId", "ProductOptionId");
-
-                    b.HasIndex("ProductOptionId");
-
-                    b.ToTable("ProductProductOption","GroupBuying");
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.Store", b =>
@@ -315,27 +268,6 @@ namespace Manager.Data.Migrations
                     b.HasOne("Manager.Models.GroupBuying.Store", "Store")
                         .WithMany("ProductCategories")
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Manager.Models.GroupBuying.ProductItem", b =>
-                {
-                    b.HasOne("Manager.Models.GroupBuying.Product")
-                        .WithMany("ProductItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Manager.Models.GroupBuying.ProductProductOption", b =>
-                {
-                    b.HasOne("Manager.Models.GroupBuying.Product", "Product")
-                        .WithMany("ProductProductOptions")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Manager.Models.GroupBuying.ProductOption", "ProductOption")
-                        .WithMany("ProductProductOptions")
-                        .HasForeignKey("ProductOptionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

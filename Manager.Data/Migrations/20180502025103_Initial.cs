@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Manager.Data.Migrations
 {
@@ -38,13 +38,13 @@ namespace Manager.Data.Migrations
                 {
                     MenuId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Action = table.Column<string>(maxLength: 50, nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
                     Area = table.Column<string>(maxLength: 50, nullable: true),
                     Controller = table.Column<string>(maxLength: 50, nullable: true),
+                    Action = table.Column<string>(maxLength: 50, nullable: true),
                     Description = table.Column<string>(maxLength: 100, nullable: true),
-                    IsEnabled = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
                     Order = table.Column<int>(nullable: false),
+                    IsEnabled = table.Column<bool>(nullable: false),
                     ParentId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -66,8 +66,8 @@ namespace Manager.Data.Migrations
                 {
                     RoleId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsEnabled = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(maxLength: 32, nullable: false)
+                    Name = table.Column<string>(maxLength: 32, nullable: false),
+                    IsEnabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,10 +81,10 @@ namespace Manager.Data.Migrations
                 {
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BusinessEntityId = table.Column<int>(nullable: true),
-                    IsEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 32, nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(maxLength: 32, nullable: false)
+                    IsEnabled = table.Column<bool>(nullable: false),
+                    BusinessEntityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -132,11 +132,11 @@ namespace Manager.Data.Migrations
                 {
                     GroupId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
                     Remark = table.Column<string>(maxLength: 512, nullable: true),
-                    StartTime = table.Column<DateTime>(nullable: false)
+                    CreatedBy = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,13 +157,13 @@ namespace Manager.Data.Migrations
                 {
                     StoreId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Address = table.Column<string>(maxLength: 128, nullable: true),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(maxLength: 512, nullable: true),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
+                    Description = table.Column<string>(maxLength: 512, nullable: true),
                     Phone = table.Column<string>(maxLength: 32, nullable: true),
-                    Remark = table.Column<string>(maxLength: 512, nullable: true)
+                    Address = table.Column<string>(maxLength: 128, nullable: true),
+                    Remark = table.Column<string>(maxLength: 512, nullable: true),
+                    CreatedBy = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

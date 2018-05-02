@@ -65,22 +65,22 @@ namespace Manager.Data.EntityFramework
 
             var products = new List<Product>
             {
-                new Product { Name = "韓式牛肉烤肉飯", Price = 90, ProductCategoryId = 1 },
-                new Product { Name = "韓式豬肉烤肉飯", Price = 90, ProductCategoryId = 1 },
-                new Product { Name = "韓式牛肉拌飯", Price = 90, ProductCategoryId = 1 },
-                new Product { Name = "韓式豬肉拌飯", Price = 90, ProductCategoryId = 1 },
-                new Product { Name = "韓式辣雞拌飯", Price = 90, ProductCategoryId = 1 },
-                new Product { Name = "香腸泡菜炒飯", Price = 130, ProductCategoryId = 1 },
-                new Product { Name = "鮪魚泡菜炒飯", Price = 130, ProductCategoryId = 1 },
-                new Product { Name = "海鮮豆腐鍋", Price = 130, ProductCategoryId = 2 },
-                new Product { Name = "海鮮泡菜鍋", Price = 130, ProductCategoryId = 2 },
-                new Product { Name = "大醬湯飯鍋", Price = 130, ProductCategoryId = 2 },
-                new Product { Name = "豆腐辣湯鍋", Price = 130, ProductCategoryId = 2 },
-                new Product { Name = "部隊鍋", Price = 150, ProductCategoryId = 2 },
-                new Product { Name = "辣炒泡麵", Price = 100, ProductCategoryId = 3 },
-                new Product { Name = "海鮮炒麵", Price = 140, ProductCategoryId = 3 },
-                new Product { Name = "辣炒年糕", Price = 130, ProductCategoryId = 3 },
-                new Product { Name = "海鮮煎餅", Price = 150, ProductCategoryId = 3 },
+                new Product { Name = "韓式牛肉烤肉飯", ProductItems = new List<ProductItem> { new ProductItem { Price = 90 } }, ProductCategoryId = 1 },
+                new Product { Name = "韓式豬肉烤肉飯", ProductItems = new List<ProductItem> { new ProductItem { Price = 90 } }, ProductCategoryId = 1 },
+                new Product { Name = "韓式牛肉拌飯", ProductItems = new List<ProductItem> { new ProductItem { Price = 90 } }, ProductCategoryId = 1 },
+                new Product { Name = "韓式豬肉拌飯", ProductItems = new List<ProductItem> { new ProductItem { Price = 90 } }, ProductCategoryId = 1 },
+                new Product { Name = "韓式辣雞拌飯", ProductItems = new List<ProductItem> { new ProductItem { Price = 90 } }, ProductCategoryId = 1 },
+                new Product { Name = "香腸泡菜炒飯", ProductItems = new List<ProductItem> { new ProductItem { Price = 130 } }, ProductCategoryId = 1 },
+                new Product { Name = "鮪魚泡菜炒飯", ProductItems = new List<ProductItem> { new ProductItem { Price = 130 } }, ProductCategoryId = 1 },
+                new Product { Name = "海鮮豆腐鍋", ProductItems = new List<ProductItem> { new ProductItem { Price = 130 } }, ProductCategoryId = 2 },
+                new Product { Name = "海鮮泡菜鍋", ProductItems = new List<ProductItem> { new ProductItem { Price = 130 } }, ProductCategoryId = 2 },
+                new Product { Name = "大醬湯飯鍋", ProductItems = new List<ProductItem> { new ProductItem { Price = 130 } }, ProductCategoryId = 2 },
+                new Product { Name = "豆腐辣湯鍋", ProductItems = new List<ProductItem> { new ProductItem { Price = 130 } }, ProductCategoryId = 2 },
+                new Product { Name = "部隊鍋", ProductItems = new List<ProductItem> { new ProductItem { Price = 150 } }, ProductCategoryId = 2 },
+                new Product { Name = "辣炒泡麵", ProductItems = new List<ProductItem> { new ProductItem { Price = 100 } }, ProductCategoryId = 3 },
+                new Product { Name = "海鮮炒麵", ProductItems = new List<ProductItem> { new ProductItem { Price = 140 } }, ProductCategoryId = 3 },
+                new Product { Name = "辣炒年糕", ProductItems = new List<ProductItem> { new ProductItem { Price = 130 } }, ProductCategoryId = 3 },
+                new Product { Name = "海鮮煎餅", ProductItems = new List<ProductItem> { new ProductItem { Price = 150 } }, ProductCategoryId = 3 },
             };
             products.ForEach(p => context.Products.Add(p));
             context.SaveChanges();
