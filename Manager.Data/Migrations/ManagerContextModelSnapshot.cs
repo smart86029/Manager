@@ -70,6 +70,9 @@ namespace Manager.Data.Migrations
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(64);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);
@@ -81,6 +84,26 @@ namespace Manager.Data.Migrations
                     b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Product","GroupBuying");
+                });
+
+            modelBuilder.Entity("Manager.Models.GroupBuying.ProductAccessory", b =>
+                {
+                    b.Property<int>("ProductAccessoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32);
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("ProductAccessoryId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductAccessory","GroupBuying");
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductCategory", b =>
@@ -129,26 +152,17 @@ namespace Manager.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
+                    b.Property<int>("ProductId");
+
                     b.Property<int>("ProductOptionType");
 
                     b.HasKey("ProductOptionId");
 
+                    b.HasIndex("ProductId");
+
                     b.HasIndex("ProductOptionType");
 
                     b.ToTable("ProductOption","GroupBuying");
-                });
-
-            modelBuilder.Entity("Manager.Models.GroupBuying.ProductProductOption", b =>
-                {
-                    b.Property<int>("ProductId");
-
-                    b.Property<int>("ProductOptionId");
-
-                    b.HasKey("ProductId", "ProductOptionId");
-
-                    b.HasIndex("ProductOptionId");
-
-                    b.ToTable("ProductProductOption","GroupBuying");
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.Store", b =>
@@ -310,6 +324,14 @@ namespace Manager.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Manager.Models.GroupBuying.ProductAccessory", b =>
+                {
+                    b.HasOne("Manager.Models.GroupBuying.Product")
+                        .WithMany("ProductAccessories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductCategory", b =>
                 {
                     b.HasOne("Manager.Models.GroupBuying.Store", "Store")
@@ -326,16 +348,11 @@ namespace Manager.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Manager.Models.GroupBuying.ProductProductOption", b =>
+            modelBuilder.Entity("Manager.Models.GroupBuying.ProductOption", b =>
                 {
-                    b.HasOne("Manager.Models.GroupBuying.Product", "Product")
-                        .WithMany("ProductProductOptions")
+                    b.HasOne("Manager.Models.GroupBuying.Product")
+                        .WithMany("ProductOptions")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Manager.Models.GroupBuying.ProductOption", "ProductOption")
-                        .WithMany("ProductProductOptions")
-                        .HasForeignKey("ProductOptionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

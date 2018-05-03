@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Manager.Models.GroupBuying
@@ -31,9 +30,9 @@ namespace Manager.Models.GroupBuying
         public string Name { get; set; }
 
         /// <summary>
-        /// 取得或設定商品商品選項的集合。
+        /// 取得或設定商品 ID。
         /// </summary>
-        /// <value>商品商品選項的集合。</value>
-        public ICollection<ProductProductOption> ProductProductOptions { get; set; } = new List<ProductProductOption>();
+        /// <value>商品 ID。</value>
+        public int ProductId { get; set; }
     }
 }

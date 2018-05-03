@@ -13,7 +13,6 @@ namespace Manager.Models.Generic
         /// 取得或設定主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        [Display(Name = "ID")]
         public int BusinessEntityId { get; set; }
     }
 }

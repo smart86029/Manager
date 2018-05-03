@@ -40,6 +40,6 @@ namespace Manager.Models.GroupBuying
         /// 取得或設定商品的集合。
         /// </summary>
         /// <value>商品的集合。</value>
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

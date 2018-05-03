@@ -25,6 +25,13 @@ namespace Manager.Models.GroupBuying
         public string Name { get; set; }
 
         /// <summary>
+        /// 取得或設定描述。
+        /// </summary>
+        /// <value>描述。</value>
+        [StringLength(64, ErrorMessage = "長度不可超過 64")]
+        public string Description { get; set; }
+
+        /// <summary>
         /// 取得或設定商品分類 ID。
         /// </summary>
         /// <value>商品分類 ID。</value>
@@ -43,9 +50,15 @@ namespace Manager.Models.GroupBuying
         public ICollection<ProductItem> ProductItems { get; set; } = new List<ProductItem>();
 
         /// <summary>
-        /// 取得或設定商品商品選項的集合。
+        /// 取得或設定商品配件的集合。
         /// </summary>
-        /// <value>商品商品選項的集合。</value>
-        public ICollection<ProductProductOption> ProductProductOptions { get; set; } = new List<ProductProductOption>();
+        /// <value>商品配件的集合。</value>
+        public ICollection<ProductAccessory> ProductAccessories { get; set; } = new List<ProductAccessory>();
+
+        /// <summary>
+        /// 取得或設定商品選項的集合。
+        /// </summary>
+        /// <value>商品選項的集合。</value>
+        public ICollection<ProductOption> ProductOptions { get; set; } = new List<ProductOption>();
     }
 }

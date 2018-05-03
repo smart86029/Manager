@@ -86,9 +86,6 @@ namespace Manager.Data.EntityFramework
             modelBuilder.Entity<ProductOption>()
                 .HasIndex(x => x.ProductOptionType);
 
-            modelBuilder.Entity<ProductProductOption>()
-                .HasKey(x => new { x.ProductId, x.ProductOptionId });
-
             modelBuilder.Entity<UserRole>()
                 .HasKey(x => new { x.UserId, x.RoleId });
 

@@ -16,13 +16,8 @@
         Ice = 1,
 
         /// <summary>
-        /// 配料。
-        /// </summary>
-        Topping = 2,
-
-        /// <summary>
         /// 辣度。
         /// </summary>
-        Spicy = 3
+        Spicy = 2
     }
 }
