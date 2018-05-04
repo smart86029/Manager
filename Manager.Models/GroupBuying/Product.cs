@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Manager.Models.GroupBuying
 {
     /// <summary>
     /// 商品。
     /// </summary>
-    [Table("Product", Schema = "GroupBuying")]
     public class Product
     {
         /// <summary>
@@ -20,15 +17,12 @@ namespace Manager.Models.GroupBuying
         /// 取得或設定名稱。
         /// </summary>
         /// <value>名稱。</value>
-        [Required]
-        [StringLength(32, ErrorMessage = "長度不可超過 32")]
         public string Name { get; set; }
 
         /// <summary>
         /// 取得或設定描述。
         /// </summary>
         /// <value>描述。</value>
-        [StringLength(64, ErrorMessage = "長度不可超過 64")]
         public string Description { get; set; }
 
         /// <summary>

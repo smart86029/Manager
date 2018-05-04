@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Manager.Models.System
+﻿namespace Manager.Models.System
 {
     /// <summary>
     /// 角色菜單。
     /// </summary>
-    [Table("RoleMenu", Schema = "System")]
     public class RoleMenu
     {
         /// <summary>

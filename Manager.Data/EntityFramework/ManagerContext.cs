@@ -1,4 +1,5 @@
-﻿using Manager.Models.Generic;
+﻿using Manager.Data.EntityFramework.Configurations;
+using Manager.Models.Generic;
 using Manager.Models.GroupBuying;
 using Manager.Models.System;
 using Microsoft.EntityFrameworkCore;
@@ -68,29 +69,23 @@ namespace Manager.Data.EntityFramework
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器。</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Group>()
-                .HasOne(x => x.Creator)
-                .WithMany()
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.ApplyConfiguration(new BusinessEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonConfiguration());
 
-            modelBuilder.Entity<Store>()
-                .HasOne(x => x.Creator)
-                .WithMany()
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new MenuConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleMenuConfiguration());
 
-            modelBuilder.Entity<GroupStore>()
-                .HasKey(x => new { x.GroupId, x.StoreId });
-
-            modelBuilder.Entity<ProductOption>()
-                .HasIndex(x => x.ProductOptionType);
-
-            modelBuilder.Entity<UserRole>()
-                .HasKey(x => new { x.UserId, x.RoleId });
-
-            modelBuilder.Entity<RoleMenu>()
-                .HasKey(x => new { x.RoleId, x.MenuId });
+            modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new StoreConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupStoreConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductAccessoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductOptionConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductItemConfiguration());
         }
     }
 }

@@ -1,12 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Manager.Models.GroupBuying
+﻿namespace Manager.Models.GroupBuying
 {
     /// <summary>
     /// 產品項目。
     /// </summary>
-    [Table("ProductItem", Schema = "GroupBuying")]
     public class ProductItem
     {
         /// <summary>
@@ -19,7 +15,6 @@ namespace Manager.Models.GroupBuying
         /// 取得或設定名稱。
         /// </summary>
         /// <value>名稱。</value>
-        [StringLength(32, ErrorMessage = "長度不可超過 32")]
         public string Name { get; set; }
 
         /// <summary>

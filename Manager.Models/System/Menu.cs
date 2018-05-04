@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Manager.Models.System
 {
     /// <summary>
-    /// 菜單類別。
+    /// 菜單。
     /// </summary>
-    [Table("Menu", Schema = "System")]
     public class Menu
     {
         /// <summary>
@@ -20,83 +17,60 @@ namespace Manager.Models.System
         /// 取得或設定名稱。
         /// </summary>
         /// <value>名稱。</value>
-        [Required]
-        [StringLength(50, ErrorMessage = "長度不可超過 50")]
         public string Name { get; set; }
 
         /// <summary>
         /// 取得或設定區域。
         /// </summary>
         /// <value>區域。</value>
-        [StringLength(50, ErrorMessage = "長度不可超過 50")]
         public string Area { get; set; }
 
         /// <summary>
         /// 取得或設定控制器。
         /// </summary>
-        /// <value>
-        /// 控制器。
-        /// </value>
-        [StringLength(50, ErrorMessage = "長度不可超過 50")]
+        /// <value>控制器。</value>
         public string Controller { get; set; }
 
         /// <summary>
         /// 取得或設定動作。
         /// </summary>
-        /// <value>
-        /// 動作。
-        /// </value>
-        [StringLength(50, ErrorMessage = "長度不可超過 50")]
+        /// <value>動作。</value>
         public string Action { get; set; }
 
         /// <summary>
         /// 取得或設定描述。
         /// </summary>
-        /// <value>
-        /// 描述。
-        /// </value>
-        [StringLength(100, ErrorMessage = "長度不可超過 100")]
+        /// <value>描述。</value>
         public string Description { get; set; }
 
         /// <summary>
         /// 取得或設定排序。
         /// </summary>
-        /// <value>
-        /// 排序。
-        /// </value>
+        /// <value>排序。</value>
         public int Order { get; set; }
 
         /// <summary>
         /// 取得或設定值，這個值指出是否啟用。
         /// </summary>
-        /// <value>
-        /// 如果啟用則為 <c>true</c>，否則為 <c>false</c>。
-        /// </value>
+        /// <value>如果啟用則為 <c>true</c>，否則為 <c>false</c>。</value>
         public bool IsEnabled { get; set; }
 
         /// <summary>
         /// 取得或設定父節點ID。
         /// </summary>
-        /// <value>
-        /// 父節點ID。
-        /// </value>
+        /// <value>父節點ID。</value>
         public int? ParentId { get; set; }
 
         /// <summary>
         /// 取得或設定父節點。
         /// </summary>
-        /// <value>
-        /// 父節點。
-        /// </value>
-        [ForeignKey("ParentId")]
+        /// <value>父節點。</value>
         public Menu Parent { get; set; }
 
         /// <summary>
         /// 取得或設定角色菜單的集合。
         /// </summary>
-        /// <value>
-        /// 角色菜單的集合。
-        /// </value>
+        /// <value>角色菜單的集合。</value>
         public ICollection<RoleMenu> RoleMenus { get; set; } = new List<RoleMenu>();
     }
 }

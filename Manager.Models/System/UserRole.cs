@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Manager.Models.System
+﻿namespace Manager.Models.System
 {
     /// <summary>
     /// 使用者角色。
     /// </summary>
-    [Table("UserRole", Schema = "System")]
     public class UserRole
     {
         /// <summary>

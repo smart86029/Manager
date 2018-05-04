@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Manager.Models.Generic;
 
 namespace Manager.Models.System
@@ -8,7 +6,6 @@ namespace Manager.Models.System
     /// <summary>
     /// 使用者。
     /// </summary>
-    [Table("User", Schema = "System")]
     public class User
     {
         /// <summary>
@@ -21,8 +18,6 @@ namespace Manager.Models.System
         /// 取得或設定使用者名稱。
         /// </summary>
         /// <value>使用者名稱。</value>
-        [Required]
-        [StringLength(32, ErrorMessage = "長度不可超過 32")]
         public string UserName { get; set; }
 
         /// <summary>
@@ -41,7 +36,7 @@ namespace Manager.Models.System
         /// 取得或設定商業實體ID。
         /// </summary>
         /// <value>商業實體ID。</value>
-        public int? BusinessEntityId { get; set; }
+        public int BusinessEntityId { get; set; }
 
         /// <summary>
         /// 取得或設定商業實體。

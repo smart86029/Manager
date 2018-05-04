@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace Manager.Data.Migrations
 {
@@ -24,9 +25,14 @@ namespace Manager.Data.Migrations
                     b.Property<int>("BusinessEntityId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.HasKey("BusinessEntityId");
 
                     b.ToTable("BusinessEntity","Generic");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("BusinessEntity");
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.Group", b =>
@@ -84,6 +90,25 @@ namespace Manager.Data.Migrations
                     b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Product","GroupBuying");
+
+                    b.HasData(
+                        new { ProductId = 1, Name = "韓式牛肉烤肉飯", ProductCategoryId = 1 },
+                        new { ProductId = 2, Name = "韓式豬肉烤肉飯", ProductCategoryId = 1 },
+                        new { ProductId = 3, Name = "韓式牛肉拌飯", ProductCategoryId = 1 },
+                        new { ProductId = 4, Name = "韓式豬肉拌飯", ProductCategoryId = 1 },
+                        new { ProductId = 5, Name = "韓式辣雞拌飯", ProductCategoryId = 1 },
+                        new { ProductId = 6, Name = "香腸泡菜炒飯", ProductCategoryId = 1 },
+                        new { ProductId = 7, Name = "鮪魚泡菜炒飯", ProductCategoryId = 1 },
+                        new { ProductId = 8, Name = "海鮮豆腐鍋", ProductCategoryId = 2 },
+                        new { ProductId = 9, Name = "海鮮泡菜鍋", ProductCategoryId = 2 },
+                        new { ProductId = 10, Name = "大醬湯飯鍋", ProductCategoryId = 2 },
+                        new { ProductId = 11, Name = "豆腐辣湯鍋", ProductCategoryId = 2 },
+                        new { ProductId = 12, Name = "部隊鍋", ProductCategoryId = 2 },
+                        new { ProductId = 13, Name = "辣炒泡麵", ProductCategoryId = 3 },
+                        new { ProductId = 14, Name = "海鮮炒麵", ProductCategoryId = 3 },
+                        new { ProductId = 15, Name = "辣炒年糕", ProductCategoryId = 3 },
+                        new { ProductId = 16, Name = "海鮮煎餅", ProductCategoryId = 3 }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductAccessory", b =>
@@ -95,7 +120,8 @@ namespace Manager.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(19, 4)");
 
                     b.Property<int>("ProductId");
 
@@ -122,6 +148,12 @@ namespace Manager.Data.Migrations
                     b.HasIndex("StoreId");
 
                     b.ToTable("ProductCategory","GroupBuying");
+
+                    b.HasData(
+                        new { ProductCategoryId = 1, Name = "飯類", StoreId = 1 },
+                        new { ProductCategoryId = 2, Name = "鍋類", StoreId = 1 },
+                        new { ProductCategoryId = 3, Name = "特色餐點", StoreId = 1 }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductItem", b =>
@@ -132,7 +164,8 @@ namespace Manager.Data.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(32);
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(19, 4)");
 
                     b.Property<int>("ProductId");
 
@@ -141,6 +174,25 @@ namespace Manager.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductItem","GroupBuying");
+
+                    b.HasData(
+                        new { ProductItemId = 1, Price = 90m, ProductId = 1 },
+                        new { ProductItemId = 2, Price = 90m, ProductId = 1 },
+                        new { ProductItemId = 3, Price = 90m, ProductId = 1 },
+                        new { ProductItemId = 4, Price = 90m, ProductId = 1 },
+                        new { ProductItemId = 5, Price = 90m, ProductId = 1 },
+                        new { ProductItemId = 6, Price = 130m, ProductId = 1 },
+                        new { ProductItemId = 7, Price = 130m, ProductId = 1 },
+                        new { ProductItemId = 8, Price = 130m, ProductId = 1 },
+                        new { ProductItemId = 9, Price = 130m, ProductId = 1 },
+                        new { ProductItemId = 10, Price = 130m, ProductId = 1 },
+                        new { ProductItemId = 11, Price = 130m, ProductId = 1 },
+                        new { ProductItemId = 12, Price = 150m, ProductId = 1 },
+                        new { ProductItemId = 13, Price = 100m, ProductId = 1 },
+                        new { ProductItemId = 14, Price = 140m, ProductId = 1 },
+                        new { ProductItemId = 15, Price = 130m, ProductId = 1 },
+                        new { ProductItemId = 16, Price = 150m, ProductId = 1 }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductOption", b =>
@@ -195,6 +247,10 @@ namespace Manager.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.ToTable("Store","GroupBuying");
+
+                    b.HasData(
+                        new { StoreId = 1, Address = "台北市內湖區江南街117號", CreatedBy = 1, CreatedOn = new DateTime(2018, 5, 4, 14, 30, 48, 392, DateTimeKind.Local), Description = "測試der", Name = "韓膳宮", Phone = "2658-2882" }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Models.System.Menu", b =>
@@ -202,23 +258,17 @@ namespace Manager.Data.Migrations
                     b.Property<int>("MenuId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Action")
-                        .HasMaxLength(50);
+                    b.Property<string>("Action");
 
-                    b.Property<string>("Area")
-                        .HasMaxLength(50);
+                    b.Property<string>("Area");
 
-                    b.Property<string>("Controller")
-                        .HasMaxLength(50);
+                    b.Property<string>("Controller");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(100);
+                    b.Property<string>("Description");
 
                     b.Property<bool>("IsEnabled");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Name");
 
                     b.Property<int>("Order");
 
@@ -245,6 +295,11 @@ namespace Manager.Data.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Role","System");
+
+                    b.HasData(
+                        new { RoleId = 1, IsEnabled = true, Name = "Administrator" },
+                        new { RoleId = 2, IsEnabled = true, Name = "HumanResources" }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Models.System.RoleMenu", b =>
@@ -265,7 +320,7 @@ namespace Manager.Data.Migrations
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BusinessEntityId");
+                    b.Property<int>("BusinessEntityId");
 
                     b.Property<bool>("IsEnabled");
 
@@ -280,6 +335,10 @@ namespace Manager.Data.Migrations
                     b.HasIndex("BusinessEntityId");
 
                     b.ToTable("User","System");
+
+                    b.HasData(
+                        new { UserId = 1, BusinessEntityId = 1, IsEnabled = true, PasswordHash = "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", UserName = "Admin" }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Models.System.UserRole", b =>
@@ -293,11 +352,41 @@ namespace Manager.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRole","System");
+
+                    b.HasData(
+                        new { UserId = 1, RoleId = 1 },
+                        new { UserId = 1, RoleId = 2 }
+                    );
+                });
+
+            modelBuilder.Entity("Manager.Models.Generic.Person", b =>
+                {
+                    b.HasBaseType("Manager.Models.Generic.BusinessEntity");
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(32);
+
+                    b.Property<int>("Gender");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(32);
+
+                    b.ToTable("BusinessEntity","Generic");
+
+                    b.HasDiscriminator().HasValue("Person");
+
+                    b.HasData(
+                        new { BusinessEntityId = 1, BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "管理員", Gender = 9, LastName = "超級" }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.Group", b =>
                 {
-                    b.HasOne("Manager.Models.System.User", "Creator")
+                    b.HasOne("Manager.Models.Generic.BusinessEntity", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -358,7 +447,7 @@ namespace Manager.Data.Migrations
 
             modelBuilder.Entity("Manager.Models.GroupBuying.Store", b =>
                 {
-                    b.HasOne("Manager.Models.System.User", "Creator")
+                    b.HasOne("Manager.Models.Generic.BusinessEntity", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -388,7 +477,8 @@ namespace Manager.Data.Migrations
                 {
                     b.HasOne("Manager.Models.Generic.BusinessEntity", "BusinessEntity")
                         .WithMany()
-                        .HasForeignKey("BusinessEntityId");
+                        .HasForeignKey("BusinessEntityId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Manager.Models.System.UserRole", b =>

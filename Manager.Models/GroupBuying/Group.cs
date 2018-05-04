@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Manager.Models.System;
+using Manager.Models.Generic;
 
 namespace Manager.Models.GroupBuying
 {
     /// <summary>
     /// 團。
     /// </summary>
-    [Table("Group", Schema = "GroupBuying")]
     public class Group
     {
         /// <summary>
@@ -34,7 +33,6 @@ namespace Manager.Models.GroupBuying
         /// 取得或設定備註。
         /// </summary>
         /// <value>備註。</value>
-        [StringLength(512, ErrorMessage = "長度不可超過 512")]
         public string Remark { get; set; }
 
         /// <summary>
@@ -53,8 +51,7 @@ namespace Manager.Models.GroupBuying
         /// 取得或設定建立者。
         /// </summary>
         /// <value>建立者。</value>
-        [ForeignKey(nameof(CreatedBy))]
-        public User Creator { get; set; }
+        public BusinessEntity Creator { get; set; }
 
         /// <summary>
         /// 取得或設定團店家的集合。
