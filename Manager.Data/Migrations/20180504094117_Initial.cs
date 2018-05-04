@@ -372,7 +372,7 @@ namespace Manager.Data.Migrations
                 schema: "GroupBuying",
                 table: "Store",
                 columns: new[] { "StoreId", "Address", "CreatedBy", "CreatedOn", "Description", "Name", "Phone", "Remark" },
-                values: new object[] { 1, "台北市內湖區江南街117號", 1, new DateTime(2018, 5, 4, 14, 30, 48, 392, DateTimeKind.Local), "測試der", "韓膳宮", "2658-2882", null });
+                values: new object[] { 1, "台北市內湖區江南街117號", 1, new DateTime(2018, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "測試der", "韓膳宮", "2658-2882", null });
 
             migrationBuilder.InsertData(
                 schema: "System",
@@ -520,6 +520,13 @@ namespace Manager.Data.Migrations
                 schema: "System",
                 table: "User",
                 column: "BusinessEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_UserName",
+                schema: "System",
+                table: "User",
+                column: "UserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRole_RoleId",

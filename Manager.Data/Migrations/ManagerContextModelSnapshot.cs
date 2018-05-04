@@ -249,7 +249,7 @@ namespace Manager.Data.Migrations
                     b.ToTable("Store","GroupBuying");
 
                     b.HasData(
-                        new { StoreId = 1, Address = "台北市內湖區江南街117號", CreatedBy = 1, CreatedOn = new DateTime(2018, 5, 4, 14, 30, 48, 392, DateTimeKind.Local), Description = "測試der", Name = "韓膳宮", Phone = "2658-2882" }
+                        new { StoreId = 1, Address = "台北市內湖區江南街117號", CreatedBy = 1, CreatedOn = new DateTime(2018, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "測試der", Name = "韓膳宮", Phone = "2658-2882" }
                     );
                 });
 
@@ -333,6 +333,9 @@ namespace Manager.Data.Migrations
                     b.HasKey("UserId");
 
                     b.HasIndex("BusinessEntityId");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("User","System");
 

@@ -58,9 +58,9 @@ namespace Manager.Models.GroupBuying
         public DateTime CreatedOn { get; set; }
 
         /// <summary>
-        /// 取得或設定建立者。
+        /// 取得或設定新增者。
         /// </summary>
-        /// <value>建立者。</value>
+        /// <value>新增者。</value>
         public BusinessEntity Creator { get; set; }
 
         /// <summary>

@@ -13,6 +13,8 @@ namespace Manager.Data.EntityFramework.Configurations
             builder.Property(x => x.UserName)
                 .IsRequired()
                 .HasMaxLength(32);
+            builder.HasIndex(x => x.UserName)
+                .IsUnique();
             builder.HasData(GetSeedData());
         }
 

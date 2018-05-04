@@ -30,9 +30,10 @@ namespace Manager.Data.EntityFramework.Configurations
 
         private Store[] GetSeedData()
         {
+            var createdOn = DateTime.Parse("2018-01-01");
             var result = new Store[]
             {
-                new Store { StoreId = 1, Name = "韓膳宮", Description = "測試der", Phone = "2658-2882", Address = "台北市內湖區江南街117號", CreatedBy = 1, CreatedOn = DateTime.Now }
+                new Store { StoreId = 1, Name = "韓膳宮", Description = "測試der", Phone = "2658-2882", Address = "台北市內湖區江南街117號", CreatedBy = 1, CreatedOn = createdOn }
             };
 
             return result;
