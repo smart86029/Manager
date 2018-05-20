@@ -17,6 +17,18 @@ namespace Manager.Models.GroupBuying
         public int OrderId { get; set; }
 
         /// <summary>
+        /// 取得或設定應付金額。
+        /// </summary>
+        /// <value>應付金額。</value>
+        public decimal AmountPayable { get; set; }
+
+        /// <summary>
+        /// 取得或設定實付金額。
+        /// </summary>
+        /// <value>實付金額。</value>
+        public decimal AmountPaid { get; set; }
+
+        /// <summary>
         /// 取得或設定新增者 ID。
         /// </summary>
         /// <value>新增者 ID。</value>
@@ -33,5 +45,11 @@ namespace Manager.Models.GroupBuying
         /// </summary>
         /// <value>新增者。</value>
         public BusinessEntity Creator { get; set; }
+
+        /// <summary>
+        /// 取得或設定訂單明細的集合。
+        /// </summary>
+        /// <value>訂單明細的集合。</value>
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Manager.Models.GroupBuying
 {
     /// <summary>
-    /// 產品項目。
+    /// 商品項目。
     /// </summary>
     public class ProductItem
     {

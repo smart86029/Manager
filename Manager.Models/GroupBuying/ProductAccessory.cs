@@ -6,9 +6,9 @@
     public class ProductAccessory
     {
         /// <summary>
-        /// 取得或設定商品 ID。
+        /// 取得或設定主鍵。
         /// </summary>
-        /// <value>商品 ID。</value>
+        /// <value>主鍵。</value>
         public int ProductAccessoryId { get; set; }
 
         /// <summary>

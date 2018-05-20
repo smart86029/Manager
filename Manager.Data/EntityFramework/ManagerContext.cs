@@ -86,6 +86,9 @@ namespace Manager.Data.EntityFramework
             modelBuilder.ApplyConfiguration(new ProductAccessoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductOptionConfiguration());
             modelBuilder.ApplyConfiguration(new ProductItemConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailProductAccessoryConfiguration());
         }
     }
 }
