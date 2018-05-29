@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Store } from './store';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+
+import { Store } from './store';
 
 @Injectable()
 export class StoreService {
