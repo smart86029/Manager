@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Manager.Models.GroupBuying
+﻿namespace Manager.Models.GroupBuying
 {
     /// <summary>
     /// 團店家。
     /// </summary>
-    [Table("GroupStore", Schema = "GroupBuying")]
     public class GroupStore
     {
         /// <summary>

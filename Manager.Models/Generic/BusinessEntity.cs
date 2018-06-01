@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Manager.Models.Generic
+﻿namespace Manager.Models.Generic
 {
     /// <summary>
     /// 商業實體。
     /// </summary>
-    [Table("BusinessEntity", Schema = "Generic")]
     public abstract class BusinessEntity
     {
         /// <summary>

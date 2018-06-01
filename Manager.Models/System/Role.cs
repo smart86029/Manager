@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Manager.Models.System
 {
     /// <summary>
     /// 角色。
     /// </summary>
-    [Table("Role", Schema = "System")]
     public class Role
     {
         /// <summary>
@@ -20,8 +17,6 @@ namespace Manager.Models.System
         /// 取得或設定名稱。
         /// </summary>
         /// <value>名稱。</value>
-        [Required]
-        [StringLength(32, ErrorMessage = "長度不可超過 32")]
         public string Name { get; set; }
 
         /// <summary>
