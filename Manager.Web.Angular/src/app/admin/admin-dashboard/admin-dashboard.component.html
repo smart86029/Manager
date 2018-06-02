@@ -5,7 +5,7 @@
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="toolbar-seprator"></span>
+      <span class="fill-space"></span>
       <button mat-icon-button [matMenuTriggerFor]="themeMenu" #themeButton>
         <mat-icon>format_color_fill</mat-icon>
       </button>
@@ -45,28 +45,29 @@
 <main class="{{selectedTheme}}">
   <mat-sidenav-container>
     <mat-sidenav #sidenav [mode]="showSidenav.matches ? 'side' : 'over'" [opened]="showSidenav.matches">
-      <mat-expansion-panel routerLinkActive="active">
-        <mat-expansion-panel-header expandedHeight="48px">
-          <mat-panel-title>
-            <mat-icon color="primary">group</mat-icon>
-            <span class="menu-title">會員管理</span>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-nav-list>
-          <a *ngFor="let menu of menus" class="menu-item" routerLink="{{menu.Url}}" mat-list-item>{{menu.Name}}</a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel routerLinkActive="active">
-        <mat-expansion-panel-header expandedHeight="48px">
-          <mat-panel-title>
-            <mat-icon color="primary">shopping_basket</mat-icon>
-            <span class="menu-title">團購管理</span>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-nav-list>
-          <a class="menu-item" routerLink="/stores" mat-list-item>店家管理</a>
-        </mat-nav-list>
-      </mat-expansion-panel>
+      <mat-nav-list>
+        <mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl" class="menu-tree">
+          <mat-tree-node *matTreeNodeDef="let menu" matTreeNodeToggle>
+            <li class="mat-tree-node">
+              <a class="menu-item" routerLink="{{menu.url}}" mat-list-item>{{menu.name}}</a>
+            </li>
+          </mat-tree-node>
+          <mat-nested-tree-node *matTreeNodeDef="let menu; when: hasNestedChild">
+            <li>
+              <a matTreeNodeToggle [attr.aria-label]="'toggle ' + menu.name" mat-list-item>
+                {{menu.name}}
+                <span class="fill-space"></span>
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{nestedTreeControl.isExpanded(menu) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </a>
+              <ul [class.menu-tree-invisible]="!nestedTreeControl.isExpanded(menu)">
+                <ng-container matTreeNodeOutlet></ng-container>
+              </ul>
+            </li>
+          </mat-nested-tree-node>
+        </mat-tree>
+      </mat-nav-list>
       <div class="sidebar-background" style="background-image: url(/assets/images/jetty.jpg);"></div>
     </mat-sidenav>
     <mat-sidenav-content>

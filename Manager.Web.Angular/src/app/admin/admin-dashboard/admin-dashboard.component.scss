@@ -36,20 +36,6 @@ main {
   right: 0;
 }
 
-.menu-item {
-  width: 100%;
-  text-align: left;
-}
-
-.menu-title {
-  padding-left: 10px;
-  vertical-align: middle;
-}
-
-.toolbar-seprator {
-  flex: 1;
-}
-
 .theme-panel {
   background-color: #fff;
   padding: 8px;
@@ -84,4 +70,20 @@ main {
 
 .grape-primary {
   background-color: map-get($mat-deep-purple, 500);
+}
+
+.menu-tree-invisible {
+  display: none;
+}
+
+.menu-tree ul,
+.menu-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.menu-item {
+  width: 100%;
+  text-align: left;
 }

@@ -1,9 +1,13 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Menu } from '../../menu';
+import { Menu } from '../../core/menu';
 import { Theme } from '../../theme.enum';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { MenuService } from '../../core/menu.service';
+import { MatTreeNestedDataSource } from '@angular/material';
+import { NestedTreeControl } from '@angular/cdk/tree';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,23 +19,31 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   selectedTheme = Theme.Strawberry;
   theme = Theme;
   menus: Menu[] = [
-    { Name: '使用者', Url: '/users' },
-    { Name: '角色', Url: '/roles' }
+    {
+      name: '會員管理', url: '/', children: [
+        { name: '使用者', url: '/users', children: null },
+        { name: '角色', url: '/roles', children: null }
+      ]
+    }
   ];
   showSidenav: MediaQueryList;
+  nestedDataSource = new MatTreeNestedDataSource();
+  nestedTreeControl = new NestedTreeControl<Menu>(this.getChildren);
 
   private listener: () => void;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
-    private overlayContainer: OverlayContainer) { }
+    private overlayContainer: OverlayContainer,
+    private menuService: MenuService) { }
 
   ngOnInit(): void {
     this.listener = () => this.changeDetectorRef.detectChanges();
     this.showSidenav = this.media.matchMedia('(min-width: 1600px)');
     this.showSidenav.addListener(this.listener);
     this.overlayContainer.getContainerElement().classList.add(this.selectedTheme);
+    this.menuService.dataChange.subscribe(data => this.nestedDataSource.data = data);
   }
 
   ngOnDestroy(): void {
@@ -42,5 +54,13 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.overlayContainer.getContainerElement().classList.remove(this.selectedTheme);
     this.overlayContainer.getContainerElement().classList.add(theme);
     this.selectedTheme = theme;
+  }
+
+  getChildren(menu: Menu): Observable<Menu[]> {
+    return of(menu.children);
+  }
+
+  hasNestedChild(_: number, menu: Menu) {
+    return menu.children && menu.children.length > 0;
   }
 }
