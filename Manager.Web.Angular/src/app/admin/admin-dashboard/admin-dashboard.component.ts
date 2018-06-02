@@ -18,14 +18,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   title = 'Manager';
   selectedTheme = Theme.Strawberry;
   theme = Theme;
-  menus: Menu[] = [
-    {
-      name: '會員管理', url: '/', children: [
-        { name: '使用者', url: '/users', children: null },
-        { name: '角色', url: '/roles', children: null }
-      ]
-    }
-  ];
   showSidenav: MediaQueryList;
   nestedDataSource = new MatTreeNestedDataSource();
   nestedTreeControl = new NestedTreeControl<Menu>(this.getChildren);

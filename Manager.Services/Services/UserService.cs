@@ -158,7 +158,8 @@ namespace Manager.Services
                 user.PasswordHash = CryptographyUtility.Hash(query.Password);
 
             user.IsEnabled = query.IsEnabled;
-            user.UserRoles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).Select(r => new UserRole { UserId = user.UserId, RoleId = r.RoleId }).ToList();
+            user.UserRoles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId)))
+                .Select(r => new UserRole { UserId = user.UserId, RoleId = r.RoleId }).ToList();
             userRepository.Update(user);
             await unitOfWork.CommitAsync();
 

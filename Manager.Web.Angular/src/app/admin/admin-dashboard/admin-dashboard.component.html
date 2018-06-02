@@ -55,6 +55,7 @@
           <mat-nested-tree-node *matTreeNodeDef="let menu; when: hasNestedChild">
             <li>
               <a matTreeNodeToggle [attr.aria-label]="'toggle ' + menu.name" mat-list-item>
+                <mat-icon color="primary">{{menu.icon}}</mat-icon>
                 {{menu.name}}
                 <span class="fill-space"></span>
                 <mat-icon class="mat-icon-rtl-mirror">

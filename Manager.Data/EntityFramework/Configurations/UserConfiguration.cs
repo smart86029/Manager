@@ -10,10 +10,10 @@ namespace Manager.Data.EntityFramework.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("User", "System");
-            builder.Property(x => x.UserName)
+            builder.Property(u => u.UserName)
                 .IsRequired()
                 .HasMaxLength(32);
-            builder.HasIndex(x => x.UserName)
+            builder.HasIndex(u => u.UserName)
                 .IsUnique();
             builder.HasData(GetSeedData());
         }

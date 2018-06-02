@@ -8,7 +8,10 @@ namespace Manager.Data.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-
+            builder.ToTable("Role", "System");
+            builder.Property(r => r.Name)
+                .IsRequired()
+                .HasMaxLength(32);
             builder.HasData(GetSeedData());
         }
 
