@@ -23,6 +23,13 @@ namespace Manager.ViewModels.Stores
         {
             public int ProductId { get; set; }
             public string Name { get; set; }
+            public ICollection<ProductItem> ProductItems { get; set; }
+        }
+
+        public class ProductItem
+        {
+            public int ProductItemId { get; set; }
+            public string Name { get; set; }
             public decimal Price { get; set; }
         }
     }

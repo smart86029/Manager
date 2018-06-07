@@ -4,9 +4,7 @@ using Manager.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Manager.Data.Migrations
 {
@@ -17,13 +15,15 @@ namespace Manager.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-preview2-30571")
+                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Manager.Models.Generic.BusinessEntity", b =>
                 {
                     b.Property<int>("BusinessEntityId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
@@ -38,7 +38,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.Group", b =>
                 {
                     b.Property<int>("GroupId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CreatedBy");
 
@@ -74,7 +75,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.Order", b =>
                 {
                     b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("AmountPaid")
                         .HasColumnType("decimal(19, 4)");
@@ -96,7 +98,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.OrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("OrderId");
 
@@ -142,7 +145,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.Product", b =>
                 {
                     b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(64);
@@ -182,7 +186,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductAccessory", b =>
                 {
                     b.Property<int>("ProductAccessoryId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -203,7 +208,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductCategory", b =>
                 {
                     b.Property<int>("ProductCategoryId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -227,7 +233,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductItem", b =>
                 {
                     b.Property<int>("ProductItemId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasMaxLength(32);
@@ -245,28 +252,29 @@ namespace Manager.Data.Migrations
 
                     b.HasData(
                         new { ProductItemId = 1, Price = 90m, ProductId = 1 },
-                        new { ProductItemId = 2, Price = 90m, ProductId = 1 },
-                        new { ProductItemId = 3, Price = 90m, ProductId = 1 },
-                        new { ProductItemId = 4, Price = 90m, ProductId = 1 },
-                        new { ProductItemId = 5, Price = 90m, ProductId = 1 },
-                        new { ProductItemId = 6, Price = 130m, ProductId = 1 },
-                        new { ProductItemId = 7, Price = 130m, ProductId = 1 },
-                        new { ProductItemId = 8, Price = 130m, ProductId = 1 },
-                        new { ProductItemId = 9, Price = 130m, ProductId = 1 },
-                        new { ProductItemId = 10, Price = 130m, ProductId = 1 },
-                        new { ProductItemId = 11, Price = 130m, ProductId = 1 },
-                        new { ProductItemId = 12, Price = 150m, ProductId = 1 },
-                        new { ProductItemId = 13, Price = 100m, ProductId = 1 },
-                        new { ProductItemId = 14, Price = 140m, ProductId = 1 },
-                        new { ProductItemId = 15, Price = 130m, ProductId = 1 },
-                        new { ProductItemId = 16, Price = 150m, ProductId = 1 }
+                        new { ProductItemId = 2, Price = 90m, ProductId = 2 },
+                        new { ProductItemId = 3, Price = 90m, ProductId = 3 },
+                        new { ProductItemId = 4, Price = 90m, ProductId = 4 },
+                        new { ProductItemId = 5, Price = 90m, ProductId = 5 },
+                        new { ProductItemId = 6, Price = 130m, ProductId = 6 },
+                        new { ProductItemId = 7, Price = 130m, ProductId = 7 },
+                        new { ProductItemId = 8, Price = 130m, ProductId = 8 },
+                        new { ProductItemId = 9, Price = 130m, ProductId = 9 },
+                        new { ProductItemId = 10, Price = 130m, ProductId = 10 },
+                        new { ProductItemId = 11, Price = 130m, ProductId = 11 },
+                        new { ProductItemId = 12, Price = 150m, ProductId = 12 },
+                        new { ProductItemId = 13, Price = 100m, ProductId = 13 },
+                        new { ProductItemId = 14, Price = 140m, ProductId = 14 },
+                        new { ProductItemId = 15, Price = 130m, ProductId = 15 },
+                        new { ProductItemId = 16, Price = 150m, ProductId = 16 }
                     );
                 });
 
             modelBuilder.Entity("Manager.Models.GroupBuying.ProductOption", b =>
                 {
                     b.Property<int>("ProductOptionId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -288,7 +296,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.GroupBuying.Store", b =>
                 {
                     b.Property<int>("StoreId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasMaxLength(128);
@@ -324,7 +333,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.System.Menu", b =>
                 {
                     b.Property<int>("MenuId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Action");
 
@@ -352,7 +362,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.System.Role", b =>
                 {
                     b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("IsEnabled");
 
@@ -386,7 +397,8 @@ namespace Manager.Data.Migrations
             modelBuilder.Entity("Manager.Models.System.User", b =>
                 {
                     b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BusinessEntityId");
 
@@ -446,7 +458,7 @@ namespace Manager.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
-                    b.ToTable("BusinessEntity","Generic");
+                    b.ToTable("Person");
 
                     b.HasDiscriminator().HasValue("Person");
 

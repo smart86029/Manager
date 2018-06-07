@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Manager.Data.EntityFramework
 {
     /// <summary>
-    /// 存放庫。
+    /// 以 EntityFramework 實作的存放庫。
     /// </summary>
     /// <typeparam name="TEntity">實體的類型。</typeparam>
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         /// <summary>
         /// 初始化 <see cref="Repository{TEntity}"/> 類別的新執行個體。
@@ -33,53 +33,27 @@ namespace Manager.Data.EntityFramework
         /// <summary>
         /// 尋找具有給定主索引鍵值的實體。
         /// </summary>
-        /// <param name="keyValues">要尋找之實體的主索引鍵值。</param>
-        /// <returns>找到的實體或 null。</returns>
-        public virtual TEntity Find(params object[] keyValues)
-        {
-            return Context.Set<TEntity>().Find(keyValues);
-        }
-
-        /// <summary>
-        /// 非同步尋找具有給定主索引鍵值的實體。
-        /// </summary>
-        /// <param name="keyValues">要尋找之實體的主索引鍵值。</param>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含找到的實體，或 null。</returns>
+        /// <param name="keyValues">主索引鍵值。</param>
+        /// <returns>找到的實體，或 null。</returns>
         public virtual async Task<TEntity> FindAsync(params object[] keyValues)
         {
             return await Context.Set<TEntity>().FindAsync(keyValues);
         }
 
         /// <summary>
-        /// 傳回存放庫中符合指定之條件的第一個項目；如果找不到這類實體，則傳回預設值。
+        /// 傳回存放庫中符合指定之條件的唯一實體；如果找不到，則傳回預設值。
         /// </summary>
         /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
         /// <param name="paths">Lambda 運算式，表示要包含的路徑。</param>
-        /// <returns>如果存放庫是空的，或是沒有任何實體通過函式所指定的測試，則為預設值，否則為存放庫中通過函式指定之測試的第一個實體。</returns>
-        public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths)
+        /// <returns>存放庫中符合指定之條件的唯一實體；如果找不到，則為預設值。</returns>
+        public virtual async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths)
         {
             var query = Context.Set<TEntity>().AsQueryable();
 
             foreach (var path in paths)
                 query = query.Include(path);
 
-            return query.FirstOrDefault(predicate);
-        }
-
-        /// <summary>
-        /// 非同步傳回存放庫中符合指定之條件的第一個實體；如果找不到這類實體，則傳回預設值。
-        /// </summary>
-        /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
-        /// <param name="paths">Lambda 運算式，表示要包含的路徑。</param>
-        /// <returns>表示非同步作業的工作。 如果存放庫是空的，或是沒有任何實體通過函式所指定的測試，則為預設值，否則為存放庫中通過函式指定之測試的第一個實體。</returns>
-        public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths)
-        {
-            var query = Context.Set<TEntity>().AsQueryable();
-
-            foreach (var path in paths)
-                query = query.Include(path);
-
-            return await query.FirstOrDefaultAsync(predicate);
+            return await query.SingleOrDefaultAsync(predicate);
         }
 
         /// <summary>
@@ -87,27 +61,8 @@ namespace Manager.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
         /// <param name="paths">Lambda 運算式，表示要包含的路徑。</param>
-        /// <returns><see cref="IEnumerable{TEntity}"/>，其中包含存放庫中通過函式指定之測試的實體。</returns>
-        public virtual IEnumerable<TEntity> Many(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths)
-        {
-            var query = Context.Set<TEntity>().AsQueryable();
-
-            foreach (var path in paths)
-                query = query.Include(path);
-
-            if (predicate != null)
-                query = query.Where(predicate);
-
-            return query.AsNoTracking().ToList();
-        }
-
-        /// <summary>
-        /// 非同步傳回存放庫中符合指定之條件的實體。
-        /// </summary>
-        /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
-        /// <param name="paths">Lambda 運算式，表示要包含的路徑。</param>
-        /// <returns>表示非同步尋找作業的工作。 工作結果包含<see cref="IEnumerable{TEntity}"/>，其中包含存放庫中通過函式指定之測試的實體。</returns>
-        public async Task<IEnumerable<TEntity>> ManyAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths)
+        /// <returns>存放庫中符合指定之條件的實體。</returns>
+        public virtual async Task<IEnumerable<TEntity>> ManyAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths)
         {
             var query = Context.Set<TEntity>().AsQueryable();
 

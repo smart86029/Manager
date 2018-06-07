@@ -45,7 +45,7 @@ namespace Manager.Services
         /// <returns>符合的角色。</returns>
         public async Task<Role> GetRoleIncludeUsersAsync(int id)
         {
-            var role = await roleRepository.FirstOrDefaultAsync(r => r.RoleId == id);
+            var role = await roleRepository.SingleOrDefaultAsync(r => r.RoleId == id);
 
             return role;
         }

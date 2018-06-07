@@ -34,7 +34,7 @@ namespace Manager.Services
         /// <returns>符合的店家。</returns>
         public async Task<StoreResult> GetStoreAsync(int id)
         {
-            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == id, s => s.ProductCategories);
+            var store = await storeRepository.SingleOrDefaultAsync(s => s.StoreId == id, s => s.ProductCategories);
             var result = new StoreResult
             {
                 StoreId = store.StoreId,
@@ -43,12 +43,22 @@ namespace Manager.Services
                 Phone = store.Phone,
                 Address = store.Address,
                 Remark = store.Remark,
-                //Products = store.Products.Select(p => new StoreResult.Product
-                //{
-                //    ProductId = p.ProductId,
-                //    Name = p.Name,
-                //    Price = p.Price
-                //}).ToList()
+                ProductCategories = store.ProductCategories.Select(c => new StoreResult.ProductCategory
+                {
+                    ProductCategoryId = c.ProductCategoryId,
+                    Name = c.Name,
+                    Products = c.Products.Select(p => new StoreResult.Product
+                    {
+                        ProductId = p.ProductId,
+                        Name = p.Name,
+                        ProductItems = p.ProductItems.Select(i => new StoreResult.ProductItem
+                        {
+                            ProductItemId = i.ProductItemId,
+                            Name = i.Name,
+                            Price = i.Price
+                        }).ToList()
+                    }).ToList()
+                }).ToList()
             };
 
             return result;
@@ -105,7 +115,7 @@ namespace Manager.Services
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var store = await storeRepository.FirstOrDefaultAsync(s => s.StoreId == query.StoreId, s => s.ProductCategories);
+            var store = await storeRepository.SingleOrDefaultAsync(s => s.StoreId == query.StoreId, s => s.ProductCategories);
             if (store == null)
                 return false;
 

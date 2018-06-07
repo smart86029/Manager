@@ -51,7 +51,7 @@ namespace Manager.Services
         /// <returns>符合的使用者。</returns>
         public async Task<User> GetUserAsync(string userName, string passwordHash)
         {
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash);
+            var user = await userRepository.SingleOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash);
 
             return user;
         }
@@ -64,7 +64,7 @@ namespace Manager.Services
         public async Task<UserResult> GetUserIncludeRolesAsync(int id)
         {
             var roles = await roleRepository.ManyAsync(null);
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == id, u => u.UserRoles);
+            var user = await userRepository.SingleOrDefaultAsync(u => u.UserId == id, u => u.UserRoles);
             var result = new UserResult
             {
                 UserId = user.UserId,
@@ -148,7 +148,7 @@ namespace Manager.Services
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserId == query.UserId, u => u.UserRoles);
+            var user = await userRepository.SingleOrDefaultAsync(u => u.UserId == query.UserId, u => u.UserRoles);
             if (user == null)
                 return false;
 

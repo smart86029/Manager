@@ -42,7 +42,7 @@ namespace Manager.Services
         public async Task<string> CreateTokenAsync(CreateTokenQuery query)
         {
             var passwordHash = CryptographyUtility.Hash(query.Password);
-            var user = await userRepository.FirstOrDefaultAsync(u => u.UserName == query.UserName && u.PasswordHash == passwordHash);
+            var user = await userRepository.SingleOrDefaultAsync(u => u.UserName == query.UserName && u.PasswordHash == passwordHash);
             if (user == default(User))
                 return string.Empty;
 
