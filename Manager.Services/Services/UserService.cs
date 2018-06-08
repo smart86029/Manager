@@ -33,6 +33,17 @@ namespace Manager.Services
         }
 
         /// <summary>
+        /// 取得所有使用者。
+        /// </summary>
+        /// <returns>所有使用者。</returns>
+        public async Task<ICollection<User>> GetUsersAsync()
+        {
+            var users = await userRepository.ManyAsync(null);
+
+            return users.ToList();
+        }
+
+        /// <summary>
         /// 取得使用者。
         /// </summary>
         /// <param name="id">指定的 Id。</param>
@@ -98,17 +109,6 @@ namespace Manager.Services
             };
 
             return result;
-        }
-
-        /// <summary>
-        /// 取得所有使用者。
-        /// </summary>
-        /// <returns>所有使用者。</returns>
-        public async Task<ICollection<User>> GetUsersAsync()
-        {
-            var users = await userRepository.ManyAsync(null);
-
-            return users.ToList();
         }
 
         /// <summary>
