@@ -3,9 +3,9 @@
 namespace Manager.Data
 {
     /// <summary>
-    /// 菜單存放庫介面。
+    /// 權限存放庫介面。
     /// </summary>
-    public interface IMenuRepository : IRepository<Menu>
+    public interface IPermissionRepository : IRepository<Permission>
     {
     }
 }

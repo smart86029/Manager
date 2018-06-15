@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -14,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace Manager.Web
 {
@@ -30,6 +28,10 @@ namespace Manager.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ProducesAttribute("application/json"));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -43,26 +45,9 @@ namespace Manager.Web
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(new ProducesAttribute("application/json"));
-            });
             services.AddDbContext<ManagerContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ManagerDatabase"));
-            });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Manager API", Version = "v1" });
-                c.CustomSchemaIds(x => x.FullName);
-
-                var basePath = AppContext.BaseDirectory;
-                var xmlPath = Path.Combine(basePath, "Manager.Web.xml");
-                c.IncludeXmlComments(xmlPath);
-            });
-            services.Configure<IISOptions>(options =>
-            {
-                options.ForwardClientCertificate = false;
             });
 
             var builder = new ContainerBuilder();
@@ -81,15 +66,6 @@ namespace Manager.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Manager V1");
-            });
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseMvc();

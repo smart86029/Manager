@@ -1,9 +1,9 @@
 ﻿namespace Manager.Models.System
 {
     /// <summary>
-    /// 角色菜單。
+    /// 角色權限。
     /// </summary>
-    public class RoleMenu
+    public class RolePermission
     {
         /// <summary>
         /// 取得或設定角色 ID。
@@ -12,10 +12,10 @@
         public int RoleId { get; set; }
 
         /// <summary>
-        /// 取得或設定菜單 ID。
+        /// 取得或設定權限 ID。
         /// </summary>
-        /// <value>菜單 ID。</value>
-        public int MenuId { get; set; }
+        /// <value>權限 ID。</value>
+        public int PermissionId { get; set; }
 
         /// <summary>
         /// 取得或設定角色。
@@ -24,9 +24,9 @@
         public Role Role { get; set; }
 
         /// <summary>
-        /// 取得或設定菜單。
+        /// 取得或設定權限。
         /// </summary>
-        /// <value>菜單。</value>
-        public Menu Menu { get; set; }
+        /// <value>權限。</value>
+        public Permission Permission { get; set; }
     }
 }

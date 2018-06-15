@@ -16,51 +16,7 @@ namespace Manager.Data.EntityFramework
         /// </summary>
         public ManagerContext(DbContextOptions options) : base(options)
         {
-            //Configuration.ProxyCreationEnabled = false;
-            //Configuration.LazyLoadingEnabled = false;
         }
-
-        /// <summary>
-        /// 取得或設定團的集合。
-        /// </summary>
-        /// <value>團的集合。</value>
-        //public DbSet<Group> Groups { get; set; }
-
-        /// <summary>
-        /// 取得或設定商品的集合。
-        /// </summary>
-        /// <value>商品的集合。</value>
-        public DbSet<Product> Products { get; set; }
-
-        /// <summary>
-        /// 取得或設定店家的集合。
-        /// </summary>
-        /// <value>店家的集合。</value>
-        public DbSet<Store> Stores { get; set; }
-
-        /// <summary>
-        /// 取得或設定商業實體的集合。
-        /// </summary>
-        /// <value>商業實體的集合。</value>
-        public DbSet<BusinessEntity> BusinessEntiteis { get; set; }
-
-        /// <summary>
-        /// 取得或設定菜單的集合。
-        /// </summary>
-        /// <value>菜單的集合。</value>
-        public DbSet<Menu> Menus { get; set; }
-
-        /// <summary>
-        /// 取得或設定角色的集合。
-        /// </summary>
-        /// <value>角色的集合。</value>
-        public DbSet<Role> Roles { get; set; }
-
-        /// <summary>
-        /// 取得或設定使用者的集合。
-        /// </summary>
-        /// <value>使用者的集合。</value>
-        public DbSet<User> Users { get; set; }
 
         /// <summary>
         /// 此方法的呼叫時機是在初始化衍生內容的模型時，但在鎖定此模型及使用此模型初始化內容之前。 此方法的預設實作不會做任何事，
@@ -74,9 +30,9 @@ namespace Manager.Data.EntityFramework
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new MenuConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
-            modelBuilder.ApplyConfiguration(new RoleMenuConfiguration());
+            modelBuilder.ApplyConfiguration(new RolePermissionConfiguration());
 
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
             modelBuilder.ApplyConfiguration(new StoreConfiguration());
