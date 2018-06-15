@@ -27,6 +27,25 @@ namespace Manager.Services
         }
 
         /// <summary>
+        /// 取得所有角色。
+        /// </summary>
+        /// <param name="query">分頁查詢。</param>
+        /// <returns>所有角色。</returns>
+        public async Task<PaginationResult<Role>> GetRolesAsync(PaginationQuery query)
+        {
+            var specification = new PaginationSpecification<Role> { PageIndex = query.PageIndex, PageSize = query.PageSize };
+            var roles = await roleRepository.ManyAsync(specification);
+            var count = await roleRepository.CountAsync(null);
+            var result = new PaginationResult<Role>
+            {
+                Items = roles.ToList(),
+                ItemCount = count
+            };
+
+            return result;
+        }
+
+        /// <summary>
         /// 取得角色。
         /// </summary>
         /// <param name="id">指定的 Id。</param>
@@ -48,24 +67,6 @@ namespace Manager.Services
             var role = await roleRepository.SingleOrDefaultAsync(r => r.RoleId == id);
 
             return role;
-        }
-
-        /// <summary>
-        /// 取得所有角色。
-        /// </summary>
-        /// <returns>所有角色。</returns>
-        public async Task<PaginationResult<Role>> GetRolesAsync(PaginationQuery query)
-        {
-            var specification = new PaginationSpecification<Role> { PageIndex = query.PageIndex, PageSize = query.PageSize };
-            var roles = await roleRepository.ManyAsync(specification);
-            var count = await roleRepository.CountAsync(null);
-            var result = new PaginationResult<Role>
-            {
-                Items = roles.ToList(),
-                ItemCount = count
-            };
-
-            return result;
         }
 
         /// <summary>

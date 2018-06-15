@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
+import { PaginationResult } from '../core/pagination-result';
 import { Store } from './store';
 
 @Injectable()
@@ -11,9 +12,17 @@ export class StoreService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getStores(): Observable<Store[]> {
-    return this.httpClient.get<Store[]>(this.storesUrl).pipe(
-      catchError(this.handleError('getStores', []))
+  getStores(pageIndex: number, pageSize: number): Observable<PaginationResult<Store>> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.httpClient.get<Store[]>(this.storesUrl, { params: params, observe: 'response' }).pipe(
+      map(response => {
+        const itemCount = +response.headers.get('X-Pagination');
+        return new PaginationResult<Store>(itemCount, response.body)
+      }),
+      catchError(this.handleError('getStores', new PaginationResult<Store>()))
     );
   }
 

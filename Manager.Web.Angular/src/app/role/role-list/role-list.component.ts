@@ -1,17 +1,18 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { Role } from '../role';
 import { RoleService } from '../role.service';
-import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.scss']
 })
-export class RoleListComponent implements AfterViewInit {
+export class RoleListComponent implements OnInit {
   displayedColumns = ['id', 'name', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<Role>();
+  pageSize = 10;
   itemCount = 0;
 
   @ViewChild(MatPaginator)
@@ -19,15 +20,15 @@ export class RoleListComponent implements AfterViewInit {
 
   constructor(private roleService: RoleService) { }
 
-  ngAfterViewInit(): void {
-    this.getRoles();
+  ngOnInit(): void {
+    this.getRoles(0, this.pageSize);
   }
 
-  private getRoles(): void {
-    this.roleService.getRoles(this.paginator.pageIndex + 1, +this.paginator.pageSize)
-      .subscribe(roles => {
-        this.dataSource.data = roles.items;
-        this.itemCount = roles.itemCount;
+  private getRoles(pageIndex: number, pageSize: number): void {
+    this.roleService.getRoles(pageIndex + 1, pageSize)
+      .subscribe(result => {
+        this.dataSource.data = result.items;
+        this.itemCount = result.itemCount;
       });
   }
 }

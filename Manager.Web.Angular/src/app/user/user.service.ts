@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
+import { PaginationResult } from '../core/pagination-result';
 import { User } from './user';
 
 @Injectable()
@@ -11,9 +12,17 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.usersUrl).pipe(
-      catchError(this.handleError('getUsers', []))
+  getUsers(pageIndex: number, pageSize: number): Observable<PaginationResult<User>> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.httpClient.get<User[]>(this.usersUrl, { params: params, observe: 'response' }).pipe(
+      map(response => {
+        const itemCount = +response.headers.get('X-Pagination');
+        return new PaginationResult<User>(itemCount, response.body)
+      }),
+      catchError(this.handleError('getUsers', new PaginationResult<User>()))
     );
   }
 

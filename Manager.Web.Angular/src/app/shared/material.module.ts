@@ -12,6 +12,7 @@ import {
   MatInputModule,
   MatListModule,
   MatMenuModule,
+  MatPaginatorIntl,
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatRippleModule,
@@ -21,6 +22,7 @@ import {
   MatToolbarModule,
   MatTreeModule,
 } from '@angular/material';
+import { AppPaginatorIntl } from './app-paginator-intl';
 
 @NgModule({
   exports: [
@@ -44,6 +46,9 @@ import {
     MatTableModule,
     MatToolbarModule,
     MatTreeModule,
-  ]
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: AppPaginatorIntl }
+  ],
 })
 export class MaterialModule { }

@@ -6,6 +6,7 @@ using Manager.Common;
 using Manager.Models;
 using Manager.Models.GroupBuying;
 using Manager.Services;
+using Manager.ViewModels;
 using Manager.ViewModels.Stores;
 using Microsoft.AspNetCore.Authorization;
 //using Manager.Web.Helpers;
@@ -16,7 +17,7 @@ namespace Manager.Web.Controllers
     /// <summary>
     /// 店家控制器。
     /// </summary>
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     public class StoresController : Controller
     {
@@ -34,14 +35,16 @@ namespace Manager.Web.Controllers
         /// <summary>
         /// 取得所有店家。
         /// </summary>
+        /// <param name="query">分頁查詢。</param>
         /// <returns>所有店家。</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Store>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(PaginationQuery query)
         {
-            var stores = await storeService.GetStoresAsync();
+            var stores = await storeService.GetStoresAsync(query);
+            Response.Headers.Add("X-Pagination", stores.ItemCount.ToString());
 
-            return Ok(stores);
+            return Ok(stores.Items);
         }
 
         /// <summary>

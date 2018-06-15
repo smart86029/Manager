@@ -59,8 +59,7 @@ namespace Manager.Data.EntityFramework
         /// <summary>
         /// 傳回存放庫中符合指定之條件的實體。
         /// </summary>
-        /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
-        /// <param name="paths">Lambda 運算式，表示要包含的路徑。</param>
+        /// <param name="specification">分頁查詢規格。</param>
         /// <returns>存放庫中符合指定之條件的實體。</returns>
         public virtual async Task<IEnumerable<TEntity>> ManyAsync(PaginationSpecification<TEntity> specification)
         {

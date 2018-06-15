@@ -1,10 +1,10 @@
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { Role } from './role';
 import { PaginationResult } from '../core/pagination-result';
+import { Role } from './role';
 
 @Injectable()
 export class RoleService {
@@ -19,10 +19,10 @@ export class RoleService {
 
     return this.httpClient.get<Role[]>(this.rolesUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
-        let itemCount = +response.headers.get('X-Pagination');
-        return new PaginationResult<Role>(itemCount, response.body) }),
+        const itemCount = +response.headers.get('X-Pagination');
+        return new PaginationResult<Role>(itemCount, response.body)
+      }),
       catchError(this.handleError('getRoles', new PaginationResult<Role>()))
-      //console.log(response.headers.get('X-Pagination'));
     );
   }
 

@@ -32,14 +32,16 @@ namespace Manager.Web.Controllers
         /// <summary>
         /// 取得所有使用者。
         /// </summary>
+        /// <param name="query">分頁查詢。</param>
         /// <returns>所有使用者。</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<UserViewModel>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(PaginationQuery query)
         {
-            var users = await userService.GetUsersAsync();
+            var users = await userService.GetUsersAsync(query);
+            Response.Headers.Add("X-Pagination", users.ItemCount.ToString());
 
-            return Ok(users);
+            return Ok(users.Items);
         }
 
         /// <summary>

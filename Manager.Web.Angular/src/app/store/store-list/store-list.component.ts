@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from '../store.service';
+import { MatTableDataSource } from '@angular/material';
+
 import { Store } from '../store';
+import { StoreService } from '../store.service';
 
 @Component({
   selector: 'app-store-list',
@@ -9,16 +11,21 @@ import { Store } from '../store';
 })
 export class StoreListComponent implements OnInit {
   displayedColumns = ['id', 'name', 'createdOn', 'action'];
-  stores: Store[];
+  dataSource = new MatTableDataSource<Store>();
+  pageSize = 10;
+  itemCount = 0;
 
   constructor(private storeService: StoreService) { }
 
   ngOnInit() {
-    this.getStores();
+    this.getStores(0, this.pageSize);
   }
 
-  private getStores(): void {
-    this.storeService.getStores()
-      .subscribe(stores => this.stores = stores);
+  private getStores(pageIndex: number, pageSize: number): void {
+    this.storeService.getStores(pageIndex + 1, pageSize)
+      .subscribe(result => {
+        this.dataSource.data = result.items;
+        this.itemCount = result.itemCount;
+      });
   }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Manager.Data;
 using Manager.Models.GroupBuying;
+using Manager.ViewModels;
 using Manager.ViewModels.Stores;
 
 namespace Manager.Services
@@ -25,6 +26,25 @@ namespace Manager.Services
         {
             this.unitOfWork = unitOfWork;
             this.storeRepository = storeRepository;
+        }
+
+        /// <summary>
+        /// 取得所有店家。
+        /// </summary>
+        /// <param name="query">分頁查詢。</param>
+        /// <returns>所有店家。</returns>
+        public async Task<PaginationResult<Store>> GetStoresAsync(PaginationQuery query)
+        {
+            var specification = new PaginationSpecification<Store> { PageIndex = query.PageIndex, PageSize = query.PageSize };
+            var stores = await storeRepository.ManyAsync(specification);
+            var count = await storeRepository.CountAsync(null);
+            var result = new PaginationResult<Store>
+            {
+                Items = stores.ToList(),
+                ItemCount = count
+            };
+
+            return result;
         }
 
         /// <summary>
@@ -62,17 +82,6 @@ namespace Manager.Services
             };
 
             return result;
-        }
-
-        /// <summary>
-        /// 取得所有店家。
-        /// </summary>
-        /// <returns>所有店家。</returns>
-        public async Task<ICollection<Store>> GetStoresAsync()
-        {
-            var stores = await storeRepository.ManyAsync(null);
-
-            return stores.ToList();
         }
 
         /// <summary>

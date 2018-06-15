@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Manager.Common;
 using Manager.Data;
 using Manager.Models.System;
+using Manager.ViewModels;
 using Manager.ViewModels.Users;
 
 namespace Manager.Services
@@ -34,12 +34,25 @@ namespace Manager.Services
         /// <summary>
         /// 取得所有使用者。
         /// </summary>
+        /// <param name="query">分頁查詢。</param>
         /// <returns>所有使用者。</returns>
-        public async Task<ICollection<User>> GetUsersAsync()
+        public async Task<PaginationResult<UserViewModel>> GetUsersAsync(PaginationQuery query)
         {
-            var users = await userRepository.ManyAsync(null);
+            var specification = new PaginationSpecification<User> { PageIndex = query.PageIndex, PageSize = query.PageSize };
+            var users = await userRepository.ManyAsync(specification);
+            var count = await userRepository.CountAsync(null);
+            var result = new PaginationResult<UserViewModel>
+            {
+                Items = users.Select(u => new UserViewModel
+                {
+                    UserId = u.UserId,
+                    UserName = u.UserName,
+                    IsEnabled = u.IsEnabled
+                }).ToList(),
+                ItemCount = count
+            };
 
-            return users.ToList();
+            return result;
         }
 
         /// <summary>

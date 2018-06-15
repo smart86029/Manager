@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { User } from '../user';
 import { UserService } from '../user.service';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-user-list',
@@ -12,6 +12,8 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 export class UserListComponent implements OnInit {
   displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<User>();
+  pageSize = 10;
+  itemCount = 0;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -19,12 +21,15 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUsers(0, this.pageSize);
     this.dataSource.paginator = this.paginator;
   }
 
-  private getUsers(): void {
-    this.userService.getUsers()
-      .subscribe(users => this.dataSource.data = users);
+  private getUsers(pageIndex: number, pageSize: number): void {
+    this.userService.getUsers(pageIndex + 1, pageSize)
+      .subscribe(result => {
+        this.dataSource.data = result.items;
+        this.itemCount = result.itemCount;
+      });
   }
 }
