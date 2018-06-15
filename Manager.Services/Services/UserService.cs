@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Manager.Common;
 using Manager.Data;
-using Manager.Models;
 using Manager.Models.System;
 using Manager.ViewModels.Users;
 
@@ -104,11 +103,17 @@ namespace Manager.Services
         /// 取得所有使用者。
         /// </summary>
         /// <returns>所有使用者。</returns>
-        public async Task<ICollection<User>> GetUsersAsync()
+        public async Task<ICollection<UserViewModel>> GetUsersAsync()
         {
             var users = await userRepository.ManyAsync(null);
+            var result = users.Select(u => new UserViewModel
+            {
+                UserId = u.UserId,
+                UserName = u.UserName,
+                IsEnabled = u.IsEnabled
+            }).ToList();
 
-            return users.ToList();
+            return result;
         }
 
         /// <summary>
@@ -123,12 +128,13 @@ namespace Manager.Services
                 throw new ArgumentNullException(nameof(query));
 
             var roleIds = query.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
+            var specification = new PaginationSpecification<Role> { Criteria = r => roleIds.Contains(r.RoleId) };
             var user = new User
             {
                 UserName = query.UserName,
                 PasswordHash = CryptographyUtility.Hash(query.Password),
                 IsEnabled = query.IsEnabled,
-                UserRoles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId))).Select(r => new UserRole { Role = r }).ToList()
+                UserRoles = (await roleRepository.ManyAsync(specification)).Select(r => new UserRole { Role = r }).ToList()
             };
 
             userRepository.Create(user);
@@ -157,9 +163,9 @@ namespace Manager.Services
             if (!string.IsNullOrWhiteSpace(query.Password))
                 user.PasswordHash = CryptographyUtility.Hash(query.Password);
 
+            var specification = new PaginationSpecification<Role> { Criteria = r => roleIds.Contains(r.RoleId) };
             user.IsEnabled = query.IsEnabled;
-            user.UserRoles = (await roleRepository.ManyAsync(r => roleIds.Contains(r.RoleId)))
-                .Select(r => new UserRole { UserId = user.UserId, RoleId = r.RoleId }).ToList();
+            user.UserRoles = (await roleRepository.ManyAsync(specification)).Select(r => new UserRole { UserId = user.UserId, RoleId = r.RoleId }).ToList();
             userRepository.Update(user);
             await unitOfWork.CommitAsync();
 

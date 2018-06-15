@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Manager.Common;
 using Manager.Models.System;
 using Manager.Services;
+using Manager.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,11 +32,12 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <returns>所有角色。</returns>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(PaginationQuery query)
         {
-            var roles = await roleService.GetRolesAsync();
+            var roles = await roleService.GetRolesAsync(query);
+            Response.Headers.Add("X-Pagination", roles.ItemCount.ToString());
 
-            return Ok(roles);
+            return Ok(roles.Items);
         }
 
         /// <summary>

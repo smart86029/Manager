@@ -62,17 +62,37 @@ namespace Manager.Data.EntityFramework
         /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
         /// <param name="paths">Lambda 運算式，表示要包含的路徑。</param>
         /// <returns>存放庫中符合指定之條件的實體。</returns>
-        public virtual async Task<IEnumerable<TEntity>> ManyAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths)
+        public virtual async Task<IEnumerable<TEntity>> ManyAsync(PaginationSpecification<TEntity> specification)
         {
             var query = Context.Set<TEntity>().AsQueryable();
 
-            foreach (var path in paths)
-                query = query.Include(path);
+            specification = specification ?? new PaginationSpecification<TEntity>();
+            foreach (var include in specification.Includes)
+                query = query.Include(include);
+
+            if (specification.Criteria != null)
+                query = query.Where(specification.Criteria);
+            if (specification.PageSize > 0 && specification.PageIndex > 0)
+                query = query.Skip(specification.PageSize * (specification.PageIndex - 1));
+            if (specification.PageSize > 0)
+                query = query.Take(specification.PageSize);
+
+            return await query.AsNoTracking().ToListAsync();
+        }
+
+        /// <summary>
+        /// 傳回存放庫中符合指定之條件的數量。
+        /// </summary>
+        /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
+        /// <returns>符合指定之條件的數量。</returns>
+        public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            var query = Context.Set<TEntity>().AsQueryable();
 
             if (predicate != null)
                 query = query.Where(predicate);
 
-            return await query.AsNoTracking().ToListAsync();
+            return await query.CountAsync();
         }
 
         /// <summary>

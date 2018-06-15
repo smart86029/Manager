@@ -1,9 +1,10 @@
 <div class="container" fxLayout="column" fxLayoutAlign="space-around">
   <h2 class="mat-h2">使用者</h2>
   <div>
-  <a mat-button color="primary" routerLink="/users/new">新增</a>
-</div>
-  <mat-table [dataSource]="users">
+    <a mat-button color="primary" routerLink="/users/new">新增</a>
+  </div>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
       <mat-cell *matCellDef="let user">{{user.userId}}</mat-cell>

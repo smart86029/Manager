@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-user-list',
@@ -10,16 +11,20 @@ import { UserService } from '../user.service';
 })
 export class UserListComponent implements OnInit {
   displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
-  users: User[];
+  dataSource = new MatTableDataSource<User>();
+
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.getUsers();
+    this.dataSource.paginator = this.paginator;
   }
 
   private getUsers(): void {
     this.userService.getUsers()
-      .subscribe(users => this.users = users);
+      .subscribe(users => this.dataSource.data = users);
   }
 }

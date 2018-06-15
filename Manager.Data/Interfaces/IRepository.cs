@@ -32,7 +32,14 @@ namespace Manager.Data
         /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
         /// <param name="paths">Lambda 運算式，表示要包含的路徑。</param>
         /// <returns>存放庫中符合指定之條件的實體。</returns>
-        Task<IEnumerable<TEntity>> ManyAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] paths);
+        Task<IEnumerable<TEntity>> ManyAsync(PaginationSpecification<TEntity> specification);
+
+        /// <summary>
+        /// 傳回存放庫中符合指定之條件的數量。
+        /// </summary>
+        /// <param name="predicate">用來測試每個實體是否符合條件的函式。</param>
+        /// <returns>符合指定之條件的數量。</returns>
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// 新增實體。

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Manager.Data;
 using Manager.Models.System;
+using Manager.ViewModels;
 
 namespace Manager.Services
 {
@@ -54,11 +54,18 @@ namespace Manager.Services
         /// 取得所有角色。
         /// </summary>
         /// <returns>所有角色。</returns>
-        public async Task<ICollection<Role>> GetRolesAsync()
+        public async Task<PaginationResult<Role>> GetRolesAsync(PaginationQuery query)
         {
-            var roles = await roleRepository.ManyAsync(null);
+            var specification = new PaginationSpecification<Role> { PageIndex = query.PageIndex, PageSize = query.PageSize };
+            var roles = await roleRepository.ManyAsync(specification);
+            var count = await roleRepository.CountAsync(null);
+            var result = new PaginationResult<Role>
+            {
+                Items = roles.ToList(),
+                ItemCount = count
+            };
 
-            return roles.ToList();
+            return result;
         }
 
         /// <summary>

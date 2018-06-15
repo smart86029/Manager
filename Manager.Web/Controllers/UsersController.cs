@@ -7,6 +7,7 @@ using Manager.Services;
 using Manager.ViewModels.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Manager.ViewModels;
 
 namespace Manager.Web.Controllers
 {
@@ -33,8 +34,8 @@ namespace Manager.Web.Controllers
         /// </summary>
         /// <returns>所有使用者。</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<User>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Get()
+        [ProducesResponseType(typeof(ICollection<UserViewModel>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Get(PaginationQuery query)
         {
             var users = await userService.GetUsersAsync();
 
