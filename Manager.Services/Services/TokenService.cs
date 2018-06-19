@@ -19,9 +19,9 @@ namespace Manager.Services
     {
         private const int ExpireMinutes = 120;
 
-        private IConfiguration config;
-        private IUserRepository userRepository;
-        private SymmetricSecurityKey securityKey;
+        private readonly IConfiguration config;
+        private readonly IUserRepository userRepository;
+        private readonly SymmetricSecurityKey securityKey;
 
         /// <summary>
         /// 初始化 <see cref="TokenService"/> 類別的新執行個體。

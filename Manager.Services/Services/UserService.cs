@@ -14,9 +14,9 @@ namespace Manager.Services
     /// </summary>
     public class UserService
     {
-        private IUnitOfWork unitOfWork;
-        private IUserRepository userRepository;
-        private IRoleRepository roleRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IUserRepository userRepository;
+        private readonly IRoleRepository roleRepository;
 
         /// <summary>
         /// 初始化 <see cref="UserService"/> 類別的新執行個體。

@@ -13,10 +13,11 @@ namespace Manager.Web.Controllers
     /// 角色控制器。
     /// </summary>
     [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
-    public class RolesController : Controller
+    public class RolesController : ControllerBase
     {
-        private RoleService roleService;
+        private readonly RoleService roleService;
 
         /// <summary>
         /// 初始化 <see cref="RolesController"/> 類別的新執行個體。
@@ -33,7 +34,7 @@ namespace Manager.Web.Controllers
         /// <param name="query">分頁查詢。</param>
         /// <returns>所有角色。</returns>
         [HttpGet]
-        public async Task<IActionResult> Get(PaginationQuery query)
+        public async Task<IActionResult> Get([FromQuery] PaginationQuery query)
         {
             var roles = await roleService.GetRolesAsync(query);
             Response.Headers.Add("X-Pagination", roles.ItemCount.ToString());

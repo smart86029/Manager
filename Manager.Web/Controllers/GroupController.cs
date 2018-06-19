@@ -13,10 +13,11 @@ namespace Manager.Web.Controllers
     /// 團控制器。
     /// </summary>
     [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
-    public class GroupController : Controller
+    public class GroupController : ControllerBase
     {
-        private GroupService groupService;
+        private readonly GroupService groupService;
 
         /// <summary>
         /// 初始化 <see cref="GroupController"/> 類別的新執行個體。

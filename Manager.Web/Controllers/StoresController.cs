@@ -18,10 +18,11 @@ namespace Manager.Web.Controllers
     /// 店家控制器。
     /// </summary>
     [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
-    public class StoresController : Controller
+    public class StoresController : ControllerBase
     {
-        private StoreService storeService;
+        private readonly StoreService storeService;
 
         /// <summary>
         /// 初始化 <see cref="StoresController"/> 類別的新執行個體。
@@ -39,7 +40,7 @@ namespace Manager.Web.Controllers
         /// <returns>所有店家。</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Store>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Get(PaginationQuery query)
+        public async Task<IActionResult> Get([FromQuery] PaginationQuery query)
         {
             var stores = await storeService.GetStoresAsync(query);
             Response.Headers.Add("X-Pagination", stores.ItemCount.ToString());

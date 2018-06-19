@@ -6,7 +6,9 @@ import { catchError, map } from 'rxjs/operators';
 import { PaginationResult } from '../core/pagination-result';
 import { Store } from './store';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StoreService {
   private storesUrl = 'api/stores';
 

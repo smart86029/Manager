@@ -14,8 +14,8 @@ namespace Manager.Services
     /// </summary>
     public class StoreService
     {
-        private IUnitOfWork unitOfWork;
-        private IStoreRepository storeRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IStoreRepository storeRepository;
 
         /// <summary>
         /// 初始化 <see cref="StoreService"/> 類別的新執行個體。

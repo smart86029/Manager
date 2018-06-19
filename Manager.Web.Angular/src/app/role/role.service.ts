@@ -6,7 +6,9 @@ import { catchError, map } from 'rxjs/operators';
 import { PaginationResult } from '../core/pagination-result';
 import { Role } from './role';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RoleService {
   private rolesUrl = 'api/roles';
 

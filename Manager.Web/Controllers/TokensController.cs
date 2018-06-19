@@ -8,10 +8,11 @@ namespace Manager.Web.Controllers
     /// <summary>
     /// 令牌控制器。
     /// </summary>
+    [ApiController]
     [Route("api/[controller]")]
-    public class TokensController : Controller
+    public class TokensController : ControllerBase
     {
-        private TokenService tokenService;
+        private readonly TokenService tokenService;
 
         /// <summary>
         /// 初始化 <see cref="TokensController"/> 類別的新執行個體。

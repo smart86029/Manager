@@ -13,8 +13,8 @@ namespace Manager.Services
     /// </summary>
     public class GroupService
     {
-        private IUnitOfWork unitOfWork;
-        private IGroupRepository groupRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IGroupRepository groupRepository;
 
         /// <summary>
         /// 初始化 <see cref="GroupService"/> 類別的新執行個體。

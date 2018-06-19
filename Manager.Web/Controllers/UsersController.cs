@@ -15,10 +15,11 @@ namespace Manager.Web.Controllers
     /// 使用者控制器。
     /// </summary>
     [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
-        private UserService userService;
+        private readonly UserService userService;
 
         /// <summary>
         /// 初始化 <see cref="UsersController"/> 類別的新執行個體。
@@ -36,7 +37,7 @@ namespace Manager.Web.Controllers
         /// <returns>所有使用者。</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<UserViewModel>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Get(PaginationQuery query)
+        public async Task<IActionResult> Get([FromQuery] PaginationQuery query)
         {
             var users = await userService.GetUsersAsync(query);
             Response.Headers.Add("X-Pagination", users.ItemCount.ToString());
@@ -62,7 +63,7 @@ namespace Manager.Web.Controllers
         /// 取得新使用者。
         /// </summary>
         /// <returns>新使用者。</returns>
-        [HttpGet("New")]
+        [HttpGet("new")]
         [ProducesResponseType(typeof(UserResult), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetNew()
         {

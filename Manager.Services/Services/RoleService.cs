@@ -12,8 +12,8 @@ namespace Manager.Services
     /// </summary>
     public class RoleService
     {
-        private IUnitOfWork unitOfWork;
-        private IRoleRepository roleRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IRoleRepository roleRepository;
 
         /// <summary>
         /// 初始化 <see cref="RoleService"/> 類別的新執行個體。
