@@ -17,8 +17,6 @@ import { ProductDetailDialogComponent } from './product-detail-dialog/product-de
     StoreDetailComponent,
     ProductDetailDialogComponent
   ],
-  providers: [
-  ],
   entryComponents: [
     ProductDetailDialogComponent
   ]

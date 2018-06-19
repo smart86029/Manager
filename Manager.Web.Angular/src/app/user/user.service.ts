@@ -22,7 +22,7 @@ export class UserService {
     return this.httpClient.get<User[]>(this.usersUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
         const itemCount = +response.headers.get('X-Pagination');
-        return new PaginationResult<User>(itemCount, response.body)
+        return new PaginationResult<User>(itemCount, response.body);
       }),
       catchError(this.handleError('getUsers', new PaginationResult<User>()))
     );

@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+import { SharedModule } from '../shared/shared.module';
 import { PermissionListComponent } from './permission-list/permission-list.component';
+import { PermissionRoutingModule } from './permission-routing.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    SharedModule,
+    PermissionRoutingModule
   ],
-  declarations: [PermissionListComponent]
+  declarations: [
+    PermissionListComponent
+  ]
 })
 export class PermissionModule { }

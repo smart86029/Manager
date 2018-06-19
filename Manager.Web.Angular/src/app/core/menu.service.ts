@@ -10,7 +10,8 @@ export class MenuService {
     {
       name: '會員管理', icon: 'group', url: '', children: [
         { name: '使用者', icon: '', url: '/users', children: null },
-        { name: '角色', icon: '', url: '/roles', children: null }
+        { name: '角色', icon: '', url: '/roles', children: null },
+        { name: '權限', icon: '', url: '/permissions', children: null }
       ]
     },
     {

@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
     SharedModule,
     AdminRoutingModule
   ],
-  declarations: [AdminDashboardComponent]
+  declarations: [
+    AdminDashboardComponent
+  ]
 })
 export class AdminModule { }

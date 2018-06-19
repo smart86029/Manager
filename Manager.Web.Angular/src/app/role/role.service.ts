@@ -22,7 +22,7 @@ export class RoleService {
     return this.httpClient.get<Role[]>(this.rolesUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
         const itemCount = +response.headers.get('X-Pagination');
-        return new PaginationResult<Role>(itemCount, response.body)
+        return new PaginationResult<Role>(itemCount, response.body);
       }),
       catchError(this.handleError('getRoles', new PaginationResult<Role>()))
     );
