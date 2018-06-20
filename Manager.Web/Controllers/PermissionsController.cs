@@ -42,5 +42,21 @@ namespace Manager.Web.Controllers
 
             return Ok(permissions.Items);
         }
+
+        /// <summary>
+        /// 取得權限。
+        /// </summary>
+        /// <param name="id">權限 ID。</param>
+        /// <returns>權限。</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var permission = await permissionService.GetRoleAsync(id);
+
+            if (permission == null)
+                return NotFound();
+
+            return Ok(permission);
+        }
     }
 }

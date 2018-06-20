@@ -49,5 +49,17 @@ namespace Manager.Services
 
             return result;
         }
+
+        /// <summary>
+        /// 取得權限。
+        /// </summary>
+        /// <param name="id">權限 ID。</param>
+        /// <returns>權限。</returns>
+        public async Task<Permission> GetRoleAsync(int id)
+        {
+            var permission = await permissionRepository.FindAsync(id);
+
+            return permission;
+        }
     }
 }

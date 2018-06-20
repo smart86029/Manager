@@ -48,8 +48,8 @@ namespace Manager.Services
         /// <summary>
         /// 取得角色。
         /// </summary>
-        /// <param name="id">指定的 Id。</param>
-        /// <returns>符合的角色。</returns>
+        /// <param name="id">角色 ID。</param>
+        /// <returns>角色。</returns>
         public async Task<Role> GetRoleAsync(int id)
         {
             var role = await roleRepository.FindAsync(id);

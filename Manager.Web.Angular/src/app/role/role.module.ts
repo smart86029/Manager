@@ -11,8 +11,8 @@ import { RoleRoutingModule } from './role-routing.module';
     RoleRoutingModule
   ],
   declarations: [
-    RoleListComponent,
-    RoleDetailComponent
+    RoleDetailComponent,
+    RoleListComponent
   ]
 })
 export class RoleModule { }

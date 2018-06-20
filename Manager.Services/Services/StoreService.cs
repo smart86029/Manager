@@ -50,8 +50,8 @@ namespace Manager.Services
         /// <summary>
         /// 取得店家。
         /// </summary>
-        /// <param name="id">指定的 Id。</param>
-        /// <returns>符合的店家。</returns>
+        /// <param name="id">店家 ID。</param>
+        /// <returns>店家。</returns>
         public async Task<StoreResult> GetStoreAsync(int id)
         {
             var store = await storeRepository.SingleOrDefaultAsync(s => s.StoreId == id, s => s.ProductCategories);

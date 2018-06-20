@@ -39,6 +39,10 @@ export class RoleDetailComponent implements OnInit {
     }
   }
 
+  back(): void {
+    this.location.back();
+  }
+
   private create(): void {
     this.roleService.createRole(this.role)
       .subscribe(role => this.location.back());

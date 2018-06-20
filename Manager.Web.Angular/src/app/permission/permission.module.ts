@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
+import { PermissionDetailComponent } from './permission-detail/permission-detail.component';
 import { PermissionListComponent } from './permission-list/permission-list.component';
 import { PermissionRoutingModule } from './permission-routing.module';
 
@@ -10,6 +11,7 @@ import { PermissionRoutingModule } from './permission-routing.module';
     PermissionRoutingModule
   ],
   declarations: [
+    PermissionDetailComponent,
     PermissionListComponent
   ]
 })

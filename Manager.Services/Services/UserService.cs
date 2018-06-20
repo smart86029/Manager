@@ -58,8 +58,8 @@ namespace Manager.Services
         /// <summary>
         /// 取得使用者。
         /// </summary>
-        /// <param name="id">指定的 Id。</param>
-        /// <returns>符合的使用者。</returns>
+        /// <param name="id">使用者 ID。</param>
+        /// <returns>使用者。</returns>
         public async Task<User> GetUserByIdAsync(int id)
         {
             var user = await userRepository.FindAsync(id);
@@ -70,8 +70,9 @@ namespace Manager.Services
         /// <summary>
         /// 取得使用者。
         /// </summary>
-        /// <param name="userName">指定的使用者名稱</param>
-        /// <returns>符合的使用者。</returns>
+        /// <param name="userName">使用者名稱。</param>
+        /// <param name="passwordHash">密碼雜湊。</param>
+        /// <returns>使用者。</returns>
         public async Task<User> GetUserAsync(string userName, string passwordHash)
         {
             var user = await userRepository.SingleOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash);
