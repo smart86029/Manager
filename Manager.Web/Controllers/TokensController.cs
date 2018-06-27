@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
-using Manager.Services;
-using Manager.ViewModels.Tokens;
+﻿using System;
+using System.Threading.Tasks;
+using Manager.App.Commands;
+using Manager.App.Commands.System;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers
@@ -12,30 +13,30 @@ namespace Manager.Web.Controllers
     [Route("api/[controller]")]
     public class TokensController : ControllerBase
     {
-        private readonly TokenService tokenService;
+        private readonly ICommandService commandService;
 
         /// <summary>
         /// 初始化 <see cref="TokensController"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="tokenService">令牌服務。</param>
-        public TokensController(TokenService tokenService)
+        /// <param name="commandService">命令服務。</param>
+        public TokensController(ICommandService commandService)
         {
-            this.tokenService = tokenService;
+            this.commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
         }
 
         /// <summary>
         /// 新增令牌。
         /// </summary>
-        /// <param name="query">新增令牌查詢。</param>
-        /// <returns>201 Created。</returns>
+        /// <param name="command">新增令牌命令。</param>
+        /// <returns>令牌。</returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]CreateTokenQuery query)
+        public async Task<IActionResult> Post([FromBody]CreateTokenCommand command)
         {
-            var token = await tokenService.CreateTokenAsync(query);
+            var token = await commandService.ExecuteAsync<string>(command);
             if (string.IsNullOrWhiteSpace(token))
                 return Unauthorized();
 
-            return Created(string.Empty, new { token = token });
+            return Created(string.Empty, new { token });
         }
     }
 }

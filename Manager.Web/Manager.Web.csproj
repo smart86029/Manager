@@ -14,10 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Manager.Common\Manager.Common.csproj" />
-    <ProjectReference Include="..\Manager.Models\Manager.Models.csproj" />
-    <ProjectReference Include="..\Manager.Services\Manager.Services.csproj" />
-    <ProjectReference Include="..\Manager.ViewModels\Manager.ViewModels.csproj" />
+    <ProjectReference Include="..\Manager.App\Manager.App.csproj" />
+    <ProjectReference Include="..\Manager.Commands\Manager.Commands.csproj" />
+    <ProjectReference Include="..\Manager.Data\Manager.Data.csproj" />
+    <ProjectReference Include="..\Manager.Queries\Manager.Queries.csproj" />
   </ItemGroup>
 
 </Project>

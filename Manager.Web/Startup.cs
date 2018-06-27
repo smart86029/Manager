@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Manager.Data;
-using Manager.Data.EntityFramework;
-using Manager.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Manager.Web.AutofacModules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Manager.Web
 {
@@ -28,33 +24,29 @@ namespace Manager.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options =>
+            var connectionString = Configuration.GetConnectionString("ManagerDatabase");
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<GenericContext>(options =>
             {
-                options.Filters.Add(new ProducesAttribute("application/json"));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                };
+                options.UseSqlServer(connectionString);
             });
-            services.AddDbContext<ManagerContext>(options =>
+            services.AddDbContext<GroupBuyingContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("ManagerDatabase"));
+                options.UseSqlServer(connectionString);
+            });
+            services.AddDbContext<SystemContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
             });
 
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new ServiceModule());
-            builder.RegisterModule(new EFModule());
-            builder.Populate(services);
-            var container = builder.Build();
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new DataModule());
+            containerBuilder.RegisterModule(new CommandsModule(Configuration["Jwt:Key"], Configuration["Jwt:Issuer"]));
+            containerBuilder.RegisterModule(new QueriesModule(connectionString));
+            containerBuilder.Populate(services);
+
+            var container = containerBuilder.Build();
 
             return new AutofacServiceProvider(container);
         }
@@ -67,7 +59,6 @@ namespace Manager.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseAuthentication();
             app.UseMvc();
         }
     }
