@@ -22,7 +22,7 @@ namespace Manager.Data.Configurations.System
         {
             var result = new User[]
             {
-                new User { UserId = 1, UserName = "Admin", PasswordHash = CryptographyUtility.Hash("123fff"), IsEnabled = true, BusinessEntityId = 1 }
+                new User(1, "Admin", CryptographyUtility.Hash("123fff"), true, 1)
             };
 
             return result;

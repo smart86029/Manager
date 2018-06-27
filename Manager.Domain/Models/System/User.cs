@@ -8,58 +8,63 @@ namespace Manager.Domain.Models.System
     /// </summary>
     public class User : IAggregateRoot
     {
-        public User()
+        private ICollection<UserRole> userRoles;
+
+        public User(string userName, string password, bool isEnabled, int businessEntityId)
+            : this(0, userName, password, isEnabled, businessEntityId)
         {
         }
 
-        public User(string userName, string password, bool isEnabled)
+        public User(int userId, string userName, string password, bool isEnabled, int businessEntityId)
         {
+            UserId = userId;
             UserName = userName;
             PasswordHash = CryptographyUtility.Hash(password);
             IsEnabled = isEnabled;
+            BusinessEntityId = businessEntityId;
         }
 
         /// <summary>
-        /// 取得或設定主鍵。
+        /// 取得主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        public int UserId { get; set; }
+        public int UserId { get; private set; }
 
         /// <summary>
-        /// 取得或設定使用者名稱。
+        /// 取得使用者名稱。
         /// </summary>
         /// <value>使用者名稱。</value>
-        public string UserName { get; set; }
+        public string UserName { get; private set; }
 
         /// <summary>
-        /// 取得或設定密碼雜湊。
+        /// 取得密碼雜湊。
         /// </summary>
         /// <value>密碼雜湊。</value>
-        public string PasswordHash { get; set; }
+        public string PasswordHash { get; private set; }
 
         /// <summary>
-        /// 取得或設定值，這個值指出是否啟用。
+        /// 取得值，這個值指出是否啟用。
         /// </summary>
         /// <value>如果啟用則為 <c>true</c>，否則為 <c>false</c>。</value>
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; private set; }
 
         /// <summary>
-        /// 取得或設定商業實體ID。
+        /// 取得商業實體ID。
         /// </summary>
         /// <value>商業實體ID。</value>
-        public int BusinessEntityId { get; set; }
+        public int BusinessEntityId { get; private set; }
 
         ///// <summary>
-        ///// 取得或設定商業實體。
+        ///// 取得商業實體。
         ///// </summary>
         ///// <value>商業實體。</value>
         //public BusinessEntity BusinessEntity { get; set; }
 
         /// <summary>
-        /// 取得或設定使用者角色的集合。
+        /// 取得使用者角色的集合。
         /// </summary>
         /// <value>使用者角色的集合。</value>
-        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public ICollection<UserRole> UserRoles { get; private set; } = new List<UserRole>();
 
         public void UpdateUserName(string userName)
         {

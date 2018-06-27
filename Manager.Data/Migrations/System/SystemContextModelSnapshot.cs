@@ -18,7 +18,7 @@ namespace Manager.Data.Migrations.System
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Manager.Core.DomainModels.System.Permission", b =>
+            modelBuilder.Entity("Manager.Domain.Models.System.Permission", b =>
                 {
                     b.Property<int>("PermissionId")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace Manager.Data.Migrations.System
                     );
                 });
 
-            modelBuilder.Entity("Manager.Core.DomainModels.System.Role", b =>
+            modelBuilder.Entity("Manager.Domain.Models.System.Role", b =>
                 {
                     b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace Manager.Data.Migrations.System
                     );
                 });
 
-            modelBuilder.Entity("Manager.Core.DomainModels.System.RolePermission", b =>
+            modelBuilder.Entity("Manager.Domain.Models.System.RolePermission", b =>
                 {
                     b.Property<int>("RoleId");
 
@@ -79,7 +79,7 @@ namespace Manager.Data.Migrations.System
                     b.ToTable("RolePermission","System");
                 });
 
-            modelBuilder.Entity("Manager.Core.DomainModels.System.User", b =>
+            modelBuilder.Entity("Manager.Domain.Models.System.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -103,11 +103,11 @@ namespace Manager.Data.Migrations.System
                     b.ToTable("User","System");
 
                     b.HasData(
-                        new { UserId = 1, BusinessEntityId = 1, IsEnabled = true, PasswordHash = "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", UserName = "Admin" }
+                        new { UserId = 1, BusinessEntityId = 1, IsEnabled = true, PasswordHash = "mnzLU0AcKwCVczln3kVmxnQ4OQhGMHHVWb6/j4Yizs8=", UserName = "Admin" }
                     );
                 });
 
-            modelBuilder.Entity("Manager.Core.DomainModels.System.UserRole", b =>
+            modelBuilder.Entity("Manager.Domain.Models.System.UserRole", b =>
                 {
                     b.Property<int>("UserId");
 
@@ -125,27 +125,27 @@ namespace Manager.Data.Migrations.System
                     );
                 });
 
-            modelBuilder.Entity("Manager.Core.DomainModels.System.RolePermission", b =>
+            modelBuilder.Entity("Manager.Domain.Models.System.RolePermission", b =>
                 {
-                    b.HasOne("Manager.Core.DomainModels.System.Permission", "Permission")
+                    b.HasOne("Manager.Domain.Models.System.Permission", "Permission")
                         .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Manager.Core.DomainModels.System.Role", "Role")
+                    b.HasOne("Manager.Domain.Models.System.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Manager.Core.DomainModels.System.UserRole", b =>
+            modelBuilder.Entity("Manager.Domain.Models.System.UserRole", b =>
                 {
-                    b.HasOne("Manager.Core.DomainModels.System.Role", "Role")
+                    b.HasOne("Manager.Domain.Models.System.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Manager.Core.DomainModels.System.User", "User")
+                    b.HasOne("Manager.Domain.Models.System.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

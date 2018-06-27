@@ -37,7 +37,7 @@ namespace Manager.Commands.System
 
             var roleIds = createUserCommand.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
             //var specification = new PaginationSpecification<Role> { Criteria = r => roleIds.Contains(r.RoleId) };
-            var user = new User(createUserCommand.UserName, createUserCommand.Password, createUserCommand.IsEnabled);
+            var user = new User(createUserCommand.UserName, createUserCommand.Password, createUserCommand.IsEnabled, 0);
             //{
             //    UserName = query.UserName,
             //    PasswordHash = CryptographyUtility.Hash(query.Password),
