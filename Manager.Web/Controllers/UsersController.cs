@@ -84,25 +84,22 @@ namespace Manager.Web.Controllers
             return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
         }
 
-        ///// <summary>
-        ///// 修改使用者。
-        ///// </summary>
-        ///// <param name="id">使用者ID。</param>
-        ///// <param name="query">更新使用者查詢。</param>
-        ///// <returns>204 NoContent。</returns>
-        //[HttpPut("{id}")]
-        //[ProducesResponseType((int)HttpStatusCode.NoContent)]
-        //public async Task<IActionResult> Put(int id, [FromBody]UpdateUserQuery query)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
-        //    if (id != query.UserId)
-        //        return BadRequest();
+        /// <summary>
+        /// 修改使用者。
+        /// </summary>
+        /// <param name="id">使用者ID。</param>
+        /// <param name="command">更新使用者查詢。</param>
+        /// <returns>204 NoContent。</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]UpdateUserCommand command)
+        {
+            if (id != command.UserId)
+                return BadRequest();
 
-        //    await userService.UpdateAsync(query);
+            await commandService.ExecuteAsync<bool>(command);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
         ///// <summary>
         ///// 刪除使用者。

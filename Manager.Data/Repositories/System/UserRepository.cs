@@ -25,6 +25,16 @@ namespace Manager.Data.Repositories.System
         /// <summary>
         /// 取得使用者。
         /// </summary>
+        /// <param name="userId">使用者 ID。</param>
+        /// <returns>使用者。</returns>
+        public async Task<User> GetUserAsync(int userId)
+        {
+            return await context.Set<User>().Include(u => u.UserRoles).SingleOrDefaultAsync(u => u.UserId == userId);
+        }
+
+        /// <summary>
+        /// 取得使用者。
+        /// </summary>
         /// <param name="userName">使用者名稱。</param>
         /// <param name="passwordHash">密碼雜湊。</param>
         /// <returns>使用者。</returns>
@@ -40,6 +50,15 @@ namespace Manager.Data.Repositories.System
         public void Create(User user)
         {
             context.Entry(user).State = EntityState.Added;
+        }
+
+        /// <summary>
+        /// 更新使用者。
+        /// </summary>
+        /// <param name="user">使用者。</param>
+        public void Update(User user)
+        {
+            context.Entry(user).State = EntityState.Modified;
         }
     }
 }

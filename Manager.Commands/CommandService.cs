@@ -18,7 +18,7 @@ namespace Manager.Commands
             var commandType = command.GetType();
             var handler = serviceProvider.GetService(typeof(ICommandHandler<,>).MakeGenericType(commandType, typeof(TResult))) as ICommandHandler<TResult>;
 
-            return await handler.Handle(command);
+            return await handler.HandleAsync(command);
         }
     }
 }

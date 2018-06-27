@@ -31,7 +31,7 @@ namespace Manager.Commands.System
             this.roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
 
-        public async Task<App.ViewModels.System.User> Handle(ICommand command)
+        public async Task<App.ViewModels.System.User> HandleAsync(ICommand command)
         {
             var createUserCommand = command as CreateUserCommand ?? throw new NotSupportedException();
 

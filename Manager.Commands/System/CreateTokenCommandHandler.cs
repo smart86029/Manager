@@ -26,7 +26,7 @@ namespace Manager.Commands.System
             this.issuer = issuer ?? string.Empty;
         }
 
-        public async Task<string> Handle(ICommand command)
+        public async Task<string> HandleAsync(ICommand command)
         {
             var createTokenCommand = command as CreateTokenCommand ?? throw new NotSupportedException();
             var passwordHash = CryptographyUtility.Hash(createTokenCommand.Password);

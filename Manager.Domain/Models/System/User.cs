@@ -60,5 +60,10 @@ namespace Manager.Domain.Models.System
         /// </summary>
         /// <value>使用者角色的集合。</value>
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+
+        public void UpdateUserName(string userName)
+        {
+            UserName = userName;
+        }
     }
 }
