@@ -24,10 +24,10 @@ namespace Manager.Domain.Repositories.System
         Task<User> GetUserAsync(string userName, string passwordHash);
 
         /// <summary>
-        /// 新增使用者。
+        /// 加入使用者。
         /// </summary>
         /// <param name="user">使用者。</param>
-        void Create(User user);
+        void Add(User user);
 
         /// <summary>
         /// 更新使用者。

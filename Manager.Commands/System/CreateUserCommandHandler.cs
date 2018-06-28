@@ -45,7 +45,7 @@ namespace Manager.Commands.System
             //    UserRoles = (await roleRepository.GetRolesAsync(r => roleIds.Contains(r.RoleId))).Select(r => new UserRole { Role = r }).ToList()
             //};
 
-            userRepository.Create(user);
+            userRepository.Add(user);
             await unitOfWork.CommitAsync();
 
             var result = new App.ViewModels.System.User

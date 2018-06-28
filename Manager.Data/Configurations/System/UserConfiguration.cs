@@ -14,6 +14,8 @@ namespace Manager.Data.Configurations.System
                 .HasMaxLength(32);
             builder.HasIndex(u => u.UserName)
                 .IsUnique();
+            builder.Metadata.FindNavigation(nameof(User.UserRoles))
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasData(GetSeedData());
         }
 

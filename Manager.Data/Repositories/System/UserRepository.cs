@@ -44,10 +44,10 @@ namespace Manager.Data.Repositories.System
         }
 
         /// <summary>
-        /// 新增使用者。
+        /// 加入使用者。
         /// </summary>
         /// <param name="user">使用者。</param>
-        public void Create(User user)
+        public void Add(User user)
         {
             context.Entry(user).State = EntityState.Added;
         }
