@@ -3,14 +3,16 @@ using Manager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Manager.Data.Migrations.System
+namespace Manager.Data.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    partial class SystemContextModelSnapshot : ModelSnapshot
+    [Migration("20180628020051_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +105,7 @@ namespace Manager.Data.Migrations.System
                     b.ToTable("User","System");
 
                     b.HasData(
-                        new { UserId = 1, BusinessEntityId = 1, IsEnabled = true, PasswordHash = "mnzLU0AcKwCVczln3kVmxnQ4OQhGMHHVWb6/j4Yizs8=", UserName = "Admin" }
+                        new { UserId = 1, BusinessEntityId = 1, IsEnabled = true, PasswordHash = "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", UserName = "Admin" }
                     );
                 });
 

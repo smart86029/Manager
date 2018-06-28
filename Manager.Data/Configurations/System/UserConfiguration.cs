@@ -1,5 +1,4 @@
-﻿using Manager.Common;
-using Manager.Domain.Models.System;
+﻿using Manager.Domain.Models.System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,7 +21,7 @@ namespace Manager.Data.Configurations.System
         {
             var result = new User[]
             {
-                new User(1, "Admin", CryptographyUtility.Hash("123fff"), true, 1)
+                new User(1, "Admin", "123fff", true, 1)
             };
 
             return result;

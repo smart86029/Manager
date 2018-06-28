@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Manager.Data.Migrations.System
+namespace Manager.Data.Migrations
 {
     public partial class Empty : Migration
     {

@@ -10,6 +10,10 @@ namespace Manager.Domain.Models.System
     {
         private ICollection<UserRole> userRoles;
 
+        private User()
+        {
+        }
+
         public User(string userName, string password, bool isEnabled, int businessEntityId)
             : this(0, userName, password, isEnabled, businessEntityId)
         {

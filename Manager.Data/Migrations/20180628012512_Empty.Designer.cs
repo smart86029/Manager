@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Manager.Data.Migrations.System
+namespace Manager.Data.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20180622095506_Empty")]
+    [Migration("20180628012512_Empty")]
     partial class Empty
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

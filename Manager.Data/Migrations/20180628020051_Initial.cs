@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Manager.Data.Migrations.System
+namespace Manager.Data.Migrations
 {
     public partial class Initial : Migration
     {
@@ -136,7 +136,7 @@ namespace Manager.Data.Migrations.System
                 schema: "System",
                 table: "User",
                 columns: new[] { "UserId", "BusinessEntityId", "IsEnabled", "PasswordHash", "UserName" },
-                values: new object[] { 1, 1, true, "mnzLU0AcKwCVczln3kVmxnQ4OQhGMHHVWb6/j4Yizs8=", "Admin" });
+                values: new object[] { 1, 1, true, "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", "Admin" });
 
             migrationBuilder.InsertData(
                 schema: "System",
