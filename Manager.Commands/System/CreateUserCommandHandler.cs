@@ -3,9 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Manager.App.Commands;
 using Manager.App.Commands.System;
-using Manager.Common;
 using Manager.Domain.Models.System;
-using Manager.Domain.Repositories;
 using Manager.Domain.Repositories.System;
 
 namespace Manager.Commands.System
@@ -34,16 +32,12 @@ namespace Manager.Commands.System
         public async Task<App.ViewModels.System.User> HandleAsync(ICommand command)
         {
             var createUserCommand = command as CreateUserCommand ?? throw new NotSupportedException();
-
-            var roleIds = createUserCommand.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
-            //var specification = new PaginationSpecification<Role> { Criteria = r => roleIds.Contains(r.RoleId) };
+            var roleIds = createUserCommand.Roles.Where(x => x.IsChecked).Select(x => x.RoleId).ToList();
+            var roles = await roleRepository.GetRolesAsync(r => roleIds.Contains(r.RoleId));
             var user = new User(createUserCommand.UserName, createUserCommand.Password, createUserCommand.IsEnabled, 0);
-            //{
-            //    UserName = query.UserName,
-            //    PasswordHash = CryptographyUtility.Hash(query.Password),
-            //    IsEnabled = query.IsEnabled,
-            //    UserRoles = (await roleRepository.GetRolesAsync(r => roleIds.Contains(r.RoleId))).Select(r => new UserRole { Role = r }).ToList()
-            //};
+
+            foreach (var role in roles)
+                user.AddUserRole(role);
 
             userRepository.Add(user);
             await unitOfWork.CommitAsync();

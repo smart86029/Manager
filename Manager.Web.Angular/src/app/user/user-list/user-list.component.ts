@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 export class UserListComponent implements OnInit {
   displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<User>();
-  pageSize = 10;
+  pageSize = 5;
   itemCount = 0;
 
   @ViewChild(MatPaginator)
@@ -22,7 +22,6 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers(0, this.pageSize);
-    this.dataSource.paginator = this.paginator;
   }
 
   private getUsers(pageIndex: number, pageSize: number): void {

@@ -49,7 +49,7 @@ namespace Manager.Data.Repositories.System
         /// <param name="user">使用者。</param>
         public void Add(User user)
         {
-            context.Entry(user).State = EntityState.Added;
+            context.Set<User>().Add(user);
         }
 
         /// <summary>

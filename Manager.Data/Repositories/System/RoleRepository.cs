@@ -33,7 +33,7 @@ namespace Manager.Data.Repositories.System
         {
             var query = context.Set<Role>().AsQueryable();
             if (criteria != null)
-                query.Where(criteria);
+                query = query.Where(criteria);
 
             return await query.ToListAsync();
         }

@@ -102,10 +102,10 @@ namespace Manager.Domain.Models.System
         /// 加入使用者角色。
         /// </summary>
         /// <param name="roleId">角色 ID。</param>
-        public void AddUserRole(int roleId)
+        public void AddUserRole(Role role)
         {
-            if (!userRoles.Any(x => x.RoleId == roleId))
-                userRoles.Add(new UserRole { UserId = UserId, RoleId = roleId });
+            if (!userRoles.Any(x => x.Role == role))
+                userRoles.Add(new UserRole { Role = role });
         }
     }
 }

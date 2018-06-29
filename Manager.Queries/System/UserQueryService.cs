@@ -39,6 +39,8 @@ namespace Manager.Queries.System
                 ORDER BY UserId
                 OFFSET @Skip ROWS
                 FETCH NEXT @Take ROWS ONLY";
+            var sqlCount = $@"
+                SELECT COUNT(*) FROM [System].[User]";
             var param = new
             {
                 Skip = (option.PageIndex - 1) * option.PageSize,
@@ -49,10 +51,11 @@ namespace Manager.Queries.System
             {
                 connection.Open();
                 var users = await connection.QueryAsync<UserSummary>(sql, param);
+                var count = await connection.QuerySingleAsync<int>(sqlCount);
                 var result = new PaginationResult<UserSummary>
                 {
                     Items = users.AsList(),
-                    ItemCount = 100
+                    ItemCount = count
                 };
 
                 return result;
@@ -67,25 +70,25 @@ namespace Manager.Queries.System
         public async Task<User> GetUserAsync(int userId)
         {
             var sql = $@"
-				SELECT u1.UserId, u1.UserName, u1.IsEnabled, u1.RoleId, u1.Name, ISNULL(x.IsChecked, 0) AS IsChecked
-				FROM (
-					SELECT u.UserId, u.UserName, u.IsEnabled, r.RoleId, r.Name
-					FROM (
-						SELECT UserId, UserName, IsEnabled
-						FROM [System].[User]
-						WHERE UserId = @UserId
-					) AS u
-					CROSS JOIN (
+                SELECT u1.UserId, u1.UserName, u1.IsEnabled, u1.RoleId, u1.Name, ISNULL(x.IsChecked, 0) AS IsChecked
+                FROM (
+                    SELECT u.UserId, u.UserName, u.IsEnabled, r.RoleId, r.Name
+                    FROM (
+                        SELECT UserId, UserName, IsEnabled
+                        FROM [System].[User]
+                        WHERE UserId = @UserId
+                    ) AS u
+                    CROSS JOIN (
                         SELECT RoleId, Name
                         FROM [System].[Role]
                         WHERE IsEnabled = 1
                     ) AS r
-				) AS u1
-				LEFT JOIN (
-					SELECT UserId, RoleId, 1 AS IsChecked
-					FROM [System].[UserRole]
-					WHERE UserId = @UserId
-				) AS x ON u1.UserId = x.UserId AND u1.RoleId = x.RoleId";
+                ) AS u1
+                LEFT JOIN (
+                    SELECT UserId, RoleId, 1 AS IsChecked
+                    FROM [System].[UserRole]
+                    WHERE UserId = @UserId
+                ) AS x ON u1.UserId = x.UserId AND u1.RoleId = x.RoleId";
             var param = new { UserId = userId };
 
             using (var connection = new SqlConnection(connectionString))
