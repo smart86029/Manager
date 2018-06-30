@@ -37,5 +37,23 @@ namespace Manager.Data.Repositories.System
 
             return await query.ToListAsync();
         }
+
+        /// <summary>
+        /// 加入角色。
+        /// </summary>
+        /// <param name="role">角色。</param>
+        public void Add(Role role)
+        {
+            context.Set<Role>().Add(role);
+        }
+
+        /// <summary>
+        /// 更新角色。
+        /// </summary>
+        /// <param name="role">角色。</param>
+        public void Update(Role role)
+        {
+            context.Entry(role).State = EntityState.Modified;
+        }
     }
 }

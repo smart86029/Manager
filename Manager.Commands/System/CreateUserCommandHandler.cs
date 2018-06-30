@@ -10,8 +10,6 @@ namespace Manager.Commands.System
 {
     public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, App.ViewModels.System.User>
     {
-        private const int ExpireMinutes = 120;
-
         private readonly ISystemUnitOfWork unitOfWork;
         private readonly IUserRepository userRepository;
         private readonly IRoleRepository roleRepository;

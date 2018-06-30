@@ -5,7 +5,6 @@ using Manager.App.Commands.System;
 using Manager.App.Queries.System;
 using Manager.App.ViewModels;
 using Manager.App.ViewModels.System;
-using Manager.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers

@@ -19,8 +19,8 @@ namespace Manager.Data.Configurations.System
         {
             var result = new Role[]
             {
-                new Role { RoleId = 1, Name = "Administrator", IsEnabled = true },
-                new Role { RoleId = 2, Name = "HumanResources", IsEnabled = true }
+                new Role(1, "Administrator", true),
+                new Role(2, "HumanResources", true )
             };
 
             return result;

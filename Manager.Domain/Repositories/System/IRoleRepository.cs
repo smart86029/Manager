@@ -16,5 +16,17 @@ namespace Manager.Domain.Repositories.System
         /// </summary>
         /// <returns>所有角色。</returns>
         Task<ICollection<Role>> GetRolesAsync(Expression<Func<Role, bool>> criteria);
+
+        /// <summary>
+        /// 加入角色。
+        /// </summary>
+        /// <param name="role">角色。</param>
+        void Add(Role role);
+
+        /// <summary>
+        /// 更新角色。
+        /// </summary>
+        /// <param name="role">角色。</param>
+        void Update(Role role);
     }
 }
