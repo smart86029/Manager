@@ -13,7 +13,7 @@ namespace Manager.Commands.System
         private readonly IRoleRepository roleRepository;
 
         /// <summary>
-        /// 初始化 <see cref="CreateUserCommandHandler"/> 類別的新執行個體。
+        /// 初始化 <see cref="CreateRoleCommandHandler"/> 類別的新執行個體。
         /// </summary>
         /// <param name="unitOfWork">工作單元。</param>
         /// <param name="roleRepository">角色存放庫。</param>

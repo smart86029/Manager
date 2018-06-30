@@ -39,6 +39,16 @@ namespace Manager.Data.Repositories.System
         }
 
         /// <summary>
+        /// 取得角色。
+        /// </summary>
+        /// <param name="roleId">角色 ID。</param>
+        /// <returns>角色。</returns>
+        public async Task<Role> GetRoleAsync(int roleId)
+        {
+            return await context.Set<Role>().Include(r => r.RolePermissions).SingleOrDefaultAsync(r => r.RoleId == roleId);
+        }
+
+        /// <summary>
         /// 加入角色。
         /// </summary>
         /// <param name="role">角色。</param>

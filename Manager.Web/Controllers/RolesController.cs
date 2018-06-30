@@ -62,7 +62,7 @@ namespace Manager.Web.Controllers
         /// <summary>
         /// 新增角色。
         /// </summary>
-        /// <param name="role">角色。</param>
+        /// <param name="command">新增角色命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateRoleCommand command)
@@ -75,25 +75,22 @@ namespace Manager.Web.Controllers
             return CreatedAtAction(nameof(Get), new { id = role.RoleId }, role);
         }
 
-        ///// <summary>
-        ///// 修改角色。
-        ///// </summary>
-        ///// <param name="id">角色ID。</param>
-        ///// <param name="role">角色。</param>
-        ///// <returns>204 NoContent。</returns>
-        //[HttpPut("{id}")]
-        //[ProducesResponseType((int)HttpStatusCode.NoContent)]
-        //public async Task<IActionResult> Put(int id, [FromBody]Role role)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
-        //    if (id != role.RoleId)
-        //        return BadRequest();
+        /// <summary>
+        /// 修改角色。
+        /// </summary>
+        /// <param name="id">角色 ID。</param>
+        /// <param name="command">修改角色命令。</param>
+        /// <returns>204 NoContent。</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]UpdateRoleCommand command)
+        {
+            if (id != command.RoleId)
+                return BadRequest();
 
-        //    await roleService.UpdateAsync(role, new string[0]);
+            await commandService.ExecuteAsync<bool>(command);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
         ///// <summary>
         ///// 刪除角色。
