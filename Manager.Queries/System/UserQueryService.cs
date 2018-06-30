@@ -70,7 +70,7 @@ namespace Manager.Queries.System
         public async Task<User> GetUserAsync(int userId)
         {
             var sql = $@"
-                SELECT x.UserId, x.UserName, x.IsEnabled, x.RoleId, x.[Name,] ISNULL(y.IsChecked, 0) AS IsChecked
+                SELECT x.UserId, x.UserName, x.IsEnabled, x.RoleId, x.[Name], ISNULL(y.IsChecked, 0) AS IsChecked
                 FROM (
                     SELECT u.UserId, u.UserName, u.IsEnabled, r.RoleId, r.[Name]
                     FROM (
@@ -88,7 +88,7 @@ namespace Manager.Queries.System
                     SELECT UserId, RoleId, 1 AS IsChecked
                     FROM [System].[UserRole]
                     WHERE UserId = @UserId
-                ) AS y ON x.UserId = y.UserId AND x.RoleId = xyRoleId";
+                ) AS y ON x.UserId = y.UserId AND x.RoleId = y.RoleId";
             var param = new { UserId = userId };
 
             using (var connection = new SqlConnection(connectionString))
@@ -108,7 +108,7 @@ namespace Manager.Queries.System
                     return user;
                 }, param, splitOn: nameof(User.Role.RoleId));
 
-                return result.First();
+                return result.FirstOrDefault();
             }
         }
 

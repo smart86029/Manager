@@ -24,6 +24,7 @@ namespace Manager.Queries.System
         public RoleQueryService(string connectionString)
         {
             this.connectionString = !string.IsNullOrWhiteSpace(connectionString) ? connectionString : throw new ArgumentNullException(nameof(connectionString));
+            SqlMapper.SetTypeMap(typeof(Role.Permission), new TypeMap<Role.Permission>());
         }
 
         /// <summary>
@@ -70,9 +71,9 @@ namespace Manager.Queries.System
         public async Task<Role> GetRoleAsync(int roleId)
         {
             var sql = $@"
-                SELECT x.RoleId, u1.[Name], x.IsEnabled, x.PermissionId, x.[Name], ISNULL(y.IsChecked, 0) AS IsChecked
+                SELECT x.RoleId, x.[Name], x.IsEnabled, x.PermissionId, x.PermissionName, ISNULL(y.IsChecked, 0) AS IsChecked
                 FROM (
-                    SELECT r.RoleId, r.[Name], p.IsEnabled, p.PermissionId, p.[Name]
+                    SELECT r.RoleId, r.[Name], r.IsEnabled, p.PermissionId, p.[Name] AS PermissionName
                     FROM (
                         SELECT RoleId, [Name], IsEnabled
                         FROM [System].[Role]
@@ -95,7 +96,7 @@ namespace Manager.Queries.System
             {
                 connection.Open();
                 var roles = new Dictionary<int, Role>();
-                var result = await connection.QueryAsync<Role, Role.Permission, Role>(sql, (r, p) =>
+                var result = await connection.QueryAsync(sql, (Role r, Role.Permission p) =>
                 {
                     if (!roles.TryGetValue(r.RoleId, out Role role))
                     {
@@ -108,7 +109,7 @@ namespace Manager.Queries.System
                     return role;
                 }, param, splitOn: nameof(Role.Permission.PermissionId));
 
-                return result.First();
+                return result.FirstOrDefault();
             }
         }
 

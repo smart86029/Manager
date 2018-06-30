@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Manager.Domain.Models.System
 {
@@ -93,6 +94,27 @@ namespace Manager.Domain.Models.System
         public void Disable()
         {
             IsEnabled = false;
+        }
+
+        /// <summary>
+        /// 分配權限。
+        /// </summary>
+        /// <param name="permission">權限。</param>
+        public void AssignPermission(Permission permission)
+        {
+            if (!rolePermissions.Any(x => x.RoleId == permission.PermissionId))
+                rolePermissions.Add(new RolePermission { Permission = permission });
+        }
+
+        /// <summary>
+        /// 取消分配權限。
+        /// </summary>
+        /// <param name="permission">權限。</param>
+        public void UnassignPermission(Permission permission)
+        {
+            var rolePermission = rolePermissions.FirstOrDefault(x => x.PermissionId == permission.PermissionId);
+            if (rolePermission != default(RolePermission))
+                rolePermissions.Remove(rolePermission);
         }
     }
 }
