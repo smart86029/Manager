@@ -99,13 +99,49 @@ namespace Manager.Domain.Models.System
         }
 
         /// <summary>
-        /// 加入使用者角色。
+        /// 更新密碼。
         /// </summary>
-        /// <param name="roleId">角色 ID。</param>
-        public void AddUserRole(Role role)
+        /// <param name="password">密碼。</param>
+        public void UpdatePassword(string password)
         {
-            if (!userRoles.Any(x => x.Role == role))
+            PasswordHash = CryptographyUtility.Hash(password);
+        }
+
+        /// <summary>
+        /// 啟用。
+        /// </summary>
+        public void Enable()
+        {
+            IsEnabled = true;
+        }
+
+        /// <summary>
+        /// 停用。
+        /// </summary>
+        public void Disable()
+        {
+            IsEnabled = false;
+        }
+
+        /// <summary>
+        /// 分配角色。
+        /// </summary>
+        /// <param name="role">角色。</param>
+        public void AssignRole(Role role)
+        {
+            if (!userRoles.Any(x => x.RoleId == role.RoleId))
                 userRoles.Add(new UserRole { Role = role });
+        }
+
+        /// <summary>
+        /// 取消分配角色。
+        /// </summary>
+        /// <param name="role">角色。</param>
+        public void UnassignRole(Role role)
+        {
+            var userRole = userRoles.FirstOrDefault(x => x.RoleId == role.RoleId);
+            if (userRole != default(UserRole))
+                userRoles.Remove(userRole);
         }
     }
 }

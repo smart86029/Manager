@@ -32,12 +32,11 @@ namespace Manager.Commands.System
         public async Task<App.ViewModels.System.User> HandleAsync(ICommand command)
         {
             var createUserCommand = command as CreateUserCommand ?? throw new NotSupportedException();
-            var roleIds = createUserCommand.Roles.Where(x => x.IsChecked).Select(x => x.RoleId).ToList();
-            var roles = await roleRepository.GetRolesAsync(r => roleIds.Contains(r.RoleId));
             var user = new User(createUserCommand.UserName, createUserCommand.Password, createUserCommand.IsEnabled, 0);
-
-            foreach (var role in roles)
-                user.AddUserRole(role);
+            var roleIdsToAssign = createUserCommand.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
+            var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.RoleId));
+            foreach (var role in rolesToAssign)
+                user.AssignRole(role);
 
             userRepository.Add(user);
             await unitOfWork.CommitAsync();
