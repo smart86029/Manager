@@ -43,6 +43,8 @@ namespace Manager.Web.Controllers
             var users = await userQueryService.GetUsersAsync(option);
             Response.Headers.Add("X-Pagination", users.ItemCount.ToString());
 
+            await Task.Delay(3000);
+
             return Ok(users.Items);
         }
 

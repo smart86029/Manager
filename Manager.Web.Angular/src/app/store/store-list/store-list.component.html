@@ -6,6 +6,9 @@
   <mat-paginator [length]="itemCount" [pageSizeOptions]="[5, 10, 20]" (page)="pageEvent = getStores($event.pageIndex, $event.pageSize)"
     showFirstLastButtons></mat-paginator>
   <mat-table [dataSource]="dataSource">
+    <div class="loading-overlay" *ngIf="isLoading">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
       <mat-cell *matCellDef="let store">{{store.storeId}}</mat-cell>

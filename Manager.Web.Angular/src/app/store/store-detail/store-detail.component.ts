@@ -15,12 +15,13 @@ import { StoreService } from '../store.service';
   styleUrls: ['./store-detail.component.scss']
 })
 export class StoreDetailComponent implements OnInit {
+  isLoading = true;
+  saveMode = SaveMode.Create;
+  displayedColumns = ['name', 'price', 'action'];
+  store = new Store();
+
   @ViewChild('tableProducts')
   tableProducts: MatTable<Product>;
-  displayedColumns = ['name', 'price', 'action'];
-  saveMode = SaveMode.Create;
-  store = new Store();
-  isLoading = true;
 
   constructor(
     private storeService: StoreService,
@@ -32,6 +33,7 @@ export class StoreDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.saveMode = SaveMode.Update;
+      this.isLoading = true;
       this.storeService.getStore(id)
         .subscribe(store => this.store = store, () => { }, () => this.isLoading = false);
     } else {
@@ -56,7 +58,7 @@ export class StoreDetailComponent implements OnInit {
   }
 
   createProduct(): void {
-    let dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
       data: {}
     });
     dialogRef.afterClosed().subscribe(data => {
@@ -71,7 +73,7 @@ export class StoreDetailComponent implements OnInit {
   }
 
   updateProduct(product: Product): void {
-    let dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
       data: {
         name: product.name,
         price: product.price

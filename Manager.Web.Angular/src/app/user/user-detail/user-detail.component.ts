@@ -14,6 +14,7 @@ import { RoleService } from '../../role/role.service';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
+  isLoading: boolean;
   saveMode = SaveMode.Create;
   user = new User();
 
@@ -26,11 +27,12 @@ export class UserDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.saveMode = SaveMode.Update;
+      this.isLoading = true;
       this.userService.getUser(id)
-        .subscribe(user => this.user = user);
+        .subscribe(user => this.user = user, () => { }, () => this.isLoading = false);
     } else {
       this.userService.getNewUser()
-        .subscribe(user => this.user = user);
+        .subscribe(user => this.user = user, () => { }, () => this.isLoading = false);
     }
   }
 

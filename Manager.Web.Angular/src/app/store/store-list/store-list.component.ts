@@ -10,6 +10,7 @@ import { StoreService } from '../store.service';
   styleUrls: ['./store-list.component.scss']
 })
 export class StoreListComponent implements OnInit {
+  isLoading = true;
   displayedColumns = ['id', 'name', 'createdOn', 'action'];
   dataSource = new MatTableDataSource<Store>();
   pageSize = 10;
@@ -22,10 +23,11 @@ export class StoreListComponent implements OnInit {
   }
 
   private getStores(pageIndex: number, pageSize: number): void {
+    this.isLoading = true;
     this.storeService.getStores(pageIndex + 1, pageSize)
       .subscribe(result => {
         this.dataSource.data = result.items;
         this.itemCount = result.itemCount;
-      });
+      }, () => { }, () => this.isLoading = false);
   }
 }
