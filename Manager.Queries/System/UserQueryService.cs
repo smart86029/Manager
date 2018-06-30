@@ -70,25 +70,25 @@ namespace Manager.Queries.System
         public async Task<User> GetUserAsync(int userId)
         {
             var sql = $@"
-                SELECT u1.UserId, u1.UserName, u1.IsEnabled, u1.RoleId, u1.Name, ISNULL(x.IsChecked, 0) AS IsChecked
+                SELECT x.UserId, x.UserName, x.IsEnabled, x.RoleId, x.[Name,] ISNULL(y.IsChecked, 0) AS IsChecked
                 FROM (
-                    SELECT u.UserId, u.UserName, u.IsEnabled, r.RoleId, r.Name
+                    SELECT u.UserId, u.UserName, u.IsEnabled, r.RoleId, r.[Name]
                     FROM (
                         SELECT UserId, UserName, IsEnabled
                         FROM [System].[User]
                         WHERE UserId = @UserId
                     ) AS u
                     CROSS JOIN (
-                        SELECT RoleId, Name
+                        SELECT RoleId, [Name]
                         FROM [System].[Role]
                         WHERE IsEnabled = 1
                     ) AS r
-                ) AS u1
+                ) AS x
                 LEFT JOIN (
                     SELECT UserId, RoleId, 1 AS IsChecked
                     FROM [System].[UserRole]
                     WHERE UserId = @UserId
-                ) AS x ON u1.UserId = x.UserId AND u1.RoleId = x.RoleId";
+                ) AS y ON x.UserId = y.UserId AND x.RoleId = xyRoleId";
             var param = new { UserId = userId };
 
             using (var connection = new SqlConnection(connectionString))

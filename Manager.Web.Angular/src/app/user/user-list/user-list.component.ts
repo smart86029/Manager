@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 export class UserListComponent implements OnInit {
   displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<User>();
-  pageSize = 5;
+  pageSize = 10;
   itemCount = 0;
 
   @ViewChild(MatPaginator)

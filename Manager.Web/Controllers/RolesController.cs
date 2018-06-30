@@ -5,6 +5,7 @@ using Manager.App.Commands.System;
 using Manager.App.Queries.System;
 using Manager.App.ViewModels;
 using Manager.App.ViewModels.System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers
@@ -12,7 +13,7 @@ namespace Manager.Web.Controllers
     /// <summary>
     /// 角色控制器。
     /// </summary>
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class RolesController : ControllerBase

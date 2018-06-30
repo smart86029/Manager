@@ -70,18 +70,45 @@ namespace Manager.Queries.System
         public async Task<Role> GetRoleAsync(int roleId)
         {
             var sql = $@"
-                SELECT RoleId, Name, IsEnabled
-                FROM [System].[Role]
-                WHERE RoleId = @RoleId";
+                SELECT x.RoleId, u1.[Name], x.IsEnabled, x.PermissionId, x.[Name], ISNULL(y.IsChecked, 0) AS IsChecked
+                FROM (
+                    SELECT r.RoleId, r.[Name], p.IsEnabled, p.PermissionId, p.[Name]
+                    FROM (
+                        SELECT RoleId, [Name], IsEnabled
+                        FROM [System].[Role]
+                        WHERE RoleId = @RoleId
+                    ) AS r
+                    CROSS JOIN (
+                        SELECT PermissionId, [Name]
+                        FROM [System].[Permission]
+                        WHERE IsEnabled = 1
+                    ) AS p
+                ) AS x
+                LEFT JOIN (
+                    SELECT RoleId, PermissionId, 1 AS IsChecked
+                    FROM [System].[RolePermission]
+                    WHERE RoleId = @RoleId
+                ) AS y ON x.RoleId = y.RoleId AND x.PermissionId = y.PermissionId";
             var param = new { RoleId = roleId };
 
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 var roles = new Dictionary<int, Role>();
-                var result = await connection.QuerySingleAsync<Role>(sql, param);
+                var result = await connection.QueryAsync<Role, Role.Permission, Role>(sql, (r, p) =>
+                {
+                    if (!roles.TryGetValue(r.RoleId, out Role role))
+                    {
+                        role = r;
+                        roles.Add(r.RoleId, r);
+                    }
 
-                return result;
+                    role.Permissions.Add(p);
+
+                    return role;
+                }, param, splitOn: nameof(Role.Permission.PermissionId));
+
+                return result.First();
             }
         }
 
