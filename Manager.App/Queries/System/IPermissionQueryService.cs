@@ -15,5 +15,12 @@ namespace Manager.App.Queries.System
         /// <param name="option">分頁查詢。</param>
         /// <returns>所有權限。</returns>
         Task<PaginationResult<PermissionSummary>> GetPermissionsAsync(PaginationOption option);
+
+        /// <summary>
+        /// 取得權限。
+        /// </summary>
+        /// <param name="permissionId">權限 ID。</param>
+        /// <returns>權限。</returns>
+        Task<Permission> GetPermissionAsync(int permissionId);
     }
 }

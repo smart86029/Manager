@@ -59,5 +59,27 @@ namespace Manager.Queries.System
                 return result;
             }
         }
+
+        /// <summary>
+        /// 取得權限。
+        /// </summary>
+        /// <param name="permissionId">權限 ID。</param>
+        /// <returns>權限。</returns>
+        public async Task<Permission> GetPermissionAsync(int permissionId)
+        {
+            var sql = $@"
+                SELECT PermissionId, [Name], [Description], IsEnabled
+                FROM [System].[Permission]
+                WHERE PermissionId = @PermissionId";
+            var param = new { PermissionId = permissionId };
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var result = await connection.QuerySingleOrDefaultAsync<Permission>(sql, param);
+
+                return result;
+            }
+        }
     }
 }

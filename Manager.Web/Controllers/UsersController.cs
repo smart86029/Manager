@@ -57,6 +57,8 @@ namespace Manager.Web.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var user = await userQueryService.GetUserAsync(id);
+            if (user == default(User))
+                return NotFound();
 
             return Ok(user);
         }

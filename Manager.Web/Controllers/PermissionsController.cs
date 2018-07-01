@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Manager.App.Commands;
 using Manager.App.Queries.System;
 using Manager.App.ViewModels;
+using Manager.App.ViewModels.System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,20 +45,19 @@ namespace Manager.Web.Controllers
             return Ok(permissions.Items);
         }
 
-        ///// <summary>
-        ///// 取得權限。
-        ///// </summary>
-        ///// <param name="id">權限 ID。</param>
-        ///// <returns>權限。</returns>
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    var permission = await permissionService.GetRoleAsync(id);
+        /// <summary>
+        /// 取得權限。
+        /// </summary>
+        /// <param name="id">權限 ID。</param>
+        /// <returns>權限。</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var permission = await permissionQueryService.GetPermissionAsync(id);
+            if (permission == default(Permission))
+                return NotFound();
 
-        //    if (permission == null)
-        //        return NotFound();
-
-        //    return Ok(permission);
-        //}
+            return Ok(permission);
+        }
     }
 }

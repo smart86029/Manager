@@ -10,6 +10,7 @@ import { PermissionService } from '../permission.service';
   styleUrls: ['./permission-list.component.scss']
 })
 export class PermissionListComponent implements OnInit {
+  isLoading: boolean;
   displayedColumns = ['id', 'name', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<Permission>();
   pageSize = 10;
@@ -21,15 +22,15 @@ export class PermissionListComponent implements OnInit {
   constructor(private permissionService: PermissionService) { }
 
   ngOnInit(): void {
-    console.log(1);
     this.getPermissions(0, this.pageSize);
   }
 
   private getPermissions(pageIndex: number, pageSize: number): void {
+    this.isLoading = true;
     this.permissionService.getPermissions(pageIndex + 1, pageSize)
       .subscribe(result => {
         this.dataSource.data = result.items;
         this.itemCount = result.itemCount;
-      });
+      }, () => { }, () => this.isLoading = false);
   }
 }
