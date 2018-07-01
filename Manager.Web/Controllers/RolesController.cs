@@ -61,6 +61,18 @@ namespace Manager.Web.Controllers
         }
 
         /// <summary>
+        /// 取得新角色。
+        /// </summary>
+        /// <returns>新角色。</returns>
+        [HttpGet("new")]
+        public async Task<IActionResult> GetNew()
+        {
+            var role = await roleQueryService.GetNewRoleAsync();
+
+            return Ok(role);
+        }
+
+        /// <summary>
         /// 新增角色。
         /// </summary>
         /// <param name="command">新增角色命令。</param>

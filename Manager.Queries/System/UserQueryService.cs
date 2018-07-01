@@ -34,9 +34,9 @@ namespace Manager.Queries.System
         public async Task<PaginationResult<UserSummary>> GetUsersAsync(PaginationOption option)
         {
             var sql = $@"
-                SELECT UserId, UserName, IsEnabled
+                SELECT [UserId], [UserName], [IsEnabled]
                 FROM [System].[User]
-                ORDER BY UserId
+                ORDER BY [UserId]
                 OFFSET @Skip ROWS
                 FETCH NEXT @Take ROWS ONLY";
             var sqlCount = $@"
@@ -70,25 +70,25 @@ namespace Manager.Queries.System
         public async Task<User> GetUserAsync(int userId)
         {
             var sql = $@"
-                SELECT x.UserId, x.UserName, x.IsEnabled, x.RoleId, x.[Name], ISNULL(y.IsChecked, 0) AS IsChecked
+                SELECT [x].[UserId], [x].[UserName], [x].[IsEnabled], [x].[RoleId], [x].[Name], ISNULL([y].[IsChecked], 0) AS [IsChecked]
                 FROM (
-                    SELECT u.UserId, u.UserName, u.IsEnabled, r.RoleId, r.[Name]
+                    SELECT [u].[UserId], [u].[UserName], [u].[IsEnabled], [r].[RoleId], [r].[Name]
                     FROM (
-                        SELECT UserId, UserName, IsEnabled
+                        SELECT [UserId], [UserName], [IsEnabled]
                         FROM [System].[User]
-                        WHERE UserId = @UserId
-                    ) AS u
+                        WHERE [UserId] = @UserId
+                    ) AS [u]
                     CROSS JOIN (
-                        SELECT RoleId, [Name]
+                        SELECT [RoleId], [Name]
                         FROM [System].[Role]
-                        WHERE IsEnabled = 1
-                    ) AS r
-                ) AS x
+                        WHERE [IsEnabled] = 1
+                    ) AS [r]
+                ) AS [x]
                 LEFT JOIN (
-                    SELECT UserId, RoleId, 1 AS IsChecked
+                    SELECT [UserId], [RoleId], 1 AS [IsChecked]
                     FROM [System].[UserRole]
-                    WHERE UserId = @UserId
-                ) AS y ON x.UserId = y.UserId AND x.RoleId = y.RoleId";
+                    WHERE [UserId] = @UserId
+                ) AS [y] ON [x].[UserId] = [y].[UserId] AND [x].[RoleId] = [y].[RoleId]";
             var param = new { UserId = userId };
 
             using (var connection = new SqlConnection(connectionString))
@@ -119,9 +119,9 @@ namespace Manager.Queries.System
         public async Task<User> GetNewUserAsync()
         {
             var sql = $@"
-                SELECT RoleId, Name
+                SELECT [RoleId], [Name]
                 FROM [System].[Role]
-                WHERE IsEnabled = 1";
+                WHERE [IsEnabled] = 1";
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();

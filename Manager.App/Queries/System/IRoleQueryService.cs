@@ -22,5 +22,11 @@ namespace Manager.App.Queries.System
         /// <param name="roleId">角色 ID。</param>
         /// <returns>角色。</returns>
         Task<Role> GetRoleAsync(int roleId);
+
+        /// <summary>
+        /// 取得新角色。
+        /// </summary>
+        /// <returns>新角色。</returns>
+        Task<Role> GetNewRoleAsync();
     }
 }

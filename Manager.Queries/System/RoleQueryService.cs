@@ -35,9 +35,9 @@ namespace Manager.Queries.System
         public async Task<PaginationResult<RoleSummary>> GetRolesAsync(PaginationOption option)
         {
             var sql = $@"
-                SELECT RoleId, Name, IsEnabled
+                SELECT [RoleId], [Name], [IsEnabled]
                 FROM [System].[Role]
-                ORDER BY RoleId
+                ORDER BY [RoleId]
                 OFFSET @Skip ROWS
                 FETCH NEXT @Take ROWS ONLY";
             var sqlCount = $@"
@@ -71,25 +71,25 @@ namespace Manager.Queries.System
         public async Task<Role> GetRoleAsync(int roleId)
         {
             var sql = $@"
-                SELECT x.RoleId, x.[Name], x.IsEnabled, x.PermissionId, x.PermissionName, ISNULL(y.IsChecked, 0) AS IsChecked
+                SELECT [x].[RoleId], [x].[Name], [x].[IsEnabled], [x].[PermissionId], [x].[PermissionName], ISNULL([y].[IsChecked], 0) AS [IsChecked]
                 FROM (
-                    SELECT r.RoleId, r.[Name], r.IsEnabled, p.PermissionId, p.[Name] AS PermissionName
+                    SELECT [r].[RoleId], [r].[Name], [r].[IsEnabled], [p].[PermissionId], [p].[Name] AS [PermissionName]
                     FROM (
-                        SELECT RoleId, [Name], IsEnabled
+                        SELECT [RoleId], [Name], [IsEnabled]
                         FROM [System].[Role]
-                        WHERE RoleId = @RoleId
-                    ) AS r
+                        WHERE [RoleId] = @RoleId
+                    ) AS [r]
                     CROSS JOIN (
-                        SELECT PermissionId, [Name]
+                        SELECT [PermissionId], [Name]
                         FROM [System].[Permission]
-                        WHERE IsEnabled = 1
-                    ) AS p
-                ) AS x
+                        WHERE [IsEnabled] = 1
+                    ) AS [p]
+                ) AS [x]
                 LEFT JOIN (
-                    SELECT RoleId, PermissionId, 1 AS IsChecked
+                    SELECT [RoleId], [PermissionId], 1 AS [IsChecked]
                     FROM [System].[RolePermission]
-                    WHERE RoleId = @RoleId
-                ) AS y ON x.RoleId = y.RoleId AND x.PermissionId = y.PermissionId";
+                    WHERE [RoleId] = @RoleId
+                ) AS [y] ON [x].[RoleId] = [y].[RoleId] AND [x].[PermissionId] = [y].[PermissionId]";
             var param = new { RoleId = roleId };
 
             using (var connection = new SqlConnection(connectionString))
@@ -113,27 +113,27 @@ namespace Manager.Queries.System
             }
         }
 
-        ///// <summary>
-        ///// 取得新角色。
-        ///// </summary>
-        ///// <returns>新角色。</returns>
-        //public async Task<Role> GetNewRoleAsync()
-        //{
-        //    var sql = $@"
-        //        SELECT RoleId, Name
-        //        FROM [System].[Role]
-        //        WHERE IsEnabled = 1";
-        //    using (var connection = new SqlConnection(connectionString))
-        //    {
-        //        connection.Open();
-        //        var roles = await connection.QueryAsync<Role.Role>(sql);
-        //        var result = new Role
-        //        {
-        //            Roles = roles.ToList()
-        //        };
+        /// <summary>
+        /// 取得新角色。
+        /// </summary>
+        /// <returns>新角色。</returns>
+        public async Task<Role> GetNewRoleAsync()
+        {
+            var sql = $@"
+                SELECT [PermissionId], [Name]
+                FROM [System].[Permission]
+                WHERE [IsEnabled] = 1";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var permissions = await connection.QueryAsync<Role.Permission>(sql);
+                var result = new Role
+                {
+                    Permissions = permissions.ToList()
+                };
 
-        //        return result;
-        //    }
-        //}
+                return result;
+            }
+        }
     }
 }
