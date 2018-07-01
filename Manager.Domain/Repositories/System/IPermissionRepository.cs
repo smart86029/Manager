@@ -7,7 +7,7 @@ using Manager.Domain.Models.System;
 namespace Manager.Domain.Repositories.System
 {
     /// <summary>
-    /// 權限存放庫介面。
+    /// 權限存放庫。
     /// </summary>
     public interface IPermissionRepository : IRepository<Permission>
     {

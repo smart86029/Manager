@@ -4,7 +4,7 @@ using Manager.Domain.Models.System;
 namespace Manager.Domain.Repositories.System
 {
     /// <summary>
-    /// 使用者存放庫介面。
+    /// 使用者存放庫。
     /// </summary>
     public interface IUserRepository : IRepository<User>
     {

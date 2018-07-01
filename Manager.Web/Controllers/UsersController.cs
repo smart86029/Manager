@@ -35,7 +35,7 @@ namespace Manager.Web.Controllers
         /// <summary>
         /// 取得所有使用者。
         /// </summary>
-        /// <param name="query">分頁查詢。</param>
+        /// <param name="option">分頁查詢。</param>
         /// <returns>所有使用者。</returns>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] PaginationOption option)

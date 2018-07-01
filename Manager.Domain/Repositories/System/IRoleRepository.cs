@@ -7,7 +7,7 @@ using Manager.Domain.Models.System;
 namespace Manager.Domain.Repositories.System
 {
     /// <summary>
-    /// 角色存放庫介面。
+    /// 角色存放庫。
     /// </summary>
     public interface IRoleRepository : IRepository<Role>
     {

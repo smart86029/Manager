@@ -3,7 +3,7 @@
 namespace Manager.Domain.Repositories
 {
     /// <summary>
-    /// 工作單元介面。
+    /// 工作單元。
     /// </summary>
     public interface IUnitOfWork
     {

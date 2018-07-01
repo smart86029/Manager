@@ -5,7 +5,7 @@ using Manager.App.ViewModels.System;
 namespace Manager.App.Queries.System
 {
     /// <summary>
-    /// 使用者查詢服務介面。
+    /// 使用者查詢服務。
     /// </summary>
     public interface IUserQueryService
     {
