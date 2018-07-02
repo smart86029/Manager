@@ -8,7 +8,7 @@ namespace Manager.Data.Configurations.System
     {
         public void Configure(EntityTypeBuilder<RolePermission> builder)
         {
-            builder.ToTable("RolePermission", "System");
+            builder.ToTable("RolePermission", SystemContext.Schema);
             builder.HasKey(x => new { x.RoleId, x.PermissionId });
             builder.HasData(GetSeedData());
         }

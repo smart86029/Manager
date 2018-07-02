@@ -8,7 +8,7 @@ namespace Manager.Data.Configurations.System
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.ToTable("Role", "System");
+            builder.ToTable("Role", SystemContext.Schema);
             builder.Property(r => r.Name)
                 .IsRequired()
                 .HasMaxLength(32);

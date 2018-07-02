@@ -140,15 +140,24 @@ namespace Manager.Data.Migrations
 
             migrationBuilder.InsertData(
                 schema: "System",
-                table: "UserRole",
-                columns: new[] { "UserId", "RoleId" },
-                values: new object[] { 1, 1 });
+                table: "RolePermission",
+                columns: new[] { "RoleId", "PermissionId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 2, 2 }
+                });
 
             migrationBuilder.InsertData(
                 schema: "System",
                 table: "UserRole",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { 1, 2 });
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermission_PermissionId",

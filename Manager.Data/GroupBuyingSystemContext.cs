@@ -8,6 +8,11 @@ namespace Manager.Data
     public class GroupBuyingContext : DbContext
     {
         /// <summary>
+        /// 結構描述。
+        /// </summary>
+        public const string Schema = "GroupBuying";
+
+        /// <summary>
         /// 初始化 <see cref="GroupBuyingContext"/> 類別的新執行個體。
         /// </summary>
         public GroupBuyingContext(DbContextOptions<GroupBuyingContext> options) : base(options)

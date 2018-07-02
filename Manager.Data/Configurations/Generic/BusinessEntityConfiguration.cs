@@ -8,7 +8,7 @@ namespace Manager.Data.Configurations.Generic
     {
         public void Configure(EntityTypeBuilder<BusinessEntity> builder)
         {
-            builder.ToTable("BusinessEntity", "Generic");
+            builder.ToTable("BusinessEntity", GenericContext.Schema);
         }
     }
 }

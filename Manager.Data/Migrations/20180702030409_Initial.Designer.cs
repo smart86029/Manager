@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Manager.Data.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20180628032600_Initial")]
+    [Migration("20180702030409_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,6 +79,12 @@ namespace Manager.Data.Migrations
                     b.HasIndex("PermissionId");
 
                     b.ToTable("RolePermission","System");
+
+                    b.HasData(
+                        new { RoleId = 1, PermissionId = 1 },
+                        new { RoleId = 1, PermissionId = 2 },
+                        new { RoleId = 2, PermissionId = 2 }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Domain.Models.System.User", b =>

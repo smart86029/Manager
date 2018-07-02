@@ -87,7 +87,7 @@ namespace Manager.Domain.Models.System
         /// <param name="name">名稱。</param>
         public void UpdateDescription(string description)
         {
-            Description = description;
+            Description = description.Trim() ?? string.Empty;
         }
 
         /// <summary>

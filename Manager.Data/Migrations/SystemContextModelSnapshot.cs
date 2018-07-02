@@ -77,6 +77,12 @@ namespace Manager.Data.Migrations
                     b.HasIndex("PermissionId");
 
                     b.ToTable("RolePermission","System");
+
+                    b.HasData(
+                        new { RoleId = 1, PermissionId = 1 },
+                        new { RoleId = 1, PermissionId = 2 },
+                        new { RoleId = 2, PermissionId = 2 }
+                    );
                 });
 
             modelBuilder.Entity("Manager.Domain.Models.System.User", b =>
