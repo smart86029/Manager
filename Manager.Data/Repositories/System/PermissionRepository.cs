@@ -37,5 +37,33 @@ namespace Manager.Data.Repositories.System
 
             return await query.ToListAsync();
         }
+
+        /// <summary>
+        /// 取得權限。
+        /// </summary>
+        /// <param name="permissionId">權限 ID。</param>
+        /// <returns>權限。</returns>
+        public async Task<Permission> GetPermissionAsync(int permissionId)
+        {
+            return await context.Set<Permission>().Include(r => r.RolePermissions).SingleOrDefaultAsync(r => r.PermissionId == permissionId);
+        }
+
+        /// <summary>
+        /// 加入權限。
+        /// </summary>
+        /// <param name="permission">權限。</param>
+        public void Add(Permission permission)
+        {
+            context.Set<Permission>().Add(permission);
+        }
+
+        /// <summary>
+        /// 更新權限。
+        /// </summary>
+        /// <param name="permission">權限。</param>
+        public void Update(Permission permission)
+        {
+            context.Entry(permission).State = EntityState.Modified;
+        }
     }
 }

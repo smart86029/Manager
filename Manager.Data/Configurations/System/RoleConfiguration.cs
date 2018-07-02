@@ -20,7 +20,7 @@ namespace Manager.Data.Configurations.System
             var result = new Role[]
             {
                 new Role(1, "Administrator", true),
-                new Role(2, "HumanResources", true )
+                new Role(2, "HumanResources", true)
             };
 
             return result;

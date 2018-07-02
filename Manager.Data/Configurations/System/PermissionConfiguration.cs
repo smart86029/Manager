@@ -22,8 +22,8 @@ namespace Manager.Data.Configurations.System
         {
             var result = new Permission[]
             {
-                new Permission { PermissionId = 1, Name = "特殊權限", Description = "", IsEnabled = true },
-                new Permission { PermissionId = 2, Name = "登入", Description = "", IsEnabled = true },
+                new Permission(1, "特殊權限", string.Empty, true),
+                new Permission(2, "登入", string.Empty, true)
             };
 
             return result;

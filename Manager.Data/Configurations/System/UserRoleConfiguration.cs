@@ -18,7 +18,7 @@ namespace Manager.Data.Configurations.System
             var result = new UserRole[]
             {
                 new UserRole { UserId = 1, RoleId = 1 },
-                new UserRole { UserId = 1, RoleId = 2 },
+                new UserRole { UserId = 1, RoleId = 2 }
             };
 
             return result;

@@ -17,6 +17,9 @@ namespace Manager.Data.Configurations.System
         {
             var result = new RolePermission[]
             {
+                new RolePermission { RoleId = 1, PermissionId = 1},
+                new RolePermission { RoleId = 1, PermissionId = 2},
+                new RolePermission { RoleId = 2, PermissionId = 2}
             };
 
             return result;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Manager.App.Commands;
+using Manager.App.Commands.System;
 using Manager.App.Queries.System;
 using Manager.App.ViewModels;
 using Manager.App.ViewModels.System;
@@ -58,6 +59,22 @@ namespace Manager.Web.Controllers
                 return NotFound();
 
             return Ok(permission);
+        }
+
+        /// <summary>
+        /// 新增權限。
+        /// </summary>
+        /// <param name="command">新增權限命令。</param>
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]CreatePermissionCommand command)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var permission = await commandService.ExecuteAsync<Permission>(command);
+
+            return CreatedAtAction(nameof(Get), new { id = permission.PermissionId }, permission);
         }
     }
 }
