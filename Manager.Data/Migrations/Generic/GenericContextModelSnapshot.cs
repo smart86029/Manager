@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Manager.Data.Migrations.Generic
+namespace Manager.Data.Migrations.generic
 {
     [DbContext(typeof(GenericContext))]
     partial class GenericContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace Manager.Data.Migrations.Generic
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Manager.Core.DomainModels.Generic.BusinessEntity", b =>
+            modelBuilder.Entity("Manager.Domain.Models.Generic.BusinessEntity", b =>
                 {
                     b.Property<int>("BusinessEntityId")
                         .ValueGeneratedOnAdd()
@@ -35,9 +35,9 @@ namespace Manager.Data.Migrations.Generic
                     b.HasDiscriminator<string>("Discriminator").HasValue("BusinessEntity");
                 });
 
-            modelBuilder.Entity("Manager.Core.DomainModels.Generic.Person", b =>
+            modelBuilder.Entity("Manager.Domain.Models.Generic.Person", b =>
                 {
-                    b.HasBaseType("Manager.Core.DomainModels.Generic.BusinessEntity");
+                    b.HasBaseType("Manager.Domain.Models.Generic.BusinessEntity");
 
                     b.Property<DateTime>("BirthDate");
 

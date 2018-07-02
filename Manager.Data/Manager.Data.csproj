@@ -7,9 +7,11 @@
   <ItemGroup>
     <Compile Remove="Migrations\20180622094110_EmptyGeneric.cs" />
     <Compile Remove="Migrations\20180622094333_EmptyGeneric.cs" />
+    <Compile Remove="Migrations\20180628012512_Empty.cs" />
     <Compile Remove="Migrations\20180628015802_Initial.cs" />
     <Compile Remove="Migrations\20180628015844_Initial.cs" />
     <Compile Remove="Migrations\20180628032600_Initial.cs" />
+    <Compile Remove="Migrations\20180702030409_Initial.cs" />
     <Compile Remove="Migrations\System\20180622151945_Initial.cs" />
     <Compile Remove="Migrations\System\20180627135520_Initial.cs" />
   </ItemGroup>
@@ -26,7 +28,8 @@
 
   <ItemGroup>
     <Folder Include="Configurations\GroupBuying\" />
-    <Folder Include="Migrations\System\" />
+    <Folder Include="Migrations\Generic\" />
+    <Folder Include="Migrations\GroupBuying\" />
   </ItemGroup>
 
 </Project>
