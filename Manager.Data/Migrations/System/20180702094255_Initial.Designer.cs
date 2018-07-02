@@ -6,16 +6,17 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Manager.Data.Migrations.System
+namespace Manager.Data.migrations.system
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20180702090054_Initial")]
+    [Migration("20180702094255_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("System")
                 .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -38,7 +39,7 @@ namespace Manager.Data.Migrations.System
 
                     b.HasKey("PermissionId");
 
-                    b.ToTable("Permission","System");
+                    b.ToTable("Permission");
 
                     b.HasData(
                         new { PermissionId = 1, Description = "", IsEnabled = true, Name = "特殊權限" },
@@ -60,7 +61,7 @@ namespace Manager.Data.Migrations.System
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Role","System");
+                    b.ToTable("Role");
 
                     b.HasData(
                         new { RoleId = 1, IsEnabled = true, Name = "Administrator" },
@@ -78,7 +79,7 @@ namespace Manager.Data.Migrations.System
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("RolePermission","System");
+                    b.ToTable("RolePermission");
 
                     b.HasData(
                         new { RoleId = 1, PermissionId = 1 },
@@ -108,7 +109,7 @@ namespace Manager.Data.Migrations.System
                     b.HasIndex("UserName")
                         .IsUnique();
 
-                    b.ToTable("User","System");
+                    b.ToTable("User");
 
                     b.HasData(
                         new { UserId = 1, BusinessEntityId = 1, IsEnabled = true, PasswordHash = "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", UserName = "Admin" }
@@ -125,7 +126,7 @@ namespace Manager.Data.Migrations.System
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRole","System");
+                    b.ToTable("UserRole");
 
                     b.HasData(
                         new { UserId = 1, RoleId = 1 },

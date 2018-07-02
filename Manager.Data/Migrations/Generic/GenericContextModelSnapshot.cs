@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Manager.Data.Migrations.generic
+namespace Manager.Data.migrations.generic
 {
     [DbContext(typeof(GenericContext))]
     partial class GenericContextModelSnapshot : ModelSnapshot
@@ -15,6 +15,7 @@ namespace Manager.Data.Migrations.generic
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Generic")
                 .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -30,7 +31,7 @@ namespace Manager.Data.Migrations.generic
 
                     b.HasKey("BusinessEntityId");
 
-                    b.ToTable("BusinessEntity","Generic");
+                    b.ToTable("BusinessEntity");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("BusinessEntity");
                 });

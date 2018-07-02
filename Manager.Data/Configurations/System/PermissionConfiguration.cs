@@ -8,7 +8,7 @@ namespace Manager.Data.Configurations.System
     {
         public void Configure(EntityTypeBuilder<Permission> builder)
         {
-            builder.ToTable("Permission", SystemContext.Schema);
+            builder.ToTable("Permission");
             builder.Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(32);

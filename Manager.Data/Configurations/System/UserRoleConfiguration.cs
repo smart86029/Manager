@@ -8,7 +8,7 @@ namespace Manager.Data.Configurations.System
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-            builder.ToTable("UserRole", SystemContext.Schema);
+            builder.ToTable("UserRole");
             builder.HasKey(x => new { x.UserId, x.RoleId });
             builder.HasData(GetSeedData());
         }

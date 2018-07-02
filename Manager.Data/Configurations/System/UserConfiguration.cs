@@ -8,7 +8,7 @@ namespace Manager.Data.Configurations.System
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("User", SystemContext.Schema);
+            builder.ToTable("User");
             builder.Property(u => u.UserName)
                 .IsRequired()
                 .HasMaxLength(32);

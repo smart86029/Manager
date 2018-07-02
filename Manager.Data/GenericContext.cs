@@ -9,11 +9,6 @@ namespace Manager.Data
     public class GenericContext : DbContext
     {
         /// <summary>
-        /// 結構描述。
-        /// </summary>
-        public const string Schema = "Generic";
-
-        /// <summary>
         /// 初始化 <see cref="GenericContext"/> 類別的新執行個體。
         /// </summary>
         public GenericContext(DbContextOptions<GenericContext> options) : base(options)
@@ -26,6 +21,7 @@ namespace Manager.Data
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器。</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("Generic");
             modelBuilder.ApplyConfiguration(new BusinessEntityConfiguration());
             modelBuilder.ApplyConfiguration(new PersonConfiguration());
         }
