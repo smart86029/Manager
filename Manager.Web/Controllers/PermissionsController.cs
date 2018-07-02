@@ -76,5 +76,22 @@ namespace Manager.Web.Controllers
 
             return CreatedAtAction(nameof(Get), new { id = permission.PermissionId }, permission);
         }
+
+        /// <summary>
+        /// 修改權限。
+        /// </summary>
+        /// <param name="id">權限 ID。</param>
+        /// <param name="command">修改權限命令。</param>
+        /// <returns>204 NoContent。</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]UpdatePermissionCommand command)
+        {
+            if (id != command.PermissionId)
+                return BadRequest();
+
+            await commandService.ExecuteAsync<bool>(command);
+
+            return NoContent();
+        }
     }
 }
