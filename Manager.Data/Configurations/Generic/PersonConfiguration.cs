@@ -22,7 +22,7 @@ namespace Manager.Data.Configurations.Generic
         {
             var result = new Person[]
             {
-                new Person { BusinessEntityId = 1, FirstName = "管理員", LastName = "超級", Gender = Gender.NotApplicable, BirthDate = DateTime.Parse("1990-01-01") }
+                new Person(1) { FirstName = "管理員", LastName = "超級", Gender = Gender.NotApplicable, BirthDate = DateTime.Parse("1990-01-01") }
             };
 
             return result;

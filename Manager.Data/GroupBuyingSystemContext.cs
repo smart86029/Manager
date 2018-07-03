@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Manager.Data.Configurations.System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Data
 {
@@ -21,6 +22,7 @@ namespace Manager.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("GroupBuying");
+            modelBuilder.ApplyConfiguration(new StoreConfiguration());
         }
     }
 }

@@ -12,6 +12,10 @@
     <Compile Remove="Migrations\20180628015844_Initial.cs" />
     <Compile Remove="Migrations\20180628032600_Initial.cs" />
     <Compile Remove="Migrations\20180702030409_Initial.cs" />
+    <Compile Remove="Migrations\20180703014117_Initial.cs" />
+    <Compile Remove="Migrations\Generic\20180702094228_Initial.cs" />
+    <Compile Remove="Migrations\GroupBuying\20180703031546_Initial.cs" />
+    <Compile Remove="Migrations\GroupBuying\20180703032300_Initial.cs" />
     <Compile Remove="Migrations\System\20180622151945_Initial.cs" />
     <Compile Remove="Migrations\System\20180627135520_Initial.cs" />
     <Compile Remove="Migrations\System\20180702090054_Initial.cs" />
@@ -28,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\GroupBuying\" />
     <Folder Include="Migrations\Generic\" />
     <Folder Include="Migrations\GroupBuying\" />
     <Folder Include="Migrations\System\" />

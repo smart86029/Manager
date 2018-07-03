@@ -5,6 +5,15 @@
     /// </summary>
     public abstract class BusinessEntity : IAggregateRoot
     {
+        private BusinessEntity()
+        {
+        }
+
+        public BusinessEntity(int businessEntity)
+        {
+            BusinessEntityId = businessEntity;
+        }
+
         /// <summary>
         /// 取得或設定主鍵。
         /// </summary>

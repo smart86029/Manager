@@ -7,6 +7,11 @@ namespace Manager.Domain.Models.Generic
     /// </summary>
     public class Person : BusinessEntity
     {
+        public Person(int businessEntityId) : base(businessEntityId)
+        {
+
+        }
+
         /// <summary>
         /// 取得或設定名。
         /// </summary>
