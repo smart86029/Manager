@@ -23,8 +23,7 @@ export class RoleService {
       map(response => {
         const itemCount = +response.headers.get('X-Pagination');
         return new PaginationResult<Role>(itemCount, response.body);
-      }),
-      catchError(this.handleError('getRoles', new PaginationResult<Role>()))
+      })
     );
   }
 
