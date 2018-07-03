@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-//using Manager.Web.Helpers;
+﻿using System;
+using System.Threading.Tasks;
+using Manager.App.Commands;
+using Manager.App.Queries.GroupBuying;
+using Manager.App.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers
@@ -12,31 +16,33 @@ namespace Manager.Web.Controllers
     [Route("api/[controller]")]
     public class StoresController : ControllerBase
     {
-        //private readonly StoreService storeService;
+        private readonly ICommandService commandService;
+        private readonly IStoreQueryService storeQueryService;
 
-        ///// <summary>
-        ///// 初始化 <see cref="StoresController"/> 類別的新執行個體。
-        ///// </summary>
-        ///// <param name="storeService">店家服務。</param>
-        //public StoresController(StoreService storeService)
-        //{
-        //    this.storeService = storeService;
-        //}
+        /// <summary>
+        /// 初始化 <see cref="StoresController"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="commandService">命令服務。</param>
+        /// <param name="userQueryService">使用者查詢服務。</param>
+        public StoresController(ICommandService commandService, IStoreQueryService storeQueryService)
+        {
+            this.commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
+            this.storeQueryService = storeQueryService ?? throw new ArgumentNullException(nameof(storeQueryService));
+        }
 
-        ///// <summary>
-        ///// 取得所有店家。
-        ///// </summary>
-        ///// <param name="query">分頁查詢。</param>
-        ///// <returns>所有店家。</returns>
-        //[HttpGet]
-        //[ProducesResponseType(typeof(ICollection<Store>), (int)HttpStatusCode.OK)]
-        //public async Task<IActionResult> Get([FromQuery] PaginationQuery query)
-        //{
-        //    var stores = await storeService.GetStoresAsync(query);
-        //    Response.Headers.Add("X-Pagination", stores.ItemCount.ToString());
+        /// <summary>
+        /// 取得所有店家。
+        /// </summary>
+        /// <param name="option">分頁查詢。</param>
+        /// <returns>所有店家。</returns>
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] PaginationOption option)
+        {
+            var stores = await storeQueryService.GetStoresAsync(option);
+            Response.Headers.Add("X-Pagination", stores.ItemCount.ToString());
 
-        //    return Ok(stores.Items);
-        //}
+            return Ok(stores.Items);
+        }
 
         ///// <summary>
         ///// 取得店家。
