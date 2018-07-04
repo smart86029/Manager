@@ -21,7 +21,7 @@ namespace Manager.Data.Configurations.System
                 x.Property(p => p.PhoneType).HasColumnName("PhoneType");
                 x.Property(p => p.CountryCode).HasColumnName("CountryCode").IsRequired().HasMaxLength(4);
                 x.Property(p => p.AreaCode).HasColumnName("AreaCode").IsRequired().HasMaxLength(4);
-                x.Property(p => p.BaseNumber).HasColumnName("BaseNumber").IsRequired().HasMaxLength(8);
+                x.Property(p => p.BaseNumber).HasColumnName("BaseNumber").IsRequired().HasMaxLength(16);
                 x.Property(p => p.Extension).HasColumnName("Extension").IsRequired().HasMaxLength(8);
             });
             builder.OwnsOne(s => s.Address, x =>
@@ -34,6 +34,8 @@ namespace Manager.Data.Configurations.System
             });
             builder.Property(s => s.Remark)
                 .HasMaxLength(512);
+            builder.Metadata.FindNavigation(nameof(Store.ProductCategories))
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
 
             //builder.HasData(GetSeedData());
         }

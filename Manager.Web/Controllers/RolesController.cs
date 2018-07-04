@@ -80,9 +80,6 @@ namespace Manager.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateRoleCommand command)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var role = await commandService.ExecuteAsync<Role>(command);
 
             return CreatedAtAction(nameof(Get), new { id = role.RoleId }, role);

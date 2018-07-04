@@ -15,6 +15,19 @@
         /// <summary>
         /// 初始化 <see cref="Address"/> 類別的新執行個體。
         /// </summary>
+        /// <param name="address">地址。</param>
+        public Address(string address)
+        {
+            PostalCode = string.Empty;
+            Country = "台灣";
+            City = "台北市";
+            District = string.Empty;
+            Street = address;
+        }
+
+        /// <summary>
+        /// 初始化 <see cref="Address"/> 類別的新執行個體。
+        /// </summary>
         /// <param name="postalCode">郵遞區號。</param>
         /// <param name="country">國家。</param>
         /// <param name="city">城市。</param>
@@ -58,5 +71,10 @@
         /// </summary>
         /// <value>路名。</value>
         public string Street { get; private set; }
+
+        public override string ToString()
+        {
+            return City + District + Street;
+        }
     }
 }

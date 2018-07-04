@@ -8,6 +8,7 @@ import { Product } from '../product';
 import { ProductDetailDialogComponent } from '../product-detail-dialog/product-detail-dialog.component';
 import { Store } from '../store';
 import { StoreService } from '../store.service';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-store-detail',
@@ -20,6 +21,11 @@ export class StoreDetailComponent implements OnInit {
   displayedColumns = ['name', 'price', 'action'];
   store = new Store();
 
+  formGroup: FormGroup;
+  storeFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+
   @ViewChild('tableProducts')
   tableProducts: MatTable<Product>;
 
@@ -27,7 +33,8 @@ export class StoreDetailComponent implements OnInit {
     private storeService: StoreService,
     private route: ActivatedRoute,
     private location: Location,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -40,6 +47,15 @@ export class StoreDetailComponent implements OnInit {
       this.storeService.getNewStore()
         .subscribe(store => this.store = store, () => { }, () => this.isLoading = false);
     }
+
+    this.formGroup = new FormGroup({
+      storeFormGroup: this.formBuilder.group({
+        firstCtrl: ['', Validators.required]
+      }),
+      secondFormGroup: this.formBuilder.group({
+        secondCtrl: ['', Validators.required]
+      })
+    });
   }
 
   save(): void {

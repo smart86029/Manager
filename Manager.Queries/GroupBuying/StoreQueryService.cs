@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Manager.App.Queries.GroupBuying;
@@ -65,9 +67,49 @@ namespace Manager.Queries.GroupBuying
         /// </summary>
         /// <param name="storeId">店家 ID。</param>
         /// <returns>店家。</returns>
-        public Task<Store> GetStoreAsync(int storeId)
+        public async Task<Store> GetStoreAsync(int storeId)
         {
-            throw new NotImplementedException();
+            var sql = $@"
+            	SELECT [s].[StoreId], [s].[Name], [s].[Description], [s].[Remark],
+                    [s].[AreaCode], [s].[BaseNumber], [s].[Extension],
+					[s].[PostalCode], [s].[Country], [s].[City], [s].[District], [s].[Street],
+					[c].[ProductCategoryId], [c].[Name] AS [CategoryName]
+				FROM (
+                    SELECT [StoreId], [Name], [Description], [AreaCode], [BaseNumber], [Extension], [PostalCode], [Country], [City], [District], [Street], [Remark]
+                    FROM [GroupBuying].[Store]
+                    WHERE [StoreId] = @StoreId
+                ) AS [s]
+				LEFT JOIN (
+                    SELECT [ProductCategoryId], [Name], [StoreId]
+                    FROM [GroupBuying].[ProductCategory]
+                    WHERE [StoreId] = @StoreId
+                ) AS [c] ON [s].[StoreId] = [c].[StoreId]";
+            var param = new { StoreId = storeId };
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var stores = new Dictionary<int, Store>();
+                var result = await connection.QueryAsync(sql, (Store s, Phone p, Address a, Store.ProductCategory c) =>
+                {
+                    if (!stores.TryGetValue(s.StoreId, out Store store))
+                    {
+                        store = s;
+                        stores.Add(s.StoreId, s);
+                    }
+
+                    if (string.IsNullOrWhiteSpace(store.Phone))
+                        store.Phone = p.AreaCode + p.BaseNumber + p.Extension;
+                    if (string.IsNullOrWhiteSpace(store.Address))
+                        store.Address = a.City + a.District + a.Street;
+
+                    store.ProductCategories.Add(c);
+
+                    return store;
+                }, param, splitOn: "AreaCode, PostalCode, ProductCategoryId");
+
+                return result.FirstOrDefault();
+            }
         }
     }
 }

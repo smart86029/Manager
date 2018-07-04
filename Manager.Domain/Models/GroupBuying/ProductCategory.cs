@@ -7,34 +7,54 @@ namespace Manager.Domain.Models.GroupBuying
     /// </summary>
     public class ProductCategory
     {
+        private List<Product> products = new List<Product>();
+
         /// <summary>
-        /// 取得或設定主鍵。
+        /// 初始化 <see cref="ProductCategory"/> 類別的新執行個體。
+        /// </summary>
+        private ProductCategory()
+        {
+        }
+
+        /// <summary>
+        /// 初始化 <see cref="ProductCategory"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="name">名稱。</param>
+        /// <param name="store">店家。</param>
+        public ProductCategory(string name, Store store)
+        {
+            Name = name;
+            Store = store;
+        }
+
+        /// <summary>
+        /// 取得主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        public int ProductCategoryId { get; set; }
+        public int ProductCategoryId { get; private set; }
 
         /// <summary>
-        /// 取得或設定名稱。
+        /// 取得名稱。
         /// </summary>
         /// <value>名稱。</value>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
-        /// 取得或設定店家 ID。
+        /// 取得店家 ID。
         /// </summary>
         /// <value>店家 ID。</value>
-        public int StoreId { get; set; }
+        public int StoreId { get; private set; }
 
         /// <summary>
-        /// 取得或設定店家。
+        /// 取得店家。
         /// </summary>
         /// <value>店家。</value>
-        public Store Store { get; set; }
+        public Store Store { get; private set; }
 
-        /// <summary>
-        /// 取得或設定商品的集合。
-        /// </summary>
-        /// <value>商品的集合。</value>
-        public ICollection<Product> Products { get; set; } = new List<Product>();
+        ///// <summary>
+        ///// 取得商品的集合。
+        ///// </summary>
+        ///// <value>商品的集合。</value>
+        //public IReadOnlyCollection<Product> Products => products;
     }
 }

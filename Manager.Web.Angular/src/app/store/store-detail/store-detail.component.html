@@ -2,69 +2,87 @@
   <form autocomplete="off">
     <h2 class="mat-h2">{{saveMode | actionName}}店家</h2>
     <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          店家基本資料
-        </mat-card-title>
-      </mat-card-header>
       <mat-card-content>
+        <mat-vertical-stepper linear>
+          <mat-step>
+            <ng-template matStepLabel>店家基本資料</ng-template>
+            <div>
+              <mat-form-field>
+                <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="store.name">
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <textarea matInput name="description" placeholder="描述" [(ngModel)]="store.description" matTextareaAutosize></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <input matInput type="tel" name="phone" placeholder="電話" [(ngModel)]="store.phone">
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <input matInput type="text" name="address" placeholder="地址" [(ngModel)]="store.address">
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <textarea matInput name="remark" placeholder="備註" [(ngModel)]="store.remark" matTextareaAutosize></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button color="primary" matStepperNext>下一步</button>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>商品</ng-template>
+            <mat-table [dataSource]="store.products" #tableProducts>
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
+                <mat-cell *matCellDef="let product;">
+                  {{product.name}}
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef>價格</mat-header-cell>
+                <mat-cell *matCellDef="let product;">
+                  {{product.price}}
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>
+                  <button mat-button color="primary" (click)="createProduct()">新增商品</button>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let product; let i = index;">
+                  <button mat-icon-button color="primary" (click)="updateProduct(product)">
+                    <mat-icon>create</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteProduct(i)">
+                    <mat-icon>delete_sweep</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <div>
+                <button mat-button matStepperPrevious>上一步</button>
+                <button mat-button color="primary" matStepperNext>下一步</button>
+              </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
         <div class="loading-overlay" *ngIf="isLoading">
           <mat-spinner *ngIf="isLoading"></mat-spinner>
         </div>
-        <div>
-          <mat-form-field>
-            <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="store.name">
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input matInput type="text" name="description" placeholder="描述" [(ngModel)]="store.description">
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input matInput type="text" name="phone" placeholder="電話" [(ngModel)]="store.phone">
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input matInput type="text" name="address" placeholder="地址" [(ngModel)]="store.address">
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <textarea matInput name="remark" placeholder="備註" [(ngModel)]="store.remark"></textarea>
-          </mat-form-field>
-        </div>
-        <mat-table [dataSource]="store.products" #tableProducts>
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
-            <mat-cell *matCellDef="let product;">
-              {{product.name}}
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef>價格</mat-header-cell>
-            <mat-cell *matCellDef="let product;">
-              {{product.price}}
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>
-              <button mat-button color="primary" (click)="createProduct()">新增商品</button>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let product; let i = index;">
-              <button mat-icon-button color="primary" (click)="updateProduct(product)">
-                <mat-icon>create</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteProduct(i)">
-                <mat-icon>delete_sweep</mat-icon>
-              </button>
-            </mat-cell>
-          </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button (click)="back()">返回</button>

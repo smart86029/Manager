@@ -15,6 +15,19 @@
         /// <summary>
         /// 初始化 <see cref="Phone"/> 類別的新執行個體。
         /// </summary>
+        /// <param name="phone">電話。</param>
+        public Phone(string phone)
+        {
+            PhoneType = PhoneType.Landline;
+            CountryCode = "886";
+            AreaCode = "02";
+            BaseNumber = phone;
+            Extension = string.Empty;
+        }
+
+        /// <summary>
+        /// 初始化 <see cref="Phone"/> 類別的新執行個體。
+        /// </summary>
         /// <param name="phoneType">電話類型。</param>
         /// <param name="countryCode">國碼。</param>
         /// <param name="areaCode">區碼。</param>
@@ -57,5 +70,10 @@
         /// </summary>
         /// <value>分機。</value>
         public string Extension { get; private set; }
+
+        public override string ToString()
+        {
+            return AreaCode + BaseNumber;
+        }
     }
 }

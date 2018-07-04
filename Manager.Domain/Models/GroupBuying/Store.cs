@@ -9,7 +9,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// </summary>
     public class Store
     {
-        //private List<ProductCategory> productCategories = new List<ProductCategory>();
+        private List<ProductCategory> productCategories = new List<ProductCategory>();
         //private List<GroupStore> groupStores = new List<GroupStore>();
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Manager.Domain.Models.GroupBuying
         /// 取得商品分類的集合。
         /// </summary>
         /// <value>商品分類。</value>
-        //public IReadOnlyCollection<ProductCategory> ProductCategories => productCategories;
+        public IReadOnlyCollection<ProductCategory> ProductCategories => productCategories;
 
         /// <summary>
         /// 取得團店家的集合。

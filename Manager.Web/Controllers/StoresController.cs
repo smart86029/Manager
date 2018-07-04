@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Manager.App.Commands;
+using Manager.App.Commands.GroupBuying;
 using Manager.App.Queries.GroupBuying;
 using Manager.App.ViewModels;
+using Manager.App.ViewModels.GroupBuying;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,39 +46,33 @@ namespace Manager.Web.Controllers
             return Ok(stores.Items);
         }
 
-        ///// <summary>
-        ///// 取得店家。
-        ///// </summary>
-        ///// <param name="id">店家 ID。</param>
-        ///// <returns>店家。</returns>     
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(typeof(StoreResult), (int)HttpStatusCode.OK)]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    var store = await storeService.GetStoreAsync(id);
+        /// <summary>
+        /// 取得店家。
+        /// </summary>
+        /// <param name="id">店家 ID。</param>
+        /// <returns>店家。</returns>     
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var store = await storeQueryService.GetStoreAsync(id);
+            if (store == null)
+                return NotFound();
 
-        //    if (store == null)
-        //        return NotFound();
+            return Ok(store);
+        }
 
-        //    return Ok(store);
-        //}
+        /// <summary>
+        /// 新增店家。
+        /// </summary>
+        /// <param name="command">新增店家查詢。</param>
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]CreateStoreCommand command)
+        {
+            var store = await commandService.ExecuteAsync<Store>(command);
 
-        ///// <summary>
-        ///// 新增店家。
-        ///// </summary>
-        ///// <param name="query">新增店家查詢。</param>
-        ///// <returns>201 Created。</returns>
-        //[HttpPost]
-        //[ProducesResponseType(typeof(Store), (int)HttpStatusCode.Created)]
-        //public async Task<IActionResult> Post([FromBody]CreateStoreQuery query)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
-
-        //    var store = await storeService.CreateAsync(query);
-
-        //    return CreatedAtRoute(Constant.RouteName, new { id = store.StoreId }, store);
-        //}
+            return CreatedAtAction(nameof(Get), new { id = store.StoreId }, store);
+        }
 
         ///// <summary>
         ///// 修改店家。
