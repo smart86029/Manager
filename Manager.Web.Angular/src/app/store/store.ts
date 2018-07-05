@@ -1,4 +1,4 @@
-import { Product } from './product';
+import { ProductCategory } from './product-category';
 
 export class Store {
   storeId: number;
@@ -8,5 +8,5 @@ export class Store {
   address: string;
   remark: string;
   createdOn: Date;
-  products: Product[];
+  productCategories: ProductCategory[];
 }

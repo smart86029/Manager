@@ -5,7 +5,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// <summary>
     /// 商品分類。
     /// </summary>
-    public class ProductCategory
+    public class ProductCategory : IEntity
     {
         private List<Product> products = new List<Product>();
 
@@ -51,10 +51,10 @@ namespace Manager.Domain.Models.GroupBuying
         /// <value>店家。</value>
         public Store Store { get; private set; }
 
-        ///// <summary>
-        ///// 取得商品的集合。
-        ///// </summary>
-        ///// <value>商品的集合。</value>
-        //public IReadOnlyCollection<Product> Products => products;
+        /// <summary>
+        /// 取得商品的集合。
+        /// </summary>
+        /// <value>商品的集合。</value>
+        public IReadOnlyCollection<Product> Products => products;
     }
 }

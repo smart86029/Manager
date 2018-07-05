@@ -6,7 +6,7 @@ namespace Manager.Domain.Repositories.GroupBuying
     /// <summary>
     /// 店家存放庫。
     /// </summary>
-    public interface IStoreRepository
+    public interface IStoreRepository : IRepository<Store>
     {
         /// <summary>
         /// 取得店家。

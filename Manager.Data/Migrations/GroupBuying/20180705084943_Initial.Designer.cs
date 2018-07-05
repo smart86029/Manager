@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Manager.Data.migrations.groupbuying
 {
     [DbContext(typeof(GroupBuyingContext))]
-    [Migration("20180704093539_Initial")]
+    [Migration("20180705084943_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,28 @@ namespace Manager.Data.migrations.groupbuying
                 .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Manager.Domain.Models.GroupBuying.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32);
+
+                    b.Property<int>("ProductCategoryId");
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("ProductCategoryId");
+
+                    b.ToTable("Product");
+                });
 
             modelBuilder.Entity("Manager.Domain.Models.GroupBuying.ProductCategory", b =>
                 {
@@ -39,6 +61,27 @@ namespace Manager.Data.migrations.groupbuying
                     b.HasIndex("StoreId");
 
                     b.ToTable("ProductCategory");
+                });
+
+            modelBuilder.Entity("Manager.Domain.Models.GroupBuying.ProductItem", b =>
+                {
+                    b.Property<int>("ProductItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(32);
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(19, 4)");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("ProductItemId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductItem");
                 });
 
             modelBuilder.Entity("Manager.Domain.Models.GroupBuying.Store", b =>
@@ -66,11 +109,27 @@ namespace Manager.Data.migrations.groupbuying
                     b.ToTable("Store");
                 });
 
+            modelBuilder.Entity("Manager.Domain.Models.GroupBuying.Product", b =>
+                {
+                    b.HasOne("Manager.Domain.Models.GroupBuying.ProductCategory", "ProductCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Manager.Domain.Models.GroupBuying.ProductCategory", b =>
                 {
                     b.HasOne("Manager.Domain.Models.GroupBuying.Store", "Store")
                         .WithMany("ProductCategories")
                         .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Manager.Domain.Models.GroupBuying.ProductItem", b =>
+                {
+                    b.HasOne("Manager.Domain.Models.GroupBuying.Product", "Product")
+                        .WithMany("ProductItems")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

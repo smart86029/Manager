@@ -1,5 +1,5 @@
 <form>
-  <h2 matDialogTitle>修改商品</h2>
+  <h2 matDialogTitle>{{saveMode | actionName}}商品</h2>
   <mat-dialog-content>
     <div>
       <mat-form-field>
@@ -13,7 +13,7 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button type="submit" color="primary" [matDialogClose]="data">儲存</button>
     <button mat-button type="button" matDialogClose>返回</button>
+    <button mat-button type="submit" color="primary" [matDialogClose]="data">{{saveMode | actionName}}</button>
   </mat-dialog-actions>
 </form>

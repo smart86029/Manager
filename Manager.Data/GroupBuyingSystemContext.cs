@@ -24,6 +24,8 @@ namespace Manager.Data
             modelBuilder.HasDefaultSchema("GroupBuying");
             modelBuilder.ApplyConfiguration(new StoreConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductItemConfiguration());
         }
     }
 }

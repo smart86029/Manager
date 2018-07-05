@@ -27,9 +27,14 @@ namespace Manager.Data.Repositories.GroupBuying
         /// </summary>
         /// <param name="storeId">店家 ID。</param>
         /// <returns>店家。</returns>
-        public Task<Store> GetStoreAsync(int storeId)
+        public async Task<Store> GetStoreAsync(int storeId)
         {
-            throw new NotImplementedException();
+            var store = await context.Set<Store>()
+                .Include(s => s.ProductCategories)
+                    .ThenInclude(c => c.Products)
+                .SingleOrDefaultAsync(s => s.StoreId == storeId);
+
+            return store;
         }
 
         /// <summary>

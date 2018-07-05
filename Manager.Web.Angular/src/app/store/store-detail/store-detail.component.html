@@ -37,39 +37,29 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>商品</ng-template>
-            <mat-table [dataSource]="store.products" #tableProducts>
-              <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
-                <mat-cell *matCellDef="let product;">
-                  {{product.name}}
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="price">
-                <mat-header-cell *matHeaderCellDef>價格</mat-header-cell>
-                <mat-cell *matCellDef="let product;">
-                  {{product.price}}
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="action">
-                <mat-header-cell *matHeaderCellDef>
-                  <button mat-button color="primary" (click)="createProduct()">新增商品</button>
-                </mat-header-cell>
-                <mat-cell *matCellDef="let product; let i = index;">
-                  <button mat-icon-button color="primary" (click)="updateProduct(product)">
-                    <mat-icon>create</mat-icon>
-                  </button>
-                  <button mat-icon-button color="warn" (click)="deleteProduct(i)">
-                    <mat-icon>delete_sweep</mat-icon>
-                  </button>
-                </mat-cell>
-              </ng-container>
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-            </mat-table>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let category of store.productCategories">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>{{category.name}}</mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-button color="primary" (click)="createProduct()">新增商品</button>
+                <mat-list role="list">
+                  <mat-list-item *ngFor="let product of category.products" role="listitem">
+                    {{product.name}}
+                    <mat-chip-list>
+                      <mat-chip *ngFor="let productItem of product.productItems">
+                        <span *ngIf="productItem.name">{{productItem.name}}:</span>
+                        {{productItem.price}}
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
             <div>
-                <button mat-button matStepperPrevious>上一步</button>
-                <button mat-button color="primary" matStepperNext>下一步</button>
-              </div>
+              <button mat-button matStepperPrevious>上一步</button>
+              <button mat-button color="primary" matStepperNext>下一步</button>
+            </div>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>

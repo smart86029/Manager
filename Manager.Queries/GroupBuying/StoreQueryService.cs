@@ -24,6 +24,9 @@ namespace Manager.Queries.GroupBuying
         public StoreQueryService(string connectionString)
         {
             this.connectionString = !string.IsNullOrWhiteSpace(connectionString) ? connectionString : throw new ArgumentNullException(nameof(connectionString));
+            SqlMapper.SetTypeMap(typeof(Store.ProductCategory), new TypeMap<Store.ProductCategory>());
+            SqlMapper.SetTypeMap(typeof(Store.Product), new TypeMap<Store.Product>());
+            SqlMapper.SetTypeMap(typeof(Store.ProductItem), new TypeMap<Store.ProductItem>());
         }
 
         /// <summary>
@@ -70,43 +73,71 @@ namespace Manager.Queries.GroupBuying
         public async Task<Store> GetStoreAsync(int storeId)
         {
             var sql = $@"
-            	SELECT [s].[StoreId], [s].[Name], [s].[Description], [s].[Remark],
-                    [s].[AreaCode], [s].[BaseNumber], [s].[Extension],
-					[s].[PostalCode], [s].[Country], [s].[City], [s].[District], [s].[Street],
-					[c].[ProductCategoryId], [c].[Name] AS [CategoryName]
+				SELECT [s].[StoreId], [s].[Name], [s].[Description], [s].[AreaCode], [s].[BaseNumber], [s].[Extension],
+					[s].[PostalCode], [s].[Country], [s].[City], [s].[District], [s].[Street], [s].[Remark],
+					[y].[ProductCategoryId], [y].[CategoryName],
+					[y].[ProductId], [y].[ProductName], [y].[ProductDescription],
+					[y].[ProductItemId], [y].[ItemName], [y].[Price]
 				FROM (
                     SELECT [StoreId], [Name], [Description], [AreaCode], [BaseNumber], [Extension], [PostalCode], [Country], [City], [District], [Street], [Remark]
                     FROM [GroupBuying].[Store]
                     WHERE [StoreId] = @StoreId
                 ) AS [s]
 				LEFT JOIN (
-                    SELECT [ProductCategoryId], [Name], [StoreId]
-                    FROM [GroupBuying].[ProductCategory]
+                    SELECT [c].[ProductCategoryId], [c].[Name] AS [CategoryName], [c].[StoreId],
+                        [x].[ProductId], [x].[ProductName], [x].[ProductDescription],
+						[x].[ProductItemId], [x].[ItemName], [x].[Price]
+                    FROM [GroupBuying].[ProductCategory] AS [c]
+					LEFT JOIN (
+						SELECT [p].[ProductId], [p].[Name] AS [ProductName], [p].[Description] AS [ProductDescription], [p].[ProductCategoryId],
+							[i].[ProductItemId], [i].[Name] AS [ItemName], [i].[Price]
+						FROM [GroupBuying].[Product] AS [p]
+						LEFT JOIN [GroupBuying].[ProductItem] AS [i] ON [p].[ProductId] = [i].[ProductId]
+					) AS [x] ON [c].[ProductCategoryId] = [x].[ProductCategoryId]
                     WHERE [StoreId] = @StoreId
-                ) AS [c] ON [s].[StoreId] = [c].[StoreId]";
+                ) AS [y] ON [s].[StoreId] = [y].[StoreId]";
             var param = new { StoreId = storeId };
 
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 var stores = new Dictionary<int, Store>();
-                var result = await connection.QueryAsync(sql, (Store s, Phone p, Address a, Store.ProductCategory c) =>
+                var categories = new Dictionary<int, Store.ProductCategory>();
+                var products = new Dictionary<int, Store.Product>();
+                var result = await connection.QueryAsync(sql, (Store s, Phone phone, Address a, Store.ProductCategory c, Store.Product p, Store.ProductItem i) =>
                 {
                     if (!stores.TryGetValue(s.StoreId, out Store store))
                     {
-                        store = s;
-                        stores.Add(s.StoreId, s);
+                        stores.Add(s.StoreId, store = s);
                     }
 
                     if (string.IsNullOrWhiteSpace(store.Phone))
-                        store.Phone = p.AreaCode + p.BaseNumber + p.Extension;
+                        store.Phone = phone.AreaCode + phone.BaseNumber + phone.Extension;
                     if (string.IsNullOrWhiteSpace(store.Address))
                         store.Address = a.City + a.District + a.Street;
 
-                    store.ProductCategories.Add(c);
+                    if (c == default(Store.ProductCategory))
+                        return store;
+                    if (!categories.TryGetValue(c.ProductCategoryId, out Store.ProductCategory category))
+                    {
+                        categories.Add(c.ProductCategoryId, category = c);
+                        store.ProductCategories.Add(category);
+                    }
+
+                    if (p == default(Store.Product))
+                        return store;
+                    if (!products.TryGetValue(p.ProductId, out Store.Product product))
+                    {
+                        products.Add(p.ProductId, product = p);
+                        category.Products.Add(product);
+                    }
+
+                    if (i == default(Store.ProductItem))
+                        return store;
+                    product.ProductItems.Add(i);
 
                     return store;
-                }, param, splitOn: "AreaCode, PostalCode, ProductCategoryId");
+                }, param, splitOn: "AreaCode, PostalCode, ProductCategoryId, ProductId, ProductItemId");
 
                 return result.FirstOrDefault();
             }

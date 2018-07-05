@@ -19,6 +19,31 @@ namespace Manager.App.ViewModels.GroupBuying
 
             [Column("CategoryName")]
             public string Name { get; set; }
+
+            public ICollection<Product> Products { get; set; } = new List<Product>();
+        }
+
+        public class Product
+        {
+            public int ProductId { get; set; }
+
+            [Column("ProductName")]
+            public string Name { get; set; }
+
+            [Column("ProductDescription")]
+            public string Description { get; set; }
+
+            public ICollection<ProductItem> ProductItems { get; set; } = new List<ProductItem>();
+        }
+
+        public class ProductItem
+        {
+            public int ProductItemId { get; set; }
+
+            [Column("ItemName")]
+            public string Name { get; set; }
+
+            public decimal Price { get; set; }
         }
     }
 }
