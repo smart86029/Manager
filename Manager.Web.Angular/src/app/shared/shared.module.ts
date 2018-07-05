@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { ActionNamePipe } from './save-mode/action-name.pipe';
 import { YesNoPipe } from './yes-no.pipe';
+import { InlineEditorComponent } from './inline-editor/inline-editor.component';
 
 @NgModule({
   imports: [
@@ -21,11 +22,13 @@ import { YesNoPipe } from './yes-no.pipe';
     MaterialModule,
     FlexLayoutModule,
     ActionNamePipe,
-    YesNoPipe
+    YesNoPipe,
+    InlineEditorComponent
   ],
   declarations: [
     ActionNamePipe,
-    YesNoPipe
+    YesNoPipe,
+    InlineEditorComponent
   ]
 })
 export class SharedModule { }

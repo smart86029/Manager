@@ -9,6 +9,7 @@ import { ProductDetailDialogComponent } from '../product-detail-dialog/product-d
 import { Store } from '../store';
 import { StoreService } from '../store.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ProductCategory } from '../product-category';
 
 @Component({
   selector: 'app-store-detail',
@@ -24,7 +25,6 @@ export class StoreDetailComponent implements OnInit {
   formGroup: FormGroup;
   storeFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
 
   @ViewChild('tableProducts')
   tableProducts: MatTable<Product>;
@@ -73,39 +73,43 @@ export class StoreDetailComponent implements OnInit {
     this.location.back();
   }
 
+  createProductcategory(): void {
+    this.store.productCategories.push(new ProductCategory());
+  }
+
   createProduct(): void {
-    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        const product = new Product();
-        product.name = data.name;
-        product.price = data.price;
-        this.store.products.push(product);
-        this.tableProducts.renderRows();
-      }
-    });
+    // const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+    //   data: {}
+    // });
+    // dialogRef.afterClosed().subscribe(data => {
+    //   if (data) {
+    //     const product = new Product();
+    //     product.name = data.name;
+    //     product.price = data.price;
+    //     this.store.products.push(product);
+    //     this.tableProducts.renderRows();
+    //   }
+    // });
   }
 
   updateProduct(product: Product): void {
-    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
-      data: {
-        name: product.name,
-        price: product.price
-      }
-    });
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        product.name = data.name;
-        product.price = data.price;
-      }
-    });
+    // const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+    //   data: {
+    //     name: product.name,
+    //     price: product.price
+    //   }
+    // });
+    // dialogRef.afterClosed().subscribe(data => {
+    //   if (data) {
+    //     product.name = data.name;
+    //     product.price = data.price;
+    //   }
+    // });
   }
 
   deleteProduct(index: number): void {
-    this.store.products.splice(index, 1);
-    this.tableProducts.renderRows();
+    // this.store.products.splice(index, 1);
+    // this.tableProducts.renderRows();
   }
 
   private create(): void {

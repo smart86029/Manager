@@ -8,5 +8,5 @@ export class Store {
   address: string;
   remark: string;
   createdOn: Date;
-  productCategories: ProductCategory[];
+  productCategories: ProductCategory[] = [];
 }
