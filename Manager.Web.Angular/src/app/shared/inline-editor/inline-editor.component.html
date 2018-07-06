@@ -2,7 +2,7 @@
 <ng-template #overlayArea>
   <form autocomplete="off">
     <div class="overlay-area">
-      <div class="mat-subheading-2">編輯</div>
+      <div class="mat-subheading-2">{{name}}</div>
       <mat-form-field>
         <input matInput maxLength="140" name="newValue" [(ngModel)]="newValue" #editor autofocus>
         <mat-hint align="end">{{newValue?.length || 0}}/140</mat-hint>

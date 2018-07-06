@@ -12,6 +12,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { MatInput } from '@angular/material';
+import { SaveMode } from '../save-mode/save-mode.enum';
 
 @Component({
   selector: 'app-inline-editor',
@@ -19,6 +20,7 @@ import { MatInput } from '@angular/material';
   styleUrls: ['./inline-editor.component.scss']
 })
 export class InlineEditorComponent implements OnInit {
+  saveMode = SaveMode.Create;
   overlayRef: OverlayRef;
   newValue: string;
 
@@ -57,6 +59,8 @@ export class InlineEditorComponent implements OnInit {
     });
     if (!this.newValue) {
       this.display();
+    } else {
+      this.saveMode = SaveMode.Update;
     }
   }
 
@@ -64,9 +68,7 @@ export class InlineEditorComponent implements OnInit {
     if (this.overlayRef && this.overlayRef.hasAttached()) {
       this.overlayRef.detach();
     } else {
-
       this.overlayRef.attach(new TemplatePortal(this.overlayArea, this.viewContainerRef));
-      
     }
   }
 

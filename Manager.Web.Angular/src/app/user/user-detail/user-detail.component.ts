@@ -24,10 +24,10 @@ export class UserDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.saveMode = SaveMode.Update;
-      this.isLoading = true;
       this.userService.getUser(id)
         .subscribe(user => this.user = user, () => { }, () => this.isLoading = false);
     } else {

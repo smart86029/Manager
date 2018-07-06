@@ -12,19 +12,22 @@ import { RoleService } from '../role.service';
   styleUrls: ['./role-detail.component.scss']
 })
 export class RoleDetailComponent implements OnInit {
+  isLoading: boolean;
   saveMode = SaveMode.Create;
   role = new Role();
 
   constructor(private roleService: RoleService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.saveMode = SaveMode.Update;
       this.roleService.getRole(id)
-        .subscribe(role => this.role = role);
+        .subscribe(role => this.role = role, () => { }, () => this.isLoading = false);
     } else {
-      this.role = new Role();
+      this.roleService.getNewRole()
+        .subscribe(role => this.role = role, () => { }, () => this.isLoading = false);
     }
   }
 
