@@ -19,15 +19,13 @@ namespace Manager.Domain.Models.GroupBuying
         /// </summary>
         /// <param name="name">名稱。</param>
         /// <param name="price">價格。</param>
-        /// <param name="product">商品。</param>
-        public ProductItem(string name, decimal price, Product product)
+        public ProductItem(string name, decimal price)
         {
             if (price < 0)
                 throw new InvalidException();
 
             Name = name;
             Price = price;
-            Product = product;
         }
 
         /// <summary>

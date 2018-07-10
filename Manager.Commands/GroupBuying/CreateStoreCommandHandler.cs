@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Manager.App.Commands;
 using Manager.App.Commands.GroupBuying;
-using Manager.App.Commands.System;
 using Manager.Domain.Models.Generic;
 using Manager.Domain.Models.GroupBuying;
 using Manager.Domain.Repositories.GroupBuying;
@@ -31,6 +30,24 @@ namespace Manager.Commands.GroupBuying
             var createStoreCommand = command as CreateStoreCommand ?? throw new NotSupportedException();
             var store = new Store(createStoreCommand.Name, createStoreCommand.Description, new Phone(createStoreCommand.Phone),
                 new Address(createStoreCommand.Address), createStoreCommand.Remark, 1);
+
+            foreach (var c in createStoreCommand.ProductCategories)
+            {
+                var productCategory = new ProductCategory(c.Name);
+                foreach (var p in c.Products)
+                {
+                    var product = new Product(p.Name, p.Description);
+                    foreach (var i in p.ProductItems)
+                    {
+                        var productItem = new ProductItem(i.Name, i.Price);
+                        product.AddProductItem(productItem);
+                    }
+
+                    productCategory.AddProduct(product);
+                }
+
+                store.AddProductCategory(productCategory);
+            }
 
             storeRepository.Add(store);
             await unitOfWork.CommitAsync();

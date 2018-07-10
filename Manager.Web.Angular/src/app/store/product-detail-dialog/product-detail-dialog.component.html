@@ -7,9 +7,21 @@
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field>
-        <input matInput type="text" name="productPrice" placeholder="價格" [(ngModel)]="data.price">
-      </mat-form-field>
+      <div>
+        商品項目
+        <span class="fill-space"></span>
+        <button mat-icon-button (click)="createProductItem()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngFor="let item of data.productItems">
+        <mat-form-field>
+          <input matInput type="text" name="productItemName" placeholder="名稱" [(ngModel)]="item.name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" name="productItemPrice" placeholder="價格" [(ngModel)]="item.price">
+        </mat-form-field>
+      </div>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>

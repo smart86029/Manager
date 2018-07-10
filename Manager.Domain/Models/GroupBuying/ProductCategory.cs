@@ -20,11 +20,9 @@ namespace Manager.Domain.Models.GroupBuying
         /// 初始化 <see cref="ProductCategory"/> 類別的新執行個體。
         /// </summary>
         /// <param name="name">名稱。</param>
-        /// <param name="store">店家。</param>
-        public ProductCategory(string name, Store store)
+        public ProductCategory(string name)
         {
             Name = name;
-            Store = store;
         }
 
         /// <summary>
@@ -56,5 +54,14 @@ namespace Manager.Domain.Models.GroupBuying
         /// </summary>
         /// <value>商品的集合。</value>
         public IReadOnlyCollection<Product> Products => products;
+
+        /// <summary>
+        /// 加入商品項目。
+        /// </summary>
+        /// <param name="product">商品。</param>
+        public void AddProduct(Product product)
+        {
+            products.Add(product);
+        }
     }
 }

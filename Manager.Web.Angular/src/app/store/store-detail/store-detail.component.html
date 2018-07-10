@@ -37,7 +37,7 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>商品</ng-template>
-            <button mat-button color="primary" (click)="createProductcategory()">新增分類</button>
+            <button mat-button color="primary" (click)="createProductCategory()">新增分類</button>
             <mat-accordion>
               <mat-expansion-panel *ngFor="let category of store.productCategories">
                 <mat-expansion-panel-header>
@@ -45,7 +45,7 @@
                     <app-inline-editor name="分類名稱" [(value)]="category.name"></app-inline-editor>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <button mat-button color="primary" (click)="createProduct()">新增商品</button>
+                <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
                 <mat-list role="list">
                   <mat-list-item *ngFor="let product of category.products" role="listitem">
                     {{product.name}}

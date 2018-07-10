@@ -109,10 +109,19 @@ namespace Manager.Domain.Models.GroupBuying
         /// <value>商品分類。</value>
         public IReadOnlyCollection<ProductCategory> ProductCategories => productCategories;
 
-        /// <summary>
-        /// 取得團店家的集合。
-        /// </summary>
-        /// <value>團店家的集合。</value>
+        ///// <summary>
+        ///// 取得團店家的集合。
+        ///// </summary>
+        ///// <value>團店家的集合。</value>
         //public IReadOnlyCollection<GroupStore> GroupStores => groupStores;
+
+        /// <summary>
+        /// 加入商品分類。
+        /// </summary>
+        /// <param name="productCategory">商品分類。</param>
+        public void AddProductCategory(ProductCategory productCategory)
+        {
+            productCategories.Add(productCategory);
+        }
     }
 }

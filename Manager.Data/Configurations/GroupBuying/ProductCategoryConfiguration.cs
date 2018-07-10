@@ -15,6 +15,8 @@ namespace Manager.Data.Configurations.System
             builder.HasOne(x => x.Store)
                 .WithMany(s => s.ProductCategories)
                 .HasForeignKey(x => x.StoreId);
+            builder.Metadata.FindNavigation(nameof(ProductCategory.Products))
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
 
             //builder.HasData(GetSeedData());
         }

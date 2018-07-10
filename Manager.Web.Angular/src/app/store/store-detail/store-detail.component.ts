@@ -73,23 +73,20 @@ export class StoreDetailComponent implements OnInit {
     this.location.back();
   }
 
-  createProductcategory(): void {
+  createProductCategory(): void {
     this.store.productCategories.push(new ProductCategory());
   }
 
-  createProduct(): void {
-    // const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
-    //   data: {}
-    // });
-    // dialogRef.afterClosed().subscribe(data => {
-    //   if (data) {
-    //     const product = new Product();
-    //     product.name = data.name;
-    //     product.price = data.price;
-    //     this.store.products.push(product);
-    //     this.tableProducts.renderRows();
-    //   }
-    // });
+  createProduct(category: ProductCategory): void {
+    console.log(category);
+    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        category.products.push(data);
+      }
+    });
   }
 
   updateProduct(product: Product): void {

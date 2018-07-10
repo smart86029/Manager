@@ -7,7 +7,25 @@ namespace Manager.Domain.Models.GroupBuying
     /// </summary>
     public class Product : IEntity
     {
+        private List<ProductItem> productItems = new List<ProductItem>();
 
+        /// <summary>
+        /// 初始化 <see cref="Product"/> 類別的新執行個體。
+        /// </summary>
+        private Product()
+        {
+        }
+
+        /// <summary>
+        /// 初始化 <see cref="Product"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="name">名稱。</param>
+        /// <param name="description">描述。</param>
+        public Product(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
 
         /// <summary>
         /// 取得主鍵。
@@ -43,7 +61,7 @@ namespace Manager.Domain.Models.GroupBuying
         /// 取得商品項目的集合。
         /// </summary>
         /// <value>商品項目的集合。</value>
-        public ICollection<ProductItem> ProductItems { get; private set; } = new List<ProductItem>();
+        public IReadOnlyCollection<ProductItem> ProductItems => productItems;
 
         ///// <summary>
         ///// 取得商品配件的集合。
@@ -56,5 +74,14 @@ namespace Manager.Domain.Models.GroupBuying
         ///// </summary>
         ///// <value>商品選項的集合。</value>
         //public ICollection<ProductOption> ProductOptions { get; private set; } = new List<ProductOption>();
+
+        /// <summary>
+        /// 加入商品項目。
+        /// </summary>
+        /// <param name="productItem">商品項目。</param>
+        public void AddProductItem(ProductItem productItem)
+        {
+            productItems.Add(productItem);
+        }
     }
 }
