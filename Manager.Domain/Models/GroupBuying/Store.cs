@@ -116,6 +116,51 @@ namespace Manager.Domain.Models.GroupBuying
         //public IReadOnlyCollection<GroupStore> GroupStores => groupStores;
 
         /// <summary>
+        /// 更新名稱。
+        /// </summary>
+        /// <param name="name">名稱。</param>
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
+        /// 更新描述。
+        /// </summary>
+        /// <param name="description">描述。</param>
+        public void UpdateDescription(string description)
+        {
+            Description = description;
+        }
+
+        /// <summary>
+        /// 更新電話。
+        /// </summary>
+        /// <param name="phone">電話。</param>
+        public void UpdatePhone(Phone phone)
+        {
+            Phone = phone;
+        }
+
+        /// <summary>
+        /// 更新地址。
+        /// </summary>
+        /// <param name="address">地址。</param>
+        public void UpdateAddress(Address address)
+        {
+            Address = address;
+        }
+
+        /// <summary>
+        /// 更新備註。
+        /// </summary>
+        /// <param name="remark">備註。</param>
+        public void UpdateRemark(string remark)
+        {
+            Remark = remark;
+        }
+
+        /// <summary>
         /// 加入商品分類。
         /// </summary>
         /// <param name="productCategory">商品分類。</param>

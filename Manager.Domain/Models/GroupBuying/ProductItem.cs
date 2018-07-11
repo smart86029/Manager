@@ -57,5 +57,23 @@ namespace Manager.Domain.Models.GroupBuying
         /// </summary>
         /// <value>商品。</value>
         public Product Product { get; private set; }
+
+        /// <summary>
+        /// 更新名稱。
+        /// </summary>
+        /// <param name="name">名稱。</param>
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
+        /// 更新價格。
+        /// </summary>
+        /// <param name="price">價格。</param>
+        public void UpdatePrice(decimal price)
+        {
+            Price = price;
+        }
     }
 }

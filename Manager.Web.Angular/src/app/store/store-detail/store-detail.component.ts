@@ -90,18 +90,14 @@ export class StoreDetailComponent implements OnInit {
   }
 
   updateProduct(product: Product): void {
-    // const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
-    //   data: {
-    //     name: product.name,
-    //     price: product.price
-    //   }
-    // });
-    // dialogRef.afterClosed().subscribe(data => {
-    //   if (data) {
-    //     product.name = data.name;
-    //     product.price = data.price;
-    //   }
-    // });
+    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
+      data: product
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        product = data;
+      }
+    });
   }
 
   deleteProduct(index: number): void {

@@ -56,6 +56,15 @@ namespace Manager.Domain.Models.GroupBuying
         public IReadOnlyCollection<Product> Products => products;
 
         /// <summary>
+        /// 更新名稱。
+        /// </summary>
+        /// <param name="name">名稱。</param>
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
         /// 加入商品項目。
         /// </summary>
         /// <param name="product">商品。</param>

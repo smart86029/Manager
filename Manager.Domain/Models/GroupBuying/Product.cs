@@ -76,6 +76,24 @@ namespace Manager.Domain.Models.GroupBuying
         //public ICollection<ProductOption> ProductOptions { get; private set; } = new List<ProductOption>();
 
         /// <summary>
+        /// 更新名稱。
+        /// </summary>
+        /// <param name="name">名稱。</param>
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
+        /// 更新描述。
+        /// </summary>
+        /// <param name="description">描述。</param>
+        public void UpdateDescription(string description)
+        {
+            Description = description;
+        }
+
+        /// <summary>
         /// 加入商品項目。
         /// </summary>
         /// <param name="productItem">商品項目。</param>

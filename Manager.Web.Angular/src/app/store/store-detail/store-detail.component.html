@@ -46,9 +46,9 @@
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
-                <mat-list role="list">
-                  <mat-list-item *ngFor="let product of category.products" role="listitem">
-                    {{product.name}}
+                <mat-list>
+                  <mat-list-item *ngFor="let product of category.products">
+                    <button mat-button (click)="updateProduct(product)">{{product.name}}</button>
                     <mat-chip-list>
                       <mat-chip *ngFor="let productItem of product.productItems">
                         <span *ngIf="productItem.name">{{productItem.name}}:</span>

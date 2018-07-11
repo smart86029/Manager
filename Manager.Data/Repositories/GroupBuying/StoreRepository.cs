@@ -32,6 +32,7 @@ namespace Manager.Data.Repositories.GroupBuying
             var store = await context.Set<Store>()
                 .Include(s => s.ProductCategories)
                     .ThenInclude(c => c.Products)
+                    .ThenInclude(p => p.ProductItems)
                 .SingleOrDefaultAsync(s => s.StoreId == storeId);
 
             return store;

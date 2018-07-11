@@ -50,7 +50,7 @@ namespace Manager.Web.Controllers
         /// 取得店家。
         /// </summary>
         /// <param name="id">店家 ID。</param>
-        /// <returns>店家。</returns>     
+        /// <returns>店家。</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -74,25 +74,22 @@ namespace Manager.Web.Controllers
             return CreatedAtAction(nameof(Get), new { id = store.StoreId }, store);
         }
 
-        ///// <summary>
-        ///// 修改店家。
-        ///// </summary>
-        ///// <param name="id">店家ID。</param>
-        ///// <param name="query">修改店家查詢。</param>
-        ///// <returns>204 NoContent。</returns>
-        //[HttpPut("{id}")]
-        //[ProducesResponseType((int)HttpStatusCode.NoContent)]
-        //public async Task<IActionResult> Put(int id, [FromBody]UpdateStoreQuery query)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
-        //    if (id != query.StoreId)
-        //        return BadRequest();
+        /// <summary>
+        /// 修改店家。
+        /// </summary>
+        /// <param name="id">店家ID。</param>
+        /// <param name="command">修改店家命令。</param>
+        /// <returns>204 NoContent。</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]UpdateStoreCommand command)
+        {
+            if (id != command.StoreId)
+                return BadRequest();
 
-        //    await storeService.UpdateAsync(query);
+            await commandService.ExecuteAsync<bool>(command);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
         ///// <summary>
         ///// 刪除店家。
