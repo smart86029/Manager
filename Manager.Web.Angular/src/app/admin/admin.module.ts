@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+
+import { SharedModule } from '../shared/shared.module';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminIndexComponent } from './admin-index/admin-index.component';
+import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
     AdminRoutingModule
   ],
   declarations: [
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminIndexComponent
   ]
 })
 export class AdminModule { }

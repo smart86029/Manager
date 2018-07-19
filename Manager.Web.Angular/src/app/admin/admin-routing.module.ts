@@ -3,13 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../core/auth.guard';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminIndexComponent } from './admin-index/admin-index.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminDashboardComponent,
+    component: AdminIndexComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: '', component: AdminDashboardComponent },
       { path: 'users', loadChildren: 'app/user/user.module#UserModule', canLoad: [AuthGuard] },
       { path: 'roles', loadChildren: 'app/role/role.module#RoleModule', canLoad: [AuthGuard] },
       { path: 'permissions', loadChildren: 'app/permission/permission.module#PermissionModule', canLoad: [AuthGuard] },
