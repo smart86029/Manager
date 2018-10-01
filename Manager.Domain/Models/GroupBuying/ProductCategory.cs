@@ -5,7 +5,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// <summary>
     /// 商品分類。
     /// </summary>
-    public class ProductCategory : IEntity
+    public class ProductCategory : Entity
     {
         private List<Product> products = new List<Product>();
 

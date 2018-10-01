@@ -5,7 +5,7 @@ namespace Manager.Domain.Models.System
     /// <summary>
     /// 權限。
     /// </summary>
-    public class Permission : IAggregateRoot
+    public class Permission : Entity, IAggregateRoot
     {
         private readonly List<RolePermission> rolePermissions = new List<RolePermission>();
 

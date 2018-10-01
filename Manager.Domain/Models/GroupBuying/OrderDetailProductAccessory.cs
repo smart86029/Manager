@@ -3,7 +3,7 @@
     /// <summary>
     /// 訂單明細商品配件。
     /// </summary>
-    public class OrderDetailProductAccessory
+    public class OrderDetailProductAccessory : Entity
     {
         /// <summary>
         /// 取得或設定訂單明細 ID。

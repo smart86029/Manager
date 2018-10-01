@@ -5,7 +5,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// <summary>
     /// 商品項目。
     /// </summary>
-    public class ProductItem
+    public class ProductItem : Entity
     {
         /// <summary>
         /// 初始化 <see cref="ProductItem"/> 類別的新執行個體。

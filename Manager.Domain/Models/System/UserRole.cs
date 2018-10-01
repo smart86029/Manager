@@ -3,7 +3,7 @@
     /// <summary>
     /// 使用者角色。
     /// </summary>
-    public class UserRole : IEntity
+    public class UserRole : Entity
     {
         /// <summary>
         /// 取得或設定使用者 ID。

@@ -6,7 +6,7 @@ namespace Manager.Domain.Models.System
     /// <summary>
     /// 角色。
     /// </summary>
-    public class Role : IAggregateRoot
+    public class Role : Entity, IAggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
         private readonly List<RolePermission> rolePermissions = new List<RolePermission>();

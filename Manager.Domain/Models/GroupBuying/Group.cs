@@ -7,7 +7,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// <summary>
     /// 團。
     /// </summary>
-    public class Group
+    public class Group : Entity
     {
         /// <summary>
         /// 取得或設定主鍵。

@@ -7,7 +7,7 @@ namespace Manager.Domain.Models.System
     /// <summary>
     /// 使用者。
     /// </summary>
-    public class User : IAggregateRoot
+    public class User : Entity, IAggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
 

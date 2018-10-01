@@ -5,7 +5,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// <summary>
     /// 訂單明細。
     /// </summary>
-    public class OrderDetail
+    public class OrderDetail : Entity
     {
         /// <summary>
         /// 取得或設定主鍵。

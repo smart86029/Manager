@@ -3,7 +3,7 @@
     /// <summary>
     /// 角色權限。
     /// </summary>
-    public class RolePermission : IEntity
+    public class RolePermission : Entity
     {
         /// <summary>
         /// 取得或設定角色 ID。

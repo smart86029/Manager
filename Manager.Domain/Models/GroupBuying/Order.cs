@@ -8,7 +8,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// <summary>
     /// 訂單。
     /// </summary>
-    public class Order
+    public class Order : Entity, IAggregateRoot
     {
         /// <summary>
         /// 取得或設定主鍵。

@@ -3,7 +3,7 @@
     /// <summary>
     /// 商品配件。
     /// </summary>
-    public class ProductAccessory
+    public class ProductAccessory : Entity
     {
         /// <summary>
         /// 取得或設定主鍵。

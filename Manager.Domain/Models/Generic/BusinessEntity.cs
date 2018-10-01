@@ -3,7 +3,7 @@
     /// <summary>
     /// 商業實體。
     /// </summary>
-    public abstract class BusinessEntity : IAggregateRoot
+    public abstract class BusinessEntity : Entity, IAggregateRoot
     {
         private BusinessEntity()
         {

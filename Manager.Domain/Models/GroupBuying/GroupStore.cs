@@ -3,7 +3,7 @@
     /// <summary>
     /// 團店家。
     /// </summary>
-    public class GroupStore
+    public class GroupStore : Entity
     {
         /// <summary>
         /// 取得或設定團 ID。

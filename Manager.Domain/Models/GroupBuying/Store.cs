@@ -7,7 +7,7 @@ namespace Manager.Domain.Models.GroupBuying
     /// <summary>
     /// 店家。
     /// </summary>
-    public class Store : IAggregateRoot
+    public class Store : Entity, IAggregateRoot
     {
         private List<ProductCategory> productCategories = new List<ProductCategory>();
         //private List<GroupStore> groupStores = new List<GroupStore>();

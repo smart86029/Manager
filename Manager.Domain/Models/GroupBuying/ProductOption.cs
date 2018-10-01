@@ -3,7 +3,7 @@
     /// <summary>
     /// 商品選項。
     /// </summary>
-    public class ProductOption
+    public class ProductOption : Entity
     {
         /// <summary>
         /// 取得或設定主鍵。
