@@ -14,7 +14,7 @@ namespace Manager.Web.AutofacModules
         /// <summary>
         /// 初始化 <see cref="QueriesModule"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="tokenService">連接字串。</param>
+        /// <param name="connectionString">連接字串。</param>
         public QueriesModule(string connectionString)
         {
             this.connectionString = connectionString;

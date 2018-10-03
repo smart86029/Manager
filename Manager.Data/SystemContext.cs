@@ -1,4 +1,8 @@
-﻿using Manager.Data.Configurations.System;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Manager.Data.Configurations.System;
+using Manager.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Data
@@ -8,11 +12,36 @@ namespace Manager.Data
     /// </summary>
     public class SystemContext : DbContext
     {
+        private IEventBus eventBus;
+
         /// <summary>
         /// 初始化 <see cref="SystemContext"/> 類別的新執行個體。
         /// </summary>
-        public SystemContext(DbContextOptions<SystemContext> options) : base(options)
+        public SystemContext(DbContextOptions<SystemContext> options, IEventBus eventBus) : base(options)
         {
+            this.eventBus = eventBus;
+        }
+
+        /// <summary>
+        /// 將此內容中所做的所有變更非同步儲存到基礎資料庫。
+        /// </summary>
+        /// <param name="cancellationToken">取消作業。</param>
+        /// <returns></returns>
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var domainEntities = ChangeTracker.Entries<Entity>().Where(x => x.Entity.DomainEvents.Any()).ToList();
+            var domainEvents = domainEntities.SelectMany(x => x.Entity.DomainEvents).ToList();
+
+            domainEntities.ForEach(x => x.Entity.AcceptChanges());
+
+            var tasks = domainEvents.Select(domainEvent => Task.Run(() =>
+            {
+                eventBus.Publish(domainEvent);
+            }));
+
+            await Task.WhenAll(tasks);
+
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary>

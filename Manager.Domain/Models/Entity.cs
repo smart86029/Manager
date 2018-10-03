@@ -7,7 +7,7 @@ namespace Manager.Domain
     /// </summary>
     public abstract class Entity
     {
-        private List<IDomainEvent> domainEvents = new List<IDomainEvent>();
+        private Queue<IDomainEvent> domainEvents = new Queue<IDomainEvent>();
 
         /// <summary>
         /// 取得領域事件的集合。
@@ -15,21 +15,20 @@ namespace Manager.Domain
         public IReadOnlyCollection<IDomainEvent> DomainEvents => domainEvents;
 
         /// <summary>
-        /// 加入領域事件。
+        /// 引發領域事件。
         /// </summary>
         /// <param name="domainEvent">領域事件。</param>
-        public void AddDomainEvent(IDomainEvent domainEvent)
+        public void RaiseDomainEvent(IDomainEvent domainEvent)
         {
-            domainEvents.Add(domainEvent);
+            domainEvents.Enqueue(domainEvent);
         }
 
         /// <summary>
-        /// 移除領域事件。
+        /// 同意變更。
         /// </summary>
-        /// <param name="domainEvent">領域事件。</param>
-        public void RemoveDomainEvent(IDomainEvent domainEvent)
+        public void AcceptChanges()
         {
-            domainEvents.Remove(domainEvent);
+            domainEvents.Clear();
         }
     }
 }

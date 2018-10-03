@@ -63,6 +63,8 @@ namespace Manager.Web
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new CommandsModule(Configuration["Jwt:Key"], Configuration["Jwt:Issuer"]));
             containerBuilder.RegisterModule(new QueriesModule(connectionString));
+            containerBuilder.RegisterModule(new EventBusModule(Configuration["EventBus:Connection"], Configuration["EventBus:UserName"],
+                Configuration["EventBus:Password"], Convert.ToInt32(Configuration["EventBus:RetryCount"])));
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();
