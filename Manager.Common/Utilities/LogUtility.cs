@@ -11,50 +11,14 @@ namespace Manager.Common.Utilities
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
-        /// 追蹤。
+        /// 致命。
         /// </summary>
         /// <param name="message">訊息。</param>
-        public static void Trace(string message)
+        public static void Fatal(string message)
         {
             Task.Run(() =>
             {
-                logger.Trace(message);
-            });
-        }
-
-        /// <summary>
-        /// 除錯。
-        /// </summary>
-        /// <param name="message">訊息。</param>
-        public static void Debug(string message)
-        {
-            Task.Run(() =>
-            {
-                logger.Debug(message);
-            });
-        }
-
-        /// <summary>
-        /// 訊息。
-        /// </summary>
-        /// <param name="message">訊息。</param>
-        public static void Info(string message)
-        {
-            Task.Run(() =>
-            {
-                logger.Info(message);
-            });
-        }
-
-        /// <summary>
-        /// 警告。
-        /// </summary>
-        /// <param name="message">訊息。</param>
-        public static void Warn(string message)
-        {
-            Task.Run(() =>
-            {
-                logger.Warn(message);
+                logger.Fatal(message);
             });
         }
 
@@ -71,14 +35,50 @@ namespace Manager.Common.Utilities
         }
 
         /// <summary>
-        /// 致命。
+        /// 警告。
         /// </summary>
         /// <param name="message">訊息。</param>
-        public static void Fatal(string message)
+        public static void Warn(string message)
         {
             Task.Run(() =>
             {
-                logger.Fatal(message);
+                logger.Warn(message);
+            });
+        }
+
+        /// <summary>
+        /// 訊息。
+        /// </summary>
+        /// <param name="message">訊息。</param>
+        public static void Info(string message)
+        {
+            Task.Run(() =>
+            {
+                logger.Info(message);
+            });
+        }
+
+        /// <summary>
+        /// 除錯。
+        /// </summary>
+        /// <param name="message">訊息。</param>
+        public static void Debug(string message)
+        {
+            Task.Run(() =>
+            {
+                logger.Debug(message);
+            });
+        }
+
+        /// <summary>
+        /// 追蹤。
+        /// </summary>
+        /// <param name="message">訊息。</param>
+        public static void Trace(string message)
+        {
+            Task.Run(() =>
+            {
+                logger.Trace(message);
             });
         }
     }

@@ -2,6 +2,7 @@
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Manager.Common.Utilities;
 using Manager.Data;
 using Manager.Web.AutofacModules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -82,6 +83,8 @@ namespace Manager.Web
 
             app.UseAuthentication();
             app.UseMvc();
+
+            LogUtility.Info("啟用站點");
         }
     }
 }
