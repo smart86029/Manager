@@ -7,8 +7,8 @@ namespace Manager.Domain
 {
     public interface IEventBus
     {
-        void Publish(IDomainEvent domainEvent);
+        Task PublishAsync(IDomainEvent domainEvent);
 
-        //void Subscribe<T, TH>() where T : IDomainEvent where TH : IIntegrationEventHandler<T>;
+        //void Subscribe<T, TH>() where T : IDomainEvent where TH : IDomainEventHandler<T>;
     }
 }

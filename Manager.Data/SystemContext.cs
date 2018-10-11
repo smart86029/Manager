@@ -12,14 +12,14 @@ namespace Manager.Data
     /// </summary>
     public class SystemContext : DbContext
     {
-        private IEventBus eventBus;
+        private DomainEventDispatcher dispatcher;
 
         /// <summary>
         /// 初始化 <see cref="SystemContext"/> 類別的新執行個體。
         /// </summary>
-        public SystemContext(DbContextOptions<SystemContext> options, IEventBus eventBus) : base(options)
+        public SystemContext(DbContextOptions<SystemContext> options, DomainEventDispatcher dispatcher) : base(options)
         {
-            this.eventBus = eventBus;
+            this.dispatcher = dispatcher;
         }
 
         /// <summary>
@@ -34,10 +34,7 @@ namespace Manager.Data
 
             domainEntities.ForEach(x => x.Entity.AcceptChanges());
 
-            var tasks = domainEvents.Select(domainEvent => Task.Run(() =>
-            {
-                eventBus.Publish(domainEvent);
-            }));
+            var tasks = domainEvents.Select(async domainEvent => await dispatcher.DispatchAsync(domainEvent));
 
             await Task.WhenAll(tasks);
 

@@ -25,7 +25,7 @@ namespace Manager.Data
         private IModel consumerChannel;
         private string _queueName;
 
-        public void Publish(IDomainEvent domainEvent)
+        public Task PublishAsync(IDomainEvent domainEvent)
         {
             if (!connection.IsConnected)
                 connection.TryConnect();
@@ -52,6 +52,8 @@ namespace Manager.Data
                     channel.BasicPublish(ExchangeName, eventName, true, properties, body);
                 });
             }
+
+            return Task.CompletedTask;
         }
 
         public void Dispose()

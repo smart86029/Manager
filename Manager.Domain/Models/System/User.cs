@@ -45,6 +45,7 @@ namespace Manager.Domain.Models.System
             PasswordHash = CryptographyUtility.Hash(password);
             IsEnabled = isEnabled;
             BusinessEntityId = businessEntityId;
+            RaiseDomainEvent(new UserCreated());
         }
 
         /// <summary>
