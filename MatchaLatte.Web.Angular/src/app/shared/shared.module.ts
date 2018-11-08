@@ -4,6 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module';
+import { InlineEditorComponent } from './inline-editor/inline-editor.component';
+import { ActionNamePipe } from './save-mode/action-name.pipe';
 
 @NgModule({
   imports: [
@@ -17,9 +19,13 @@ import { MaterialModule } from './material.module';
     CommonModule,
     FormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ActionNamePipe,
+    InlineEditorComponent
   ],
   declarations: [
+    ActionNamePipe,
+    InlineEditorComponent
   ]
 })
 export class SharedModule { }

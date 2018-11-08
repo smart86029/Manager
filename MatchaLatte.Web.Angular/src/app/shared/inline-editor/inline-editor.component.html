@@ -1,0 +1,16 @@
+<span (click)="display()" #originText>{{value}}<span *ngIf="!newValue" class="add-hint">點擊輸入{{name}}</span></span>
+<ng-template #overlayArea>
+  <form autocomplete="off">
+    <div class="overlay-area">
+      <div class="mat-subheading-2">{{name}}</div>
+      <mat-form-field>
+        <input matInput maxLength="140" name="newValue" [(ngModel)]="newValue" #editor autofocus>
+        <mat-hint align="end">{{newValue?.length || 0}}/140</mat-hint>
+      </mat-form-field>
+      <div class="actions">
+        <button mat-button (click)="back()">返回</button>
+        <button mat-button color="primary" (click)="save()">確認</button>
+      </div>
+    </div>
+  </form>
+</ng-template>

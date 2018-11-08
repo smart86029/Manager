@@ -14,5 +14,5 @@ export class AppPaginatorIntl extends MatPaginatorIntl {
     const pageCount = Math.max(Math.ceil(length / pageSize), 1);
 
     return `第 ${page + 1} 頁 共 ${pageCount} 頁 共 ${length} 筆`;
-  };
+  }
 }
