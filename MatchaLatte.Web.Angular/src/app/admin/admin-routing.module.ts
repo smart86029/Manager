@@ -8,9 +8,9 @@ const routes: Routes = [
     component: AdminIndexComponent,
     children: [
       // { path: '', component: AdminDashboardComponent },
-      { path: 'users', loadChildren: 'app/user/user.module#UserModule' },
-      { path: 'roles', loadChildren: 'app/role/role.module#RoleModule' },
-      { path: 'permissions', loadChildren: 'app/permission/permission.module#PermissionModule' },
+      // { path: 'users', loadChildren: 'app/user/user.module#UserModule' },
+      // { path: 'roles', loadChildren: 'app/role/role.module#RoleModule' },
+      // { path: 'permissions', loadChildren: 'app/permission/permission.module#PermissionModule' },
       { path: 'stores', loadChildren: '../store/store.module#StoreModule' }
     ]
   }

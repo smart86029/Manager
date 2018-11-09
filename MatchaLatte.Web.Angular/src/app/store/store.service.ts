@@ -10,7 +10,7 @@ import { PaginationResult } from '../shared/pagination-result';
   providedIn: 'root'
 })
 export class StoreService {
-  private storesUrl = 'localhost:44375/api/stores';
+  private storesUrl = 'ordering/api/stores';
 
   constructor(private httpClient: HttpClient) { }
 

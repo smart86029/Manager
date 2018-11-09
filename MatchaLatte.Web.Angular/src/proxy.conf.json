@@ -1,0 +1,9 @@
+{
+  "/ordering": {
+    "target": "https://localhost:44375",
+    "secure": false,
+    "pathRewrite": {
+      "^/ordering": ""
+    }
+  }
+}
