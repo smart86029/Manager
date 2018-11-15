@@ -1,4 +1,11 @@
 {
+  "/identity": {
+    "target": "https://localhost:44309",
+    "secure": false,
+    "pathRewrite": {
+      "^/identity": ""
+    }
+  },
   "/ordering": {
     "target": "https://localhost:44375",
     "secure": false,

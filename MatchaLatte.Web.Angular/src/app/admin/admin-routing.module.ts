@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AuthGuard } from '../auth/auth.guard';
 import { AdminIndexComponent } from './admin-index/admin-index.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminIndexComponent,
+    canActivate: [AuthGuard],
     children: [
       // { path: '', component: AdminDashboardComponent },
       // { path: 'users', loadChildren: 'app/user/user.module#UserModule' },
