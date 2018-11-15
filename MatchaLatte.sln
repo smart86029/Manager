@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Common", "MatchaLatte.Common\MatchaLatte.Common.csproj", "{3B79C7CF-6255-44E8-9635-0F0AE09D5CCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Common", "MatchaLatte.Common\MatchaLatte.Common.csproj", "{3B79C7CF-6255-44E8-9635-0F0AE09D5CCE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatchaLatte.Ordering", "MatchaLatte.Ordering", "{F88BC152-0308-4842-8699-AF20E9B40573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.Api", "MatchaLatte.Ordering.Api\MatchaLatte.Ordering.Api.csproj", "{33E194A6-8A9D-4A1B-911D-453716EFC742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Api", "MatchaLatte.Ordering.Api\MatchaLatte.Ordering.Api.csproj", "{33E194A6-8A9D-4A1B-911D-453716EFC742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.App", "MatchaLatte.Ordering.App\MatchaLatte.Ordering.App.csproj", "{00A781D6-9A36-4EF5-BCA2-2E3581BDFBD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.App", "MatchaLatte.Ordering.App\MatchaLatte.Ordering.App.csproj", "{00A781D6-9A36-4EF5-BCA2-2E3581BDFBD0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Commands", "MatchaLatte.Ordering.Commands\MatchaLatte.Ordering.Commands.csproj", "{B0C96208-CB9A-4819-B028-E06796D5B957}"
 EndProject
@@ -18,6 +18,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Domain", "MatchaLatte.Ordering.Domain\MatchaLatte.Ordering.Domain.csproj", "{0599D21D-FD41-435F-887C-F4FB0D0AAEAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Queries", "MatchaLatte.Ordering.Queries\MatchaLatte.Ordering.Queries.csproj", "{8E1C6031-92D8-49FB-9D38-95F9F61A1959}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatchaLatte.Identity", "MatchaLatte.Identity", "{9E8B29AA-C198-4545-8F1A-1EA478E172F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Identity.Api", "MatchaLatte.Identity.Api\MatchaLatte.Identity.Api.csproj", "{89529690-CAB3-45CB-A15E-77FE745BBCEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Identity.App", "MatchaLatte.Identity.App\MatchaLatte.Identity.App.csproj", "{895C3A23-0EBC-4C71-AB83-87A44FFA3926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Identity.Data", "MatchaLatte.Identity.Data\MatchaLatte.Identity.Data.csproj", "{3E42CF65-8913-4E08-B5A1-3F2009945D7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Identity.Domain", "MatchaLatte.Identity.Domain\MatchaLatte.Identity.Domain.csproj", "{DC88B3ED-231E-4869-9C57-5575B9758C06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Identity.Services", "MatchaLatte.Identity.Services\MatchaLatte.Identity.Services.csproj", "{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +65,26 @@ Global
 		{8E1C6031-92D8-49FB-9D38-95F9F61A1959}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E1C6031-92D8-49FB-9D38-95F9F61A1959}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E1C6031-92D8-49FB-9D38-95F9F61A1959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89529690-CAB3-45CB-A15E-77FE745BBCEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89529690-CAB3-45CB-A15E-77FE745BBCEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89529690-CAB3-45CB-A15E-77FE745BBCEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89529690-CAB3-45CB-A15E-77FE745BBCEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{895C3A23-0EBC-4C71-AB83-87A44FFA3926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{895C3A23-0EBC-4C71-AB83-87A44FFA3926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{895C3A23-0EBC-4C71-AB83-87A44FFA3926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{895C3A23-0EBC-4C71-AB83-87A44FFA3926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E42CF65-8913-4E08-B5A1-3F2009945D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E42CF65-8913-4E08-B5A1-3F2009945D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E42CF65-8913-4E08-B5A1-3F2009945D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E42CF65-8913-4E08-B5A1-3F2009945D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC88B3ED-231E-4869-9C57-5575B9758C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC88B3ED-231E-4869-9C57-5575B9758C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC88B3ED-231E-4869-9C57-5575B9758C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC88B3ED-231E-4869-9C57-5575B9758C06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +96,11 @@ Global
 		{FFD3472B-7FC0-44DD-B6CF-6D02A3CD56FF} = {F88BC152-0308-4842-8699-AF20E9B40573}
 		{0599D21D-FD41-435F-887C-F4FB0D0AAEAB} = {F88BC152-0308-4842-8699-AF20E9B40573}
 		{8E1C6031-92D8-49FB-9D38-95F9F61A1959} = {F88BC152-0308-4842-8699-AF20E9B40573}
+		{89529690-CAB3-45CB-A15E-77FE745BBCEE} = {9E8B29AA-C198-4545-8F1A-1EA478E172F5}
+		{895C3A23-0EBC-4C71-AB83-87A44FFA3926} = {9E8B29AA-C198-4545-8F1A-1EA478E172F5}
+		{3E42CF65-8913-4E08-B5A1-3F2009945D7C} = {9E8B29AA-C198-4545-8F1A-1EA478E172F5}
+		{DC88B3ED-231E-4869-9C57-5575B9758C06} = {9E8B29AA-C198-4545-8F1A-1EA478E172F5}
+		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1} = {9E8B29AA-C198-4545-8F1A-1EA478E172F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C764FA00-239B-4498-9C1B-6B93EE1F4393}
