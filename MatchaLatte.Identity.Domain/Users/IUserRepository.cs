@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Domain;
 
@@ -9,6 +10,14 @@ namespace MatchaLatte.Identity.Domain.Users
     /// </summary>
     public interface IUserRepository : IRepository<User>
     {
+        /// <summary>
+        /// 取得使用者的集合。
+        /// </summary>
+        /// <param name="skip">略過的筆數。</param>
+        /// <param name="take">取的筆數。</param>
+        /// <returns>使用者的集合。</returns>
+        Task<ICollection<User>> GetUsersAsync(int skip, int take);
+
         /// <summary>
         /// 取得使用者。
         /// </summary>

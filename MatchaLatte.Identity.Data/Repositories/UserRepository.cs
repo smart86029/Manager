@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.Identity.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,17 @@ namespace MatchaLatte.Identity.Data.Repositories
         public UserRepository(IdentityContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        /// <summary>
+        /// 取得使用者的集合。
+        /// </summary>
+        /// <param name="skip">略過的筆數。</param>
+        /// <param name="take">取的筆數。</param>
+        /// <returns>使用者的集合。</returns>
+        public async Task<ICollection<User>> GetUsersAsync(int skip, int take)
+        {
+            return await context.Set<User>().Include(u => u.UserRoles).Skip(skip).Take(take).ToListAsync();
         }
 
         /// <summary>
