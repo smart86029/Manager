@@ -34,7 +34,7 @@ namespace MatchaLatte.Identity.Api
             var connectionString = Configuration.GetConnectionString("Identity");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.Configure<Jwt>(Configuration.GetSection("Jwt"));
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
             services.AddDbContext<IdentityContext>(options =>
             {
                 options.UseSqlServer(connectionString);
@@ -43,7 +43,7 @@ namespace MatchaLatte.Identity.Api
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new ServicesModule());
-            containerBuilder.Register(ctx => ctx.Resolve<IOptions<Jwt>>().Value);
+            containerBuilder.Register(ctx => ctx.Resolve<IOptions<JwtSettings>>().Value);
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();

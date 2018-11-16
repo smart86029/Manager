@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.Ordering.Api.AutofacModules;
 using MatchaLatte.Ordering.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MatchaLatte.Ordering.Api
 {
@@ -37,10 +40,23 @@ namespace MatchaLatte.Ordering.Api
             {
                 options.UseSqlServer(connectionString);
             });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new DataModule());
-            containerBuilder.RegisterModule(new CommandsModule(Configuration["Jwt:Key"], Configuration["Jwt:Issuer"]));
+            containerBuilder.RegisterModule(new CommandsModule());
             containerBuilder.RegisterModule(new QueriesModule(connectionString));
             containerBuilder.Populate(services);
 
@@ -62,6 +78,7 @@ namespace MatchaLatte.Ordering.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

@@ -15,10 +15,10 @@ namespace MatchaLatte.Identity.Services
         private const int ExpireMinutes = 120;
 
         private readonly IUserRepository userRepository;
-        private readonly Jwt jwt;
+        private readonly JwtSettings jwt;
         private readonly SymmetricSecurityKey securityKey;
 
-        public TokenService(IUserRepository userRepository, Jwt jwt)
+        public TokenService(IUserRepository userRepository, JwtSettings jwt)
         {
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             this.jwt = jwt;

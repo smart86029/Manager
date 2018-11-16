@@ -9,18 +9,11 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
     /// </summary>
     public class CommandsModule : Module
     {
-        private string key;
-        private string issuer;
-
         /// <summary>
         /// 初始化 <see cref="CommandsModule"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="issuer"></param>
-        public CommandsModule(string key, string issuer)
+        public CommandsModule()
         {
-            this.key = key;
-            this.issuer = issuer;
         }
 
         /// <summary>
@@ -37,8 +30,6 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
                 .InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("CommandHandler"))
-                .WithParameter("key", key)
-                .WithParameter("issuer", issuer)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }
