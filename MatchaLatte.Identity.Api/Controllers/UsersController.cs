@@ -30,7 +30,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
         {
             var users = await userService.GetUsersAsync(option);
-            Response.Headers.Add("X-Pagination", users.ItemCount.ToString());
+            Response.Headers.Add("X-Total-Count", users.ItemCount.ToString());
 
             return Ok(users.Items);
         }

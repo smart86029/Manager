@@ -13,10 +13,10 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <summary>
         /// 取得使用者的集合。
         /// </summary>
-        /// <param name="skip">略過的筆數。</param>
-        /// <param name="take">取的筆數。</param>
+        /// <param name="offset">略過的筆數。</param>
+        /// <param name="limit">限制的筆數。</param>
         /// <returns>使用者的集合。</returns>
-        Task<ICollection<User>> GetUsersAsync(int skip, int take);
+        Task<ICollection<User>> GetUsersAsync(int offset, int limit);
 
         /// <summary>
         /// 取得使用者。
@@ -32,6 +32,12 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="passwordHash">密碼雜湊。</param>
         /// <returns>使用者。</returns>
         Task<User> GetUserAsync(string userName, string passwordHash);
+
+        /// <summary>
+        /// 取得所有使用者的數量。
+        /// </summary>
+        /// <returns>所有使用者的數量。</returns>
+        Task<int> GetCountAsync();
 
         /// <summary>
         /// 加入使用者。

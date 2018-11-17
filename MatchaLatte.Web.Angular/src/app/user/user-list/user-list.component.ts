@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { PaginationResult } from 'src/app/shared/pagination-result';
 
 @Component({
   selector: 'app-user-list',
@@ -12,8 +13,7 @@ export class UserListComponent implements OnInit {
   isLoading: boolean;
   displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<User>();
-  pageSize = 10;
-  itemCount = 0;
+  users = new PaginationResult<User>();
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -21,15 +21,15 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    this.getUsers(0, this.pageSize);
+    this.getUsers(0, this.users.pageSize);
   }
 
   private getUsers(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.userService.getUsers(pageIndex + 1, pageSize)
+    this.userService.getUsers(pageIndex, pageSize)
       .subscribe(result => {
         this.dataSource.data = result.items;
-        this.itemCount = result.itemCount;
+        this.users = result;
       }, () => { }, () => this.isLoading = false);
   }
 }

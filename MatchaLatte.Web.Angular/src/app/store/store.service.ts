@@ -16,13 +16,13 @@ export class StoreService {
 
   getStores(pageIndex: number, pageSize: number): Observable<PaginationResult<Store>> {
     const params = new HttpParams()
-      .set('pageIndex', pageIndex.toString())
-      .set('pageSize', pageSize.toString());
+      .set('offset', (pageIndex * pageSize).toString())
+      .set('limit', pageSize.toString());
 
     return this.httpClient.get<Store[]>(this.storesUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
         const itemCount = +response.headers.get('X-Pagination');
-        return new PaginationResult<Store>(itemCount, response.body);
+        return new PaginationResult<Store>(pageIndex, pageSize, itemCount, response.body);
       }),
       catchError(this.handleError('getStores', new PaginationResult<Store>()))
     );

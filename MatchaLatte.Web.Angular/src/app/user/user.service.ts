@@ -16,13 +16,13 @@ export class UserService {
 
   getUsers(pageIndex: number, pageSize: number): Observable<PaginationResult<User>> {
     const params = new HttpParams()
-      .set('pageIndex', pageIndex.toString())
-      .set('pageSize', pageSize.toString());
+      .set('offset', (pageIndex * pageSize).toString())
+      .set('limit', pageSize.toString());
 
     return this.httpClient.get<User[]>(this.usersUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
-        const itemCount = +response.headers.get('X-Pagination');
-        return new PaginationResult<User>(itemCount, response.body);
+        const itemCount = +response.headers.get('X-Total-Count');
+        return new PaginationResult<User>(pageIndex, pageSize, itemCount, response.body);
       }),
       catchError(this.handleError('getUsers', new PaginationResult<User>()))
     );

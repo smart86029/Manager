@@ -36,7 +36,7 @@ namespace MatchaLatte.Ordering.Api.Controllers
         public async Task<IActionResult> Get([FromQuery] PaginationOption option)
         {
             var stores = await storeQueryService.GetStoresAsync(option);
-            Response.Headers.Add("X-Pagination", stores.ItemCount.ToString());
+            Response.Headers.Add("X-Total-Count", stores.ItemCount.ToString());
 
             return Ok(stores.Items);
         }

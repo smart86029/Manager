@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material';
 
 import { Store } from '../store';
 import { StoreService } from '../store.service';
+import { PaginationResult } from 'src/app/shared/pagination-result';
 
 @Component({
   selector: 'app-store-list',
@@ -13,21 +14,20 @@ export class StoreListComponent implements OnInit {
   isLoading = true;
   displayedColumns = ['id', 'name', 'createdOn', 'action'];
   dataSource = new MatTableDataSource<Store>();
-  pageSize = 10;
-  itemCount = 0;
+  stores = new PaginationResult<Store>();
 
   constructor(private storeService: StoreService) { }
 
   ngOnInit() {
-    this.getStores(0, this.pageSize);
+    this.getStores(0, this.stores.pageSize);
   }
 
   private getStores(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.storeService.getStores(pageIndex + 1, pageSize)
+    this.storeService.getStores(pageIndex, pageSize)
       .subscribe(result => {
         this.dataSource.data = result.items;
-        this.itemCount = result.itemCount;
+        this.stores = result;
       }, () => { }, () => this.isLoading = false);
   }
 }

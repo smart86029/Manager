@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.Identity.App.Services;
 using MatchaLatte.Identity.App.ViewModels;
 using MatchaLatte.Identity.App.ViewModels.User;
+using MatchaLatte.Identity.Domain.Roles;
 using MatchaLatte.Identity.Domain.Users;
 
 namespace MatchaLatte.Identity.Services
@@ -10,30 +12,29 @@ namespace MatchaLatte.Identity.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly IRoleRepository roleRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         public async Task<PaginationResult<UserSummary>> GetUsersAsync(PaginationOption option)
         {
-            var users = await userRepository.GetUsersAsync(option.PageIndex - 1, option.PageSize);
-            var a = 1;
-                throw new NotImplementedException();
-            //var sql = $@"
-            //    SELECT [UserId], [UserName], [IsEnabled]
-            //    FROM [System].[User]
-            //    ORDER BY [UserId]
-            //    OFFSET @Skip ROWS
-            //    FETCH NEXT @Take ROWS ONLY";
-            //var sqlCount = $@"
-            //    SELECT COUNT(*) FROM [System].[User]";
-            //var param = new
-            //{
-            //    Skip = (option.PageIndex - 1) * option.PageSize,
-            //    Take = option.PageSize
-            //};
+            var users = await userRepository.GetUsersAsync(option.Offset, option.Limit);
+            var count = await userRepository.GetCountAsync();
+            var result = new PaginationResult<UserSummary>
+            {
+                Items = users.Select(u => new UserSummary
+                {
+                    UserId = u.UserId,
+                    UserName = u.UserName,
+                    IsEnabled = u.IsEnabled
+                }).ToList(),
+                ItemCount = count
+            };
+
+            return result;
         }
 
         public Task<UserDetail> GetUserAsync(int userId)

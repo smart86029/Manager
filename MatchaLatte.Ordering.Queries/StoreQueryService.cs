@@ -39,14 +39,14 @@ namespace MatchaLatte.Ordering.Queries
                 SELECT [StoreId], [Name], [CreatedOn]
                 FROM [Ordering].[Store]
                 ORDER BY [StoreId]
-                OFFSET @Skip ROWS
-                FETCH NEXT @Take ROWS ONLY";
+                OFFSET @Offset ROWS
+                FETCH NEXT @Limit ROWS ONLY";
             var sqlCount = $@"
                 SELECT COUNT(*) FROM [Ordering].[Store]";
             var param = new
             {
-                Skip = (option.PageIndex - 1) * option.PageSize,
-                Take = option.PageSize
+                option.Offset,
+                option.Limit
             };
 
             using (var connection = new SqlConnection(connectionString))

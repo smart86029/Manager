@@ -4,8 +4,10 @@ export class PaginationResult<T> {
   itemCount: number;
   items: T[] = [];
 
-  constructor(itemCount?: number, items?: T[]) {
-    this.itemCount = itemCount == null ? 0 : itemCount;
-    this.items = items == null ? [] : items;
+  constructor(pageIndex?: number, pageSize?: number, itemCount?: number, items?: T[]) {
+    this.pageIndex = pageIndex || 0;
+    this.pageSize = pageSize || 10;
+    this.itemCount = itemCount || 0;
+    this.items = items || [];
   }
 }
