@@ -17,6 +17,7 @@ namespace MatchaLatte.Identity.Services
         public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            this.roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
 
         public async Task<PaginationResult<UserSummary>> GetUsersAsync(PaginationOption option)
@@ -37,14 +38,39 @@ namespace MatchaLatte.Identity.Services
             return result;
         }
 
-        public Task<UserDetail> GetUserAsync(int userId)
+        public async Task<UserDetail> GetUserAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await userRepository.GetUserAsync(userId);
+            var roles = await roleRepository.GetRolesAsync();
+            var result = new UserDetail
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                IsEnabled = user.IsEnabled,
+                Roles = roles.Select(r => new RoleDetail
+                {
+                    RoleId = r.RoleId,
+                    Name = r.Name,
+                    IsChecked = user.UserRoles.Any(x => x.RoleId == r.RoleId)
+                }).ToList()
+            };
+
+            return result;
         }
 
-        public Task<UserDetail> GetNewUserAsync()
+        public async Task<UserDetail> GetNewUserAsync()
         {
-            throw new NotImplementedException();
+            var roles = await roleRepository.GetRolesAsync();
+            var result = new UserDetail
+            {
+                Roles = roles.Select(r => new RoleDetail
+                {
+                    RoleId = r.RoleId,
+                    Name = r.Name
+                }).ToList()
+            };
+
+            return result;
         }
     }
 }

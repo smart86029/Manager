@@ -1,7 +1,8 @@
-import { Role } from "./role";
+import { Role } from './role';
+import { Guid } from '../shared/guid';
 
 export class User {
-  userId: number;
+  userId: Guid;
   userName: string;
   password: string;
   isEnabled: boolean;

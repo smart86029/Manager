@@ -21,7 +21,7 @@ export class StoreService {
 
     return this.httpClient.get<Store[]>(this.storesUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
-        const itemCount = +response.headers.get('X-Pagination');
+        const itemCount = +response.headers.get('X-Total-Count');
         return new PaginationResult<Store>(pageIndex, pageSize, itemCount, response.body);
       }),
       catchError(this.handleError('getStores', new PaginationResult<Store>()))

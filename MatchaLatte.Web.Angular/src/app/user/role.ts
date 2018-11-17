@@ -1,5 +1,7 @@
+import { Guid } from '../shared/guid';
+
 export class Role {
-  roleId: number;
+  roleId: Guid;
   name: string;
   isChecked: boolean;
 }

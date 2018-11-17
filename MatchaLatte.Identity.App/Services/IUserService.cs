@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MatchaLatte.Identity.App.ViewModels;
 using MatchaLatte.Identity.App.ViewModels.User;
 
@@ -21,7 +22,7 @@ namespace MatchaLatte.Identity.App.Services
         /// </summary>
         /// <param name="userId">使用者 ID。</param>
         /// <returns>使用者。</returns>
-        Task<UserDetail> GetUserAsync(int userId);
+        Task<UserDetail> GetUserAsync(Guid userId);
 
         /// <summary>
         /// 取得新使用者。

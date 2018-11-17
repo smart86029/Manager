@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MatchaLatte.Identity.App.Services;
 using MatchaLatte.Identity.App.ViewModels;
+using MatchaLatte.Identity.App.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Identity.Api.Controllers
@@ -35,32 +36,32 @@ namespace MatchaLatte.Identity.Api.Controllers
             return Ok(users.Items);
         }
 
-        ///// <summary>
-        ///// 取得使用者。
-        ///// </summary>
-        ///// <param name="id">使用者ID。</param>
-        ///// <returns>使用者。</returns>
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    var user = await userQueryService.GetUserAsync(id);
-        //    if (user == default(User))
-        //        return NotFound();
+        /// <summary>
+        /// 取得使用者。
+        /// </summary>
+        /// <param name="id">使用者ID。</param>
+        /// <returns>使用者。</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(Guid id)
+        {
+            var user = await userService.GetUserAsync(id);
+            if (user == default(UserDetail))
+                return NotFound();
 
-        //    return Ok(user);
-        //}
+            return Ok(user);
+        }
 
-        ///// <summary>
-        ///// 取得新使用者。
-        ///// </summary>
-        ///// <returns>新使用者。</returns>
-        //[HttpGet("new")]
-        //public async Task<IActionResult> GetNew()
-        //{
-        //    var user = await userQueryService.GetNewUserAsync();
+        /// <summary>
+        /// 取得新使用者。
+        /// </summary>
+        /// <returns>新使用者。</returns>
+        [HttpGet("new")]
+        public async Task<IActionResult> GetNew()
+        {
+            var user = await userService.GetNewUserAsync();
 
-        //    return Ok(user);
-        //}
+            return Ok(user);
+        }
 
         ///// <summary>
         ///// 新增使用者。

@@ -28,7 +28,7 @@ export class UserService {
     );
   }
 
-  getUser(id: number): Observable<User> {
+  getUser(id: string): Observable<User> {
     return this.httpClient.get<User>(`${this.usersUrl}/${id}`).pipe(
       catchError(this.handleError('getUser', null))
     );
