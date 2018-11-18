@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MatchaLatte.Identity.Data.Configurations;
+using MatchaLatte.Identity.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.Identity.Data
 {
-    public class IdentityContext : DbContext
+    /// <summary>
+    /// 身分識別內容。
+    /// </summary>
+    public class IdentityContext : DbContext, IIdentityUnitOfWork
     {
         /// <summary>
         /// 初始化 <see cref="IdentityContext"/> 類別的新執行個體。
@@ -18,13 +18,14 @@ namespace MatchaLatte.Identity.Data
         }
 
         /// <summary>
-        /// 將此內容中所做的所有變更非同步儲存到基礎資料庫。
+        /// 提交認可。
         /// </summary>
-        /// <param name="cancellationToken">取消作業。</param>
-        /// <returns></returns>
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
+        public async Task<bool> CommitAsync()
         {
-            return await base.SaveChangesAsync(cancellationToken);
+            await SaveChangesAsync();
+
+            return true;
         }
 
         /// <summary>

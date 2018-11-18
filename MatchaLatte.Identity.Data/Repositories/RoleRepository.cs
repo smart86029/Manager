@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MatchaLatte.Identity.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,16 @@ namespace MatchaLatte.Identity.Data.Repositories
         public async Task<ICollection<Role>> GetRolesAsync()
         {
             return await context.Set<Role>().ToListAsync();
+        }
+
+        /// <summary>
+        /// 取得所有符合條件的角色。
+        /// </summary>
+        /// <param name="criteria">條件。</param>
+        /// <returns>所有符合條件的角色。</returns>
+        public async Task<ICollection<Role>> GetRolesAsync(Expression<Func<Role, bool>> criteria)
+        {
+            return await context.Set<Role>().Where(criteria).ToListAsync();
         }
 
         /// <summary>

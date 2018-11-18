@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MatchaLatte.Identity.App.Services;
 using MatchaLatte.Identity.App.ViewModels;
 using MatchaLatte.Identity.App.ViewModels.User;
+using MatchaLatte.Identity.Domain;
 using MatchaLatte.Identity.Domain.Roles;
 using MatchaLatte.Identity.Domain.Users;
 
@@ -11,11 +12,13 @@ namespace MatchaLatte.Identity.Services
 {
     public class UserService : IUserService
     {
+        private readonly IIdentityUnitOfWork unitOfWork;
         private readonly IUserRepository userRepository;
         private readonly IRoleRepository roleRepository;
 
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
+        public UserService(IIdentityUnitOfWork unitOfWork, IUserRepository userRepository, IRoleRepository roleRepository)
         {
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             this.roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
@@ -71,6 +74,40 @@ namespace MatchaLatte.Identity.Services
             };
 
             return result;
+        }
+
+        /// <summary>
+        /// 更新使用者。
+        /// </summary>
+        /// <param name="option">更新使用者選項。</param>
+        /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
+        public async Task<bool> UpdateUserAsync(UpdateUserOption option)
+        {
+            var user = await userRepository.GetUserAsync(option.UserId);
+            if (user == default(User))
+                return false;
+
+            if (option.IsEnabled)
+                user.Enable();
+            else
+                user.Disable();
+
+            var roleIdsToAssign = option.Roles.Where(x => x.IsChecked).Select(x => x.RoleId)
+                .Except(user.UserRoles.Select(x => x.RoleId));
+            var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.RoleId));
+            foreach (var role in rolesToAssign)
+                user.AssignRole(role);
+
+            var roleIdsToUnassign = user.UserRoles.Select(x => x.RoleId)
+                .Except(option.Roles.Where(x => x.IsChecked).Select(x => x.RoleId));
+            var rolesToUnassign = await roleRepository.GetRolesAsync(r => roleIdsToUnassign.Contains(r.RoleId));
+            foreach (var role in rolesToUnassign)
+                user.UnassignRole(role);
+
+            userRepository.Update(user);
+            await unitOfWork.CommitAsync();
+
+            return true;
         }
     }
 }

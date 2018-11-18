@@ -76,21 +76,21 @@ namespace MatchaLatte.Identity.Api.Controllers
         //    return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
         //}
 
-        ///// <summary>
-        ///// 修改使用者。
-        ///// </summary>
-        ///// <param name="id">使用者ID。</param>
-        ///// <param name="command">更新使用者查詢。</param>
-        ///// <returns>204 NoContent。</returns>
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Put(int id, [FromBody]UpdateUserCommand command)
-        //{
-        //    if (id != command.UserId)
-        //        return BadRequest();
+        /// <summary>
+        /// 修改使用者。
+        /// </summary>
+        /// <param name="id">使用者ID。</param>
+        /// <param name="option">更新使用者查詢。</param>
+        /// <returns>204 NoContent。</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody]UpdateUserOption option)
+        {
+            if (id != option.UserId)
+                return BadRequest();
 
-        //    await commandService.ExecuteAsync<bool>(command);
+            await userService.UpdateUserAsync(option);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
     }
 }

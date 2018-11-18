@@ -13,7 +13,7 @@ namespace MatchaLatte.Identity.App.Services
         /// <summary>
         /// 取得所有使用者。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
+        /// <param name="option">分頁選項。</param>
         /// <returns>所有使用者。</returns>
         Task<PaginationResult<UserSummary>> GetUsersAsync(PaginationOption option);
 
@@ -29,5 +29,12 @@ namespace MatchaLatte.Identity.App.Services
         /// </summary>
         /// <returns>新使用者。</returns>
         Task<UserDetail> GetNewUserAsync();
+
+        /// <summary>
+        /// 更新使用者。
+        /// </summary>
+        /// <param name="option">更新使用者選項。</param>
+        /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
+        Task<bool> UpdateUserAsync(UpdateUserOption option);
     }
 }
