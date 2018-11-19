@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using MatchaLatte.Identity.Data.Configurations;
-using MatchaLatte.Identity.Domain;
+﻿using MatchaLatte.Identity.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.Identity.Data
@@ -8,24 +6,13 @@ namespace MatchaLatte.Identity.Data
     /// <summary>
     /// 身分識別內容。
     /// </summary>
-    public class IdentityContext : DbContext, IIdentityUnitOfWork
+    public class IdentityContext : DbContext
     {
         /// <summary>
         /// 初始化 <see cref="IdentityContext"/> 類別的新執行個體。
         /// </summary>
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
-        }
-
-        /// <summary>
-        /// 提交認可。
-        /// </summary>
-        /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        public async Task<bool> CommitAsync()
-        {
-            await SaveChangesAsync();
-
-            return true;
         }
 
         /// <summary>

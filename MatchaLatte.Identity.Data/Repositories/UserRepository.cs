@@ -21,6 +21,8 @@ namespace MatchaLatte.Identity.Data.Repositories
         public UserRepository(IdentityContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
+            var a = context.GetHashCode();
+            var b = 1;
         }
 
         /// <summary>

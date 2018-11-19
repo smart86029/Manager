@@ -19,10 +19,14 @@ namespace MatchaLatte.Identity.Api.AutofacModules
 
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("Context"))
-                .AsImplementedInterfaces()
+                .AsSelf()
                 .InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(assembly)
+                .Where(x => x.Name.EndsWith("UnitOfWork"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }
