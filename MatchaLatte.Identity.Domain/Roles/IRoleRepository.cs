@@ -25,11 +25,25 @@ namespace MatchaLatte.Identity.Domain.Roles
         Task<ICollection<Role>> GetRolesAsync(Expression<Func<Role, bool>> criteria);
 
         /// <summary>
+        /// 取得指定筆數的角色。
+        /// </summary>
+        /// <param name="offset">略過的筆數。</param>
+        /// <param name="limit">限制的筆數。</param>
+        /// <returns>指定筆數的角色。</returns>
+        Task<ICollection<Role>> GetRolesAsync(int offset, int limit);
+
+        /// <summary>
         /// 取得角色。
         /// </summary>
         /// <param name="roleId">角色 ID。</param>
         /// <returns>角色。</returns>
         Task<Role> GetRoleAsync(Guid roleId);
+
+        /// <summary>
+        /// 取得所有角色的數量。
+        /// </summary>
+        /// <returns>所有角色的數量。</returns>
+        Task<int> GetCountAsync();
 
         /// <summary>
         /// 加入角色。

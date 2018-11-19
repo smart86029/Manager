@@ -1,6 +1,6 @@
 <div class="container" fxLayout="column">
   <form autocomplete="off">
-    <h2 class="mat-h2">{{saveMode | actionName}}使用者</h2>
+    <h2 class="mat-h2">{{saveMode | actionName}}角色</h2>
     <mat-card>
       <mat-card-content>
         <div class="loading-overlay" *ngIf="isLoading">
@@ -8,21 +8,16 @@
         </div>
         <div>
           <mat-form-field>
-            <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="user.userName">
+            <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="role.name">
           </mat-form-field>
         </div>
         <div>
-          <mat-form-field>
-            <input matInput type="password" name="password" placeholder="密碼" [(ngModel)]="user.password">
-          </mat-form-field>
+          <mat-slide-toggle name="isEnabled" [(ngModel)]="role.isEnabled">是否啟用</mat-slide-toggle>
         </div>
         <div>
-          <mat-slide-toggle name="isEnabled" [(ngModel)]="user.isEnabled">是否啟用</mat-slide-toggle>
-        </div>
-        <div>
-          <p>角色</p>
-          <mat-checkbox *ngFor="let role of user.roles" class="role" name="role{{role.roleId}}"
-            [(ngModel)]="role.isChecked">{{role.name}}</mat-checkbox>
+          <p>權限</p>
+          <mat-checkbox *ngFor="let permission of role.permissions" class="permission" name="permission{{permission.permissionId}}"
+            [(ngModel)]="permission.isChecked">{{permission.name}}</mat-checkbox>
         </div>
       </mat-card-content>
       <mat-card-actions>

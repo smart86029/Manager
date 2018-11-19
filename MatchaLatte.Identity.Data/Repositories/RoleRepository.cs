@@ -44,6 +44,17 @@ namespace MatchaLatte.Identity.Data.Repositories
         }
 
         /// <summary>
+        /// 取得指定筆數的角色。
+        /// </summary>
+        /// <param name="offset">略過的筆數。</param>
+        /// <param name="limit">限制的筆數。</param>
+        /// <returns>指定筆數的角色。</returns>
+        public async Task<ICollection<Role>> GetRolesAsync(int offset, int limit)
+        {
+            return await context.Set<Role>().Skip(offset).Take(limit).ToListAsync();
+        }
+
+        /// <summary>
         /// 取得角色。
         /// </summary>
         /// <param name="roleId">角色 ID。</param>
@@ -51,6 +62,15 @@ namespace MatchaLatte.Identity.Data.Repositories
         public async Task<Role> GetRoleAsync(Guid roleId)
         {
             return await context.Set<Role>().Include(r => r.RolePermissions).SingleOrDefaultAsync(r => r.RoleId == roleId);
+        }
+
+        /// <summary>
+        /// 取得所有角色的數量。
+        /// </summary>
+        /// <returns>所有角色的數量。</returns>
+        public async Task<int> GetCountAsync()
+        {
+            return await context.Set<Role>().CountAsync();
         }
 
         /// <summary>

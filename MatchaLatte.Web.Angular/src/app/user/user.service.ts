@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 
 import { PaginationResult } from '../shared/pagination-result';
 import { User } from './user';
+import { Guid } from '../shared/guid';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class UserService {
     );
   }
 
-  getUser(id: string): Observable<User> {
+  getUser(id: Guid): Observable<User> {
     return this.httpClient.get<User>(`${this.usersUrl}/${id}`).pipe(
       catchError(this.handleError('getUser', null))
     );

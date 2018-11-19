@@ -27,7 +27,7 @@ export class UserDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.userService.getUser(id)
+      this.userService.getUser(new Guid(id))
         .subscribe(user => this.user = user, () => { }, () => this.isLoading = false);
     } else {
       this.userService.getNewUser()

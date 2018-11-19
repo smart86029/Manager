@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    this.getUsers(0, this.users.pageSize);
+    this.getUsers(this.users.pageIndex, this.users.pageSize);
   }
 
   private getUsers(pageIndex: number, pageSize: number): void {

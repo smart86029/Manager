@@ -3,7 +3,7 @@ export class Guid {
   private static empty = '00000000-0000-0000-0000-000000000000';
   private value: string;
 
-  private constructor(value: string) {
+  constructor(value: string) {
     if (!value) {
       throw new TypeError('Invalid argument; `value` has no value.');
     }
@@ -17,5 +17,9 @@ export class Guid {
 
   equals(other: Guid): boolean {
     return Guid.isGuid(other) && this.value === other.toString();
+  }
+
+  toString(): string {
+    return this.value;
   }
 }
