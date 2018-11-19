@@ -31,6 +31,13 @@ namespace MatchaLatte.Identity.App.Services
         Task<UserDetail> GetNewUserAsync();
 
         /// <summary>
+        /// 新增使用者。
+        /// </summary>
+        /// <param name="option">新增使用者選項。</param>
+        /// <returns>使用者。</returns>
+        Task<UserDetail> CreateUserAsync(CreateUserOption option);
+
+        /// <summary>
         /// 更新使用者。
         /// </summary>
         /// <param name="option">更新使用者選項。</param>

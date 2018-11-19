@@ -56,25 +56,25 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// </summary>
         /// <returns>新使用者。</returns>
         [HttpGet("new")]
-        public async Task<IActionResult> GetNew()
+        public async Task<IActionResult> GetNewAsync()
         {
             var user = await userService.GetNewUserAsync();
 
             return Ok(user);
         }
 
-        ///// <summary>
-        ///// 新增使用者。
-        ///// </summary>
-        ///// <param name="command">新增使用者命令。</param>
-        ///// <returns>201 Created。</returns>
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody]CreateUserCommand command)
-        //{
-        //    var user = await commandService.ExecuteAsync<User>(command);
+        /// <summary>
+        /// 新增使用者。
+        /// </summary>
+        /// <param name="command">新增使用者命令。</param>
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] CreateUserOption option)
+        {
+            var user = await userService.CreateUserAsync(option);
 
-        //    return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
-        //}
+            return CreatedAtAction(nameof(GetAsync), new { id = user.UserId }, user);
+        }
 
         /// <summary>
         /// 修改使用者。
@@ -83,7 +83,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <param name="option">更新使用者查詢。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody]UpdateUserOption option)
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateUserOption option)
         {
             if (id != option.UserId)
                 return BadRequest();
