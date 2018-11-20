@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using MatchaLatte.Identity.App.Services;
 using MatchaLatte.Identity.App.ViewModels;
 using MatchaLatte.Identity.App.ViewModels.Permission;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Identity.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PermissionsController : ControllerBase
