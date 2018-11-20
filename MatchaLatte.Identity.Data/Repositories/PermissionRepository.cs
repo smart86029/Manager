@@ -44,6 +44,17 @@ namespace MatchaLatte.Identity.Data.Repositories
         }
 
         /// <summary>
+        /// 取得指定筆數的權限。
+        /// </summary>
+        /// <param name="offset">略過的筆數。</param>
+        /// <param name="limit">限制的筆數。</param>
+        /// <returns>指定筆數的權限。</returns>
+        public async Task<ICollection<Permission>> GetPermissionsAsync(int offset, int limit)
+        {
+            return await context.Set<Permission>().Skip(offset).Take(limit).ToListAsync();
+        }
+
+        /// <summary>
         /// 取得權限。
         /// </summary>
         /// <param name="permissionId">權限 ID。</param>
@@ -51,6 +62,15 @@ namespace MatchaLatte.Identity.Data.Repositories
         public async Task<Permission> GetPermissionAsync(Guid permissionId)
         {
             return await context.Set<Permission>().SingleOrDefaultAsync(p => p.PermissionId == permissionId);
+        }
+
+        /// <summary>
+        /// 取得所有權限的數量。
+        /// </summary>
+        /// <returns>所有權限的數量。</returns>
+        public async Task<int> GetCountAsync()
+        {
+            return await context.Set<Permission>().CountAsync();
         }
 
         /// <summary>

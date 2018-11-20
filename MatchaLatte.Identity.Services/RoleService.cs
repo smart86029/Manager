@@ -136,6 +136,8 @@ namespace MatchaLatte.Identity.Services
             if (role == default(Role))
                 return false;
 
+            role.UpdateName(option.Name);
+
             if (option.IsEnabled)
                 role.Enable();
             else

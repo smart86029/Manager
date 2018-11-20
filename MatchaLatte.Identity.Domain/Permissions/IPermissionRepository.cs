@@ -25,11 +25,25 @@ namespace MatchaLatte.Identity.Domain.Permissions
         Task<ICollection<Permission>> GetPermissionsAsync(Expression<Func<Permission, bool>> criteria);
 
         /// <summary>
+        /// 取得指定筆數的權限。
+        /// </summary>
+        /// <param name="offset">略過的筆數。</param>
+        /// <param name="limit">限制的筆數。</param>
+        /// <returns>指定筆數的權限。</returns>
+        Task<ICollection<Permission>> GetPermissionsAsync(int offset, int limit);
+
+        /// <summary>
         /// 取得權限。
         /// </summary>
         /// <param name="permissionId">權限 ID。</param>
         /// <returns>權限。</returns>
         Task<Permission> GetPermissionAsync(Guid permissionId);
+
+        /// <summary>
+        /// 取得所有權限的數量。
+        /// </summary>
+        /// <returns>所有權限的數量。</returns>
+        Task<int> GetCountAsync();
 
         /// <summary>
         /// 加入權限。

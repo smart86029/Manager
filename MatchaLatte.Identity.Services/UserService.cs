@@ -136,6 +136,9 @@ namespace MatchaLatte.Identity.Services
             if (user == default(User))
                 return false;
 
+            user.UpdateUserName(option.UserName);
+            user.UpdatePassword(option.Password);
+
             if (option.IsEnabled)
                 user.Enable();
             else
