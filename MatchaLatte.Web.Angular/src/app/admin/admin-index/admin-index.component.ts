@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NestedTreeControl } from '@angular/cdk/tree';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   templateUrl: './admin-index.component.html',
   styleUrls: ['./admin-index.component.scss'],
 })
-export class AdminIndexComponent {
+export class AdminIndexComponent implements OnInit {
   title = 'Matcha Latte';
   selectedTheme = Theme.Strawberry;
   theme = Theme;
