@@ -13,7 +13,7 @@ const routes: Routes = [
       // { path: '', component: AdminDashboardComponent },
       { path: 'users', loadChildren: '../user/user.module#UserModule' },
       { path: 'roles', loadChildren: '../role/role.module#RoleModule' },
-      // { path: 'permissions', loadChildren: 'app/permission/permission.module#PermissionModule' },
+      { path: 'permissions', loadChildren: '../permission/permission.module#PermissionModule' },
       { path: 'stores', loadChildren: '../store/store.module#StoreModule' }
     ]
   }
