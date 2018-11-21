@@ -10,7 +10,7 @@ import { PaginationResult } from 'src/app/shared/pagination-result';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  isLoading: boolean;
+  isLoading = false;
   displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<User>();
   users = new PaginationResult<User>();

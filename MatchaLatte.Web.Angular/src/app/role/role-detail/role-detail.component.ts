@@ -13,7 +13,7 @@ import { RoleService } from '../role.service';
   styleUrls: ['./role-detail.component.scss']
 })
 export class RoleDetailComponent implements OnInit {
-  isLoading: boolean;
+  isLoading = false;
   saveMode = SaveMode.Create;
   role = new Role();
 

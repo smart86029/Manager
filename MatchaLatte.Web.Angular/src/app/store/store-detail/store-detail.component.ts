@@ -1,15 +1,17 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatTable } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { Guid } from 'src/app/shared/guid';
 
 import { SaveMode } from '../../shared/save-mode/save-mode.enum';
 import { Product } from '../product';
+import { ProductCategory } from '../product-category';
 import { ProductDetailDialogComponent } from '../product-detail-dialog/product-detail-dialog.component';
 import { Store } from '../store';
 import { StoreService } from '../store.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ProductCategory } from '../product-category';
 
 @Component({
   selector: 'app-store-detail',
@@ -17,7 +19,7 @@ import { ProductCategory } from '../product-category';
   styleUrls: ['./store-detail.component.scss']
 })
 export class StoreDetailComponent implements OnInit {
-  isLoading = true;
+  isLoading = false;
   saveMode = SaveMode.Create;
   displayedColumns = ['name', 'price', 'action'];
   store = new Store();
@@ -37,14 +39,11 @@ export class StoreDetailComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    if (id > 0) {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
       this.isLoading = true;
-      this.storeService.getStore(id)
-        .subscribe(store => this.store = store, () => { }, () => this.isLoading = false);
-    } else {
-      this.storeService.getNewStore()
+      this.storeService.getStore(new Guid(id))
         .subscribe(store => this.store = store, () => { }, () => this.isLoading = false);
     }
 
@@ -78,7 +77,6 @@ export class StoreDetailComponent implements OnInit {
   }
 
   createProduct(category: ProductCategory): void {
-    console.log(category);
     const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
       data: {}
     });
@@ -103,6 +101,10 @@ export class StoreDetailComponent implements OnInit {
   deleteProduct(index: number): void {
     // this.store.products.splice(index, 1);
     // this.tableProducts.renderRows();
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
   private create(): void {

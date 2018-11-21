@@ -13,7 +13,7 @@ import { Guid } from 'src/app/shared/guid';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-  isLoading: boolean;
+  isLoading = false;
   saveMode = SaveMode.Create;
   user = new User();
 

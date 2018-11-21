@@ -11,7 +11,7 @@ import { PaginationResult } from 'src/app/shared/pagination-result';
   styleUrls: ['./store-list.component.scss']
 })
 export class StoreListComponent implements OnInit {
-  isLoading = true;
+  isLoading = false;
   displayedColumns = ['id', 'name', 'createdOn', 'action'];
   dataSource = new MatTableDataSource<Store>();
   stores = new PaginationResult<Store>();

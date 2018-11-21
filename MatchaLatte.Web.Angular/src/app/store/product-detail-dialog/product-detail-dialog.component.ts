@@ -15,7 +15,7 @@ export class ProductDetailDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) private data: Product) { }
 
   ngOnInit() {
-    if (this.data.productId > 0) {
+    if (this.data.name) {
       this.saveMode = SaveMode.Update;
     } else {
       this.data = new Product();

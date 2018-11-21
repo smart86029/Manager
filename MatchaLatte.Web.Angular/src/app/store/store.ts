@@ -1,7 +1,8 @@
+import { Guid } from '../shared/guid';
 import { ProductCategory } from './product-category';
 
 export class Store {
-  storeId: number;
+  storeId: Guid;
   name: string;
   description: string;
   phone: string;

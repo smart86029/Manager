@@ -1,4 +1,4 @@
-import { ProductItem } from "./product-item";
+import { ProductItem } from './product-item';
 
 export class Product {
   productId: number;

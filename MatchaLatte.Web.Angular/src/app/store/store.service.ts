@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { Store } from './store';
+import { Guid } from '../shared/guid';
 import { PaginationResult } from '../shared/pagination-result';
+import { Store } from './store';
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +29,10 @@ export class StoreService {
     );
   }
 
-  getStore(id: number): Observable<Store> {
+  getStore(id: Guid): Observable<Store> {
     return this.httpClient.get<Store>(`${this.storesUrl}/${id}`).pipe(
       catchError(this.handleError('getStore', null))
     );
-  }
-
-  getNewStore(): Observable<Store> {
-    return of(new Store());
   }
 
   createStore(store: Store): Observable<Store> {

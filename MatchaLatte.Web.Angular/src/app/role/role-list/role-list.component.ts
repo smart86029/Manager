@@ -11,7 +11,7 @@ import { RoleService } from '../role.service';
   styleUrls: ['./role-list.component.scss']
 })
 export class RoleListComponent implements OnInit {
-  isLoading: boolean;
+  isLoading = false;
   displayedColumns = ['id', 'name', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<Role>();
   roles = new PaginationResult<Role>();

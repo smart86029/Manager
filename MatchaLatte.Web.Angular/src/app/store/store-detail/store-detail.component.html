@@ -3,7 +3,7 @@
     <h2 class="mat-h2">{{saveMode | actionName}}店家</h2>
     <mat-card>
       <mat-card-content>
-        <mat-vertical-stepper linear>
+        <mat-horizontal-stepper linear>
           <mat-step>
             <ng-template matStepLabel>店家基本資料</ng-template>
             <div>
@@ -13,7 +13,8 @@
             </div>
             <div>
               <mat-form-field>
-                <textarea matInput name="description" placeholder="描述" [(ngModel)]="store.description" matTextareaAutosize></textarea>
+                <textarea matInput name="description" placeholder="描述" [(ngModel)]="store.description"
+                  matTextareaAutosize></textarea>
               </mat-form-field>
             </div>
             <div>
@@ -38,6 +39,30 @@
           <mat-step>
             <ng-template matStepLabel>商品</ng-template>
             <button mat-button color="primary" (click)="createProductCategory()">新增分類</button>
+            <div cdkDropList class="category-list" [cdkDropListData]="store.productCategories" (cdkDropListDropped)="drop($event)">
+              <div cdkDrag class="category-box" *ngFor="let category of store.productCategories">
+                <div>
+                  <app-inline-editor name="分類名稱" [(value)]="category.name"></app-inline-editor>
+                  <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
+                </div>
+                <div cdkDropList class="product-list" [cdkDropListData]="category.products" (cdkDropListDropped)="drop($event)">
+                  <div cdkDrag class="product-box" *ngFor="let product of category.products">
+                    <button mat-button (click)="updateProduct(product)">{{product.name}}</button>
+                    <span class="fill-space"></span>
+                    <mat-chip-list>
+                      <mat-chip *ngFor="let productItem of product.productItems">
+                        <span *ngIf="productItem.name">{{productItem.name}}:</span>
+                        {{productItem.price}}
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                </div>
+              </div>
+              <p *ngIf="!isLoading && store.productCategories.itemCount === 0" class="empty-result">查無資料</p>
+            </div>
+
+
+            <!-- <button mat-button color="primary" (click)="createProductCategory()">新增分類</button>
             <mat-accordion>
               <mat-expansion-panel *ngFor="let category of store.productCategories">
                 <mat-expansion-panel-header>
@@ -58,7 +83,7 @@
                   </mat-list-item>
                 </mat-list>
               </mat-expansion-panel>
-            </mat-accordion>
+            </mat-accordion> -->
             <div>
               <button mat-button matStepperPrevious>上一步</button>
               <button mat-button color="primary" matStepperNext>下一步</button>
@@ -72,7 +97,7 @@
               <button mat-button (click)="stepper.reset()">Reset</button>
             </div>
           </mat-step>
-        </mat-vertical-stepper>
+        </mat-horizontal-stepper>
         <div class="loading-overlay" *ngIf="isLoading">
           <mat-spinner *ngIf="isLoading"></mat-spinner>
         </div>
