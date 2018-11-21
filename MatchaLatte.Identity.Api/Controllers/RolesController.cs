@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Identity.Api.Controllers
 {
+    /// <summary>
+    /// 角色控制器。
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +30,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 取得所有角色。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
+        /// <param name="option">分頁選項。</param>
         /// <returns>所有角色。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
@@ -68,7 +71,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 新增角色。
         /// </summary>
-        /// <param name="command">新增角色命令。</param>
+        /// <param name="command">新增角色選項。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateRoleOption option)
@@ -82,7 +85,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// 修改角色。
         /// </summary>
         /// <param name="id">角色ID。</param>
-        /// <param name="option">更新角色查詢。</param>
+        /// <param name="option">更新角色選項。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateRoleOption option)

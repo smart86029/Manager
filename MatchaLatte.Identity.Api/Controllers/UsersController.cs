@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Identity.Api.Controllers
 {
+    /// <summary>
+    /// 使用者控制器。
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +30,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 取得所有使用者。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
+        /// <param name="option">分頁選項。</param>
         /// <returns>所有使用者。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
@@ -68,7 +71,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 新增使用者。
         /// </summary>
-        /// <param name="command">新增使用者命令。</param>
+        /// <param name="command">新增使用者選項。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateUserOption option)
@@ -82,7 +85,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// 修改使用者。
         /// </summary>
         /// <param name="id">使用者ID。</param>
-        /// <param name="option">更新使用者查詢。</param>
+        /// <param name="option">更新使用者選項。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateUserOption option)

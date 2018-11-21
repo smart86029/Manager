@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Identity.Api.Controllers
 {
+    /// <summary>
+    /// 權限控制器。
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +30,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 取得所有權限。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
+        /// <param name="option">分頁選項。</param>
         /// <returns>所有權限。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
@@ -56,7 +59,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 新增權限。
         /// </summary>
-        /// <param name="command">新增權限命令。</param>
+        /// <param name="command">新增權限選項。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreatePermissionOption option)
@@ -70,7 +73,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// 修改權限。
         /// </summary>
         /// <param name="id">權限ID。</param>
-        /// <param name="option">更新權限查詢。</param>
+        /// <param name="option">更新權限選項。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdatePermissionOption option)
