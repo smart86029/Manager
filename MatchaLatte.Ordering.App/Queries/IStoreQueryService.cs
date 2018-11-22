@@ -21,6 +21,6 @@ namespace MatchaLatte.Ordering.App.Queries
         /// </summary>
         /// <param name="storeId">店家 ID。</param>
         /// <returns>店家。</returns>
-        Task<Store> GetStoreAsync(Guid storeId);
+        Task<StoreDetail> GetStoreAsync(Guid storeId);
     }
 }

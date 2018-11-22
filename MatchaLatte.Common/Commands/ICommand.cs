@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MatchaLatte.Common.Commands
+﻿namespace MatchaLatte.Common.Commands
 {
-    public interface ICommand
+    /// <summary>
+    /// 命令。
+    /// </summary>
+    /// <typeparam name="TResult">結果類型。</typeparam>
+    public interface ICommand<out TResult>
     {
     }
 }

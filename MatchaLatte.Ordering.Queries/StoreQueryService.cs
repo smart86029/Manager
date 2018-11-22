@@ -23,9 +23,9 @@ namespace MatchaLatte.Ordering.Queries
         public StoreQueryService(string connectionString)
         {
             this.connectionString = !string.IsNullOrWhiteSpace(connectionString) ? connectionString : throw new ArgumentNullException(nameof(connectionString));
-            SqlMapper.SetTypeMap(typeof(Store.ProductCategory), new TypeMap<Store.ProductCategory>());
-            SqlMapper.SetTypeMap(typeof(Store.Product), new TypeMap<Store.Product>());
-            SqlMapper.SetTypeMap(typeof(Store.ProductItem), new TypeMap<Store.ProductItem>());
+            SqlMapper.SetTypeMap(typeof(StoreDetail.ProductCategory), new TypeMap<StoreDetail.ProductCategory>());
+            SqlMapper.SetTypeMap(typeof(StoreDetail.Product), new TypeMap<StoreDetail.Product>());
+            SqlMapper.SetTypeMap(typeof(StoreDetail.ProductItem), new TypeMap<StoreDetail.ProductItem>());
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace MatchaLatte.Ordering.Queries
         /// </summary>
         /// <param name="storeId">店家 ID。</param>
         /// <returns>店家。</returns>
-        public async Task<Store> GetStoreAsync(Guid storeId)
+        public async Task<StoreDetail> GetStoreAsync(Guid storeId)
         {
             var sql = $@"
 				SELECT [s].[StoreId], [s].[Name], [s].[Description], [s].[AreaCode], [s].[BaseNumber], [s].[Extension],
@@ -100,12 +100,12 @@ namespace MatchaLatte.Ordering.Queries
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var stores = new Dictionary<int, Store>();
-                var categories = new Dictionary<int, Store.ProductCategory>();
-                var products = new Dictionary<int, Store.Product>();
-                var result = await connection.QueryAsync(sql, (Store s, Phone phone, Address a, Store.ProductCategory c, Store.Product p, Store.ProductItem i) =>
+                var stores = new Dictionary<int, StoreDetail>();
+                var categories = new Dictionary<int, StoreDetail.ProductCategory>();
+                var products = new Dictionary<int, StoreDetail.Product>();
+                var result = await connection.QueryAsync(sql, (StoreDetail s, Phone phone, Address a, StoreDetail.ProductCategory c, StoreDetail.Product p, StoreDetail.ProductItem i) =>
                 {
-                    if (!stores.TryGetValue(s.StoreId, out Store store))
+                    if (!stores.TryGetValue(s.StoreId, out StoreDetail store))
                     {
                         stores.Add(s.StoreId, store = s);
                     }
@@ -115,23 +115,23 @@ namespace MatchaLatte.Ordering.Queries
                     if (string.IsNullOrWhiteSpace(store.Address))
                         store.Address = a.City + a.District + a.Street;
 
-                    if (c == default(Store.ProductCategory))
+                    if (c == default(StoreDetail.ProductCategory))
                         return store;
-                    if (!categories.TryGetValue(c.ProductCategoryId, out Store.ProductCategory category))
+                    if (!categories.TryGetValue(c.ProductCategoryId, out StoreDetail.ProductCategory category))
                     {
                         categories.Add(c.ProductCategoryId, category = c);
                         store.ProductCategories.Add(category);
                     }
 
-                    if (p == default(Store.Product))
+                    if (p == default(StoreDetail.Product))
                         return store;
-                    if (!products.TryGetValue(p.ProductId, out Store.Product product))
+                    if (!products.TryGetValue(p.ProductId, out StoreDetail.Product product))
                     {
                         products.Add(p.ProductId, product = p);
                         category.Products.Add(product);
                     }
 
-                    if (i == default(Store.ProductItem))
+                    if (i == default(StoreDetail.ProductItem))
                         return store;
                     product.ProductItems.Add(i);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
+using MatchaLatte.Ordering.App.Commands.Store;
 using MatchaLatte.Ordering.App.Queries;
 using MatchaLatte.Ordering.App.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ namespace MatchaLatte.Ordering.Api.Controllers
     /// <summary>
     /// 店家控制器。
     /// </summary>
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StoresController : ControllerBase
@@ -57,6 +58,19 @@ namespace MatchaLatte.Ordering.Api.Controllers
                 return NotFound();
 
             return Ok(store);
+        }
+
+        /// <summary>
+        /// 新增店家。
+        /// </summary>
+        /// <param name="command">新增店家查詢。</param>
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] CreateStoreCommand command)
+        {
+            var store = await commandService.ExecuteAsync(command);
+
+            return CreatedAtAction(nameof(Get), new { id = store.StoreId }, store);
         }
     }
 }

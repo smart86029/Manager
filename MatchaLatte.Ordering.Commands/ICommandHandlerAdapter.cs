@@ -1,19 +1,19 @@
 ﻿using System.Threading.Tasks;
+using MatchaLatte.Common.Commands;
 
-namespace MatchaLatte.Common.Commands
+namespace MatchaLatte.Ordering.Commands
 {
     /// <summary>
-    /// 命令處理常式。
+    /// 命令處理常式轉接器。
     /// </summary>
-    /// <typeparam name="TCommand">命令類型。</typeparam>
     /// <typeparam name="TResult">結果類型。</typeparam>
-    public interface ICommandHandler<in TCommand, TResult> where TCommand : ICommand<TResult>
+    public interface ICommandHandlerAdapter<TResult>
     {
         /// <summary>
         /// 處理。
         /// </summary>
         /// <param name="command">命令。</param>
         /// <returns>結果。</returns>
-        Task<TResult> HandleAsync(TCommand command);
+        Task<TResult> HandleAsync(ICommand<TResult> command);
     }
 }

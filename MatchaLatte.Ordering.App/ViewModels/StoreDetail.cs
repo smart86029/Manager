@@ -3,7 +3,7 @@ using MatchaLatte.Common.Attributes;
 
 namespace MatchaLatte.Ordering.App.ViewModels
 {
-    public class Store
+    public class StoreDetail
     {
         public int StoreId { get; set; }
         public string Name { get; set; }

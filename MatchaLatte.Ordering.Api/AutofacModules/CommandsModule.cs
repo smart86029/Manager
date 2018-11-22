@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
+using MatchaLatte.Common.Commands;
 using MatchaLatte.Ordering.Commands;
 
 namespace MatchaLatte.Ordering.Api.AutofacModules
@@ -30,7 +31,9 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
                 .InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("CommandHandler"))
-                .AsImplementedInterfaces()
+                .AsClosedTypesOf(typeof(ICommandHandler<,>));
+            builder.RegisterGeneric(typeof(CommandHandlerAdapter<,>))
+                .AsSelf()
                 .InstancePerLifetimeScope();
         }
     }
