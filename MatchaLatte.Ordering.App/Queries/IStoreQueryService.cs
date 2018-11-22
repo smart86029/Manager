@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MatchaLatte.Ordering.App.ViewModels;
+using MatchaLatte.Ordering.App.ViewModels.Stores;
 
 namespace MatchaLatte.Ordering.App.Queries
 {

@@ -11,15 +11,15 @@ namespace MatchaLatte.Ordering.Commands
     /// <typeparam name="TResult">結果類型。</typeparam>
     public class CommandHandlerAdapter<TCommand, TResult> : ICommandHandlerAdapter<TResult> where TCommand : ICommand<TResult>
     {
-        private readonly IServiceProvider serviceProvider;
+        private readonly ICommandHandler<TCommand, TResult> handler;
 
         /// <summary>
         /// 初始化 <see cref="CommandHandlerAdapter"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="serviceProvider">服務提供者。</param>
-        public CommandHandlerAdapter(IServiceProvider serviceProvider)
+        /// <param name="handler">命令處理常式。</param>
+        public CommandHandlerAdapter(ICommandHandler<TCommand, TResult> handler) 
         {
-            this.serviceProvider = serviceProvider;
+            this.handler = handler;
         }
 
         /// <summary>
@@ -29,9 +29,6 @@ namespace MatchaLatte.Ordering.Commands
         /// <returns>結果。</returns>
         public Task<TResult> HandleAsync(ICommand<TResult> command)
         {
-            var commandType = command.GetType();
-            var handler = serviceProvider.GetService(typeof(ICommandHandler<TCommand, TResult>)) as ICommandHandler<TCommand, TResult>;
-
             return handler.HandleAsync((TCommand)command);
         }
     }

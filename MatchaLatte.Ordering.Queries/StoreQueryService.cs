@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using MatchaLatte.Ordering.App.Queries;
 using MatchaLatte.Ordering.App.ViewModels;
+using MatchaLatte.Ordering.App.ViewModels.Stores;
 
 namespace MatchaLatte.Ordering.Queries
 {
@@ -23,9 +24,9 @@ namespace MatchaLatte.Ordering.Queries
         public StoreQueryService(string connectionString)
         {
             this.connectionString = !string.IsNullOrWhiteSpace(connectionString) ? connectionString : throw new ArgumentNullException(nameof(connectionString));
-            SqlMapper.SetTypeMap(typeof(StoreDetail.ProductCategory), new TypeMap<StoreDetail.ProductCategory>());
-            SqlMapper.SetTypeMap(typeof(StoreDetail.Product), new TypeMap<StoreDetail.Product>());
-            SqlMapper.SetTypeMap(typeof(StoreDetail.ProductItem), new TypeMap<StoreDetail.ProductItem>());
+            SqlMapper.SetTypeMap(typeof(ProductCategoryDetail), new TypeMap<ProductCategoryDetail>());
+            SqlMapper.SetTypeMap(typeof(ProductDetail), new TypeMap<ProductDetail>());
+            SqlMapper.SetTypeMap(typeof(ProductItemDetail), new TypeMap<ProductItemDetail>());
         }
 
         /// <summary>
@@ -100,10 +101,10 @@ namespace MatchaLatte.Ordering.Queries
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var stores = new Dictionary<int, StoreDetail>();
-                var categories = new Dictionary<int, StoreDetail.ProductCategory>();
-                var products = new Dictionary<int, StoreDetail.Product>();
-                var result = await connection.QueryAsync(sql, (StoreDetail s, Phone phone, Address a, StoreDetail.ProductCategory c, StoreDetail.Product p, StoreDetail.ProductItem i) =>
+                var stores = new Dictionary<Guid, StoreDetail>();
+                var categories = new Dictionary<Guid, ProductCategoryDetail>();
+                var products = new Dictionary<Guid, ProductDetail>();
+                var result = await connection.QueryAsync(sql, (StoreDetail s, Phone phone, Address a, ProductCategoryDetail c, ProductDetail p, ProductItemDetail i) =>
                 {
                     if (!stores.TryGetValue(s.StoreId, out StoreDetail store))
                     {
@@ -115,23 +116,23 @@ namespace MatchaLatte.Ordering.Queries
                     if (string.IsNullOrWhiteSpace(store.Address))
                         store.Address = a.City + a.District + a.Street;
 
-                    if (c == default(StoreDetail.ProductCategory))
+                    if (c == default(ProductCategoryDetail))
                         return store;
-                    if (!categories.TryGetValue(c.ProductCategoryId, out StoreDetail.ProductCategory category))
+                    if (!categories.TryGetValue(c.ProductCategoryId, out ProductCategoryDetail category))
                     {
                         categories.Add(c.ProductCategoryId, category = c);
                         store.ProductCategories.Add(category);
                     }
 
-                    if (p == default(StoreDetail.Product))
+                    if (p == default(ProductDetail))
                         return store;
-                    if (!products.TryGetValue(p.ProductId, out StoreDetail.Product product))
+                    if (!products.TryGetValue(p.ProductId, out ProductDetail product))
                     {
                         products.Add(p.ProductId, product = p);
                         category.Products.Add(product);
                     }
 
-                    if (i == default(StoreDetail.ProductItem))
+                    if (i == default(ProductItemDetail))
                         return store;
                     product.ProductItems.Add(i);
 

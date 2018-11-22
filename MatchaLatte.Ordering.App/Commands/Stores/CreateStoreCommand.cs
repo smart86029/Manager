@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using MatchaLatte.Common.Commands;
-using MatchaLatte.Ordering.App.ViewModels;
+using MatchaLatte.Ordering.App.ViewModels.Stores;
 
-namespace MatchaLatte.Ordering.App.Commands.Store
+namespace MatchaLatte.Ordering.App.Commands.Stores
 {
     public class CreateStoreCommand : ICommand<StoreDetail>
     {

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MatchaLatte.Common.Domain;
 
 namespace MatchaLatte.Ordering.Domain.Stores
@@ -13,7 +14,7 @@ namespace MatchaLatte.Ordering.Domain.Stores
         /// </summary>
         /// <param name="storeId">店家 ID。</param>
         /// <returns>店家。</returns>
-        Task<Store> GetStoreAsync(int storeId);
+        Task<Store> GetStoreAsync(Guid storeId);
 
         /// <summary>
         /// 加入店家。

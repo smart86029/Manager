@@ -55,8 +55,8 @@ namespace MatchaLatte.Ordering.Api
             });
 
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new CommandsModule());
+            containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new QueriesModule(connectionString));
             containerBuilder.Populate(services);
 

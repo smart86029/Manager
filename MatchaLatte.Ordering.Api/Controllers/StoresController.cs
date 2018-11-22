@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
-using MatchaLatte.Ordering.App.Commands.Store;
+using MatchaLatte.Ordering.App.Commands.Stores;
 using MatchaLatte.Ordering.App.Queries;
 using MatchaLatte.Ordering.App.ViewModels;
 using Microsoft.AspNetCore.Authorization;

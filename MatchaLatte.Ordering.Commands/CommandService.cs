@@ -28,8 +28,7 @@ namespace MatchaLatte.Ordering.Commands
         /// <returns>結果。</returns>
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
         {
-            var commandType = command.GetType();
-            var handlerAdapter = serviceProvider.GetService(typeof(CommandHandlerAdapter<,>).MakeGenericType(commandType, typeof(TResult)))
+            var handlerAdapter = serviceProvider.GetService(typeof(CommandHandlerAdapter<,>).MakeGenericType(command.GetType(), typeof(TResult)))
                 as ICommandHandlerAdapter<TResult>;
 
             return await handlerAdapter.HandleAsync(command);
