@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using MatchaLatte.Common.Commands;
 
 namespace MatchaLatte.Identity.App.Commands.Roles
 {
-    public class UpdateRoleCommand
+    public class UpdateRoleCommand : ICommand<bool>
     {
         public Guid RoleId { get; set; }
         public string Name { get; set; }

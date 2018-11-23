@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using MatchaLatte.Common.Commands;
 
 namespace MatchaLatte.Identity.App.Commands.Users
 {
-    public class UpdateUserCommand
+    public class UpdateUserCommand : ICommand<bool>
     {
         public Guid UserId { get; set; }
         public string UserName { get; set; }

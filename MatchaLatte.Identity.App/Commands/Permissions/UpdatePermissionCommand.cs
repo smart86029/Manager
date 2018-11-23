@@ -1,8 +1,9 @@
 ﻿using System;
+using MatchaLatte.Common.Commands;
 
 namespace MatchaLatte.Identity.App.Commands.Permissions
 {
-    public class UpdatePermissionCommand
+    public class UpdatePermissionCommand : ICommand<bool>
     {
         public Guid PermissionId { get; set; }
         public string Name { get; set; }
