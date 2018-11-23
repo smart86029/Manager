@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MatchaLatte.Identity.App.Commands.Permissions;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Permissions;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,10 +60,10 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 新增權限。
         /// </summary>
-        /// <param name="command">新增權限選項。</param>
+        /// <param name="command">新增權限命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] CreatePermissionOption option)
+        public async Task<IActionResult> PostAsync([FromBody] CreatePermissionCommand option)
         {
             var permission = await permissionService.CreatePermissionAsync(option);
 
@@ -73,15 +74,15 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// 修改權限。
         /// </summary>
         /// <param name="id">權限ID。</param>
-        /// <param name="option">更新權限選項。</param>
+        /// <param name="command">更新權限命令。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdatePermissionOption option)
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdatePermissionCommand command)
         {
-            if (id != option.PermissionId)
+            if (id != command.PermissionId)
                 return BadRequest();
 
-            await permissionService.UpdatePermissionAsync(option);
+            await permissionService.UpdatePermissionAsync(command);
 
             return NoContent();
         }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
 using MatchaLatte.Ordering.App.Commands.Stores;
-using MatchaLatte.Ordering.App.ViewModels.Stores;
+using MatchaLatte.Ordering.App.Queries.Stores;
 using MatchaLatte.Ordering.Domain;
 using MatchaLatte.Ordering.Domain.Products;
 using MatchaLatte.Ordering.Domain.Stores;

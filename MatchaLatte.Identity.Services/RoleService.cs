@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MatchaLatte.Identity.App.Commands.Roles;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Roles;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.Role;
 using MatchaLatte.Identity.Domain;
 using MatchaLatte.Identity.Domain.Permissions;
 using MatchaLatte.Identity.Domain.Roles;
@@ -102,12 +103,12 @@ namespace MatchaLatte.Identity.Services
         /// <summary>
         /// 新增角色。
         /// </summary>
-        /// <param name="option">新增角色選項。</param>
+        /// <param name="command">新增角色命令。</param>
         /// <returns>角色。</returns>
-        public async Task<RoleDetail> CreateRoleAsync(CreateRoleOption option)
+        public async Task<RoleDetail> CreateRoleAsync(CreateRoleCommand command)
         {
-            var role = new Role(option.Name, option.IsEnabled);
-            var permissionIdsToAssign = option.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId);
+            var role = new Role(command.Name, command.IsEnabled);
+            var permissionIdsToAssign = command.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId);
             var permissionsToAssign = await permissionRepository.GetPermissionsAsync(p => permissionIdsToAssign.Contains(p.PermissionId));
             foreach (var permission in permissionsToAssign)
                 role.AssignPermission(permission);
@@ -128,29 +129,29 @@ namespace MatchaLatte.Identity.Services
         /// <summary>
         /// 更新角色。
         /// </summary>
-        /// <param name="option">更新角色選項。</param>
+        /// <param name="command">更新角色命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        public async Task<bool> UpdateRoleAsync(UpdateRoleOption option)
+        public async Task<bool> UpdateRoleAsync(UpdateRoleCommand command)
         {
-            var role = await roleRepository.GetRoleAsync(option.RoleId);
+            var role = await roleRepository.GetRoleAsync(command.RoleId);
             if (role == default(Role))
                 return false;
 
-            role.UpdateName(option.Name);
+            role.UpdateName(command.Name);
 
-            if (option.IsEnabled)
+            if (command.IsEnabled)
                 role.Enable();
             else
                 role.Disable();
 
-            var permissionIdsToAssign = option.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId)
+            var permissionIdsToAssign = command.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId)
                 .Except(role.RolePermissions.Select(x => x.PermissionId));
             var permissionsToAssign = await permissionRepository.GetPermissionsAsync(r => permissionIdsToAssign.Contains(r.PermissionId));
             foreach (var permission in permissionsToAssign)
                 role.AssignPermission(permission);
 
             var permissionIdsToUnassign = role.RolePermissions.Select(x => x.PermissionId)
-                .Except(option.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId));
+                .Except(command.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId));
             var permissionsToUnassign = await permissionRepository.GetPermissionsAsync(r => permissionIdsToUnassign.Contains(r.PermissionId));
             foreach (var permission in permissionsToUnassign)
                 role.UnassignPermission(permission);

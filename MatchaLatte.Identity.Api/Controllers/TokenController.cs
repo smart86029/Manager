@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using MatchaLatte.Identity.App.Commands.Tokens;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels.Token;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Identity.Api.Controllers
@@ -26,13 +26,13 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 新增令牌。
         /// </summary>
-        /// <param name="option">新增令牌選項。</param>
+        /// <param name="command">新增令牌命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> PostAsync([FromBody] CreateTokenOption option)
+        public async Task<IActionResult> PostAsync([FromBody] CreateTokenCommand command)
         {
-            var token = await tokenService.CreateTokenAsync(option);
+            var token = await tokenService.CreateTokenAsync(command);
             if (token == null)
                 return BadRequest();
 

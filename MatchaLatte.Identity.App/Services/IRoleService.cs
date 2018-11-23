@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.Role;
+using MatchaLatte.Identity.App.Commands.Roles;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Roles;
 
 namespace MatchaLatte.Identity.App.Services
 {
@@ -33,15 +34,15 @@ namespace MatchaLatte.Identity.App.Services
         /// <summary>
         /// 新增角色。
         /// </summary>
-        /// <param name="option">新增角色選項。</param>
+        /// <param name="command">新增角色命令。</param>
         /// <returns>角色。</returns>
-        Task<RoleDetail> CreateRoleAsync(CreateRoleOption option);
+        Task<RoleDetail> CreateRoleAsync(CreateRoleCommand command);
 
         /// <summary>
         /// 更新角色。
         /// </summary>
-        /// <param name="option">更新角色選項。</param>
+        /// <param name="command">更新角色命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        Task<bool> UpdateRoleAsync(UpdateRoleOption option);
+        Task<bool> UpdateRoleAsync(UpdateRoleCommand command);
     }
 }

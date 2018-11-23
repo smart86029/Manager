@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.User;
+using MatchaLatte.Identity.App.Commands.Users;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Users;
 
 namespace MatchaLatte.Identity.App.Services
 {
@@ -33,15 +34,15 @@ namespace MatchaLatte.Identity.App.Services
         /// <summary>
         /// 新增使用者。
         /// </summary>
-        /// <param name="option">新增使用者選項。</param>
+        /// <param name="command">新增使用者命令。</param>
         /// <returns>使用者。</returns>
-        Task<UserDetail> CreateUserAsync(CreateUserOption option);
+        Task<UserDetail> CreateUserAsync(CreateUserCommand command);
 
         /// <summary>
         /// 更新使用者。
         /// </summary>
-        /// <param name="option">更新使用者選項。</param>
+        /// <param name="command">更新使用者命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        Task<bool> UpdateUserAsync(UpdateUserOption option);
+        Task<bool> UpdateUserAsync(UpdateUserCommand command);
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.Permission;
+using MatchaLatte.Identity.App.Commands.Permissions;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Permissions;
 
 namespace MatchaLatte.Identity.App.Services
 {
@@ -27,15 +28,15 @@ namespace MatchaLatte.Identity.App.Services
         /// <summary>
         /// 新增權限。
         /// </summary>
-        /// <param name="option">新增權限選項。</param>
+        /// <param name="command">新增權限命令。</param>
         /// <returns>權限。</returns>
-        Task<PermissionDetail> CreatePermissionAsync(CreatePermissionOption option);
+        Task<PermissionDetail> CreatePermissionAsync(CreatePermissionCommand command);
 
         /// <summary>
         /// 更新權限。
         /// </summary>
-        /// <param name="option">更新權限選項。</param>
+        /// <param name="command">更新權限命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        Task<bool> UpdatePermissionAsync(UpdatePermissionOption option);
+        Task<bool> UpdatePermissionAsync(UpdatePermissionCommand command);
     }
 }

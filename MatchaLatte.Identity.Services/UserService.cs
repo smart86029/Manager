@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MatchaLatte.Identity.App.Commands.Users;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Users;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.User;
 using MatchaLatte.Identity.Domain;
 using MatchaLatte.Identity.Domain.Roles;
 using MatchaLatte.Identity.Domain.Users;
@@ -102,12 +103,12 @@ namespace MatchaLatte.Identity.Services
         /// <summary>
         /// 新增使用者。
         /// </summary>
-        /// <param name="option">新增使用者選項。</param>
+        /// <param name="command">新增使用者命令。</param>
         /// <returns>使用者。</returns>
-        public async Task<UserDetail> CreateUserAsync(CreateUserOption option)
+        public async Task<UserDetail> CreateUserAsync(CreateUserCommand command)
         {
-            var user = new User(option.UserName, option.Password, option.IsEnabled);
-            var roleIdsToAssign = option.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
+            var user = new User(command.UserName, command.Password, command.IsEnabled);
+            var roleIdsToAssign = command.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
             var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.RoleId));
             foreach (var role in rolesToAssign)
                 user.AssignRole(role);
@@ -128,30 +129,30 @@ namespace MatchaLatte.Identity.Services
         /// <summary>
         /// 更新使用者。
         /// </summary>
-        /// <param name="option">更新使用者選項。</param>
+        /// <param name="command">更新使用者命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        public async Task<bool> UpdateUserAsync(UpdateUserOption option)
+        public async Task<bool> UpdateUserAsync(UpdateUserCommand command)
         {
-            var user = await userRepository.GetUserAsync(option.UserId);
+            var user = await userRepository.GetUserAsync(command.UserId);
             if (user == default(User))
                 return false;
 
-            user.UpdateUserName(option.UserName);
-            user.UpdatePassword(option.Password);
+            user.UpdateUserName(command.UserName);
+            user.UpdatePassword(command.Password);
 
-            if (option.IsEnabled)
+            if (command.IsEnabled)
                 user.Enable();
             else
                 user.Disable();
 
-            var roleIdsToAssign = option.Roles.Where(x => x.IsChecked).Select(x => x.RoleId)
+            var roleIdsToAssign = command.Roles.Where(x => x.IsChecked).Select(x => x.RoleId)
                 .Except(user.UserRoles.Select(x => x.RoleId));
             var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.RoleId));
             foreach (var role in rolesToAssign)
                 user.AssignRole(role);
 
             var roleIdsToUnassign = user.UserRoles.Select(x => x.RoleId)
-                .Except(option.Roles.Where(x => x.IsChecked).Select(x => x.RoleId));
+                .Except(command.Roles.Where(x => x.IsChecked).Select(x => x.RoleId));
             var rolesToUnassign = await roleRepository.GetRolesAsync(r => roleIdsToUnassign.Contains(r.RoleId));
             foreach (var role in rolesToUnassign)
                 user.UnassignRole(role);

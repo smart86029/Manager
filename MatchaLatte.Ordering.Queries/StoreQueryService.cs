@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using MatchaLatte.Ordering.App.Queries;
-using MatchaLatte.Ordering.App.ViewModels;
-using MatchaLatte.Ordering.App.ViewModels.Stores;
+using MatchaLatte.Ordering.App.Queries.Stores;
+using MatchaLatte.Ordering.App.Services;
 
 namespace MatchaLatte.Ordering.Queries
 {

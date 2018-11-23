@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MatchaLatte.Identity.App.Commands.Permissions;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Permissions;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.Permission;
 using MatchaLatte.Identity.Domain;
 using MatchaLatte.Identity.Domain.Permissions;
 
@@ -73,11 +74,11 @@ namespace MatchaLatte.Identity.Services
         /// <summary>
         /// 新增權限。
         /// </summary>
-        /// <param name="option">新增權限選項。</param>
+        /// <param name="option">新增權限命令。</param>
         /// <returns>權限。</returns>
-        public async Task<PermissionDetail> CreatePermissionAsync(CreatePermissionOption option)
+        public async Task<PermissionDetail> CreatePermissionAsync(CreatePermissionCommand command)
         {
-            var permission = new Permission(option.Name, option.Description, option.IsEnabled);
+            var permission = new Permission(command.Name, command.Description, command.IsEnabled);
 
             permissionRepository.Add(permission);
             await unitOfWork.CommitAsync();
@@ -96,18 +97,18 @@ namespace MatchaLatte.Identity.Services
         /// <summary>
         /// 更新權限。
         /// </summary>
-        /// <param name="option">更新權限選項。</param>
+        /// <param name="command">更新權限命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        public async Task<bool> UpdatePermissionAsync(UpdatePermissionOption option)
+        public async Task<bool> UpdatePermissionAsync(UpdatePermissionCommand command)
         {
-            var permission = await permissionRepository.GetPermissionAsync(option.PermissionId);
+            var permission = await permissionRepository.GetPermissionAsync(command.PermissionId);
             if (permission == default(Permission))
                 return false;
 
-            permission.UpdateName(option.Name);
-            permission.UpdateDescription(option.Description);
+            permission.UpdateName(command.Name);
+            permission.UpdateDescription(command.Description);
 
-            if (option.IsEnabled)
+            if (command.IsEnabled)
                 permission.Enable();
             else
                 permission.Disable();

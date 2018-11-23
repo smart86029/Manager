@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MatchaLatte.Identity.App.Commands.Users;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Users;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,12 +72,12 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 新增使用者。
         /// </summary>
-        /// <param name="command">新增使用者選項。</param>
+        /// <param name="command">新增使用者命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] CreateUserOption option)
+        public async Task<IActionResult> PostAsync([FromBody] CreateUserCommand command)
         {
-            var user = await userService.CreateUserAsync(option);
+            var user = await userService.CreateUserAsync(command);
 
             return CreatedAtAction(nameof(GetAsync), new { id = user.UserId }, user);
         }
@@ -85,15 +86,15 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// 修改使用者。
         /// </summary>
         /// <param name="id">使用者ID。</param>
-        /// <param name="option">更新使用者選項。</param>
+        /// <param name="command">更新使用者命令。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateUserOption option)
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateUserCommand command)
         {
-            if (id != option.UserId)
+            if (id != command.UserId)
                 return BadRequest();
 
-            await userService.UpdateUserAsync(option);
+            await userService.UpdateUserAsync(command);
 
             return NoContent();
         }

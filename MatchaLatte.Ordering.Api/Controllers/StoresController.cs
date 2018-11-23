@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
 using MatchaLatte.Ordering.App.Commands.Stores;
 using MatchaLatte.Ordering.App.Queries;
-using MatchaLatte.Ordering.App.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+using MatchaLatte.Ordering.App.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Ordering.Api.Controllers
@@ -37,7 +36,7 @@ namespace MatchaLatte.Ordering.Api.Controllers
         /// <param name="option">分頁查詢。</param>
         /// <returns>所有店家。</returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] PaginationOption option)
+        public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
         {
             var stores = await storeQueryService.GetStoresAsync(option);
             Response.Headers.Add("X-Total-Count", stores.ItemCount.ToString());
@@ -51,7 +50,7 @@ namespace MatchaLatte.Ordering.Api.Controllers
         /// <param name="id">店家 ID。</param>
         /// <returns>店家。</returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetAsync(Guid id)
         {
             var store = await storeQueryService.GetStoreAsync(id);
             if (store == null)
@@ -70,7 +69,24 @@ namespace MatchaLatte.Ordering.Api.Controllers
         {
             var store = await commandService.ExecuteAsync(command);
 
-            return CreatedAtAction(nameof(Get), new { id = store.StoreId }, store);
+            return CreatedAtAction(nameof(GetAsync), new { id = store.StoreId }, store);
+        }
+
+        /// <summary>
+        /// 修改店家。
+        /// </summary>
+        /// <param name="id">店家ID。</param>
+        /// <param name="command">修改店家命令。</param>
+        /// <returns>204 NoContent。</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateStoreCommand command)
+        {
+            if (id != command.StoreId)
+                return BadRequest();
+
+            await commandService.ExecuteAsync<bool>(command);
+
+            return NoContent();
         }
     }
 }

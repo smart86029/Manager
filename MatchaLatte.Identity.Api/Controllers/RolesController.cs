@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MatchaLatte.Identity.App.Commands.Roles;
+using MatchaLatte.Identity.App.Queries;
+using MatchaLatte.Identity.App.Queries.Roles;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels;
-using MatchaLatte.Identity.App.ViewModels.Role;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,12 +72,12 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 新增角色。
         /// </summary>
-        /// <param name="command">新增角色選項。</param>
+        /// <param name="command">新增角色命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] CreateRoleOption option)
+        public async Task<IActionResult> PostAsync([FromBody] CreateRoleCommand command)
         {
-            var role = await roleService.CreateRoleAsync(option);
+            var role = await roleService.CreateRoleAsync(command);
 
             return CreatedAtAction(nameof(GetAsync), new { id = role.RoleId }, role);
         }
@@ -85,15 +86,15 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// 修改角色。
         /// </summary>
         /// <param name="id">角色ID。</param>
-        /// <param name="option">更新角色選項。</param>
+        /// <param name="command">更新角色命令。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateRoleOption option)
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateRoleCommand command)
         {
-            if (id != option.RoleId)
+            if (id != command.RoleId)
                 return BadRequest();
 
-            await roleService.UpdateRoleAsync(option);
+            await roleService.UpdateRoleAsync(command);
 
             return NoContent();
         }

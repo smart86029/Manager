@@ -3,8 +3,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Utilities;
+using MatchaLatte.Identity.App.Commands.Tokens;
+using MatchaLatte.Identity.App.Queries.Tokens;
 using MatchaLatte.Identity.App.Services;
-using MatchaLatte.Identity.App.ViewModels.Token;
 using MatchaLatte.Identity.Domain.Users;
 using Microsoft.IdentityModel.Tokens;
 
@@ -36,14 +37,14 @@ namespace MatchaLatte.Identity.Services
         /// <summary>
         /// 新增令牌。
         /// </summary>
-        /// <param name="option">新增令牌選項。</param>
+        /// <param name="command">新增令牌命令。</param>
         /// <returns>令牌。</returns>
-        public async Task<Token> CreateTokenAsync(CreateTokenOption option)
+        public async Task<TokenDetail> CreateTokenAsync(CreateTokenCommand command)
         {
-            var passwordHash = CryptographyUtility.Hash(option.Password);
-            var user = await userRepository.GetUserAsync(option.UserName, passwordHash);
+            var passwordHash = CryptographyUtility.Hash(command.Password);
+            var user = await userRepository.GetUserAsync(command.UserName, passwordHash);
             if (user == default(User))
-                return default(Token);
+                return default(TokenDetail);
 
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var securityToken = new JwtSecurityToken(jwtSettings.Issuer,
@@ -51,7 +52,7 @@ namespace MatchaLatte.Identity.Services
                 expires: DateTime.Now.AddMinutes(ExpireMinutes),
                 signingCredentials: credentials);
             var handler = new JwtSecurityTokenHandler();
-            var token = new Token
+            var token = new TokenDetail
             {
                 AccessToken = handler.WriteToken(securityToken),
                 TokenType = "Bearer",
