@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) { }
 
-  signIn(userName: string, password: string): Observable<boolean> {
+  signIn(userName: string, password: string): Observable<void> {
     const body = {
       UserName: userName,
       Password: password
@@ -21,7 +21,7 @@ export class AuthService {
 
     return this.httpClient.post(this.tokensUrl, body).pipe(
       tap(data => localStorage.setItem(this.tokenKey, data[this.tokenKey])),
-      catchError(this.handleError('signIn', null))
+      map(() => { return; })
     );
   }
 

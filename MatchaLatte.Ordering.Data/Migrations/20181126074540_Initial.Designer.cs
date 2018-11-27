@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Ordering.Data.Migrations
 {
     [DbContext(typeof(OrderingContext))]
-    [Migration("20181106083102_Initial")]
+    [Migration("20181126074540_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,8 @@ namespace MatchaLatte.Ordering.Data.Migrations
                 {
                     b.Property<Guid>("ProductCategoryId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsDefault");
 
                     b.Property<string>("Name")
                         .IsRequired()

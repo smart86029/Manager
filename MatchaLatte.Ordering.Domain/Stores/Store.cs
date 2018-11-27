@@ -53,6 +53,7 @@ namespace MatchaLatte.Ordering.Domain.Stores
             Remark = remark;
             CreatedBy = createdBy;
             CreatedOn = DateTime.Now;
+            productCategories.Add(new ProductCategory("Default", true));
         }
 
         /// <summary>

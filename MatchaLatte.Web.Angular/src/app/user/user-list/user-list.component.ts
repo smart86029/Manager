@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { UserService } from '../user.service';
-import { User } from '../user';
 import { PaginationResult } from 'src/app/shared/pagination-result';
+
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -27,9 +28,14 @@ export class UserListComponent implements OnInit {
   private getUsers(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
     this.userService.getUsers(pageIndex, pageSize)
-      .subscribe(result => {
-        this.dataSource.data = result.items;
-        this.users = result;
-      }, () => { }, () => this.isLoading = false);
+      .subscribe(
+        result => {
+          this.dataSource.data = result.items;
+          this.users = result;
+        },
+        error => {
+          throw error;
+        },
+        () => this.isLoading = false);
   }
 }

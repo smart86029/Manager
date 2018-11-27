@@ -44,6 +44,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
                 {
                     ProductCategoryId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
+                    IsDefault = table.Column<bool>(nullable: false),
                     StoreId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>

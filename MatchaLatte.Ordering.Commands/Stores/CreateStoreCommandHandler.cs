@@ -39,7 +39,7 @@ namespace MatchaLatte.Ordering.Commands.Stores
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = new ProductCategory(c.Name);
+                var productCategory = new ProductCategory(c.Name, false);
                 foreach (var p in c.Products)
                 {
                     var product = new Product(p.Name, p.Description);

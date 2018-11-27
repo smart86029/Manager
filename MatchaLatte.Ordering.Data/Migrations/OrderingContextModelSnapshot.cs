@@ -66,6 +66,8 @@ namespace MatchaLatte.Ordering.Data.Migrations
                     b.Property<Guid>("ProductCategoryId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("IsDefault");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);

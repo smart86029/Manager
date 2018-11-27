@@ -24,8 +24,7 @@ export class UserService {
       map(response => {
         const itemCount = +response.headers.get('X-Total-Count');
         return new PaginationResult<User>(pageIndex, pageSize, itemCount, response.body);
-      }),
-      catchError(this.handleError('getUsers', new PaginationResult<User>()))
+      })
     );
   }
 
