@@ -14,12 +14,12 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <div *ngFor="let item of data.productItems">
+      <div *ngFor="let item of data.productItems; let i = index;">
         <mat-form-field>
-          <input matInput type="text" name="productItemName" placeholder="名稱" [(ngModel)]="item.name">
+          <input matInput type="text" name="productItemName{{i}}" placeholder="名稱" [(ngModel)]="item.name">
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="text" name="productItemPrice" placeholder="價格" [(ngModel)]="item.price">
+          <input matInput type="text" name="productItemPrice{{i}}" placeholder="價格" [(ngModel)]="item.price">
         </mat-form-field>
       </div>
     </div>
