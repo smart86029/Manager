@@ -38,8 +38,8 @@ namespace MatchaLatte.Ordering.Domain.Stores
         public ProductCategory(Guid productCategoryId, string name, bool isDefault)
         {
             ProductCategoryId = productCategoryId;
-            Name = name;
-            IsDefault = IsDefault;
+            Name = name.Trim();
+            IsDefault = isDefault;
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace MatchaLatte.Ordering.Domain.Stores
         /// <param name="name">名稱。</param>
         public void UpdateName(string name)
         {
-            Name = name;
+            Name = name.Trim();
         }
 
         /// <summary>

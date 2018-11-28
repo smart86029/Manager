@@ -60,6 +60,18 @@ namespace MatchaLatte.Ordering.Api.Controllers
         }
 
         /// <summary>
+        /// 取得新店家。
+        /// </summary>
+        /// <returns>新店家。</returns>
+        [HttpGet("new")]
+        public async Task<IActionResult> GetNewAsync()
+        {
+            var store = await storeQueryService.GetNewStoreAsync();
+
+            return Ok(store);
+        }
+
+        /// <summary>
         /// 新增店家。
         /// </summary>
         /// <param name="command">新增店家查詢。</param>

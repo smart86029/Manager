@@ -1,7 +1,8 @@
-import { Product } from "./product";
+import { Product } from './product';
 
 export class ProductCategory {
   productCategoryId: number;
   name: string;
+  isDefault: boolean;
   products: Product[] = [];
 }

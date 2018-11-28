@@ -24,34 +24,23 @@ export class StoreService {
       map(response => {
         const itemCount = +response.headers.get('X-Total-Count');
         return new PaginationResult<Store>(pageIndex, pageSize, itemCount, response.body);
-      }),
-      catchError(this.handleError('getStores', new PaginationResult<Store>()))
+      })
     );
   }
 
   getStore(id: Guid): Observable<Store> {
-    return this.httpClient.get<Store>(`${this.storesUrl}/${id}`).pipe(
-      catchError(this.handleError('getStore', null))
-    );
+    return this.httpClient.get<Store>(`${this.storesUrl}/${id}`);
+  }
+
+  getNewStore(): Observable<Store> {
+    return this.httpClient.get<Store>(`${this.storesUrl}/new`);
   }
 
   createStore(store: Store): Observable<Store> {
-    return this.httpClient.post<Store>(`${this.storesUrl}`, store).pipe(
-      catchError(this.handleError('createStore', store))
-    );
+    return this.httpClient.post<Store>(`${this.storesUrl}`, store);
   }
 
   updateStore(store: Store): Observable<Store> {
-    return this.httpClient.put<Store>(`${this.storesUrl}/${store.storeId}`, store).pipe(
-      catchError(this.handleError('updateStore', store))
-    );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-
-      return of(result as T);
-    };
+    return this.httpClient.put<Store>(`${this.storesUrl}/${store.storeId}`, store);
   }
 }

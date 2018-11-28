@@ -7,6 +7,7 @@ namespace MatchaLatte.Ordering.App.Commands.Stores
     {
         public Guid ProductCategoryId { get; set; }
         public string Name { get; set; }
+        public bool IsDefault { get; set; }
         public ICollection<ProductDto> Products { get; set; } = new List<ProductDto>();
     }
 }

@@ -28,10 +28,10 @@ export class UserDetailComponent implements OnInit {
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
       this.userService.getUser(new Guid(id))
-        .subscribe(user => this.user = user, () => { }, () => this.isLoading = false);
+        .subscribe(user => this.user = user, error => { throw error; }, () => this.isLoading = false);
     } else {
       this.userService.getNewUser()
-        .subscribe(user => this.user = user, () => { }, () => this.isLoading = false);
+        .subscribe(user => this.user = user, error => { throw error; }, () => this.isLoading = false);
     }
   }
 

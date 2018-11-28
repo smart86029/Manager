@@ -142,5 +142,26 @@ namespace MatchaLatte.Ordering.Queries
                 return result.FirstOrDefault();
             }
         }
+
+        /// <summary>
+        /// 取得新店家。
+        /// </summary>
+        /// <returns>新店家。</returns>
+        public Task<StoreDetail> GetNewStoreAsync()
+        {
+            var result = new StoreDetail
+            {
+                ProductCategories = new List<ProductCategoryDetail>
+                {
+                    new ProductCategoryDetail
+                    {
+                        Name = "Default",
+                        IsDefault = true
+                    }
+                }
+            };
+
+            return Task.FromResult(result);
+        }
     }
 }

@@ -23,5 +23,11 @@ namespace MatchaLatte.Ordering.App.Services
         /// <param name="storeId">店家 ID。</param>
         /// <returns>店家。</returns>
         Task<StoreDetail> GetStoreAsync(Guid storeId);
+
+        /// <summary>
+        /// 取得新店家。
+        /// </summary>
+        /// <returns>新店家。</returns>
+        Task<StoreDetail> GetNewStoreAsync();
     }
 }

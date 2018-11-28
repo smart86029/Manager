@@ -11,6 +11,8 @@ namespace MatchaLatte.Ordering.App.Queries.Stores
         [Column("CategoryName")]
         public string Name { get; set; }
 
+        public bool IsDefault { get; set; }
+
         public ICollection<ProductDetail> Products { get; set; } = new List<ProductDetail>();
     }
 }

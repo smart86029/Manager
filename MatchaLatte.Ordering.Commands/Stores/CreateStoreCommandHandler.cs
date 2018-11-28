@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
 using MatchaLatte.Ordering.App.Commands.Stores;
@@ -39,7 +40,7 @@ namespace MatchaLatte.Ordering.Commands.Stores
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = new ProductCategory(c.Name, false);
+                var productCategory = c.IsDefault ? store.ProductCategories.Single(x => x.IsDefault) : new ProductCategory(c.Name, false);
                 foreach (var p in c.Products)
                 {
                     var product = new Product(p.Name, p.Description);

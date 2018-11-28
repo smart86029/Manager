@@ -42,7 +42,8 @@
             <div cdkDropList class="category-list" [cdkDropListData]="store.productCategories" (cdkDropListDropped)="drop($event)">
               <div cdkDrag class="category-box" *ngFor="let category of store.productCategories">
                 <div>
-                  <app-inline-editor name="分類名稱" [(value)]="category.name"></app-inline-editor>
+                  <app-inline-editor *ngIf="!category.isDefault" name="分類名稱" [(value)]="category.name"></app-inline-editor>
+                  <span *ngIf="category.isDefault">{{category.name}}</span>
                   <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
                 </div>
                 <div cdkDropList class="product-list" [cdkDropListData]="category.products" (cdkDropListDropped)="drop($event)">
@@ -60,30 +61,6 @@
               </div>
               <p *ngIf="!isLoading && store.productCategories.itemCount === 0" class="empty-result">查無資料</p>
             </div>
-
-
-            <!-- <button mat-button color="primary" (click)="createProductCategory()">新增分類</button>
-            <mat-accordion>
-              <mat-expansion-panel *ngFor="let category of store.productCategories">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <app-inline-editor name="分類名稱" [(value)]="category.name"></app-inline-editor>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
-                <mat-list>
-                  <mat-list-item *ngFor="let product of category.products">
-                    <button mat-button (click)="updateProduct(product)">{{product.name}}</button>
-                    <mat-chip-list>
-                      <mat-chip *ngFor="let productItem of product.productItems">
-                        <span *ngIf="productItem.name">{{productItem.name}}:</span>
-                        {{productItem.price}}
-                      </mat-chip>
-                    </mat-chip-list>
-                  </mat-list-item>
-                </mat-list>
-              </mat-expansion-panel>
-            </mat-accordion> -->
             <div>
               <button mat-button matStepperPrevious>上一步</button>
               <button mat-button color="primary" matStepperNext>下一步</button>

@@ -44,7 +44,10 @@ export class StoreDetailComponent implements OnInit {
       this.saveMode = SaveMode.Update;
       this.isLoading = true;
       this.storeService.getStore(new Guid(id))
-        .subscribe(store => this.store = store, () => { }, () => this.isLoading = false);
+        .subscribe(store => this.store = store, error => { throw error; }, () => this.isLoading = false);
+    } else {
+      this.storeService.getNewStore()
+        .subscribe(store => this.store = store, error => { throw error; }, () => this.isLoading = false);
     }
 
     this.formGroup = new FormGroup({
