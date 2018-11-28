@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MatchaLatte.Ordering.App.Queries
+namespace MatchaLatte.Ordering.App.Queries.Stores
 {
     public class StoreSummary
     {

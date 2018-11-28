@@ -104,7 +104,7 @@ namespace MatchaLatte.Ordering.Queries
                 var stores = new Dictionary<Guid, StoreDetail>();
                 var categories = new Dictionary<Guid, ProductCategoryDetail>();
                 var products = new Dictionary<Guid, ProductDetail>();
-                var result = await connection.QueryAsync(sql, (StoreDetail s, Phone phone, Address a, ProductCategoryDetail c, ProductDetail p, ProductItemDetail i) =>
+                var result = await connection.QueryAsync(sql, (StoreDetail s, PhoneDetail phone, AddressDetail a, ProductCategoryDetail c, ProductDetail p, ProductItemDetail i) =>
                 {
                     if (!stores.TryGetValue(s.StoreId, out StoreDetail store))
                     {
@@ -113,8 +113,8 @@ namespace MatchaLatte.Ordering.Queries
 
                     if (string.IsNullOrWhiteSpace(store.Phone))
                         store.Phone = phone.AreaCode + phone.BaseNumber + phone.Extension;
-                    if (string.IsNullOrWhiteSpace(store.Address))
-                        store.Address = a.City + a.District + a.Street;
+
+                    store.Address = a;
 
                     if (c == default(ProductCategoryDetail))
                         return store;

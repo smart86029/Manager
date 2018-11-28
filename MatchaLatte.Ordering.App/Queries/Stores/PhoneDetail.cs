@@ -1,8 +1,8 @@
 ﻿using MatchaLatte.Ordering.Domain;
 
-namespace MatchaLatte.Ordering.App.Queries
+namespace MatchaLatte.Ordering.App.Queries.Stores
 {
-    public class Phone
+    public class PhoneDetail
     {
         public PhoneType PhoneType { get; set; }
         public string CountryCode { get; set; }

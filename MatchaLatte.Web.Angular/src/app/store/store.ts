@@ -1,4 +1,5 @@
 import { Guid } from '../shared/guid';
+import { Address } from './address';
 import { ProductCategory } from './product-category';
 
 export class Store {
@@ -6,7 +7,7 @@ export class Store {
   name: string;
   description: string;
   phone: string;
-  address: string;
+  address: Address;
   remark: string;
   createdOn: Date;
   productCategories: ProductCategory[] = [];
