@@ -12,6 +12,8 @@ import { ProductCategory } from '../product-category';
 import { ProductDetailDialogComponent } from '../product-detail-dialog/product-detail-dialog.component';
 import { Store } from '../store';
 import { StoreService } from '../store.service';
+import { CityService } from 'src/app/city/city.service';
+import { City } from 'src/app/city/city';
 
 @Component({
   selector: 'app-store-detail',
@@ -23,6 +25,8 @@ export class StoreDetailComponent implements OnInit {
   saveMode = SaveMode.Create;
   displayedColumns = ['name', 'price', 'action'];
   store = new Store();
+  cities: City[];
+  selectCity: City;
 
   formGroup: FormGroup;
   storeFormGroup: FormGroup;
@@ -33,6 +37,7 @@ export class StoreDetailComponent implements OnInit {
 
   constructor(
     private storeService: StoreService,
+    private cityService: CityService,
     private route: ActivatedRoute,
     private location: Location,
     private dialog: MatDialog,
@@ -50,6 +55,11 @@ export class StoreDetailComponent implements OnInit {
         .subscribe(store => this.store = store, error => { throw error; }, () => this.isLoading = false);
     }
 
+    this.cityService.getCities()
+      .subscribe(cities => {
+        this.cities = cities;
+        this.selectCity = cities[0];
+      });
     this.formGroup = new FormGroup({
       storeFormGroup: this.formBuilder.group({
         firstCtrl: ['', Validators.required]

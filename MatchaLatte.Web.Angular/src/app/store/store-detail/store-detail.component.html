@@ -22,11 +22,27 @@
                 <input matInput type="tel" name="phone" placeholder="電話" [(ngModel)]="store.phone">
               </mat-form-field>
             </div>
-            <div>
+            <div fxLayout="row">
               <mat-form-field>
-                <input matInput type="text" name="addressStreet" placeholder="地址" [(ngModel)]="store.address.street">
+                <mat-select name="addressCity" placeholder="縣市" [(value)]="selectCity">
+                  <mat-option *ngFor="let city of cities" [value]="city">
+                    {{city.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select name="addressDistricts" placeholder="鄉鎮市區">
+                  <mat-option *ngFor="let district of selectCity.districts" [value]="district.name">
+                    {{district.name}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
+            <!-- <div>
+              <mat-form-field>
+                <input matInput type="text" name="addressStreet" placeholder="路名" [(ngModel)]="store.address?.street">
+              </mat-form-field>
+            </div> -->
             <div>
               <mat-form-field>
                 <textarea matInput name="remark" placeholder="備註" [(ngModel)]="store.remark" matTextareaAutosize></textarea>
