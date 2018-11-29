@@ -49,6 +49,12 @@ namespace MatchaLatte.Ordering.Domain.Products
         public string Description { get; private set; }
 
         /// <summary>
+        /// 取得次序。
+        /// </summary>
+        /// <value>次序。</value>
+        public int Sequence { get; private set; }
+
+        /// <summary>
         /// 取得商品分類 ID。
         /// </summary>
         /// <value>商品分類 ID。</value>

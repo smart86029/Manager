@@ -14,6 +14,9 @@ namespace MatchaLatte.Ordering.App.Queries.Stores
         [Column("ProductDescription")]
         public string Description { get; set; }
 
+        [Column("ProductSequence")]
+        public int Sequence { get; set; }
+
         public ICollection<ProductItemDetail> ProductItems { get; set; } = new List<ProductItemDetail>();
     }
 }

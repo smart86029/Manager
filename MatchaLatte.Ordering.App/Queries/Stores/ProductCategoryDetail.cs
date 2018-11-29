@@ -13,6 +13,8 @@ namespace MatchaLatte.Ordering.App.Queries.Stores
 
         public bool IsDefault { get; set; }
 
+        public int Sequence { get; set; }
+
         public ICollection<ProductDetail> Products { get; set; } = new List<ProductDetail>();
     }
 }

@@ -61,6 +61,12 @@ namespace MatchaLatte.Ordering.Domain.Stores
         public bool IsDefault { get; private set; }
 
         /// <summary>
+        /// 取得次序。
+        /// </summary>
+        /// <value>次序。</value>
+        public int Sequence { get; private set; }
+
+        /// <summary>
         /// 取得店家 ID。
         /// </summary>
         /// <value>店家 ID。</value>

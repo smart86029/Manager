@@ -18,14 +18,9 @@ namespace MatchaLatte.Ordering.Domain
         /// <summary>
         /// 初始化 <see cref="Phone"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="phone">電話。</param>
-        public Phone(string phone)
+        /// <param name="phoneNumber">電話。</param>
+        public Phone(string phoneNumber) : this(PhoneType.Landline, "886", phoneNumber)
         {
-            PhoneType = PhoneType.Landline;
-            CountryCode = "886";
-            AreaCode = "02";
-            BaseNumber = phone;
-            Extension = string.Empty;
         }
 
         /// <summary>
@@ -33,16 +28,12 @@ namespace MatchaLatte.Ordering.Domain
         /// </summary>
         /// <param name="phoneType">電話類型。</param>
         /// <param name="countryCode">國碼。</param>
-        /// <param name="areaCode">區碼。</param>
-        /// <param name="baseNumber">電話號碼。</param>
-        /// <param name="extension">分機。</param>
-        public Phone(PhoneType phoneType, string countryCode, string areaCode, string baseNumber, string extension)
+        /// <param name="phoneNumber">電話號碼。</param>
+        public Phone(PhoneType phoneType, string countryCode, string phoneNumber)
         {
             PhoneType = phoneType;
             CountryCode = countryCode;
-            AreaCode = areaCode;
-            BaseNumber = baseNumber;
-            Extension = extension ?? string.Empty;
+            PhoneNumber = phoneNumber;
         }
 
         /// <summary>
@@ -57,35 +48,16 @@ namespace MatchaLatte.Ordering.Domain
         public string CountryCode { get; private set; }
 
         /// <summary>
-        /// 取得區碼。
-        /// </summary>
-        /// <value>區碼。</value>
-        public string AreaCode { get; private set; }
-
-        /// <summary>
         /// 取得電話號碼。
         /// </summary>
         /// <value>電話號碼。</value>
-        public string BaseNumber { get; private set; }
-
-        /// <summary>
-        /// 取得分機。
-        /// </summary>
-        /// <value>分機。</value>
-        public string Extension { get; private set; }
-
-        public override string ToString()
-        {
-            return AreaCode + BaseNumber;
-        }
+        public string PhoneNumber { get; private set; }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return PhoneType;
             yield return CountryCode;
-            yield return AreaCode;
-            yield return BaseNumber;
-            yield return Extension;
+            yield return PhoneNumber;
         }
     }
 }

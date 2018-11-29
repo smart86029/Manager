@@ -34,6 +34,8 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
                     b.Property<Guid>("ProductCategoryId");
 
+                    b.Property<int>("Sequence");
+
                     b.HasKey("ProductId");
 
                     b.HasIndex("ProductCategoryId");
@@ -71,6 +73,8 @@ namespace MatchaLatte.Ordering.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);
+
+                    b.Property<int>("Sequence");
 
                     b.Property<Guid>("StoreId");
 
@@ -172,25 +176,15 @@ namespace MatchaLatte.Ordering.Data.Migrations
                         {
                             b1.Property<Guid?>("StoreId");
 
-                            b1.Property<string>("AreaCode")
-                                .IsRequired()
-                                .HasColumnName("AreaCode")
-                                .HasMaxLength(4);
-
-                            b1.Property<string>("BaseNumber")
-                                .IsRequired()
-                                .HasColumnName("BaseNumber")
-                                .HasMaxLength(16);
-
                             b1.Property<string>("CountryCode")
                                 .IsRequired()
                                 .HasColumnName("CountryCode")
                                 .HasMaxLength(4);
 
-                            b1.Property<string>("Extension")
+                            b1.Property<string>("PhoneNumber")
                                 .IsRequired()
-                                .HasColumnName("Extension")
-                                .HasMaxLength(8);
+                                .HasColumnName("PhoneNumber")
+                                .HasMaxLength(32);
 
                             b1.Property<int>("PhoneType")
                                 .HasColumnName("PhoneType");

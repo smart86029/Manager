@@ -81,6 +81,8 @@ export class StoreDetailComponent implements OnInit {
   }
 
   save(): void {
+    this.store.address.city = this.selectedCity.name;
+    this.store.address.district = this.selectedDistrict.name;
     switch (this.saveMode) {
       case SaveMode.Create:
         this.create();

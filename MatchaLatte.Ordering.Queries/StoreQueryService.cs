@@ -73,23 +73,24 @@ namespace MatchaLatte.Ordering.Queries
         public async Task<StoreDetail> GetStoreAsync(Guid storeId)
         {
             var sql = $@"
-				SELECT [s].[StoreId], [s].[Name], [s].[Description], [s].[AreaCode], [s].[BaseNumber], [s].[Extension],
+				SELECT [s].[StoreId], [s].[Name], [s].[Description], [s].[PhoneNumber],
 					[s].[PostalCode], [s].[Country], [s].[City], [s].[District], [s].[Street], [s].[Remark],
 					[y].[ProductCategoryId], [y].[CategoryName],
 					[y].[ProductId], [y].[ProductName], [y].[ProductDescription],
 					[y].[ProductItemId], [y].[ItemName], [y].[Price]
 				FROM (
-                    SELECT [StoreId], [Name], [Description], [AreaCode], [BaseNumber], [Extension], [PostalCode], [Country], [City], [District], [Street], [Remark]
+                    SELECT [StoreId], [Name], [Description], [PhoneNumber], [PostalCode], [Country], [City], [District], [Street], [Remark]
                     FROM [Ordering].[Store]
                     WHERE [StoreId] = @StoreId
                 ) AS [s]
 				LEFT JOIN (
-                    SELECT [c].[ProductCategoryId], [c].[Name] AS [CategoryName], [c].[StoreId],
+                    SELECT [c].[ProductCategoryId], [c].[Name] AS [CategoryName], [c].[Sequence], [c].[StoreId],
                         [x].[ProductId], [x].[ProductName], [x].[ProductDescription],
 						[x].[ProductItemId], [x].[ItemName], [x].[Price]
                     FROM [Ordering].[ProductCategory] AS [c]
 					LEFT JOIN (
 						SELECT [p].[ProductId], [p].[Name] AS [ProductName], [p].[Description] AS [ProductDescription], [p].[ProductCategoryId],
+                            [p].[Sequence] AS [ProductSequence],
 							[i].[ProductItemId], [i].[Name] AS [ItemName], [i].[Price]
 						FROM [Ordering].[Product] AS [p]
 						LEFT JOIN [Ordering].[ProductItem] AS [i] ON [p].[ProductId] = [i].[ProductId]
@@ -112,7 +113,7 @@ namespace MatchaLatte.Ordering.Queries
                     }
 
                     if (string.IsNullOrWhiteSpace(store.Phone))
-                        store.Phone = phone.AreaCode + phone.BaseNumber + phone.Extension;
+                        store.Phone = phone.PhoneNumber;
 
                     store.Address = a;
 
@@ -137,7 +138,7 @@ namespace MatchaLatte.Ordering.Queries
                     product.ProductItems.Add(i);
 
                     return store;
-                }, param, splitOn: "AreaCode, PostalCode, ProductCategoryId, ProductId, ProductItemId");
+                }, param, splitOn: "PhoneNumber, PostalCode, ProductCategoryId, ProductId, ProductItemId");
 
                 return result.FirstOrDefault();
             }

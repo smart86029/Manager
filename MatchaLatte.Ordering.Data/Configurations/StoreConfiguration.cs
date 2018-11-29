@@ -21,9 +21,7 @@ namespace MatchaLatte.Ordering.Data.Configurations
             {
                 x.Property(p => p.PhoneType).HasColumnName("PhoneType");
                 x.Property(p => p.CountryCode).HasColumnName("CountryCode").IsRequired().HasMaxLength(4);
-                x.Property(p => p.AreaCode).HasColumnName("AreaCode").IsRequired().HasMaxLength(4);
-                x.Property(p => p.BaseNumber).HasColumnName("BaseNumber").IsRequired().HasMaxLength(16);
-                x.Property(p => p.Extension).HasColumnName("Extension").IsRequired().HasMaxLength(8);
+                x.Property(p => p.PhoneNumber).HasColumnName("PhoneNumber").IsRequired().HasMaxLength(32);
             });
             builder.OwnsOne(s => s.Address, x =>
             {

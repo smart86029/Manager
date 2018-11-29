@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Ordering.Data.Migrations
 {
     [DbContext(typeof(OrderingContext))]
-    [Migration("20181126074540_Initial")]
+    [Migration("20181129154745_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,8 @@ namespace MatchaLatte.Ordering.Data.Migrations
                         .HasMaxLength(32);
 
                     b.Property<Guid>("ProductCategoryId");
+
+                    b.Property<int>("Sequence");
 
                     b.HasKey("ProductId");
 
@@ -73,6 +75,8 @@ namespace MatchaLatte.Ordering.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);
+
+                    b.Property<int>("Sequence");
 
                     b.Property<Guid>("StoreId");
 
@@ -174,25 +178,15 @@ namespace MatchaLatte.Ordering.Data.Migrations
                         {
                             b1.Property<Guid?>("StoreId");
 
-                            b1.Property<string>("AreaCode")
-                                .IsRequired()
-                                .HasColumnName("AreaCode")
-                                .HasMaxLength(4);
-
-                            b1.Property<string>("BaseNumber")
-                                .IsRequired()
-                                .HasColumnName("BaseNumber")
-                                .HasMaxLength(16);
-
                             b1.Property<string>("CountryCode")
                                 .IsRequired()
                                 .HasColumnName("CountryCode")
                                 .HasMaxLength(4);
 
-                            b1.Property<string>("Extension")
+                            b1.Property<string>("PhoneNumber")
                                 .IsRequired()
-                                .HasColumnName("Extension")
-                                .HasMaxLength(8);
+                                .HasColumnName("PhoneNumber")
+                                .HasMaxLength(32);
 
                             b1.Property<int>("PhoneType")
                                 .HasColumnName("PhoneType");

@@ -65,7 +65,7 @@ namespace MatchaLatte.Ordering.Commands.Stores
                 StoreId = store.StoreId,
                 Name = store.Name,
                 Description = store.Description,
-                Phone = store.Phone.ToString(),
+                Phone = store.Phone.PhoneNumber,
                 Address = new AddressDetail
                 {
                     PostalCode = store.Address.PostalCode,
