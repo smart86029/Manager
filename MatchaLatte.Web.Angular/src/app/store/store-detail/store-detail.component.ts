@@ -14,6 +14,8 @@ import { Store } from '../store';
 import { StoreService } from '../store.service';
 import { CityService } from 'src/app/city/city.service';
 import { City } from 'src/app/city/city';
+import { District } from 'src/app/city/district';
+import { Observable, observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-store-detail',
@@ -26,7 +28,8 @@ export class StoreDetailComponent implements OnInit {
   displayedColumns = ['name', 'price', 'action'];
   store = new Store();
   cities: City[];
-  selectCity: City;
+  selectedCity = new City();
+  selectedDistrict: District;
 
   formGroup: FormGroup;
   storeFormGroup: FormGroup;
@@ -44,22 +47,30 @@ export class StoreDetailComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    let store$: Observable<Store>;
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
       this.isLoading = true;
-      this.storeService.getStore(new Guid(id))
-        .subscribe(store => this.store = store, error => { throw error; }, () => this.isLoading = false);
+      store$ = this.storeService.getStore(new Guid(id));
     } else {
-      this.storeService.getNewStore()
-        .subscribe(store => this.store = store, error => { throw error; }, () => this.isLoading = false);
+      store$ = this.storeService.getNewStore();
     }
 
-    this.cityService.getCities()
-      .subscribe(cities => {
-        this.cities = cities;
-        this.selectCity = cities[0];
+    forkJoin(this.cityService.getCities(), store$)
+      .subscribe({
+        next: result => {
+          const cities = result[0];
+          const store = result[1];
+          this.cities = cities;
+          this.store = store;
+          this.selectedCity = cities.find(city => city.name === store.address.city) || this.cities[0];
+          this.selectedDistrict =
+            this.selectedCity.districts.find(district => district.name === store.address.district) || this.selectedCity.districts[0];
+        },
+        complete: () => this.isLoading = false
       });
+
     this.formGroup = new FormGroup({
       storeFormGroup: this.formBuilder.group({
         firstCtrl: ['', Validators.required]

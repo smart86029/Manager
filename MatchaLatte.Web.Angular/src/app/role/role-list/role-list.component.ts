@@ -28,9 +28,12 @@ export class RoleListComponent implements OnInit {
   private getRoles(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
     this.roleService.getRoles(pageIndex, pageSize)
-      .subscribe(result => {
-        this.dataSource.data = result.items;
-        this.roles = result;
-      }, () => { }, () => this.isLoading = false);
+      .subscribe({
+        next: result => {
+          this.dataSource.data = result.items;
+          this.roles = result;
+        },
+        complete: () => this.isLoading = false
+      });
   }
 }

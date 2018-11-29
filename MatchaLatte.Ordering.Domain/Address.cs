@@ -18,28 +18,14 @@ namespace MatchaLatte.Ordering.Domain
         /// <summary>
         /// 初始化 <see cref="Address"/> 類別的新執行個體。
         /// </summary>
-        /// <param name="address">地址。</param>
-        public Address(string address)
-        {
-            PostalCode = string.Empty;
-            Country = "台灣";
-            City = "台北市";
-            District = string.Empty;
-            Street = address;
-        }
-
-        /// <summary>
-        /// 初始化 <see cref="Address"/> 類別的新執行個體。
-        /// </summary>
-        /// <param name="postalCode">郵遞區號。</param>
         /// <param name="country">國家。</param>
         /// <param name="city">城市。</param>
         /// <param name="district">行政區。</param>
         /// <param name="street">路名。</param>
-        public Address(string postalCode, string country, string city, string district, string street)
+        public Address(string city, string district, string street)
         {
-            PostalCode = postalCode;
-            Country = country;
+            PostalCode = string.Empty;
+            Country = "臺灣";
             City = city;
             District = district;
             Street = street;

@@ -36,7 +36,8 @@ namespace MatchaLatte.Ordering.Commands.Stores
         /// <returns>店家。</returns>
         public async Task<StoreDetail> HandleAsync(CreateStoreCommand command)
         {
-            var store = new Store(command.Name, command.Description, new Phone(command.Phone), new Address(command.Address), command.Remark, Guid.Empty);
+            var store = new Store(command.Name, command.Description, new Phone(command.Phone),
+                new Address(command.Address.City, command.Address.City, command.Address.City), command.Remark, Guid.Empty);
 
             foreach (var c in command.ProductCategories)
             {

@@ -29,34 +29,18 @@ export class RoleService {
   }
 
   getRole(id: Guid): Observable<Role> {
-    return this.httpClient.get<Role>(`${this.rolesUrl}/${id}`).pipe(
-      catchError(this.handleError('getRole', null))
-    );
+    return this.httpClient.get<Role>(`${this.rolesUrl}/${id}`);
   }
 
   getNewRole(): Observable<Role> {
-    return this.httpClient.get<Role>(`${this.rolesUrl}/new`).pipe(
-      catchError(this.handleError('getRole', null))
-    );
+    return this.httpClient.get<Role>(`${this.rolesUrl}/new`);
   }
 
   createRole(role: Role): Observable<Role> {
-    return this.httpClient.post<Role>(`${this.rolesUrl}`, role).pipe(
-      catchError(this.handleError('updateRole', role))
-    );
+    return this.httpClient.post<Role>(`${this.rolesUrl}`, role);
   }
 
   updateRole(role: Role): Observable<Role> {
-    return this.httpClient.put<Role>(`${this.rolesUrl}/${role.roleId}`, role).pipe(
-      catchError(this.handleError('updateRole', role))
-    );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-
-      return of(result as T);
-    };
+    return this.httpClient.put<Role>(`${this.rolesUrl}/${role.roleId}`, role);
   }
 }
