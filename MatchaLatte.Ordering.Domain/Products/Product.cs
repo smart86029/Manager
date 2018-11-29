@@ -26,8 +26,8 @@ namespace MatchaLatte.Ordering.Domain.Products
         /// <param name="description">描述。</param>
         public Product(string name, string description)
         {
-            Name = name;
-            Description = description;
+            Name = name.Trim();
+            Description = description?.Trim();
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace MatchaLatte.Ordering.Domain.Products
         /// <param name="name">名稱。</param>
         public void UpdateName(string name)
         {
-            Name = name;
+            Name = name.Trim();
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace MatchaLatte.Ordering.Domain.Products
         /// <param name="description">描述。</param>
         public void UpdateDescription(string description)
         {
-            Description = description;
+            Description = description?.Trim();
         }
 
         /// <summary>
