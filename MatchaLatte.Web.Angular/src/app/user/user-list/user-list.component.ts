@@ -27,15 +27,12 @@ export class UserListComponent implements OnInit {
 
   private getUsers(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.userService.getUsers(pageIndex, pageSize)
-      .subscribe(
-        result => {
-          this.dataSource.data = result.items;
-          this.users = result;
-        },
-        error => {
-          throw error;
-        },
-        () => this.isLoading = false);
+    this.userService.getUsers(pageIndex, pageSize).subscribe({
+      next: result => {
+        this.dataSource.data = result.items;
+        this.users = result;
+      },
+      complete: () => this.isLoading = false
+    });
   }
 }

@@ -7,7 +7,7 @@ export class Store {
   name: string;
   description: string;
   phone: string;
-  address: Address;
+  address = new Address();
   remark: string;
   createdOn: Date;
   productCategories: ProductCategory[] = [];

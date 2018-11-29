@@ -96,7 +96,7 @@ namespace MatchaLatte.Ordering.Api.Controllers
             if (id != command.StoreId)
                 return BadRequest();
 
-            await commandService.ExecuteAsync<bool>(command);
+            await commandService.ExecuteAsync(command);
 
             return NoContent();
         }

@@ -4,6 +4,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatTable } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin, Observable } from 'rxjs';
+import { City } from 'src/app/city/city';
+import { CityService } from 'src/app/city/city.service';
+import { District } from 'src/app/city/district';
 import { Guid } from 'src/app/shared/guid';
 
 import { SaveMode } from '../../shared/save-mode/save-mode.enum';
@@ -12,10 +16,6 @@ import { ProductCategory } from '../product-category';
 import { ProductDetailDialogComponent } from '../product-detail-dialog/product-detail-dialog.component';
 import { Store } from '../store';
 import { StoreService } from '../store.service';
-import { CityService } from 'src/app/city/city.service';
-import { City } from 'src/app/city/city';
-import { District } from 'src/app/city/district';
-import { Observable, observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-store-detail',
@@ -57,19 +57,18 @@ export class StoreDetailComponent implements OnInit {
       store$ = this.storeService.getNewStore();
     }
 
-    forkJoin(this.cityService.getCities(), store$)
-      .subscribe({
-        next: result => {
-          const cities = result[0];
-          const store = result[1];
-          this.cities = cities;
-          this.store = store;
-          this.selectedCity = cities.find(city => city.name === store.address.city) || this.cities[0];
-          this.selectedDistrict =
-            this.selectedCity.districts.find(district => district.name === store.address.district) || this.selectedCity.districts[0];
-        },
-        complete: () => this.isLoading = false
-      });
+    forkJoin(this.cityService.getCities(), store$).subscribe({
+      next: result => {
+        const cities = result[0];
+        const store = result[1];
+        this.cities = cities;
+        this.store = store;
+        this.selectedCity = cities.find(city => city.name === store.address.city) || this.cities[0];
+        this.selectedDistrict =
+          this.selectedCity.districts.find(district => district.name === store.address.district) || this.selectedCity.districts[0];
+      },
+      complete: () => this.isLoading = false
+    });
 
     this.formGroup = new FormGroup({
       storeFormGroup: this.formBuilder.group({
