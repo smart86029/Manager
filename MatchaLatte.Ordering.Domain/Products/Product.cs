@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.Utilities;
 using MatchaLatte.Ordering.Domain.Stores;
 
 namespace MatchaLatte.Ordering.Domain.Products
@@ -24,7 +25,17 @@ namespace MatchaLatte.Ordering.Domain.Products
         /// </summary>
         /// <param name="name">名稱。</param>
         /// <param name="description">描述。</param>
-        public Product(string name, string description)
+        public Product(string name, string description) : this(GuidUtility.NewGuid(), name, description)
+        {
+        }
+
+        /// <summary>
+        /// 初始化 <see cref="Product"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="productId">商品 ID。</param>
+        /// <param name="name">名稱。</param>
+        /// <param name="description">描述。</param>
+        public Product(Guid productId, string name, string description)
         {
             Name = name.Trim();
             Description = description?.Trim();

@@ -1,4 +1,5 @@
-﻿using MatchaLatte.Common.Domain;
+﻿using System;
+using MatchaLatte.Common.Domain;
 
 namespace MatchaLatte.Ordering.Domain.BusinessEntities
 {
@@ -7,20 +8,27 @@ namespace MatchaLatte.Ordering.Domain.BusinessEntities
     /// </summary>
     public abstract class BusinessEntity : Entity, IAggregateRoot
     {
+        /// <summary>
+        /// 初始化 <see cref="BusinessEntity"/> 類別的新執行個體。
+        /// </summary>
         private BusinessEntity()
         {
         }
 
-        public BusinessEntity(int businessEntity)
+        /// <summary>
+        /// 初始化 <see cref="BusinessEntity"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="businessEntity">商業實體 ID。</param>
+        public BusinessEntity(Guid businessEntity)
         {
             BusinessEntityId = businessEntity;
         }
 
         /// <summary>
-        /// 取得或設定主鍵。
+        /// 取得主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        public int BusinessEntityId { get; set; }
+        public Guid BusinessEntityId { get; private set; }
 
         /// <summary>
         /// 取得顯示名稱。

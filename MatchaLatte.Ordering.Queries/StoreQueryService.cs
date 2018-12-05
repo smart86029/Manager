@@ -75,7 +75,7 @@ namespace MatchaLatte.Ordering.Queries
             var sql = $@"
 				SELECT [s].[StoreId], [s].[Name], [s].[Description], [s].[PhoneNumber],
 					[s].[PostalCode], [s].[Country], [s].[City], [s].[District], [s].[Street], [s].[Remark],
-					[y].[ProductCategoryId], [y].[CategoryName],
+					[y].[ProductCategoryId], [y].[CategoryName], [y].[IsDefault], [y].[Sequence],
 					[y].[ProductId], [y].[ProductName], [y].[ProductDescription],
 					[y].[ProductItemId], [y].[ItemName], [y].[Price]
 				FROM (
@@ -84,7 +84,7 @@ namespace MatchaLatte.Ordering.Queries
                     WHERE [StoreId] = @StoreId
                 ) AS [s]
 				LEFT JOIN (
-                    SELECT [c].[ProductCategoryId], [c].[Name] AS [CategoryName], [c].[Sequence], [c].[StoreId],
+                    SELECT [c].[ProductCategoryId], [c].[Name] AS [CategoryName], [c].[IsDefault], [c].[Sequence], [c].[StoreId],
                         [x].[ProductId], [x].[ProductName], [x].[ProductDescription],
 						[x].[ProductItemId], [x].[ItemName], [x].[Price]
                     FROM [Ordering].[ProductCategory] AS [c]

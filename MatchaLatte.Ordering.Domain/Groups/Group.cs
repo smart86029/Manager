@@ -14,7 +14,7 @@ namespace MatchaLatte.Ordering.Domain.Groups
         /// 取得或設定主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        public int GroupId { get; set; }
+        public Guid GroupId { get; set; }
 
         /// <summary>
         /// 取得或設定開始時間。
@@ -38,7 +38,7 @@ namespace MatchaLatte.Ordering.Domain.Groups
         /// 取得或設定新增者 ID。
         /// </summary>
         /// <value>新增者 ID。</value>
-        public int CreatedBy { get; set; }
+        public Guid CreatedBy { get; set; }
 
         /// <summary>
         /// 取得或設定新增時間。
