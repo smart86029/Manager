@@ -35,7 +35,7 @@ namespace MatchaLatte.Ordering.Api
         {
             var connectionString = Configuration.GetConnectionString("Ordering");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<OrderingContext>(options =>
             {
                 options.UseSqlServer(connectionString);

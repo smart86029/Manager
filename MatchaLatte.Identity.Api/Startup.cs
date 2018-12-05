@@ -36,7 +36,7 @@ namespace MatchaLatte.Identity.Api
         {
             var connectionString = Configuration.GetConnectionString("Identity");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
             services.AddDbContext<IdentityContext>(options =>
             {
