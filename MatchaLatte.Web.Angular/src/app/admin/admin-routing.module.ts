@@ -15,7 +15,8 @@ const routes: Routes = [
       { path: 'users', loadChildren: '../user/user.module#UserModule' },
       { path: 'roles', loadChildren: '../role/role.module#RoleModule' },
       { path: 'permissions', loadChildren: '../permission/permission.module#PermissionModule' },
-      { path: 'stores', loadChildren: '../store/store.module#StoreModule' }
+      { path: 'stores', loadChildren: '../store/store.module#StoreModule' },
+      { path: 'groups', loadChildren: '../group/group.module#GroupModule' }
     ]
   }
 ];

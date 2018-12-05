@@ -13,7 +13,8 @@ const menus: Menu[] = [
   },
   {
     name: '團購管理', icon: 'shopping_basket', url: '', children: [
-      { name: '店家管理', icon: '', url: '/stores', children: null }
+      { name: '店家管理', icon: '', url: '/stores', children: null },
+      { name: '團管理', icon: '', url: '/groups', children: null }
     ]
   }
 ];
