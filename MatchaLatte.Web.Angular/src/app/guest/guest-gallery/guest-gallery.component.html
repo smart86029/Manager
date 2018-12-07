@@ -1,0 +1,21 @@
+<div class="grid-container">
+  <h1 class="mat-h1">選擇店家</h1>
+  <div fxLayout="row" fxLayoutGap="15px">
+    <mat-card class="store-card" *ngFor="let store of stores" fxFlex="20" (click)="createGroup(store)">
+      <mat-card-header>
+        <mat-card-title>
+          {{store.name}}
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="{{store.name}}">
+      <mat-card-content class="store-card-content">
+        <div>
+          Card Content Here
+        </div>
+      </mat-card-content>
+      <div class="store-card-overlay">
+        <mat-icon inline>add_circle_outline</mat-icon>
+      </div>
+    </mat-card>
+  </div>
+</div>
