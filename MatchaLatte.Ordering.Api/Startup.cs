@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.Ordering.Api.AutofacModules;
 using MatchaLatte.Ordering.Data;
+using MatchaLatte.Ordering.Queries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,7 @@ namespace MatchaLatte.Ordering.Api
             var connectionString = Configuration.GetConnectionString("Ordering");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.Configure<PictureSettings>(Configuration.GetSection("Picture"));
             services.AddDbContext<OrderingContext>(options =>
             {
                 options.UseSqlServer(connectionString);
@@ -58,6 +60,7 @@ namespace MatchaLatte.Ordering.Api
             containerBuilder.RegisterModule(new CommandsModule());
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new QueriesModule(connectionString));
+            containerBuilder.Register(c => c.Resolve<IOptions<PictureSettings>>().Value);
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();

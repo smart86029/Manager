@@ -223,6 +223,25 @@ namespace MatchaLatte.Ordering.Data.Migrations
                                 .HasForeignKey("MatchaLatte.Ordering.Domain.Phone", "StoreId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
+
+                    b.OwnsOne("MatchaLatte.Ordering.Domain.Picture", "Logo", b1 =>
+                        {
+                            b1.Property<Guid>("StoreId");
+
+                            b1.Property<string>("FileName")
+                                .IsRequired()
+                                .HasColumnName("LogoFileName")
+                                .HasMaxLength(256);
+
+                            b1.HasKey("StoreId");
+
+                            b1.ToTable("Store","Ordering");
+
+                            b1.HasOne("MatchaLatte.Ordering.Domain.Stores.Store")
+                                .WithOne("Logo")
+                                .HasForeignKey("MatchaLatte.Ordering.Domain.Picture", "StoreId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 #pragma warning restore 612, 618
         }

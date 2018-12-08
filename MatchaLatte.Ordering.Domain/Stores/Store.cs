@@ -28,8 +28,8 @@ namespace MatchaLatte.Ordering.Domain.Stores
         /// <param name="address">地址。</param>
         /// <param name="remark">備註。</param>
         /// <param name="createdBy">新增者 ID。</param>
-        public Store(string name, string description, Phone phone, Address address, string remark, Guid createdBy)
-            : this(GuidUtility.NewGuid(), name, description, phone, address, remark, createdBy)
+        public Store(string name, string description, Picture logo, Phone phone, Address address, string remark, Guid createdBy)
+            : this(GuidUtility.NewGuid(), name, description, logo, phone, address, remark, createdBy)
         {
         }
 
@@ -43,11 +43,12 @@ namespace MatchaLatte.Ordering.Domain.Stores
         /// <param name="address">地址。</param>
         /// <param name="remark">備註。</param>
         /// <param name="createdBy">新增者 ID。</param>
-        public Store(Guid storeId, string name, string description, Phone phone, Address address, string remark, Guid createdBy)
+        public Store(Guid storeId, string name, string description, Picture logo, Phone phone, Address address, string remark, Guid createdBy)
         {
             StoreId = storeId;
             Name = name;
             Description = description;
+            Logo = logo;
             Phone = phone;
             Address = address;
             Remark = remark;
@@ -73,6 +74,12 @@ namespace MatchaLatte.Ordering.Domain.Stores
         /// </summary>
         /// <value>描述。</value>
         public string Description { get; private set; }
+
+        /// <summary>
+        /// 取得商標。
+        /// </summary>
+        /// <value>商標。</value>
+        public Picture Logo { get; private set; }
 
         /// <summary>
         /// 取得電話。

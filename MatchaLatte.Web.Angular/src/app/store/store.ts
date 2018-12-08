@@ -6,6 +6,7 @@ export class Store {
   storeId: Guid;
   name: string;
   description: string;
+  logoUri: string;
   phone: string;
   address = new Address();
   remark: string;

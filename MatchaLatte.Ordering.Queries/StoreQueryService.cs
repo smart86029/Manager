@@ -15,15 +15,18 @@ namespace MatchaLatte.Ordering.Queries
     /// </summary>
     public class StoreQueryService : IStoreQueryService
     {
-        private string connectionString;
+        private readonly string connectionString;
+        private readonly PictureSettings pictureSettings;
 
         /// <summary>
         /// 初始化 <see cref="StoreQueryService"/> 類別的新執行個體。
         /// </summary>
         /// <param name="connectionString">連接字串。</param>
-        public StoreQueryService(string connectionString)
+        /// <param name="pictureSettings">圖片設定。</param>
+        public StoreQueryService(string connectionString, PictureSettings pictureSettings)
         {
             this.connectionString = !string.IsNullOrWhiteSpace(connectionString) ? connectionString : throw new ArgumentNullException(nameof(connectionString));
+            this.pictureSettings = pictureSettings ?? throw new ArgumentNullException(nameof(pictureSettings));
             SqlMapper.SetTypeMap(typeof(ProductCategoryDetail), new TypeMap<ProductCategoryDetail>());
             SqlMapper.SetTypeMap(typeof(ProductDetail), new TypeMap<ProductDetail>());
             SqlMapper.SetTypeMap(typeof(ProductItemDetail), new TypeMap<ProductItemDetail>());
@@ -37,7 +40,7 @@ namespace MatchaLatte.Ordering.Queries
         public async Task<PaginationResult<StoreSummary>> GetStoresAsync(PaginationOption option)
         {
             var sql = $@"
-                SELECT [StoreId], [Name], [CreatedOn]
+                SELECT [StoreId], [Name], [CreatedOn], @BaseUri + CAST([StoreId] AS NVARCHAR(36)) + '/logo' AS [LogoUri]
                 FROM [Ordering].[Store]
                 ORDER BY [StoreId]
                 OFFSET @Offset ROWS
@@ -47,7 +50,8 @@ namespace MatchaLatte.Ordering.Queries
             var param = new
             {
                 option.Offset,
-                option.Limit
+                option.Limit,
+                pictureSettings.BaseUri
             };
 
             using (var connection = new SqlConnection(connectionString))
@@ -163,6 +167,25 @@ namespace MatchaLatte.Ordering.Queries
             };
 
             return Task.FromResult(result);
+        }
+
+        /// <summary>
+        /// 取得商標名檔案稱。
+        /// </summary>
+        /// <param name="storeId">店家 ID。</param>
+        /// <returns>商標檔案名稱。</returns>
+        public async Task<string> GetLogoFileNameAsync(Guid storeId)
+        {
+            var sql = "SELECT [LogoFileName] FROM [Ordering].[Store] WHERE [StoreId] = @StoreId";
+            var param = new { StoreId = storeId };
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var result = await connection.QuerySingleAsync<string>(sql, param);
+
+                return result;
+            }
         }
     }
 }

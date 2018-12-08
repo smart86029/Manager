@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Ordering.Data.Migrations
 {
     [DbContext(typeof(OrderingContext))]
-    [Migration("20181205034322_AddGroup")]
-    partial class AddGroup
+    [Migration("20181208093351_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,6 +223,25 @@ namespace MatchaLatte.Ordering.Data.Migrations
                             b1.HasOne("MatchaLatte.Ordering.Domain.Stores.Store")
                                 .WithOne("Phone")
                                 .HasForeignKey("MatchaLatte.Ordering.Domain.Phone", "StoreId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MatchaLatte.Ordering.Domain.Picture", "Logo", b1 =>
+                        {
+                            b1.Property<Guid>("StoreId");
+
+                            b1.Property<string>("FileName")
+                                .IsRequired()
+                                .HasColumnName("LogoFileName")
+                                .HasMaxLength(256);
+
+                            b1.HasKey("StoreId");
+
+                            b1.ToTable("Store","Ordering");
+
+                            b1.HasOne("MatchaLatte.Ordering.Domain.Stores.Store")
+                                .WithOne("Logo")
+                                .HasForeignKey("MatchaLatte.Ordering.Domain.Picture", "StoreId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

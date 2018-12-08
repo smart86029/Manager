@@ -11,6 +11,24 @@ namespace MatchaLatte.Ordering.Data.Migrations
                 name: "Ordering");
 
             migrationBuilder.CreateTable(
+                name: "Group",
+                schema: "Ordering",
+                columns: table => new
+                {
+                    GroupId = table.Column<Guid>(nullable: false),
+                    StoreId = table.Column<Guid>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    Remark = table.Column<string>(maxLength: 512, nullable: true),
+                    CreatedBy = table.Column<Guid>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Group", x => x.GroupId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Store",
                 schema: "Ordering",
                 columns: table => new
@@ -18,6 +36,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
                     StoreId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     Description = table.Column<string>(maxLength: 512, nullable: true),
+                    LogoFileName = table.Column<string>(maxLength: 256, nullable: false),
                     PhoneType = table.Column<int>(nullable: false),
                     CountryCode = table.Column<string>(maxLength: 4, nullable: false),
                     PhoneNumber = table.Column<string>(maxLength: 32, nullable: false),
@@ -124,6 +143,10 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Group",
+                schema: "Ordering");
+
             migrationBuilder.DropTable(
                 name: "ProductItem",
                 schema: "Ordering");

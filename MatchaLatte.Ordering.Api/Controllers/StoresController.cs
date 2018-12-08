@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
 using MatchaLatte.Ordering.App.Commands.Stores;
@@ -70,6 +71,24 @@ namespace MatchaLatte.Ordering.Api.Controllers
             var store = await storeQueryService.GetNewStoreAsync();
 
             return Ok(store);
+        }
+
+        /// <summary>
+        /// 取得商標。
+        /// </summary>
+        /// <param name="id">店家 ID。</param>
+        /// <returns>商標。</returns>
+        [AllowAnonymous]
+        [HttpGet("{id}/logo")]      
+        public async Task<IActionResult> GetLogoAsync(Guid id)
+        {
+            var fileName = await storeQueryService.GetLogoFileNameAsync(id);
+            if (string.IsNullOrWhiteSpace(fileName))
+                return NotFound();
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Pictures", fileName);
+
+            return PhysicalFile(path, "image/png");
         }
 
         /// <summary>

@@ -29,5 +29,12 @@ namespace MatchaLatte.Ordering.App.Services
         /// </summary>
         /// <returns>新店家。</returns>
         Task<StoreDetail> GetNewStoreAsync();
+
+        /// <summary>
+        /// 取得商標檔案名稱。
+        /// </summary>
+        /// <param name="storeId">店家 ID。</param>
+        /// <returns>商標檔案名稱。</returns>
+        Task<string> GetLogoFileNameAsync(Guid storeId);
     }
 }

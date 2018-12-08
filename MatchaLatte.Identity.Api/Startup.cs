@@ -59,7 +59,7 @@ namespace MatchaLatte.Identity.Api
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new ServicesModule());
-            containerBuilder.Register(ctx => ctx.Resolve<IOptions<JwtSettings>>().Value);
+            containerBuilder.Register(c => c.Resolve<IOptions<JwtSettings>>().Value);
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();

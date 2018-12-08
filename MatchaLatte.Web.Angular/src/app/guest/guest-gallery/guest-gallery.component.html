@@ -7,14 +7,14 @@
           {{store.name}}
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="{{store.name}}">
+      <img mat-card-image src="{{store.logoUri}}" alt="{{store.name}}">
       <mat-card-content class="store-card-content">
         <div>
           Card Content Here
         </div>
       </mat-card-content>
       <div class="store-card-overlay">
-        <mat-icon inline>add_circle_outline</mat-icon>
+        <mat-icon class="no-select" inline>add_circle_outline</mat-icon>
       </div>
     </mat-card>
   </div>

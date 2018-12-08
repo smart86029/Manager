@@ -17,6 +17,10 @@ namespace MatchaLatte.Ordering.Data.Configurations
                 .HasMaxLength(32);
             builder.Property(s => s.Description)
                 .HasMaxLength(512);
+            builder.OwnsOne(s => s.Logo, x =>
+            {
+                x.Property(p => p.FileName).HasColumnName("LogoFileName").IsRequired().HasMaxLength(256);
+            });
             builder.OwnsOne(s => s.Phone, x =>
             {
                 x.Property(p => p.PhoneType).HasColumnName("PhoneType");

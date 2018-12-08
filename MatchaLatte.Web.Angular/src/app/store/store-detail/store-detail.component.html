@@ -85,7 +85,7 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>確認</ng-template>
-            點擊 [修改] 送出
+            點擊 [{{saveMode | actionName}}] 送出
             <div>
               <button mat-button matStepperPrevious>上一步</button>
               <button mat-button color="primary" (click)="save()">{{saveMode | actionName}}</button>
