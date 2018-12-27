@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyNetQ" Version="3.3.6" />
     <PackageReference Include="RT.Comb" Version="2.3.0" />
   </ItemGroup>
 

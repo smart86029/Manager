@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MatchaLatte.Common.Events;
 using MatchaLatte.Ordering.Domain;
 
 namespace MatchaLatte.Ordering.Data
@@ -9,15 +10,17 @@ namespace MatchaLatte.Ordering.Data
     /// </summary>
     internal class OrderingUnitOfWork : IOrderingUnitOfWork
     {
-        private OrderingContext context;
+        private readonly OrderingContext context;
+        private readonly IEventBus eventBus;
 
         /// <summary>
         /// 初始化 <see cref="OrderingUnitOfWork"/> 類別的新執行個體。
         /// </summary>
         /// <param name="context">訂購內容。</param>
-        public OrderingUnitOfWork(OrderingContext context)
+        public OrderingUnitOfWork(OrderingContext context, IEventBus eventBus)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.eventBus = eventBus?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         /// <summary>
@@ -27,6 +30,7 @@ namespace MatchaLatte.Ordering.Data
         public async Task<bool> CommitAsync()
         {
             await context.SaveChangesAsync();
+            await eventBus.PublishAsync(new Event());
 
             return true;
         }
