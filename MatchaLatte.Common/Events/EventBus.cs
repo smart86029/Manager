@@ -41,7 +41,10 @@ namespace MatchaLatte.Common.Events
             where TEvent : Event
             where TEventHandler : IEventHandler<TEvent>
         {
-            throw new NotImplementedException();
+            using (var bus = RabbitHutch.CreateBus(connectionString))
+            {
+                bus.Subscribe<TEvent>("test", e => Console.WriteLine("A"));
+            }
         }
     }
 }

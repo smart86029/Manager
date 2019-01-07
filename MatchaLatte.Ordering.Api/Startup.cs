@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MatchaLatte.Common.Events;
 using MatchaLatte.Ordering.Api.AutofacModules;
 using MatchaLatte.Ordering.Data;
 using MatchaLatte.Ordering.Queries;
@@ -57,10 +58,11 @@ namespace MatchaLatte.Ordering.Api
             });
 
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new AppModule());
             containerBuilder.RegisterModule(new CommandsModule());
+            containerBuilder.RegisterModule(new CommonModule("host=localhost"));
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new QueriesModule(connectionString));
-            containerBuilder.RegisterModule(new CommonModule("host=localhost"));
             containerBuilder.Register(c => c.Resolve<IOptions<PictureSettings>>().Value);
             containerBuilder.Populate(services);
 
@@ -84,6 +86,14 @@ namespace MatchaLatte.Ordering.Api
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
+            ConfigureEventBus(app);
+        }
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            eventBus.Subscribe<Event, IEventHandler<Event>>();
         }
     }
 }
