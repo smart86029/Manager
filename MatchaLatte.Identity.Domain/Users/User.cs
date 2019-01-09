@@ -92,7 +92,8 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="password">密碼。</param>
         public void UpdatePassword(string password)
         {
-            PasswordHash = CryptographyUtility.Hash(password);
+            if (!string.IsNullOrWhiteSpace(password))
+                PasswordHash = CryptographyUtility.Hash(password);
         }
 
         /// <summary>
@@ -109,6 +110,7 @@ namespace MatchaLatte.Identity.Domain.Users
         public void Disable()
         {
             IsEnabled = false;
+            RaiseDomainEvent(new UserDisabled(UserId));
         }
 
         /// <summary>

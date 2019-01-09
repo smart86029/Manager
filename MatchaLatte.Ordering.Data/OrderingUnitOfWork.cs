@@ -17,6 +17,7 @@ namespace MatchaLatte.Ordering.Data
         /// 初始化 <see cref="OrderingUnitOfWork"/> 類別的新執行個體。
         /// </summary>
         /// <param name="context">訂購內容。</param>
+        /// <param name="eventBus">事件匯流排。</param>
         public OrderingUnitOfWork(OrderingContext context, IEventBus eventBus)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
@@ -30,7 +31,6 @@ namespace MatchaLatte.Ordering.Data
         public async Task<bool> CommitAsync()
         {
             await context.SaveChangesAsync();
-            await eventBus.PublishAsync(new Event());
 
             return true;
         }

@@ -57,6 +57,7 @@ namespace MatchaLatte.Identity.Api
             });
 
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new CommonModule("host=localhost"));
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new ServicesModule());
             containerBuilder.Register(c => c.Resolve<IOptions<JwtSettings>>().Value);

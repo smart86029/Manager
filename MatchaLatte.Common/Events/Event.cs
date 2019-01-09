@@ -5,7 +5,7 @@ namespace MatchaLatte.Common.Events
     /// <summary>
     /// 事件。
     /// </summary>
-    public class Event
+    public abstract class Event
     {
         public Event() : this(Guid.NewGuid(), DateTime.UtcNow)
         {
