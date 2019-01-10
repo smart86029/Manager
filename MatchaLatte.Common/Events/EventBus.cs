@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using EasyNetQ;
 using EasyNetQ.Topology;
-using EasyNetQ.FluentConfiguration;
+using MatchaLatte.Common.Utilities;
+
 namespace MatchaLatte.Common.Events
 {
     /// <summary>
@@ -30,11 +31,14 @@ namespace MatchaLatte.Common.Events
         /// <param name="e">事件。</param>
         public async Task PublishAsync(Event @event)
         {
-            using (var bus = RabbitHutch.CreateBus(connectionString))
+            using (var advancedBus = RabbitHutch.CreateBus(connectionString).Advanced)
             {
-                var advancedBus = bus.Advanced;
-                var exchange = advancedBus.ExchangeDeclare("MatchaLatte", ExchangeType.Fanout);
-                await advancedBus.PublishAsync(exchange, string.Empty, false, new Message<Event>(@event));
+                var exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Direct);
+                var queue = advancedBus.QueueDeclare("event");
+                var routingKey = "test";
+                var binding = advancedBus.Bind(exchange, queue, routingKey, null);
+
+                await advancedBus.PublishAsync(exchange, routingKey, false, new Message<string>(JsonUtility.Serialize(@event)));
             }
         }
 
@@ -47,15 +51,14 @@ namespace MatchaLatte.Common.Events
             where TEvent : Event
             where TEventHandler : IEventHandler<TEvent>
         {
+            var advancedBus = RabbitHutch.CreateBus(connectionString).Advanced;
+            var exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Direct);
+            var queue = advancedBus.QueueDeclare("event");
+            var routingKey = "test";
+            var binding = advancedBus.Bind(exchange, queue, routingKey, null);
             var handler = serviceProvider.GetService(typeof(TEventHandler)) as IEventHandler<TEvent>;
 
-            var bus = RabbitHutch.CreateBus(connectionString);
-            var advancedBus = bus.Advanced;
-            var exchange = advancedBus.ExchangeDeclare("MatchaLatte", ExchangeType.Fanout);
-            var queue = advancedBus.QueueDeclare();
-            advancedBus.Bind(exchange, queue, string.Empty);
-            //advancedBus.Consume(queue, new Action<EasyNetQ.Consumer.IConsumerConfiguration>()
-            //bus.SubscribeAsync<TEvent>(string.Empty, async @event => await handler.HandleAsync(@event), config => config.WithTopic(""));
+            advancedBus.Consume(queue, (IMessage<string> message, MessageReceivedInfo info) => handler.HandleAsync(JsonUtility.Deserialize<TEvent>(message.Body)));
         }
     }
 }

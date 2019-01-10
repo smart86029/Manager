@@ -61,7 +61,7 @@ namespace MatchaLatte.Ordering.Api
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new AppModule());
             containerBuilder.RegisterModule(new CommandsModule());
-            containerBuilder.RegisterModule(new CommonModule("host=localhost"));
+            containerBuilder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new QueriesModule(connectionString));
             containerBuilder.Register(c => c.Resolve<IOptions<PictureSettings>>().Value);

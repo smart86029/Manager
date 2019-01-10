@@ -102,6 +102,7 @@ namespace MatchaLatte.Identity.Domain.Users
         public void Enable()
         {
             IsEnabled = true;
+            RaiseDomainEvent(new UserDisabled(UserId));
         }
 
         /// <summary>
