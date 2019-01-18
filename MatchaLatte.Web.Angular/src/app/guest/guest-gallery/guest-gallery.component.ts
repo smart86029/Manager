@@ -17,10 +17,6 @@ export class GuestGalleryComponent implements OnInit {
     this.getStores();
   }
 
-  private createGroup(store: Store) {
-    console.log(store.name);
-  }
-
   private getStores(): void {
     this.isLoading = true;
     this.storeService.getStores(0, 100).subscribe({

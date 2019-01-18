@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Guid } from '../shared/guid';
@@ -33,7 +33,7 @@ export class GroupService {
   }
 
   getNewGroup(): Observable<Group> {
-    return this.httpClient.get<Group>(`${this.groupsUrl}/new`);
+    return of(new Group());
   }
 
   createGroup(group: Group): Observable<Group> {

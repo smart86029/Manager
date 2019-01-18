@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Theme } from 'src/app/shared/theme.enum';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-guest-index',
@@ -8,9 +9,12 @@ import { Theme } from 'src/app/shared/theme.enum';
 })
 export class GuestIndexComponent implements OnInit {
   selectedTheme = Theme.Strawberry;
-  constructor() { }
+  constructor(
+    private overlayContainer: OverlayContainer
+  ) { }
 
   ngOnInit() {
+    this.overlayContainer.getContainerElement().classList.add(this.selectedTheme);
   }
 
 }

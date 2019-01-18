@@ -1,7 +1,7 @@
 <div class="grid-container">
   <h1 class="mat-h1">選擇店家</h1>
   <div fxLayout="row" fxLayoutGap="15px">
-    <mat-card class="store-card" *ngFor="let store of stores" fxFlex="20" (click)="createGroup(store)">
+    <mat-card class="store-card" *ngFor="let store of stores" fxFlex="20">
       <mat-card-header>
         <mat-card-title>
           {{store.name}}
@@ -13,9 +13,9 @@
           Card Content Here
         </div>
       </mat-card-content>
-      <div class="store-card-overlay">
+      <a class="store-card-overlay" routerLink="/groups/new" [queryParams]="{storeId: store.storeId}">
         <mat-icon class="no-select" inline>add_circle_outline</mat-icon>
-      </div>
+      </a>
     </mat-card>
   </div>
 </div>

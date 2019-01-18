@@ -27,8 +27,10 @@ import {
   MatToolbarModule,
   MatTreeModule,
 } from '@angular/material';
+import { MatDatepickerModule, MatMomentDateModule, MAT_DATE_FORMATS } from '@coachcare/datepicker';
 
 import { AppPaginatorIntl } from './app-paginator-intl';
+import { APP_DATE_FORMATS } from './app-date-formats';
 
 @NgModule({
   exports: [
@@ -39,6 +41,7 @@ import { AppPaginatorIntl } from './app-paginator-intl';
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
@@ -46,6 +49,7 @@ import { AppPaginatorIntl } from './app-paginator-intl';
     MatInputModule,
     MatListModule,
     MatMenuModule,
+    MatMomentDateModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -59,7 +63,8 @@ import { AppPaginatorIntl } from './app-paginator-intl';
     MatTreeModule,
   ],
   providers: [
-    { provide: MatPaginatorIntl, useClass: AppPaginatorIntl }
+    { provide: MatPaginatorIntl, useClass: AppPaginatorIntl },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
   ],
 })
 export class MaterialModule { }
