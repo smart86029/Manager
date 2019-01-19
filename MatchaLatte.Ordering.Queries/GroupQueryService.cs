@@ -74,10 +74,29 @@ namespace MatchaLatte.Ordering.Queries
         /// <summary>
         /// 取得新團。
         /// </summary>
+        /// <param name="storeId">店家 ID。</param>
         /// <returns>新團。</returns>
-        public Task<GroupDetail> GetNewGroupAsync()
+        public async Task<GroupDetail> GetNewGroupAsync(Guid storeId)
         {
-            throw new NotImplementedException();
+            var sql = $@"
+                SELECT [StoreId], [Name]
+                FROM [Ordering].[Store]
+                WHERE [StoreId] = @StoreId";
+            var param = new { StoreId = storeId };
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var store = await connection.QuerySingleAsync<StoreDetail>(sql, param);
+                var result = new GroupDetail
+                {
+                    StartTime = DateTime.Now,
+                    EndTime = DateTime.Now.AddDays(1),
+                    Store = store
+                };
+
+                return result;
+            }
         }
     }
 }

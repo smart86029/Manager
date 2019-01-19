@@ -32,7 +32,8 @@ export class GroupDetailComponent implements OnInit {
         complete: () => this.isLoading = false
       });
     } else {
-      this.groupService.getNewGroup().subscribe({
+      const storeId = this.route.snapshot.queryParamMap.get('storeId');
+      this.groupService.getNewGroup(new Guid(storeId)).subscribe({
         next: group => this.group = group,
         complete: () => this.isLoading = false
       });

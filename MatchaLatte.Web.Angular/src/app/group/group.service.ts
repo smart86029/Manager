@@ -32,8 +32,11 @@ export class GroupService {
     return this.httpClient.get<Group>(`${this.groupsUrl}/${id}`);
   }
 
-  getNewGroup(): Observable<Group> {
-    return of(new Group());
+  getNewGroup(storeId: Guid): Observable<Group> {
+    const params = new HttpParams()
+      .set('storeId', storeId.toString());
+
+    return this.httpClient.get<Group>(`${this.groupsUrl}/new`, { params: params });
   }
 
   createGroup(group: Group): Observable<Group> {

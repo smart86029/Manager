@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.Common.Events;
+using MatchaLatte.Common.Exceptions;
 using MatchaLatte.Ordering.Api.AutofacModules;
 using MatchaLatte.Ordering.App.Events;
 using MatchaLatte.Ordering.Data;
 using MatchaLatte.Ordering.Queries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -84,6 +83,23 @@ namespace MatchaLatte.Ordering.Api
                 app.UseHsts();
             }
 
+            app.UseExceptionHandler(new ExceptionHandlerOptions
+            {
+                ExceptionHandler = async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "application/json";
+
+                    var ex = context.Features.Get<IExceptionHandlerFeature>();
+                    if (ex != null)
+                    {
+                        if (ex.Error is InvalidException)
+                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        var json = $@"{{ ""Message"": ""{ex.Error.ToString()}"" }}";
+                        await context.Response.WriteAsync(json).ConfigureAwait(false);
+                    }
+                }
+            });
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();

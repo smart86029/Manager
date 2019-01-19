@@ -65,9 +65,9 @@ namespace MatchaLatte.Ordering.Api.Controllers
         /// </summary>
         /// <returns>新團。</returns>
         [HttpGet("new")]
-        public async Task<IActionResult> GetNewAsync()
+        public async Task<IActionResult> GetNewAsync(Guid storeId)
         {
-            var group = await groupQueryService.GetNewGroupAsync();
+            var group = await groupQueryService.GetNewGroupAsync(storeId);
 
             return Ok(group);
         }

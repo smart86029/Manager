@@ -27,7 +27,8 @@ namespace MatchaLatte.Ordering.App.Services
         /// <summary>
         /// 取得新團。
         /// </summary>
+        /// <param name="storeId">店家 ID。</param>
         /// <returns>新團。</returns>
-        Task<GroupDetail> GetNewGroupAsync();
+        Task<GroupDetail> GetNewGroupAsync(Guid storeId);
     }
 }
