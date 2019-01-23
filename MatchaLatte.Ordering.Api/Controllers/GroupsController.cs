@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
+using MatchaLatte.Ordering.Api.Models;
 using MatchaLatte.Ordering.App.Commands.Groups;
 using MatchaLatte.Ordering.App.Queries;
 using MatchaLatte.Ordering.App.Services;
@@ -17,16 +18,19 @@ namespace MatchaLatte.Ordering.Api.Controllers
     [ApiController]
     public class GroupsController : ControllerBase
     {
+        private readonly CurrentUser currentUser;
         private readonly ICommandService commandService;
         private readonly IGroupQueryService groupQueryService;
 
         /// <summary>
         /// 初始化 <see cref="GroupsController"/> 類別的新執行個體。
         /// </summary>
+        /// <param name="currentUser">當前使用者。</param>
         /// <param name="commandService">命令服務。</param>
-        /// <param name="userQueryService">使用者查詢服務。</param>
-        public GroupsController(ICommandService commandService, IGroupQueryService groupQueryService)
+        /// <param name="groupQueryService">團查詢服務。</param>
+        public GroupsController(CurrentUser currentUser, ICommandService commandService, IGroupQueryService groupQueryService)
         {
+            this.currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
             this.commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             this.groupQueryService = groupQueryService ?? throw new ArgumentNullException(nameof(groupQueryService));
         }
@@ -80,6 +84,7 @@ namespace MatchaLatte.Ordering.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateGroupCommand command)
         {
+            command.CreatedBy = currentUser.UserId;
             var group = await commandService.ExecuteAsync(command);
 
             return CreatedAtAction(nameof(GetAsync), new { id = group.GroupId }, group);

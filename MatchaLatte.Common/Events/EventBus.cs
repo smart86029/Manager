@@ -28,7 +28,7 @@ namespace MatchaLatte.Common.Events
         /// <summary>
         /// 發布。
         /// </summary>
-        /// <param name="e">事件。</param>
+        /// <param name="@event">事件。</param>
         public async Task PublishAsync(Event @event)
         {
             using (var advancedBus = RabbitHutch.CreateBus(connectionString).Advanced)

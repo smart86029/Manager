@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Utilities;
@@ -46,9 +48,15 @@ namespace MatchaLatte.Identity.Services
             if (user == default(User))
                 return default(TokenDetail);
 
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var securityToken = new JwtSecurityToken(jwtSettings.Issuer,
                 jwtSettings.Audience,
+                claims,
                 expires: DateTime.Now.AddMinutes(ExpireMinutes),
                 signingCredentials: credentials);
             var handler = new JwtSecurityTokenHandler();

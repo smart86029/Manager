@@ -45,7 +45,7 @@ namespace MatchaLatte.Ordering.Commands.Groups
             if (store == default(Store))
                 throw new InvalidException();
 
-            var group = new Group(command.Store.StoreId, command.StartTime, command.EndTime, command.Remark, new Guid());
+            var group = new Group(command.Store.StoreId, command.StartTime, command.EndTime, command.Remark, command.CreatedBy);
 
             groupRepository.Add(group);
             await unitOfWork.CommitAsync();

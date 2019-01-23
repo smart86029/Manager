@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
 using Autofac;
@@ -6,6 +7,7 @@ using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.Common.Events;
 using MatchaLatte.Common.Exceptions;
 using MatchaLatte.Ordering.Api.AutofacModules;
+using MatchaLatte.Ordering.Api.Models;
 using MatchaLatte.Ordering.App.Events;
 using MatchaLatte.Ordering.Data;
 using MatchaLatte.Ordering.Queries;
@@ -37,6 +39,7 @@ namespace MatchaLatte.Ordering.Api
         {
             var connectionString = Configuration.GetConnectionString("Ordering");
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<PictureSettings>(Configuration.GetSection("Picture"));
             services.AddDbContext<OrderingContext>(options =>
@@ -56,6 +59,8 @@ namespace MatchaLatte.Ordering.Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<CurrentUser, CurrentUser>();
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new AppModule());

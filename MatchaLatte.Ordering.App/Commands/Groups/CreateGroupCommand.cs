@@ -9,6 +9,7 @@ namespace MatchaLatte.Ordering.App.Commands.Groups
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Remark { get; set; }
+        public Guid CreatedBy { get; set; }
         public StoreDto Store { get; set; }
     }
 }
