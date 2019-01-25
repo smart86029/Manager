@@ -18,8 +18,7 @@ export class GroupService {
   getGroups(pageIndex: number, pageSize: number): Observable<PaginationResult<Group>> {
     const params = new HttpParams()
       .set('offset', (pageIndex * pageSize).toString())
-      .set('limit', pageSize.toString())
-      .set('searchType', '1');
+      .set('limit', pageSize.toString());
 
     return this.httpClient.get<Group[]>(this.groupsUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
