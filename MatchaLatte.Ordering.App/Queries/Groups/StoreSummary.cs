@@ -7,5 +7,6 @@ namespace MatchaLatte.Ordering.App.Queries.Groups
     public class StoreSummary
     {
         public string Name { get; set; }
+        public string LogoUri { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace MatchaLatte.Ordering.App.Services
         /// </summary>
         /// <param name="option">分頁查詢。</param>
         /// <returns>所有團。</returns>
-        Task<PaginationResult<GroupSummary>> GetGroupsAsync(PaginationOption option);
+        Task<PaginationResult<GroupSummary>> GetGroupsAsync(GroupOption option);
 
         /// <summary>
         /// 取得團。

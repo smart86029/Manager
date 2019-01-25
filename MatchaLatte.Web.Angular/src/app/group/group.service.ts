@@ -18,7 +18,8 @@ export class GroupService {
   getGroups(pageIndex: number, pageSize: number): Observable<PaginationResult<Group>> {
     const params = new HttpParams()
       .set('offset', (pageIndex * pageSize).toString())
-      .set('limit', pageSize.toString());
+      .set('limit', pageSize.toString())
+      .set('searchType', '1');
 
     return this.httpClient.get<Group[]>(this.groupsUrl, { params: params, observe: 'response' }).pipe(
       map(response => {
@@ -26,6 +27,15 @@ export class GroupService {
         return new PaginationResult<Group>(pageIndex, pageSize, itemCount, response.body);
       })
     );
+  }
+
+  getActiveGroups(): Observable<Group[]> {
+    const params = new HttpParams()
+      .set('offset', '0')
+      .set('limit', '10')
+      .set('searchType', '1');
+
+    return this.httpClient.get<Group[]>(this.groupsUrl, { params: params });
   }
 
   getGroup(id: Guid): Observable<Group> {

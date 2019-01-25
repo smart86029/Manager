@@ -13,15 +13,18 @@ namespace MatchaLatte.Ordering.Queries
     /// </summary>
     public class GroupQueryService : IGroupQueryService
     {
-        private string connectionString;
+        private readonly string connectionString;
+        private readonly PictureSettings pictureSettings;
 
         /// <summary>
         /// 初始化 <see cref="GroupQueryService"/> 類別的新執行個體。
         /// </summary>
         /// <param name="connectionString">連接字串。</param>
-        public GroupQueryService(string connectionString)
+        /// <param name="pictureSettings">圖片設定。</param>
+        public GroupQueryService(string connectionString, PictureSettings pictureSettings)
         {
             this.connectionString = !string.IsNullOrWhiteSpace(connectionString) ? connectionString : throw new ArgumentNullException(nameof(connectionString));
+            this.pictureSettings = pictureSettings ?? throw new ArgumentNullException(nameof(pictureSettings));
         }
 
         /// <summary>
@@ -29,12 +32,15 @@ namespace MatchaLatte.Ordering.Queries
         /// </summary>
         /// <param name="option">分頁查詢。</param>
         /// <returns>所有團。</returns>
-        public async Task<PaginationResult<GroupSummary>> GetGroupsAsync(PaginationOption option)
+        public async Task<PaginationResult<GroupSummary>> GetGroupsAsync(GroupOption option)
         {
+            var whereCondition = option.SearchType == GroupSearchType.Active ? "WHERE [g].[StartTime] < GETDATE() AND [g].[EndTime] > GETDATE()" : string.Empty;
             var sql = $@"
-                SELECT [g].[GroupId], [g].[StartTime], [g].[EndTime], [g].[CreatedOn], [s].[Name]
+                SELECT [g].[GroupId], [g].[StartTime], [g].[EndTime], [g].[CreatedOn],
+                    [s].[Name], @BaseUri + CAST([s].[StoreId] AS NVARCHAR(36)) + '/logo' AS [LogoUri]
                 FROM [Ordering].[Group] AS [g]
                 INNER JOIN [Ordering].[Store] AS [s] ON [g].[StoreId] = [s].[StoreId]
+                {whereCondition}
                 ORDER BY [g].[GroupId]
                 OFFSET @Offset ROWS
                 FETCH NEXT @Limit ROWS ONLY";
@@ -43,13 +49,19 @@ namespace MatchaLatte.Ordering.Queries
             var param = new
             {
                 option.Offset,
-                option.Limit
+                option.Limit,
+                pictureSettings.BaseUri
             };
 
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var groups = await connection.QueryAsync<GroupSummary>(sql, param);
+                var groups = await connection.QueryAsync(sql, (GroupSummary g, StoreSummary s) =>
+                {
+                    g.Store = s;
+
+                    return g;
+                }, param, splitOn: "Name");
                 var count = await connection.QuerySingleAsync<int>(sqlCount);
                 var result = new PaginationResult<GroupSummary>
                 {

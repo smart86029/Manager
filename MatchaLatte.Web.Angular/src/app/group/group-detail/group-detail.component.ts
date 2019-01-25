@@ -51,6 +51,10 @@ export class GroupDetailComponent implements OnInit {
     }
   }
 
+  back(): void {
+    this.location.back();
+  }
+
   private create(): void {
     this.groupService.createGroup(this.group)
       .subscribe(group => this.location.back());

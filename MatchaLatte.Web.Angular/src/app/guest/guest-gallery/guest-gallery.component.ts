@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/store/store';
 import { StoreService } from 'src/app/store/store.service';
+import { GroupService } from 'src/app/group/group.service';
+import { Group } from 'src/app/group/group';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-guest-gallery',
@@ -8,21 +11,31 @@ import { StoreService } from 'src/app/store/store.service';
   styleUrls: ['./guest-gallery.component.scss']
 })
 export class GuestGalleryComponent implements OnInit {
-  isLoading = false;
+  isGroupsLoading = false;
+  isStoresLoading = false;
+  groups: Group[];
   stores: Store[];
 
-  constructor(private storeService: StoreService) { }
+  constructor(private groupService: GroupService, private storeService: StoreService) { }
 
   ngOnInit() {
+    this.getGroups();
     this.getStores();
   }
 
+  private getGroups(): void {
+    this.isGroupsLoading = true;
+    this.groupService.getActiveGroups().subscribe({
+      next: result => this.groups = result,
+      complete: () => this.isGroupsLoading = false
+    });
+  }
+
   private getStores(): void {
-    this.isLoading = true;
-    this.storeService.getStores(0, 100).subscribe({
-      next: result => {
-        this.stores = result.items;
-      }, complete: () => this.isLoading = false
+    this.isStoresLoading = true;
+    this.storeService.getStores(0, 10).subscribe({
+      next: result => this.stores = result.items,
+      complete: () => this.isStoresLoading = false
     });
   }
 }

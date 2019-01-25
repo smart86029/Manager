@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
 using MatchaLatte.Ordering.Api.Models;
 using MatchaLatte.Ordering.App.Commands.Groups;
-using MatchaLatte.Ordering.App.Queries;
+using MatchaLatte.Ordering.App.Queries.Groups;
 using MatchaLatte.Ordering.App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +41,7 @@ namespace MatchaLatte.Ordering.Api.Controllers
         /// <param name="option">分頁查詢。</param>
         /// <returns>所有團。</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
+        public async Task<IActionResult> GetAsync([FromQuery] GroupOption option)
         {
             var groups = await groupQueryService.GetGroupsAsync(option);
             Response.Headers.Add("X-Total-Count", groups.ItemCount.ToString());
