@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using MatchaLatte.Ordering.App.Queries;
@@ -78,9 +79,27 @@ namespace MatchaLatte.Ordering.Queries
         /// </summary>
         /// <param name="groupId">團 ID。</param>
         /// <returns>團。</returns>
-        public Task<GroupDetail> GetGroupAsync(Guid groupId)
+        public async Task<GroupDetail> GetGroupAsync(Guid groupId)
         {
-            throw new NotImplementedException();
+            var sql = $@"
+                SELECT [g].[GroupId], [g].[StartTime], [g].[EndTime], [g].[Remark], [s].[StoreId], [s].[Name]
+                FROM [Ordering].[Group] AS [g]
+                INNER JOIN [Ordering].[Store] AS [s] ON [g].[StoreId] = [s].[StoreId]
+                WHERE [g].[GroupId] = @GroupId";
+            var param = new { GroupId = groupId };
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var result = await connection.QueryAsync(sql, (GroupDetail g, StoreDetail s) =>
+                {
+                    g.Store = s;
+
+                    return g;
+                }, param, splitOn: "StoreId");
+
+                return result.FirstOrDefault();
+            }
         }
 
         /// <summary>
