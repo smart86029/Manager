@@ -32,7 +32,7 @@
           Card Content Here
         </div>
       </mat-card-content>
-      <a class="store-card-overlay" routerLink="/groups/new" [queryParams]="{storeId: store.storeId}">
+      <a class="store-card-overlay" [routerLink]="['../groups/new']" [queryParams]="{storeId: store.storeId}">
         <mat-icon class="no-select" inline>add_circle_outline</mat-icon>
       </a>
     </mat-card>

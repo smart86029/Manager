@@ -90,5 +90,14 @@ namespace MatchaLatte.Ordering.Domain.Groups
         /// </summary>
         /// <value>新增時間。</value>
         public DateTime CreatedOn { get; private set; }
+
+        /// <summary>
+        /// 更新結束時間。
+        /// </summary>
+        /// <param name="endTime">結束時間。</param>
+        public void UpdateEndTime(DateTime endTime)
+        {
+            EndTime = endTime;
+        }
     }
 }

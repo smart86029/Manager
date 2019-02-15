@@ -6,15 +6,15 @@ import { Menu } from './menu';
 const menus: Menu[] = [
   {
     name: '會員管理', icon: 'group', url: '', children: [
-      { name: '使用者', icon: '', url: '/admin/users' },
-      { name: '角色', icon: '', url: '/admin/roles' },
-      { name: '權限', icon: '', url: '/admin/permissions' }
+      { name: '使用者', icon: '', url: 'users' },
+      { name: '角色', icon: '', url: 'roles' },
+      { name: '權限', icon: '', url: 'permissions' }
     ]
   },
   {
     name: '團購管理', icon: 'shopping_basket', url: '', children: [
-      { name: '店家管理', icon: '', url: '/admin/stores' },
-      { name: '團管理', icon: '', url: '/admin/groups' }
+      { name: '店家管理', icon: '', url: 'stores' },
+      { name: '團管理', icon: '', url: 'groups' }
     ]
   }
 ];

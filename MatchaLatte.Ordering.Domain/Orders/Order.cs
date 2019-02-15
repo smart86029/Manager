@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
 using MatchaLatte.Ordering.Domain.BusinessEntities;
+using MatchaLatte.Ordering.Domain.Groups;
 
 namespace MatchaLatte.Ordering.Domain.Orders
 {
@@ -10,46 +11,67 @@ namespace MatchaLatte.Ordering.Domain.Orders
     /// </summary>
     public class Order : Entity, IAggregateRoot
     {
+        private List<OrderDetail> orderDetails = new List<OrderDetail>();
         /// <summary>
-        /// 取得或設定主鍵。
+        /// 初始化 <see cref="Order"/> 類別的新執行個體。
+        /// </summary>
+        private Order()
+        {
+        }
+
+
+        /// <summary>
+        /// 取得主鍵。
         /// </summary>
         /// <value>主鍵。</value>
-        public Guid OrderId { get; set; }
+        public Guid OrderId { get; private set; }
 
         /// <summary>
-        /// 取得或設定應付金額。
+        /// 取得應付金額。
         /// </summary>
         /// <value>應付金額。</value>
-        public decimal AmountPayable { get; set; }
+        public decimal AmountPayable { get; private set; }
 
         /// <summary>
-        /// 取得或設定實付金額。
+        /// 取得實付金額。
         /// </summary>
         /// <value>實付金額。</value>
-        public decimal AmountPaid { get; set; }
+        public decimal AmountPaid { get; private set; }
 
         /// <summary>
-        /// 取得或設定新增者 ID。
+        /// 取得新增者 ID。
         /// </summary>
         /// <value>新增者 ID。</value>
-        public Guid CreatedBy { get; set; }
+        public Guid CreatedBy { get; private set; }
 
         /// <summary>
-        /// 取得或設定新增時間。
+        /// 取得新增時間。
         /// </summary>
         /// <value>新增時間。</value>
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; private set; }
 
         /// <summary>
-        /// 取得或設定新增者。
+        /// 取得團 ID。
+        /// </summary>
+        /// <value>團 ID。</value>
+        public Guid GroupId { get; private set; }
+
+        /// <summary>
+        /// 取得新增者。
         /// </summary>
         /// <value>新增者。</value>
-        public BusinessEntity Creator { get; set; }
+        public BusinessEntity Creator { get; private set; }
 
         /// <summary>
-        /// 取得或設定訂單明細的集合。
+        /// 取得團。
+        /// </summary>
+        /// <value>團。</value>
+        public Group Group { get; private set; }
+
+        /// <summary>
+        /// 取得訂單明細的集合。
         /// </summary>
         /// <value>訂單明細的集合。</value>
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public IReadOnlyCollection<OrderDetail> OrderDetails => orderDetails;
     }
 }
