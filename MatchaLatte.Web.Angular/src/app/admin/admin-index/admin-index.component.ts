@@ -1,4 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material';
@@ -7,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { Menu } from 'src/app/menu/menu';
 import { MenuService } from 'src/app/menu/menu.service';
 import { Theme } from 'src/app/shared/theme.enum';
-import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-admin-index',
@@ -44,7 +44,7 @@ export class AdminIndexComponent implements OnInit {
     return of(menu.children);
   }
 
-  hasNestedChild(_: number, menu: Menu) {
+  hasNestedChild(_: number, menu: Menu): boolean {
     return menu.children && menu.children.length > 0;
   }
 }

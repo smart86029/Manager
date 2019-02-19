@@ -1,5 +1,20 @@
 @import '~@angular/material/theming';
 
+main {
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@media screen and (max-width: 599px) and (orientation: portrait),
+screen and (max-width: 959px) and (orientation: landscape) {
+  main {
+    top: 56px;
+  }
+}
+
 .sidenav-container {
   height: 100%;
 }
