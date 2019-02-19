@@ -7,20 +7,23 @@
       </mat-form-field>
     </div>
     <div>
-      <div>
+      <div fxLayout="row">
         商品項目
         <span class="fill-space"></span>
-        <button mat-icon-button (click)="createProductItem()">
-          <mat-icon>add</mat-icon>
+        <button mat-icon-button color="primary" (click)="createProductItem()">
+          <mat-icon>add_circle</mat-icon>
         </button>
       </div>
-      <div *ngFor="let item of data.productItems; let i = index;">
+      <div *ngFor="let item of data.productItems; let i = index;" fxLayout="row" fxLayoutGap="15px">
         <mat-form-field>
           <input matInput type="text" name="productItemName{{i}}" placeholder="名稱" [(ngModel)]="item.name">
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" name="productItemPrice{{i}}" placeholder="價格" [(ngModel)]="item.price">
         </mat-form-field>
+        <button mat-icon-button color="warn" (click)="deleteProductItem(i)">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
       </div>
     </div>
   </mat-dialog-content>

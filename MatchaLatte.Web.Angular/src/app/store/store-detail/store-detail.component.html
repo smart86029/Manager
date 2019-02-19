@@ -73,6 +73,9 @@
                         {{productItem.price}}
                       </mat-chip>
                     </mat-chip-list>
+                    <button mat-icon-button color="warn" (click)="deleteProduct(product, category)">
+                      <mat-icon>remove_circle</mat-icon>
+                    </button>
                   </div>
                 </div>
               </div>

@@ -114,18 +114,19 @@ export class StoreDetailComponent implements OnInit {
 
   updateProduct(product: Product): void {
     const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
-      data: product
+      data: JSON.parse(JSON.stringify(product))
     });
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        product = data;
+    dialogRef.afterClosed().subscribe(value => {
+      if (value) {
+        product.name = value.name;
+        product.productItems = value.productItems;
       }
     });
   }
 
-  deleteProduct(index: number): void {
-    // this.store.products.splice(index, 1);
-    // this.tableProducts.renderRows();
+  deleteProduct(product: Product, category: ProductCategory): void {
+    const index = category.products.indexOf(product);
+    category.products.splice(index, 1);
   }
 
   drop(event: CdkDragDrop<string[]>) {

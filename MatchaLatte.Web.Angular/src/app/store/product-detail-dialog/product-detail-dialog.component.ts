@@ -12,9 +12,10 @@ import { ProductItem } from '../product-item';
 })
 export class ProductDetailDialogComponent implements OnInit {
   saveMode = SaveMode.Create;
+
   constructor(@Inject(MAT_DIALOG_DATA) private data: Product) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.data.name) {
       this.saveMode = SaveMode.Update;
     } else {
@@ -23,7 +24,11 @@ export class ProductDetailDialogComponent implements OnInit {
     }
   }
 
-  createProductItem() {
+  createProductItem(): void {
     this.data.productItems.push(new ProductItem());
+  }
+
+  deleteProductItem(index: number): void {
+    this.data.productItems.splice(index, 1);
   }
 }
