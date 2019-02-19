@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { Menu } from 'src/app/menu/menu';
 import { MenuService } from 'src/app/menu/menu.service';
 import { Theme } from 'src/app/shared/theme.enum';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-index',
@@ -27,7 +29,9 @@ export class AdminIndexComponent implements OnInit {
 
   constructor(private breakpointObserver: BreakpointObserver,
     private overlayContainer: OverlayContainer,
-    private menuService: MenuService) { }
+    private router: Router,
+    private menuService: MenuService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.overlayContainer.getContainerElement().classList.add(this.selectedTheme);
@@ -46,5 +50,10 @@ export class AdminIndexComponent implements OnInit {
 
   hasNestedChild(_: number, menu: Menu): boolean {
     return menu.children && menu.children.length > 0;
+  }
+
+  signOut(): void {
+    this.authService.signOut();
+    this.router.navigate(['/']);
   }
 }

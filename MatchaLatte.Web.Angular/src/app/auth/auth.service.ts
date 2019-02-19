@@ -32,11 +32,4 @@ export class AuthService {
   isAuthorized(): boolean {
     return !this.jwtHelper.isTokenExpired();
   }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
-  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { Guid } from 'src/app/shared/guid';
 import { StoreService } from 'src/app/store/store.service';
 
@@ -27,7 +27,7 @@ export class GroupJoinComponent implements OnInit {
     this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     this.groupService.getGroup(new Guid(id)).pipe(
-      map(group => this.group = group),
+      tap(group => this.group = group),
       switchMap(group => this.storeService.getStore(group.store.storeId))
     ).subscribe({
       next: store => this.store = store,
