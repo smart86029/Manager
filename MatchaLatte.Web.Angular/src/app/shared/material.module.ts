@@ -25,6 +25,7 @@ import {
   MatStepperModule,
   MatTableModule,
   MatToolbarModule,
+  MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
 import { MatDatepickerModule, MatMomentDateModule, MAT_DATE_FORMATS } from '@coachcare/datepicker';
@@ -60,6 +61,7 @@ import { APP_DATE_FORMATS } from './app-date-formats';
     MatStepperModule,
     MatTableModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatTreeModule,
   ],
   providers: [

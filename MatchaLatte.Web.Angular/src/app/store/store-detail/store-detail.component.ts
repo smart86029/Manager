@@ -101,6 +101,11 @@ export class StoreDetailComponent implements OnInit {
     this.store.productCategories.push(new ProductCategory());
   }
 
+  deleteProductCategory(category: ProductCategory): void {
+    const index = this.store.productCategories.indexOf(category);
+    this.store.productCategories.splice(index, 1);
+  }
+
   createProduct(category: ProductCategory): void {
     const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
       data: {}
@@ -117,10 +122,15 @@ export class StoreDetailComponent implements OnInit {
       data: JSON.parse(JSON.stringify(product))
     });
     dialogRef.afterClosed().subscribe(value => {
-      if (value) {
-        product.name = value.name;
-        product.productItems = value.productItems;
+      if (!value) {
+        return;
       }
+
+      product.name = value.name.trim();
+      product.productItems = value.productItems;
+      product.productItems.forEach(item => {
+        item.name = item.name.trim();
+      });
     });
   }
 

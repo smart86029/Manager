@@ -10,7 +10,7 @@
       <div fxLayout="row">
         商品項目
         <span class="fill-space"></span>
-        <button mat-icon-button color="primary" (click)="createProductItem()">
+        <button mat-icon-button color="primary" matTooltip="新增商品項目" (click)="createProductItem()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
@@ -21,7 +21,7 @@
         <mat-form-field>
           <input matInput type="text" name="productItemPrice{{i}}" placeholder="價格" [(ngModel)]="item.price">
         </mat-form-field>
-        <button mat-icon-button color="warn" (click)="deleteProductItem(i)">
+        <button mat-icon-button color="warn" matTooltip="刪除商品項目" (click)="deleteProductItem(i)">
           <mat-icon>remove_circle</mat-icon>
         </button>
       </div>
