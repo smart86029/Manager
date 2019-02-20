@@ -1,0 +1,15 @@
+<form>
+  <h2 matDialogTitle>{{product.name}}</h2>
+  <mat-dialog-content>
+    商品項目
+    <mat-radio-group class="product-items">
+      <mat-radio-button class="product-item" *ngFor="let productItem of product.productItems" [value]="productItem">
+        {{productItem.name}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="button" matDialogClose>返回</button>
+    <button mat-button type="submit" color="primary" [matDialogClose]="data">加到購物車</button>
+  </mat-dialog-actions>
+</form>

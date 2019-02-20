@@ -7,6 +7,9 @@ import { StoreService } from 'src/app/store/store.service';
 import { Group } from '../group';
 import { GroupService } from '../group.service';
 import { Store } from '../store';
+import { MatDialog } from '@angular/material';
+import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
+import { Product } from 'src/app/store/product';
 
 @Component({
   selector: 'app-group-join',
@@ -21,9 +24,10 @@ export class GroupJoinComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     private storeService: StoreService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private dialog: MatDialog) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     this.groupService.getGroup(new Guid(id)).pipe(
@@ -32,6 +36,12 @@ export class GroupJoinComponent implements OnInit {
     ).subscribe({
       next: store => this.store = store,
       complete: () => this.isLoading = false
+    });
+  }
+
+  createOrder(product: Product): void {
+    const dialogRef = this.dialog.open(OrderDialogComponent, {
+      data: product
     });
   }
 }

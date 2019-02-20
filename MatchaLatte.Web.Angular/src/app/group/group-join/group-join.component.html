@@ -1,6 +1,6 @@
 <div class="grid-container">
   <h2 class="mat-h2">進行中的團購</h2>
-  <div *ngIf="store.productCategories.length > 1" fxLayout="row" fxLayoutGap="15px">
+  <div *ngIf="store.productCategories?.length > 1" fxLayout="row" fxLayoutGap="15px">
     <mat-card class="category-card" *ngFor="let category of store.productCategories" fxFlex="33">
       <mat-card-header>
         <mat-card-title>
@@ -10,7 +10,7 @@
       <mat-card-content class="category-card-content">
         <div>
           <mat-list>
-            <mat-list-item *ngFor="let product of category.products">
+            <mat-list-item *ngFor="let product of category.products" (click)="createOrder(product)">
               <span>{{product.name}}</span>
               <span class="fill-space"></span>
               <mat-chip-list>
