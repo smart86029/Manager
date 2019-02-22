@@ -25,11 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Identity.Api", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Identity.App", "MatchaLatte.Identity.App\MatchaLatte.Identity.App.csproj", "{895C3A23-0EBC-4C71-AB83-87A44FFA3926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Identity.Data", "MatchaLatte.Identity.Data\MatchaLatte.Identity.Data.csproj", "{3E42CF65-8913-4E08-B5A1-3F2009945D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Identity.Data", "MatchaLatte.Identity.Data\MatchaLatte.Identity.Data.csproj", "{3E42CF65-8913-4E08-B5A1-3F2009945D7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Identity.Domain", "MatchaLatte.Identity.Domain\MatchaLatte.Identity.Domain.csproj", "{DC88B3ED-231E-4869-9C57-5575B9758C06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Identity.Domain", "MatchaLatte.Identity.Domain\MatchaLatte.Identity.Domain.csproj", "{DC88B3ED-231E-4869-9C57-5575B9758C06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Identity.Services", "MatchaLatte.Identity.Services\MatchaLatte.Identity.Services.csproj", "{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Identity.Services", "MatchaLatte.Identity.Services\MatchaLatte.Identity.Services.csproj", "{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{800861D2-24DF-4DF3-8173-A0B860CDDDB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2719ECA-5040-41AE-B2D3-3326A8CF35D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{800861D2-24DF-4DF3-8173-A0B860CDDDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{800861D2-24DF-4DF3-8173-A0B860CDDDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{800861D2-24DF-4DF3-8173-A0B860CDDDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{800861D2-24DF-4DF3-8173-A0B860CDDDB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  matchalatte.identity.api:
+    image: ${DOCKER_REGISTRY-}matchalatteidentityapi
+    build:
+      context: .
+      dockerfile: MatchaLatte.Identity.Api/Dockerfile
+
+  matchalatte.ordering.api:
+    image: ${DOCKER_REGISTRY-}matchalatteorderingapi
+    build:
+      context: .
+      dockerfile: MatchaLatte.Ordering.Api/Dockerfile
+
