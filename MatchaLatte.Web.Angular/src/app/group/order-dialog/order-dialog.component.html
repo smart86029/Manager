@@ -2,11 +2,17 @@
   <h2 matDialogTitle>{{product.name}}</h2>
   <mat-dialog-content>
     商品項目
-    <mat-radio-group class="product-items">
+    <mat-radio-group class="product-items" fxLayout="column" fxLayoutGap="5px">
       <mat-radio-button class="product-item" *ngFor="let productItem of product.productItems" [value]="productItem">
         {{productItem.name}}
       </mat-radio-button>
     </mat-radio-group>
+    數量
+    <div>
+      <mat-form-field>
+        <input matInput type="number" name="quantity" placeholder="數量">
+      </mat-form-field>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button type="button" matDialogClose>返回</button>
