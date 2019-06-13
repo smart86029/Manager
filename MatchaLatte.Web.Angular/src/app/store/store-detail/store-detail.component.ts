@@ -1,9 +1,8 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTable } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { City } from 'src/app/city/city';
@@ -35,9 +34,6 @@ export class StoreDetailComponent implements OnInit {
   formGroup: FormGroup;
   storeFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
-  @ViewChild('tableProducts')
-  tableProducts: MatTable<Product>;
 
   constructor(
     private storeService: StoreService,

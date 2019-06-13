@@ -1,5 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginationResult } from 'src/app/shared/pagination-result';
 
@@ -17,9 +16,6 @@ export class RoleListComponent implements OnInit {
   dataSource = new MatTableDataSource<Role>();
   roles = new PaginationResult<Role>();
 
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator;
-
   constructor(private roleService: RoleService, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
@@ -28,7 +24,8 @@ export class RoleListComponent implements OnInit {
 
   private getRoles(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.roleService.getRoles(pageIndex, pageSize)
+    this.roleService
+      .getRoles(pageIndex, pageSize)
       .subscribe({
         next: result => {
           this.dataSource.data = result.items;

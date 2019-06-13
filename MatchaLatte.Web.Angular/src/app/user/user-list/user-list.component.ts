@@ -1,5 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginationResult } from 'src/app/shared/pagination-result';
 
@@ -16,9 +15,6 @@ export class UserListComponent implements OnInit {
   displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
   dataSource = new MatTableDataSource<User>();
   users = new PaginationResult<User>();
-
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator;
 
   constructor(private userService: UserService, private resolver: ComponentFactoryResolver) { }
 

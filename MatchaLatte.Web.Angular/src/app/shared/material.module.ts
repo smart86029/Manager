@@ -1,5 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LayoutModule } from '@angular/cdk/layout';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -9,6 +10,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -26,10 +28,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatDatepickerModule, MatMomentDateModule, MAT_DATE_FORMATS } from '@coachcare/datepicker';
+import { MAT_DATE_FORMATS, MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
 
-import { AppPaginatorIntl } from './app-paginator-intl';
 import { APP_DATE_FORMATS } from './app-date-formats';
+import { AppPaginatorIntl } from './app-paginator-intl';
 
 @NgModule({
   exports: [
@@ -43,6 +45,7 @@ import { APP_DATE_FORMATS } from './app-date-formats';
     MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -62,6 +65,7 @@ import { APP_DATE_FORMATS } from './app-date-formats';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    OverlayModule,
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: AppPaginatorIntl },

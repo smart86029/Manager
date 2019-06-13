@@ -1,5 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginationResult } from 'src/app/shared/pagination-result';
 
@@ -17,9 +16,6 @@ export class PermissionListComponent implements OnInit {
   dataSource = new MatTableDataSource<Permission>();
   permissions = new PaginationResult<Permission>();
 
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator;
-
   constructor(private permissionService: PermissionService, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
@@ -28,10 +24,14 @@ export class PermissionListComponent implements OnInit {
 
   private getPermissions(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.permissionService.getPermissions(pageIndex, pageSize)
-      .subscribe(result => {
-        this.dataSource.data = result.items;
-        this.permissions = result;
-      }, () => { }, () => this.isLoading = false);
+    this.permissionService
+      .getPermissions(pageIndex, pageSize)
+      .subscribe({
+        next: result => {
+          this.dataSource.data = result.items;
+          this.permissions = result;
+        },
+        complete: () => this.isLoading = false
+      });
   }
 }
