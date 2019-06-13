@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginationResult } from 'src/app/shared/pagination-result';
 
@@ -16,7 +16,7 @@ export class UserListComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   users = new PaginationResult<User>();
 
-  constructor(private userService: UserService, private resolver: ComponentFactoryResolver) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.getUsers(this.users.pageIndex, this.users.pageSize);
@@ -24,12 +24,14 @@ export class UserListComponent implements OnInit {
 
   private getUsers(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.userService.getUsers(pageIndex, pageSize).subscribe({
-      next: result => {
-        this.dataSource.data = result.items;
-        this.users = result;
-      },
-      complete: () => this.isLoading = false
-    });
+    this.userService
+      .getUsers(pageIndex, pageSize)
+      .subscribe({
+        next: result => {
+          this.dataSource.data = result.items;
+          this.users = result;
+        },
+        complete: () => this.isLoading = false
+      });
   }
 }

@@ -27,15 +27,19 @@ export class UserDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.userService.getUser(new Guid(id)).subscribe({
-        next: user => this.user = user,
-        complete: () => this.isLoading = false
-      });
+      this.userService
+        .getUser(new Guid(id))
+        .subscribe({
+          next: user => this.user = user,
+          complete: () => this.isLoading = false
+        });
     } else {
-      this.userService.getNewUser().subscribe({
-        next: user => this.user = user,
-        complete: () => this.isLoading = false
-      });
+      this.userService
+        .getNewUser()
+        .subscribe({
+          next: user => this.user = user,
+          complete: () => this.isLoading = false
+        });
     }
   }
 
@@ -55,12 +59,14 @@ export class UserDetailComponent implements OnInit {
   }
 
   private create(): void {
-    this.userService.createUser(this.user)
+    this.userService
+      .createUser(this.user)
       .subscribe(user => this.location.back());
   }
 
   private update(): void {
-    this.userService.updateUser(this.user)
+    this.userService
+      .updateUser(this.user)
       .subscribe(user => this.location.back());
   }
 }

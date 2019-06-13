@@ -54,7 +54,7 @@ export class StoreDetailComponent implements OnInit {
       store$ = this.storeService.getNewStore();
     }
 
-    forkJoin(this.cityService.getCities(), store$).subscribe({
+    forkJoin([this.cityService.getCities(), store$]).subscribe({
       next: result => {
         const cities = result[0];
         const store = result[1];
@@ -141,12 +141,14 @@ export class StoreDetailComponent implements OnInit {
   }
 
   private create(): void {
-    this.storeService.createStore(this.store)
+    this.storeService
+      .createStore(this.store)
       .subscribe(store => this.location.back());
   }
 
   private update(): void {
-    this.storeService.updateStore(this.store)
+    this.storeService
+      .updateStore(this.store)
       .subscribe(store => this.location.back());
   }
 }

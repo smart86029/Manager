@@ -18,18 +18,20 @@ export class GroupListComponent implements OnInit {
 
   constructor(private groupService: GroupService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getGroups(0, this.groups.pageSize);
   }
 
   private getGroups(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.groupService.getGroups(pageIndex, pageSize).subscribe({
-      next: result => {
-        this.dataSource.data = result.items;
-        this.groups = result;
-      },
-      complete: () => this.isLoading = false
-    });
+    this.groupService
+      .getGroups(pageIndex, pageSize)
+      .subscribe({
+        next: result => {
+          this.dataSource.data = result.items;
+          this.groups = result;
+        },
+        complete: () => this.isLoading = false
+      });
   }
 }

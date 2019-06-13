@@ -30,13 +30,15 @@ export class GroupJoinComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
-    this.groupService.getGroup(new Guid(id)).pipe(
-      tap(group => this.group = group),
-      switchMap(group => this.storeService.getStore(group.store.storeId))
-    ).subscribe({
-      next: store => this.store = store,
-      complete: () => this.isLoading = false
-    });
+    this.groupService
+      .getGroup(new Guid(id))
+      .pipe(
+        tap(group => this.group = group),
+        switchMap(group => this.storeService.getStore(group.store.storeId)))
+      .subscribe({
+        next: store => this.store = store,
+        complete: () => this.isLoading = false
+      });
   }
 
   createOrder(product: Product): void {

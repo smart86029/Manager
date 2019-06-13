@@ -13,17 +13,19 @@ export class SignInComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  signIn() {
-    this.authService.signIn(this.userName, this.password).subscribe(() => {
-      const redirect = this.route.snapshot.queryParams['returnUrl'] || '/';
-      this.router.navigate([redirect], { skipLocationChange: true });
-    });
+  signIn(): void {
+    this.authService
+      .signIn(this.userName, this.password)
+      .subscribe(() => {
+        const redirect = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.router.navigate([redirect], { skipLocationChange: true });
+      });
   }
 
-  signOut() {
+  signOut(): void {
     this.authService.signOut();
   }
 }

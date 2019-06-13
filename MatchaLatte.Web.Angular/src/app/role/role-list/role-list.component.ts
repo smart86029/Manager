@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginationResult } from 'src/app/shared/pagination-result';
 
@@ -16,7 +16,7 @@ export class RoleListComponent implements OnInit {
   dataSource = new MatTableDataSource<Role>();
   roles = new PaginationResult<Role>();
 
-  constructor(private roleService: RoleService, private resolver: ComponentFactoryResolver) { }
+  constructor(private roleService: RoleService) { }
 
   ngOnInit(): void {
     this.getRoles(this.roles.pageIndex, this.roles.pageSize);

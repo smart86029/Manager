@@ -3,13 +3,13 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Menu } from 'src/app/menu/menu';
 import { MenuService } from 'src/app/menu/menu.service';
 import { Theme } from 'src/app/shared/theme.enum';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-index',
@@ -20,10 +20,9 @@ export class AdminIndexComponent implements OnInit {
   title = 'Matcha Latte';
   selectedTheme = Theme.Strawberry;
   theme = Theme;
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
   nestedDataSource = new MatTreeNestedDataSource();
   nestedTreeControl = new NestedTreeControl<Menu>(this.getChildren);
 

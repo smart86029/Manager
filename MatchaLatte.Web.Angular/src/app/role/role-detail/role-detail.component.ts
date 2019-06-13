@@ -24,11 +24,19 @@ export class RoleDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.roleService.getRole(new Guid(id))
-        .subscribe(role => this.role = role, () => { }, () => this.isLoading = false);
+      this.roleService
+        .getRole(new Guid(id))
+        .subscribe({
+          next: role => this.role = role,
+          complete: () => this.isLoading = false
+        });
     } else {
-      this.roleService.getNewRole()
-        .subscribe(role => this.role = role, () => { }, () => this.isLoading = false);
+      this.roleService
+        .getNewRole()
+        .subscribe({
+          next: role => this.role = role,
+          complete: () => this.isLoading = false
+        });
     }
   }
 
@@ -48,12 +56,14 @@ export class RoleDetailComponent implements OnInit {
   }
 
   private create(): void {
-    this.roleService.createRole(this.role)
+    this.roleService
+      .createRole(this.role)
       .subscribe(role => this.location.back());
   }
 
   private update(): void {
-    this.roleService.updateRole(this.role)
+    this.roleService
+      .updateRole(this.role)
       .subscribe(role => this.location.back());
   }
 }
