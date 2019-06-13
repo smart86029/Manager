@@ -7,7 +7,7 @@ import { StoreService } from 'src/app/store/store.service';
 import { Group } from '../group';
 import { GroupService } from '../group.service';
 import { Store } from '../store';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 import { Product } from 'src/app/store/product';
 
