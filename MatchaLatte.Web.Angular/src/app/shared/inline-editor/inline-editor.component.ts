@@ -1,17 +1,7 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { CdkOverlayOrigin, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import { MatInput } from '@angular/material';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+
 import { SaveMode } from '../save-mode/save-mode.enum';
 
 @Component({
@@ -30,17 +20,14 @@ export class InlineEditorComponent implements OnInit {
   @Input()
   name: string;
 
-  @ViewChild('overlayArea')
-  overlayArea: TemplateRef<any>;
-
-  @ViewChild('originText')
-  originText: ElementRef;
-
-  @ViewChild('editor')
-  editor: MatInput;
-
   @Output()
   valueChange: EventEmitter<string> = new EventEmitter<string>();
+
+  @ViewChild(CdkOverlayOrigin, { static: true })
+  overlayOrigin: CdkOverlayOrigin;
+
+  @ViewChild('overlayArea', { static: true })
+  overlayArea: TemplateRef<any>;
 
   constructor(private overlay: Overlay, private viewContainerRef: ViewContainerRef) { }
 
@@ -48,15 +35,16 @@ export class InlineEditorComponent implements OnInit {
     this.newValue = this.value;
     const strategy = this.overlay
       .position()
-      .connectedTo(this.originText, { originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'top' });
+      .flexibleConnectedTo(this.overlayOrigin.elementRef)
+      .withPositions([{ originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'top' }]);
     this.overlayRef = this.overlay.create({
+      positionStrategy: strategy,
       hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      positionStrategy: strategy
+      backdropClass: 'cdk-overlay-transparent-backdrop'
     });
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.back();
-    });
+    this.overlayRef
+      .backdropClick()
+      .subscribe(() => this.back());
     if (!this.newValue) {
       this.display();
     } else {

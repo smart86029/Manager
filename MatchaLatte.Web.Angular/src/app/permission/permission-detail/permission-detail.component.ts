@@ -24,8 +24,12 @@ export class PermissionDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.permissionService.getPermission(new Guid(id))
-        .subscribe(permission => this.permission = permission, () => { }, () => this.isLoading = false);
+      this.permissionService
+        .getPermission(new Guid(id))
+        .subscribe({
+          next: permission => this.permission = permission,
+          complete: () => this.isLoading = false
+        });
     }
   }
 
@@ -45,12 +49,14 @@ export class PermissionDetailComponent implements OnInit {
   }
 
   private create(): void {
-    this.permissionService.createPermission(this.permission)
+    this.permissionService
+      .createPermission(this.permission)
       .subscribe(permission => this.location.back());
   }
 
   private update(): void {
-    this.permissionService.updatePermission(this.permission)
+    this.permissionService
+      .updatePermission(this.permission)
       .subscribe(permission => this.location.back());
   }
 }

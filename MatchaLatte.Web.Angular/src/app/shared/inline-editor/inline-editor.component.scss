@@ -1,4 +1,9 @@
 @import '~@angular/material/theming';
+
+.overlay-origin {
+  cursor: pointer;
+}
+
 .overlay-area {
   @include mat-elevation(10);
   display: block;

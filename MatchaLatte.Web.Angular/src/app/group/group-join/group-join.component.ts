@@ -7,7 +7,7 @@ import { StoreService } from 'src/app/store/store.service';
 import { Group } from '../group';
 import { GroupService } from '../group.service';
 import { Store } from '../store';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 import { Product } from 'src/app/store/product';
 
@@ -30,13 +30,15 @@ export class GroupJoinComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
-    this.groupService.getGroup(new Guid(id)).pipe(
-      tap(group => this.group = group),
-      switchMap(group => this.storeService.getStore(group.store.storeId))
-    ).subscribe({
-      next: store => this.store = store,
-      complete: () => this.isLoading = false
-    });
+    this.groupService
+      .getGroup(new Guid(id))
+      .pipe(
+        tap(group => this.group = group),
+        switchMap(group => this.storeService.getStore(group.store.storeId)))
+      .subscribe({
+        next: store => this.store = store,
+        complete: () => this.isLoading = false
+      });
   }
 
   createOrder(product: Product): void {

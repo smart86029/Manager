@@ -1,4 +1,7 @@
-<span (click)="display()" #originText>{{value}}<span *ngIf="!newValue" class="add-hint">點擊輸入{{name}}</span></span>
+<span cdkOverlayOrigin class="overlay-origin" matTooltip="點擊編輯" (click)="display()">
+  {{value}}
+  <span *ngIf="!newValue" class="add-hint">點擊輸入{{name}}</span>
+</span>
 <ng-template #overlayArea>
   <form autocomplete="off">
     <div class="overlay-area">

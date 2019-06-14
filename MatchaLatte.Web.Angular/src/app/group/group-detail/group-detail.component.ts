@@ -27,16 +27,20 @@ export class GroupDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.groupService.getGroup(new Guid(id)).subscribe({
-        next: group => this.group = group,
-        complete: () => this.isLoading = false
-      });
+      this.groupService
+        .getGroup(new Guid(id))
+        .subscribe({
+          next: group => this.group = group,
+          complete: () => this.isLoading = false
+        });
     } else {
       const storeId = this.route.snapshot.queryParamMap.get('storeId');
-      this.groupService.getNewGroup(new Guid(storeId)).subscribe({
-        next: group => this.group = group,
-        complete: () => this.isLoading = false
-      });
+      this.groupService
+        .getNewGroup(new Guid(storeId))
+        .subscribe({
+          next: group => this.group = group,
+          complete: () => this.isLoading = false
+        });
     }
   }
 
@@ -56,12 +60,14 @@ export class GroupDetailComponent implements OnInit {
   }
 
   private create(): void {
-    this.groupService.createGroup(this.group)
+    this.groupService
+      .createGroup(this.group)
       .subscribe(group => this.location.back());
   }
 
   private update(): void {
-    this.groupService.updateGroup(this.group)
+    this.groupService
+      .updateGroup(this.group)
       .subscribe(group => this.location.back());
   }
 }

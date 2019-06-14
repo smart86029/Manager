@@ -13,7 +13,7 @@ export class GuestIndexComponent implements OnInit {
     private overlayContainer: OverlayContainer
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.overlayContainer.getContainerElement().classList.add(this.selectedTheme);
   }
 

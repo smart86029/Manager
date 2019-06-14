@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { Store } from '../store';
 import { StoreService } from '../store.service';
@@ -18,16 +18,19 @@ export class StoreListComponent implements OnInit {
 
   constructor(private storeService: StoreService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getStores(0, this.stores.pageSize);
   }
 
   private getStores(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
-    this.storeService.getStores(pageIndex, pageSize)
-      .subscribe(result => {
-        this.dataSource.data = result.items;
-        this.stores = result;
-      }, () => { }, () => this.isLoading = false);
+    this.storeService
+      .getStores(pageIndex, pageSize)
+      .subscribe({
+        next: result => {
+          this.dataSource.data = result.items;
+          this.stores = result;
+        }, complete: () => this.isLoading = false
+      });
   }
 }
