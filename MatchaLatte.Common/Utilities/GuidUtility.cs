@@ -14,7 +14,7 @@ namespace MatchaLatte.Common.Utilities
         /// <returns>GUID。</returns>
         public static Guid NewGuid()
         {
-            return Provider.Sql.Create();
+            return Provider.Sql.Create(); 
         }
     }
 }
