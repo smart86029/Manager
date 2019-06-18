@@ -1,18 +1,18 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MatchaLatte.Ordering.Data.Migrations
+namespace MatchaLatte.Catalog.Data.Migrations
 {
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "Ordering");
+                name: "Catalog");
 
             migrationBuilder.CreateTable(
                 name: "Group",
-                schema: "Ordering",
+                schema: "Catalog",
                 columns: table => new
                 {
                     GroupId = table.Column<Guid>(nullable: false),
@@ -30,7 +30,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Store",
-                schema: "Ordering",
+                schema: "Catalog",
                 columns: table => new
                 {
                     StoreId = table.Column<Guid>(nullable: false),
@@ -56,7 +56,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ProductCategory",
-                schema: "Ordering",
+                schema: "Catalog",
                 columns: table => new
                 {
                     ProductCategoryId = table.Column<Guid>(nullable: false),
@@ -71,7 +71,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
                     table.ForeignKey(
                         name: "FK_ProductCategory_Store_StoreId",
                         column: x => x.StoreId,
-                        principalSchema: "Ordering",
+                        principalSchema: "Catalog",
                         principalTable: "Store",
                         principalColumn: "StoreId",
                         onDelete: ReferentialAction.Cascade);
@@ -79,7 +79,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Product",
-                schema: "Ordering",
+                schema: "Catalog",
                 columns: table => new
                 {
                     ProductId = table.Column<Guid>(nullable: false),
@@ -94,7 +94,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Product_ProductCategory_ProductCategoryId",
                         column: x => x.ProductCategoryId,
-                        principalSchema: "Ordering",
+                        principalSchema: "Catalog",
                         principalTable: "ProductCategory",
                         principalColumn: "ProductCategoryId",
                         onDelete: ReferentialAction.Cascade);
@@ -102,7 +102,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ProductItem",
-                schema: "Ordering",
+                schema: "Catalog",
                 columns: table => new
                 {
                     ProductItemId = table.Column<Guid>(nullable: false),
@@ -116,7 +116,7 @@ namespace MatchaLatte.Ordering.Data.Migrations
                     table.ForeignKey(
                         name: "FK_ProductItem_Product_ProductId",
                         column: x => x.ProductId,
-                        principalSchema: "Ordering",
+                        principalSchema: "Catalog",
                         principalTable: "Product",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
@@ -124,19 +124,19 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_ProductCategoryId",
-                schema: "Ordering",
+                schema: "Catalog",
                 table: "Product",
                 column: "ProductCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategory_StoreId",
-                schema: "Ordering",
+                schema: "Catalog",
                 table: "ProductCategory",
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductItem_ProductId",
-                schema: "Ordering",
+                schema: "Catalog",
                 table: "ProductItem",
                 column: "ProductId");
         }
@@ -145,23 +145,23 @@ namespace MatchaLatte.Ordering.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Group",
-                schema: "Ordering");
+                schema: "Catalog");
 
             migrationBuilder.DropTable(
                 name: "ProductItem",
-                schema: "Ordering");
+                schema: "Catalog");
 
             migrationBuilder.DropTable(
                 name: "Product",
-                schema: "Ordering");
+                schema: "Catalog");
 
             migrationBuilder.DropTable(
                 name: "ProductCategory",
-                schema: "Ordering");
+                schema: "Catalog");
 
             migrationBuilder.DropTable(
                 name: "Store",
-                schema: "Ordering");
+                schema: "Catalog");
         }
     }
 }

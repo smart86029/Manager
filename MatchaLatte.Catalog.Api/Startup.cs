@@ -2,10 +2,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.Catalog.Api.AutofacModules;
+using MatchaLatte.Catalog.Data;
 using MatchaLatte.Catalog.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -25,6 +27,10 @@ namespace MatchaLatte.Catalog.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<CatalogContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Catalog"));
+            });
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
