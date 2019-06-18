@@ -26,7 +26,7 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
         /// <param name="builder">可以註冊組件的構建器。</param>
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(StoreQueryService).Assembly;
+            var assembly = typeof(OrderQueryService).Assembly;
 
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("QueryService"))

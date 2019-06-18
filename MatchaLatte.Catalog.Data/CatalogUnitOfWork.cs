@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MatchaLatte.Catalog.Domain;
 using MatchaLatte.Common.Events;
 
 namespace MatchaLatte.Catalog.Data
@@ -7,7 +8,7 @@ namespace MatchaLatte.Catalog.Data
     /// <summary>
     /// 目錄工作單元。
     /// </summary>
-    public class CatalogUnitOfWork
+    public class CatalogUnitOfWork : ICatalogUnitOfWork
     {
         private readonly CatalogContext context;
         private readonly IEventBus eventBus;

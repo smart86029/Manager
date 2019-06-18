@@ -4,6 +4,9 @@ using MatchaLatte.Catalog.Services;
 
 namespace MatchaLatte.Catalog.Api.AutofacModules
 {
+    /// <summary>
+    /// <see cref="Services"/> 模組。
+    /// </summary>
     public class ServicesModule : Module
     {
         /// <summary>

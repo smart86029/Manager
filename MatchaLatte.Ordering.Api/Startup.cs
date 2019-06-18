@@ -40,6 +40,7 @@ namespace MatchaLatte.Ordering.Api
             var connectionString = Configuration.GetConnectionString("Ordering");
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<PictureSettings>(Configuration.GetSection("Picture"));
             services.AddDbContext<OrderingContext>(options =>
