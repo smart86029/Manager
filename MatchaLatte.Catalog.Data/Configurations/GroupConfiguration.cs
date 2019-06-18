@@ -1,8 +1,8 @@
-﻿using MatchaLatte.Ordering.Domain.Groups;
+﻿using MatchaLatte.Catalog.Domain.Groups;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MatchaLatte.Ordering.Data.Configurations
+namespace MatchaLatte.Catalog.Data.Configurations
 {
     public class GroupConfiguration : IEntityTypeConfiguration<Group>
     {

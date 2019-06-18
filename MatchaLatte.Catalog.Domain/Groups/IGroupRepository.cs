@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MatchaLatte.Common.Domain;
 
-namespace MatchaLatte.Ordering.Domain.Groups
+namespace MatchaLatte.Catalog.Domain.Groups
 {
     /// <summary>
     /// 團存放庫。

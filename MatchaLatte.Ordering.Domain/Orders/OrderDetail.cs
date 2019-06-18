@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Ordering.Domain.Products;
 
 namespace MatchaLatte.Ordering.Domain.Orders
 {
@@ -45,12 +44,6 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// </summary>
         /// <value>商品項目 ID。</value>
         public Guid ProductItemId { get; set; }
-
-        /// <summary>
-        /// 取得或設定商品項目。
-        /// </summary>
-        /// <value>商品項目。</value>
-        public ProductItem ProductItem { get; set; }
 
         /// <summary>
         /// 取得或設定訂單明細商品配件的集合。

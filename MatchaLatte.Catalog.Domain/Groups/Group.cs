@@ -2,7 +2,7 @@
 using MatchaLatte.Common.Domain;
 using MatchaLatte.Common.Utilities;
 
-namespace MatchaLatte.Ordering.Domain.Groups
+namespace MatchaLatte.Catalog.Domain.Groups
 {
     /// <summary>
     /// 團。

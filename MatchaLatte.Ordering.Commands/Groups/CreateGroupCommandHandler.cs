@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using MatchaLatte.Common.Commands;
-using MatchaLatte.Common.Exceptions;
-using MatchaLatte.Ordering.Domain;
-using MatchaLatte.Ordering.Domain.Groups;
-using MatchaLatte.Ordering.Domain.Stores;
-
-namespace MatchaLatte.Ordering.Commands.Groups
+﻿namespace MatchaLatte.Ordering.Commands.Groups
 {
     /// <summary>
     /// 新增團命令處理常式。

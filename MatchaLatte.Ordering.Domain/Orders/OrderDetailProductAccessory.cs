@@ -1,6 +1,5 @@
 ﻿using System;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Ordering.Domain.Products;
 
 namespace MatchaLatte.Ordering.Domain.Orders
 {
@@ -38,11 +37,5 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// </summary>
         /// <value>訂單明細。</value>
         public OrderDetail OrderDetail { get; set; }
-
-        /// <summary>
-        /// 取得或設定商品配件。
-        /// </summary>
-        /// <value>商品配件。</value>
-        public ProductAccessory ProductAccessory { get; set; }
     }
 }

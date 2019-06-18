@@ -1,12 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MatchaLatte.Common.Commands;
-using MatchaLatte.Ordering.Domain;
-using MatchaLatte.Ordering.Domain.Products;
-using MatchaLatte.Ordering.Domain.Stores;
-
-namespace MatchaLatte.Ordering.Commands.Stores
+﻿namespace MatchaLatte.Ordering.Commands.Stores
 {
     /// <summary>
     /// 新增店家命令處理常式。

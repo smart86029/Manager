@@ -1,13 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MatchaLatte.Common.Commands;
-
-using MatchaLatte.Ordering.Domain;
-using MatchaLatte.Ordering.Domain.Products;
-using MatchaLatte.Ordering.Domain.Groups;
-
-namespace MatchaLatte.Ordering.Commands.Groups
+﻿namespace MatchaLatte.Ordering.Commands.Groups
 {
     ///// <summary>
     ///// 修改團命令處理常式。
