@@ -1,4 +1,4 @@
-﻿namespace MatchaLatte.Ordering.App.Queries.Groups
+﻿namespace MatchaLatte.Catalog.App.Queries.Groups
 {
     public class GroupOption : PaginationOption
     {

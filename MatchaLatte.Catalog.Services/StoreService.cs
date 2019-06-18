@@ -72,7 +72,7 @@ namespace MatchaLatte.Catalog.Services
         /// </summary>
         /// <param name="command">新增店家命令。</param>
         /// <returns>使用者。</returns>
-        public Task<StoreDetail> CreateUserAsync(CreateStoreCommand command)
+        public Task<StoreDetail> CreateStoreAsync(CreateStoreCommand command)
         {
             throw new NotImplementedException();
         }
@@ -82,7 +82,7 @@ namespace MatchaLatte.Catalog.Services
         /// </summary>
         /// <param name="command">更新店家命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        public Task<bool> UpdateUserAsync(UpdateStoreCommand command)
+        public Task<bool> UpdateStoreAsync(UpdateStoreCommand command)
         {
             throw new NotImplementedException();
         }

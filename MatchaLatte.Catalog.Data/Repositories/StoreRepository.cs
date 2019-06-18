@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MatchaLatte.Ordering.Domain.Stores;
+using MatchaLatte.Catalog.Domain.Stores;
 using Microsoft.EntityFrameworkCore;
 
-namespace MatchaLatte.Ordering.Data.Repositories
+namespace MatchaLatte.Catalog.Data.Repositories
 {
     /// <summary>
     /// 店家存放庫。
     /// </summary>
     public class StoreRepository : IStoreRepository
     {
-        private readonly OrderingContext context;
+        private readonly CatalogContext context;
 
         /// <summary>
         /// 初始化 <see cref="StoreRepository"/> 類別的新執行個體。
         /// </summary>
         /// <param name="context">訂購內容。</param>
-        public StoreRepository(OrderingContext context)
+        public StoreRepository(CatalogContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }

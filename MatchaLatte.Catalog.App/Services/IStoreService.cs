@@ -40,13 +40,13 @@ namespace MatchaLatte.Catalog.App.Services
         /// </summary>
         /// <param name="command">新增店家命令。</param>
         /// <returns>使用者。</returns>
-        Task<StoreDetail> CreateUserAsync(CreateStoreCommand command);
+        Task<StoreDetail> CreateStoreAsync(CreateStoreCommand command);
 
         /// <summary>
         /// 更新店家。
         /// </summary>
         /// <param name="command">更新店家命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        Task<bool> UpdateUserAsync(UpdateStoreCommand command);
+        Task<bool> UpdateStoreAsync(UpdateStoreCommand command);
     }
 }

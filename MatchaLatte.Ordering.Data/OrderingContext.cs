@@ -20,10 +20,6 @@ namespace MatchaLatte.Ordering.Data
         {
             modelBuilder.HasDefaultSchema("Ordering");
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
-            modelBuilder.ApplyConfiguration(new StoreConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductItemConfiguration());
         }
     }
 }

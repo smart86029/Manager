@@ -1,11 +1,11 @@
 ﻿using System;
+using MatchaLatte.Catalog.Domain;
+using MatchaLatte.Catalog.Domain.Stores;
 using MatchaLatte.Common.Utilities;
-using MatchaLatte.Ordering.Domain;
-using MatchaLatte.Ordering.Domain.Stores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MatchaLatte.Ordering.Data.Configurations
+namespace MatchaLatte.Catalog.Data.Configurations
 {
     public class StoreConfiguration : IEntityTypeConfiguration<Store>
     {

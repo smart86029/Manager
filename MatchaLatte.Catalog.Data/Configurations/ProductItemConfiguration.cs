@@ -1,8 +1,8 @@
-﻿using MatchaLatte.Ordering.Domain.Products;
+﻿using MatchaLatte.Catalog.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MatchaLatte.Ordering.Data.Configurations
+namespace MatchaLatte.Catalog.Data.Configurations
 {
     public class ProductItemConfiguration : IEntityTypeConfiguration<ProductItem>
     {

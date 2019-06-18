@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MatchaLatte.Ordering.App.Commands.Groups
+namespace MatchaLatte.Catalog.App.Commands.Groups
 {
     public class StoreDto
     {

@@ -11,7 +11,7 @@ import { Group } from './group';
   providedIn: 'root'
 })
 export class GroupService {
-  private groupsUrl = 'ordering/api/groups';
+  private groupsUrl = 'catalog/api/groups';
 
   constructor(private httpClient: HttpClient) { }
 
