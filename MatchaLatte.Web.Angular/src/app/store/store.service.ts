@@ -12,7 +12,7 @@ import { Store } from './store';
   providedIn: 'root'
 })
 export class StoreService {
-  private storesUrl = 'ordering/api/stores';
+  private storesUrl = 'catalog/api/stores';
 
   constructor(private httpClient: HttpClient) { }
 

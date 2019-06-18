@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MatchaLatte.Catalog.Domain\MatchaLatte.Catalog.Domain.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Common\MatchaLatte.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MatchaLatte.Common.Attributes;
 
-namespace MatchaLatte.Ordering.App.Queries.Stores
+namespace MatchaLatte.Catalog.App.Queries.Stores
 {
     public class ProductDetail
     {

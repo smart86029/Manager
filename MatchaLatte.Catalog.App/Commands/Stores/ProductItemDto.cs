@@ -1,13 +1,11 @@
 ﻿using System;
-using MatchaLatte.Common.Attributes;
 
-namespace MatchaLatte.Ordering.App.Queries.Stores
+namespace MatchaLatte.Catalog.App.Commands.Stores
 {
-    public class ProductItemDetail
+    public class ProductItemDto
     {
         public Guid ProductItemId { get; set; }
 
-        [Column("ItemName")]
         public string Name { get; set; }
 
         public decimal Price { get; set; }
