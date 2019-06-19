@@ -92,6 +92,12 @@ namespace MatchaLatte.Catalog.Domain.Groups
         public DateTime CreatedOn { get; private set; }
 
         /// <summary>
+        /// 取得是否進行中。
+        /// </summary>
+        /// <value>是否進行中。</value>
+        public bool IsActive => StartTime >= DateTime.Now && EndTime < DateTime.Now;
+
+        /// <summary>
         /// 更新結束時間。
         /// </summary>
         /// <param name="endTime">結束時間。</param>

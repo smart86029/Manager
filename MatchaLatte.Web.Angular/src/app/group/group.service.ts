@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Guid } from '../shared/guid';
@@ -20,12 +20,14 @@ export class GroupService {
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
 
-    return this.httpClient.get<Group[]>(this.groupsUrl, { params: params, observe: 'response' }).pipe(
-      map(response => {
-        const itemCount = +response.headers.get('X-Total-Count');
-        return new PaginationResult<Group>(pageIndex, pageSize, itemCount, response.body);
-      })
-    );
+    return this.httpClient
+      .get<Group[]>(this.groupsUrl, { params: params, observe: 'response' })
+      .pipe(
+        map(response => {
+          const itemCount = +response.headers.get('X-Total-Count');
+          return new PaginationResult<Group>(pageIndex, pageSize, itemCount, response.body);
+        })
+      );
   }
 
   getActiveGroups(): Observable<Group[]> {

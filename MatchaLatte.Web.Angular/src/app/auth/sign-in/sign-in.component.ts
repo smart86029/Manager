@@ -21,7 +21,7 @@ export class SignInComponent implements OnInit {
       .signIn(this.userName, this.password)
       .subscribe(() => {
         const redirect = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.router.navigate([redirect], { skipLocationChange: true });
+        this.router.navigate([redirect]);
       });
   }
 
