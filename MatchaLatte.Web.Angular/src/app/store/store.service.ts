@@ -12,7 +12,7 @@ import { Store } from './store';
   providedIn: 'root'
 })
 export class StoreService {
-  private storesUrl = 'ordering/api/stores';
+  private storesUrl = 'catalog/api/stores';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,12 +21,14 @@ export class StoreService {
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
 
-    return this.httpClient.get<Store[]>(this.storesUrl, { params: params, observe: 'response' }).pipe(
-      map(response => {
-        const itemCount = +response.headers.get('X-Total-Count');
-        return new PaginationResult<Store>(pageIndex, pageSize, itemCount, response.body);
-      })
-    );
+    return this.httpClient
+      .get<Store[]>(this.storesUrl, { params: params, observe: 'response' })
+      .pipe(
+        map(response => {
+          const itemCount = +response.headers.get('X-Total-Count');
+          return new PaginationResult<Store>(pageIndex, pageSize, itemCount, response.body);
+        })
+      );
   }
 
   getStore(id: Guid): Observable<Store> {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
 using MatchaLatte.Ordering.Domain.BusinessEntities;
-using MatchaLatte.Ordering.Domain.Groups;
 
 namespace MatchaLatte.Ordering.Domain.Orders
 {
@@ -61,12 +60,6 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// </summary>
         /// <value>新增者。</value>
         public BusinessEntity Creator { get; private set; }
-
-        /// <summary>
-        /// 取得團。
-        /// </summary>
-        /// <value>團。</value>
-        public Group Group { get; private set; }
 
         /// <summary>
         /// 取得訂單明細的集合。

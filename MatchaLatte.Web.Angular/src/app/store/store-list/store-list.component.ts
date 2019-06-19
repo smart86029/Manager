@@ -13,7 +13,6 @@ import { PaginationResult } from 'src/app/shared/pagination-result';
 export class StoreListComponent implements OnInit {
   isLoading = false;
   displayedColumns = ['id', 'name', 'createdOn', 'action'];
-  dataSource = new MatTableDataSource<Store>();
   stores = new PaginationResult<Store>();
 
   constructor(private storeService: StoreService) { }
@@ -27,10 +26,8 @@ export class StoreListComponent implements OnInit {
     this.storeService
       .getStores(pageIndex, pageSize)
       .subscribe({
-        next: result => {
-          this.dataSource.data = result.items;
-          this.stores = result;
-        }, complete: () => this.isLoading = false
+        next: result => this.stores = result,
+        complete: () => this.isLoading = false
       });
   }
 }
