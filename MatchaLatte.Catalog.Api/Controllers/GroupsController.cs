@@ -61,18 +61,6 @@ namespace MatchaLatte.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// 取得新團。
-        /// </summary>
-        /// <returns>新團。</returns>
-        [HttpGet("new")]
-        public async Task<IActionResult> GetNewAsync(Guid storeId)
-        {
-            var group = await groupService.GetNewGroupAsync(storeId);
-
-            return Ok(group);
-        }
-
-        /// <summary>
         /// 新增團。
         /// </summary>
         /// <param name="command">新增團查詢。</param>

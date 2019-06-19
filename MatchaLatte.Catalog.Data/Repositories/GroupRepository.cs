@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MatchaLatte.Catalog.Domain.Groups;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +33,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
         {
             var result = await context
                 .Set<Group>()
+                .Include(g => g.Store)
                 .Skip(offset)
                 .Take(limit)
                 .ToListAsync();
@@ -51,6 +51,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
         {
             var result = await context
                 .Set<Group>()
+                .Include(g => g.Store)
                 .Where(x => x.IsActive)
                 .Skip(offset)
                 .Take(limit)
@@ -66,7 +67,12 @@ namespace MatchaLatte.Catalog.Data.Repositories
         /// <returns>團。</returns>
         public async Task<Group> GetGroupAsync(Guid groupId)
         {
-            return await context.Set<Group>().SingleOrDefaultAsync(s => s.GroupId == groupId);
+            var result = await context
+                .Set<Group>()
+                .Include(g => g.Store)
+                .SingleOrDefaultAsync(s => s.GroupId == groupId);
+
+            return result;
         }
 
         /// <summary>

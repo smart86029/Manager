@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MatchaLatte.Catalog.App.Commands.Groups;
 using MatchaLatte.Catalog.App.Queries;
@@ -9,6 +8,8 @@ using MatchaLatte.Catalog.App.Queries.Groups;
 using MatchaLatte.Catalog.App.Services;
 using MatchaLatte.Catalog.Domain;
 using MatchaLatte.Catalog.Domain.Groups;
+using MatchaLatte.Catalog.Domain.Stores;
+using MatchaLatte.Common.Exceptions;
 
 namespace MatchaLatte.Catalog.Services
 {
@@ -16,6 +17,7 @@ namespace MatchaLatte.Catalog.Services
     {
         private ICatalogUnitOfWork unitOfWork;
         private IGroupRepository groupRepository;
+        private IStoreRepository storeRepository;
         private PictureSettings pictureSettings;
 
         /// <summary>
@@ -23,11 +25,13 @@ namespace MatchaLatte.Catalog.Services
         /// </summary>
         /// <param name="unitOfWork">工作單元。</param>
         /// <param name="groupRepository">團存放庫。</param>
+        /// <param name="storeRepository">店家存放庫。</param>
         /// <param name="pictureSettings">圖片設定。</param>
-        public GroupService(ICatalogUnitOfWork unitOfWork, IGroupRepository groupRepository, PictureSettings pictureSettings)
+        public GroupService(ICatalogUnitOfWork unitOfWork, IGroupRepository groupRepository, IStoreRepository storeRepository, PictureSettings pictureSettings)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.groupRepository = groupRepository ?? throw new ArgumentNullException(nameof(groupRepository));
+            this.storeRepository = storeRepository ?? throw new ArgumentNullException(nameof(storeRepository));
             this.pictureSettings = pictureSettings ?? throw new ArgumentNullException(nameof(pictureSettings));
         }
 
@@ -62,7 +66,12 @@ namespace MatchaLatte.Catalog.Services
                         GroupId = x.GroupId,
                         StartTime = x.StartTime,
                         EndTime = x.EndTime,
-                        CreatedOn = x.CreatedOn
+                        CreatedOn = x.CreatedOn,
+                        Store = new StoreSummary
+                        {
+                            Name = x.Store.Name,
+                            LogoUri = $"{pictureSettings.BaseUri}{x.StoreId}/logo"
+                        }
                     })
                     .ToList(),
                 ItemCount = count
@@ -76,19 +85,23 @@ namespace MatchaLatte.Catalog.Services
         /// </summary>
         /// <param name="groupId">團 ID。</param>
         /// <returns>團。</returns>
-        public Task<GroupDetail> GetGroupAsync(Guid groupId)
+        public async Task<GroupDetail> GetGroupAsync(Guid groupId)
         {
-            throw new NotImplementedException();
-        }
+            var group = await groupRepository.GetGroupAsync(groupId);
+            var result = new GroupDetail
+            {
+                GroupId = group.GroupId,
+                StartTime = group.StartTime,
+                EndTime = group.EndTime,
+                Remark = group.Remark,
+                Store = new StoreDetail
+                {
+                    StoreId = group.StoreId,
+                    Name = group.Store.Name
+                }
+            };
 
-        /// <summary>
-        /// 取得新團。
-        /// </summary>
-        /// <param name="storeId">店家 ID。</param>
-        /// <returns>新團。</returns>
-        public Task<GroupDetail> GetNewGroupAsync(Guid storeId)
-        {
-            throw new NotImplementedException();
+            return result;
         }
 
         /// <summary>
@@ -96,9 +109,31 @@ namespace MatchaLatte.Catalog.Services
         /// </summary>
         /// <param name="command">新增團命令。</param>
         /// <returns>團。</returns>
-        public Task<GroupDetail> CreateGroupAsync(CreateGroupCommand command)
+        public async Task<GroupDetail> CreateGroupAsync(CreateGroupCommand command)
         {
-            throw new NotImplementedException();
+            var store = await storeRepository.GetStoreAsync(command.Store.StoreId);
+            if (store == default(Store))
+                throw new InvalidException();
+
+            var group = new Group(command.Store.StoreId, command.StartTime, command.EndTime, command.Remark, command.CreatedBy);
+
+            groupRepository.Add(group);
+            await unitOfWork.CommitAsync();
+
+            var result = new GroupDetail
+            {
+                GroupId = group.GroupId,
+                StartTime = group.StartTime,
+                EndTime = group.EndTime,
+                Remark = group.Remark,
+                Store = new StoreDetail
+                {
+                    StoreId = store.StoreId,
+                    Name = store.Name
+                }
+            };
+
+            return result;
         }
 
         /// <summary>
@@ -106,9 +141,17 @@ namespace MatchaLatte.Catalog.Services
         /// </summary>
         /// <param name="command">更新團命令。</param>
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
-        public Task<bool> UpdateGroupAsync(UpdateGroupCommand command)
+        public async Task<bool> UpdateGroupAsync(UpdateGroupCommand command)
         {
-            throw new NotImplementedException();
+            var group = await groupRepository.GetGroupAsync(command.GroupId);
+
+            group.UpdateStartTime(command.StartTime);
+            group.UpdateEndTime(command.EndTime);
+            group.UpdateRemark(command.Remark);
+            groupRepository.Update(group);
+            await unitOfWork.CommitAsync();
+
+            return true;
         }
     }
 }

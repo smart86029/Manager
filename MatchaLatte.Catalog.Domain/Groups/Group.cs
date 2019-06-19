@@ -1,4 +1,5 @@
 ﻿using System;
+using MatchaLatte.Catalog.Domain.Stores;
 using MatchaLatte.Common.Domain;
 using MatchaLatte.Common.Utilities;
 
@@ -98,12 +99,36 @@ namespace MatchaLatte.Catalog.Domain.Groups
         public bool IsActive => StartTime >= DateTime.Now && EndTime < DateTime.Now;
 
         /// <summary>
+        /// 取得店家。
+        /// </summary>
+        /// <value>店家。</value>
+        public Store Store { get; private set; }
+
+        /// <summary>
+        /// 更新開始時間。
+        /// </summary>
+        /// <param name="startTime">開始時間。</param>
+        public void UpdateStartTime(DateTime startTime)
+        {
+            StartTime = startTime;
+        }
+
+        /// <summary>
         /// 更新結束時間。
         /// </summary>
         /// <param name="endTime">結束時間。</param>
         public void UpdateEndTime(DateTime endTime)
         {
             EndTime = endTime;
+        }
+
+        /// <summary>
+        /// 更新備註。
+        /// </summary>
+        /// <param name="remark">備註。</param>
+        public void UpdateRemark(string remark)
+        {
+            Remark = remark;
         }
     }
 }

@@ -26,13 +26,6 @@ namespace MatchaLatte.Catalog.App.Services
         Task<GroupDetail> GetGroupAsync(Guid groupId);
 
         /// <summary>
-        /// 取得新團。
-        /// </summary>
-        /// <param name="storeId">店家 ID。</param>
-        /// <returns>新團。</returns>
-        Task<GroupDetail> GetNewGroupAsync(Guid storeId);
-
-        /// <summary>
         /// 新增團。
         /// </summary>
         /// <param name="command">新增團命令。</param>
