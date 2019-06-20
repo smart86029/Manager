@@ -12,24 +12,24 @@ import { RoleService } from '../role.service';
 })
 export class RoleListComponent implements OnInit {
   isLoading = false;
-  displayedColumns = ['id', 'name', 'isEnabled', 'action'];
-  dataSource = new MatTableDataSource<Role>();
   roles = new PaginationResult<Role>();
+  dataSource = new MatTableDataSource<Role>();
+  displayedColumns = ['id', 'name', 'isEnabled', 'action'];
 
   constructor(private roleService: RoleService) { }
 
   ngOnInit(): void {
-    this.getRoles(this.roles.pageIndex, this.roles.pageSize);
+    this.loadRoles(this.roles.pageIndex, this.roles.pageSize);
   }
 
-  private getRoles(pageIndex: number, pageSize: number): void {
+  loadRoles(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
     this.roleService
       .getRoles(pageIndex, pageSize)
       .subscribe({
         next: result => {
-          this.dataSource.data = result.items;
           this.roles = result;
+          this.dataSource.data = result.items;
         },
         complete: () => this.isLoading = false
       });

@@ -28,7 +28,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { MAT_DATE_FORMATS, MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatDatepickerModule,
+  MatMomentDateModule,
+  MomentDateAdapter,
+} from '@coachcare/datepicker';
 
 import { APP_DATE_FORMATS } from './app-date-formats';
 import { AppPaginatorIntl } from './app-paginator-intl';
@@ -69,6 +76,7 @@ import { AppPaginatorIntl } from './app-paginator-intl';
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: AppPaginatorIntl },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
   ],
 })

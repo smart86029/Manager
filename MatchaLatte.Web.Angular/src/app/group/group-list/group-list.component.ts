@@ -12,24 +12,24 @@ import { GroupService } from '../group.service';
 })
 export class GroupListComponent implements OnInit {
   isLoading = false;
-  displayedColumns = ['id', 'storeName', 'startTime', 'endTime', 'createdOn', 'action'];
-  dataSource = new MatTableDataSource<Group>();
   groups = new PaginationResult<Group>();
+  dataSource = new MatTableDataSource<Group>();
+  displayedColumns = ['id', 'storeName', 'startTime', 'endTime', 'createdOn', 'action'];
 
   constructor(private groupService: GroupService) { }
 
   ngOnInit(): void {
-    this.getGroups(0, this.groups.pageSize);
+    this.loadGroups(0, this.groups.pageSize);
   }
 
-  private getGroups(pageIndex: number, pageSize: number): void {
+  loadGroups(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
     this.groupService
       .getGroups(pageIndex, pageSize)
       .subscribe({
         next: result => {
-          this.dataSource.data = result.items;
           this.groups = result;
+          this.dataSource.data = result.items;
         },
         complete: () => this.isLoading = false
       });

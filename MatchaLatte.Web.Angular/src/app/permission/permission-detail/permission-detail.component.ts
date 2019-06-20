@@ -20,9 +20,9 @@ export class PermissionDetailComponent implements OnInit {
   constructor(private permissionService: PermissionService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
+      this.isLoading = true;
       this.saveMode = SaveMode.Update;
       this.permissionService
         .getPermission(new Guid(id))

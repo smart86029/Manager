@@ -12,24 +12,24 @@ import { UserService } from '../user.service';
 })
 export class UserListComponent implements OnInit {
   isLoading = false;
-  displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
-  dataSource = new MatTableDataSource<User>();
   users = new PaginationResult<User>();
+  dataSource = new MatTableDataSource<User>();
+  displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.getUsers(this.users.pageIndex, this.users.pageSize);
+    this.loadUsers(this.users.pageIndex, this.users.pageSize);
   }
 
-  private getUsers(pageIndex: number, pageSize: number): void {
+  loadUsers(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
     this.userService
       .getUsers(pageIndex, pageSize)
       .subscribe({
         next: result => {
-          this.dataSource.data = result.items;
           this.users = result;
+          this.dataSource.data = result.items;
         },
         complete: () => this.isLoading = false
       });

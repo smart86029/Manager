@@ -12,24 +12,24 @@ import { PermissionService } from '../permission.service';
 })
 export class PermissionListComponent implements OnInit {
   isLoading: boolean;
-  displayedColumns = ['id', 'name', 'isEnabled', 'action'];
-  dataSource = new MatTableDataSource<Permission>();
   permissions = new PaginationResult<Permission>();
+  dataSource = new MatTableDataSource<Permission>();
+  displayedColumns = ['id', 'name', 'isEnabled', 'action'];
 
   constructor(private permissionService: PermissionService, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    this.getPermissions(this.permissions.pageIndex, this.permissions.pageSize);
+    this.loadPermissions(this.permissions.pageIndex, this.permissions.pageSize);
   }
 
-  private getPermissions(pageIndex: number, pageSize: number): void {
+  loadPermissions(pageIndex: number, pageSize: number): void {
     this.isLoading = true;
     this.permissionService
       .getPermissions(pageIndex, pageSize)
       .subscribe({
         next: result => {
-          this.dataSource.data = result.items;
           this.permissions = result;
+          this.dataSource.data = result.items;
         },
         complete: () => this.isLoading = false
       });
