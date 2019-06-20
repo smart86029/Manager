@@ -27,9 +27,9 @@ export class StoreListComponent implements OnInit {
     this.storeService
       .getStores(pageIndex, pageSize)
       .subscribe({
-        next: result => {
-          this.stores = result;
-          this.dataSource.data = result.items;
+        next: stores => {
+          this.stores = stores;
+          this.dataSource.data = stores.items;
         },
         complete: () => this.isLoading = false
       });

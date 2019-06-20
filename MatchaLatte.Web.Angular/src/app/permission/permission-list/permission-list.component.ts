@@ -27,9 +27,9 @@ export class PermissionListComponent implements OnInit {
     this.permissionService
       .getPermissions(pageIndex, pageSize)
       .subscribe({
-        next: result => {
-          this.permissions = result;
-          this.dataSource.data = result.items;
+        next: permissions => {
+          this.permissions = permissions;
+          this.dataSource.data = permissions.items;
         },
         complete: () => this.isLoading = false
       });

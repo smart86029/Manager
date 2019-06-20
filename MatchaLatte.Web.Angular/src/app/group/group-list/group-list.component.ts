@@ -27,9 +27,9 @@ export class GroupListComponent implements OnInit {
     this.groupService
       .getGroups(pageIndex, pageSize)
       .subscribe({
-        next: result => {
-          this.groups = result;
-          this.dataSource.data = result.items;
+        next: groups => {
+          this.groups = groups;
+          this.dataSource.data = groups.items;
         },
         complete: () => this.isLoading = false
       });

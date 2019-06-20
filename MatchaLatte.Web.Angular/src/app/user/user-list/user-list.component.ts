@@ -27,9 +27,9 @@ export class UserListComponent implements OnInit {
     this.userService
       .getUsers(pageIndex, pageSize)
       .subscribe({
-        next: result => {
-          this.users = result;
-          this.dataSource.data = result.items;
+        next: users => {
+          this.users = users;
+          this.dataSource.data = users.items;
         },
         complete: () => this.isLoading = false
       });
