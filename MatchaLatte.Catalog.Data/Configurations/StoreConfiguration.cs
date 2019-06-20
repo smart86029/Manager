@@ -11,22 +11,27 @@ namespace MatchaLatte.Catalog.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Store> builder)
         {
-            builder.ToTable("Store");
-            builder.Property(s => s.Name)
+            builder
+                .Property(s => s.Name)
                 .IsRequired()
                 .HasMaxLength(32);
-            builder.Property(s => s.Description)
+
+            builder
+                .Property(s => s.Description)
                 .HasMaxLength(512);
+
             builder.OwnsOne(s => s.Logo, x =>
             {
                 x.Property(p => p.FileName).HasColumnName("LogoFileName").IsRequired().HasMaxLength(256);
             });
+
             builder.OwnsOne(s => s.Phone, x =>
             {
                 x.Property(p => p.PhoneType).HasColumnName("PhoneType");
                 x.Property(p => p.CountryCode).HasColumnName("CountryCode").IsRequired().HasMaxLength(4);
                 x.Property(p => p.PhoneNumber).HasColumnName("PhoneNumber").IsRequired().HasMaxLength(32);
             });
+
             builder.OwnsOne(s => s.Address, x =>
             {
                 x.Property(a => a.PostalCode).HasColumnName("PostalCode").IsRequired().HasMaxLength(8);
@@ -35,9 +40,13 @@ namespace MatchaLatte.Catalog.Data.Configurations
                 x.Property(a => a.District).HasColumnName("District").IsRequired().HasMaxLength(32);
                 x.Property(a => a.Street).HasColumnName("Street").IsRequired().HasMaxLength(128);
             });
-            builder.Property(s => s.Remark)
+
+            builder
+                .Property(s => s.Remark)
                 .HasMaxLength(512);
-            builder.Metadata.FindNavigation(nameof(Store.ProductCategories))
+
+            builder.Metadata
+                .FindNavigation(nameof(Store.ProductCategories))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
 
             //builder.HasData(GetSeedData());

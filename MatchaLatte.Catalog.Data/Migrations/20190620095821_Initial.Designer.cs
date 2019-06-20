@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Catalog.Data.Migrations
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20190618083652_Initial")]
+    [Migration("20190620095821_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,8 @@ namespace MatchaLatte.Catalog.Data.Migrations
                     b.Property<Guid>("StoreId");
 
                     b.HasKey("GroupId");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("Group");
                 });
@@ -132,6 +134,14 @@ namespace MatchaLatte.Catalog.Data.Migrations
                     b.HasKey("StoreId");
 
                     b.ToTable("Store");
+                });
+
+            modelBuilder.Entity("MatchaLatte.Catalog.Domain.Groups.Group", b =>
+                {
+                    b.HasOne("MatchaLatte.Catalog.Domain.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Products.Product", b =>

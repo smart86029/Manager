@@ -1,4 +1,6 @@
-﻿using MatchaLatte.Catalog.Data.Configurations;
+﻿using System;
+using MatchaLatte.Catalog.Data.Configurations;
+using MatchaLatte.Catalog.Data.Converters;
 using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.Catalog.Data
@@ -24,6 +26,18 @@ namespace MatchaLatte.Catalog.Data
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductItemConfiguration());
+
+            var utcDateTimeConverter = new UtcDateTimeConverter();
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(DateTime))
+                    {
+                        property.SetValueConverter(utcDateTimeConverter);
+                    }
+                }
+            }
         }
     }
 }

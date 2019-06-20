@@ -8,17 +8,21 @@ namespace MatchaLatte.Catalog.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductCategory> builder)
         {
-            builder.ToTable("ProductCategory");
-            builder.Property(x => x.Name)
+            builder
+                .Property(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(32);
-            builder.HasOne(x => x.Store)
+
+            builder
+                .HasOne(x => x.Store)
                 .WithMany(s => s.ProductCategories)
                 .HasForeignKey(x => x.StoreId);
-            builder.Metadata.FindNavigation(nameof(ProductCategory.Products))
+
+            builder.Metadata
+                .FindNavigation(nameof(ProductCategory.Products))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
 
-            //builder.HasData(GetSeedData());
+            builder.HasData(GetSeedData());
         }
 
         private object[] GetSeedData()
