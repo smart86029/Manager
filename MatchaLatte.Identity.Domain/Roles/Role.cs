@@ -11,7 +11,7 @@ namespace MatchaLatte.Identity.Domain.Roles
     /// <summary>
     /// 角色。
     /// </summary>
-    public class Role : Entity, IAggregateRoot
+    public class Role :AggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
         private readonly List<RolePermission> rolePermissions = new List<RolePermission>();

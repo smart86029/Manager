@@ -9,7 +9,7 @@ namespace MatchaLatte.Catalog.Domain.Groups
     /// <summary>
     /// 團。
     /// </summary>
-    public class Group : Entity, IAggregateRoot
+    public class Group : AggregateRoot
     {
         /// <summary>
         /// 初始化 <see cref="Group"/> 類別的新執行個體。

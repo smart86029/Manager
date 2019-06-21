@@ -9,7 +9,7 @@ namespace MatchaLatte.Catalog.Domain.Products
     /// <summary>
     /// 商品。
     /// </summary>
-    public class Product : Entity, IAggregateRoot
+    public class Product : AggregateRoot
     {
         private List<ProductItem> productItems = new List<ProductItem>();
 

@@ -10,7 +10,7 @@ namespace MatchaLatte.Identity.Domain.Users
     /// <summary>
     /// 使用者。
     /// </summary>
-    public class User : Entity, IAggregateRoot
+    public class User : AggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
 

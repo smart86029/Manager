@@ -8,7 +8,7 @@ namespace MatchaLatte.Catalog.Domain.Stores
     /// <summary>
     /// 店家。
     /// </summary>
-    public class Store : Entity, IAggregateRoot
+    public class Store : AggregateRoot
     {
         private List<ProductCategory> productCategories = new List<ProductCategory>();
 

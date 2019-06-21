@@ -6,7 +6,7 @@ namespace MatchaLatte.Ordering.Domain.Buyers
     /// <summary>
     /// 購買者。
     /// </summary>
-    public class Buyer : Entity, IAggregateRoot
+    public class Buyer : AggregateRoot
     {
         /// <summary>
         /// 取得主鍵。

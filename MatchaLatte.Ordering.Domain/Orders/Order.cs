@@ -8,7 +8,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
     /// <summary>
     /// 訂單。
     /// </summary>
-    public class Order : Entity, IAggregateRoot
+    public class Order : AggregateRoot
     {
         private List<OrderDetail> orderDetails = new List<OrderDetail>();
         /// <summary>

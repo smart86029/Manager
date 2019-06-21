@@ -3,7 +3,7 @@
     /// <summary>
     /// 聚合根。
     /// </summary>
-    public interface IAggregateRoot
+    public abstract class AggregateRoot : Entity
     {
     }
 }

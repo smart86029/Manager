@@ -9,7 +9,7 @@ namespace MatchaLatte.Identity.Domain.Permissions
     /// <summary>
     /// 權限。
     /// </summary>
-    public class Permission : Entity, IAggregateRoot
+    public class Permission : AggregateRoot
     {
         private readonly List<RolePermission> rolePermissions = new List<RolePermission>();
 

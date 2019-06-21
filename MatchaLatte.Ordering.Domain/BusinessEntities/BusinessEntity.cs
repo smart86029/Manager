@@ -6,7 +6,7 @@ namespace MatchaLatte.Ordering.Domain.BusinessEntities
     /// <summary>
     /// 商業實體。
     /// </summary>
-    public abstract class BusinessEntity : Entity, IAggregateRoot
+    public abstract class BusinessEntity : AggregateRoot
     {
         /// <summary>
         /// 初始化 <see cref="BusinessEntity"/> 類別的新執行個體。
