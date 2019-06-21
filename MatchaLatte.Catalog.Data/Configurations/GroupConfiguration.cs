@@ -8,11 +8,11 @@ namespace MatchaLatte.Catalog.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
-            builder.ToTable("Group");
-            builder.Property(g => g.Remark)
+            builder
+                .Property(g => g.Remark)
                 .HasMaxLength(512);
 
-            //builder.HasData(GetSeedData());
+            builder.HasData(GetSeedData());
         }
 
         private object[] GetSeedData()

@@ -40,6 +40,8 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
                     b.HasKey("GroupId");
 
+                    b.HasIndex("StoreId");
+
                     b.ToTable("Group");
                 });
 
@@ -130,6 +132,14 @@ namespace MatchaLatte.Catalog.Data.Migrations
                     b.HasKey("StoreId");
 
                     b.ToTable("Store");
+                });
+
+            modelBuilder.Entity("MatchaLatte.Catalog.Domain.Groups.Group", b =>
+                {
+                    b.HasOne("MatchaLatte.Catalog.Domain.Stores.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Products.Product", b =>

@@ -8,16 +8,20 @@ namespace MatchaLatte.Catalog.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductItem> builder)
         {
-            builder.ToTable("ProductItem");
-            builder.Property(i => i.Name)
+            builder
+                .Property(i => i.Name)
                 .HasMaxLength(32);
-            builder.Property(i => i.Price)
+
+            builder
+                .Property(i => i.Price)
                 .HasColumnType("decimal(19, 4)");
-            builder.HasOne(i => i.Product)
+
+            builder
+                .HasOne(i => i.Product)
                 .WithMany(p => p.ProductItems)
                 .HasForeignKey(i => i.ProductId);
 
-            //builder.HasData(GetSeedData());
+            builder.HasData(GetSeedData());
         }
 
         private object[] GetSeedData()

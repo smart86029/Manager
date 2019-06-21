@@ -57,7 +57,6 @@ export class GroupDetailComponent implements OnInit {
 
   selectStore(store: Store): void {
     this.group.store = store;
-    console.log(1);
   }
 
   save(): void {

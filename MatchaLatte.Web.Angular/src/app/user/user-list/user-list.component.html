@@ -2,13 +2,13 @@
   <h2 class="mat-h2">使用者</h2>
   <mat-card>
     <mat-card-content>
-      <a mat-button color="primary" routerLink="/admin/users/new">新增</a>
+      <a mat-button color="primary" [routerLink]="['new']">新增</a>
     </mat-card-content>
   </mat-card>
   <mat-card>
     <mat-card-content>
-      <mat-paginator [length]="users.itemCount" [pageSize]="users.pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="pageEvent = getUsers($event.pageIndex, $event.pageSize)"
-        showFirstLastButtons></mat-paginator>
+      <mat-paginator [length]="users.itemCount" [pageSize]="users.pageSize" [pageSizeOptions]="[5, 10, 20]"
+        (page)="pageEvent = loadUsers($event.pageIndex, $event.pageSize)" showFirstLastButtons></mat-paginator>
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>序號</th>

@@ -11,24 +11,6 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 name: "Catalog");
 
             migrationBuilder.CreateTable(
-                name: "Group",
-                schema: "Catalog",
-                columns: table => new
-                {
-                    GroupId = table.Column<Guid>(nullable: false),
-                    StoreId = table.Column<Guid>(nullable: false),
-                    StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
-                    Remark = table.Column<string>(maxLength: 512, nullable: true),
-                    CreatedBy = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Group", x => x.GroupId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Store",
                 schema: "Catalog",
                 columns: table => new
@@ -52,6 +34,31 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Store", x => x.StoreId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Group",
+                schema: "Catalog",
+                columns: table => new
+                {
+                    GroupId = table.Column<Guid>(nullable: false),
+                    StoreId = table.Column<Guid>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    Remark = table.Column<string>(maxLength: 512, nullable: true),
+                    CreatedBy = table.Column<Guid>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Group", x => x.GroupId);
+                    table.ForeignKey(
+                        name: "FK_Group_Store_StoreId",
+                        column: x => x.StoreId,
+                        principalSchema: "Catalog",
+                        principalTable: "Store",
+                        principalColumn: "StoreId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,6 +128,12 @@ namespace MatchaLatte.Catalog.Data.Migrations
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Group_StoreId",
+                schema: "Catalog",
+                table: "Group",
+                column: "StoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_ProductCategoryId",
