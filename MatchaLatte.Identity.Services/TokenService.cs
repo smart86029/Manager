@@ -45,7 +45,7 @@ namespace MatchaLatte.Identity.Services
         {
             var passwordHash = CryptographyUtility.Hash(command.Password);
             var user = await userRepository.GetUserAsync(command.UserName, passwordHash);
-            if (user == default(User))
+            if (user == default)
                 return default(TokenDetail);
 
             var claims = new List<Claim>
@@ -57,7 +57,7 @@ namespace MatchaLatte.Identity.Services
             var securityToken = new JwtSecurityToken(jwtSettings.Issuer,
                 jwtSettings.Audience,
                 claims,
-                expires: DateTime.Now.AddMinutes(ExpireMinutes),
+                expires: DateTime.UtcNow.AddMinutes(ExpireMinutes),
                 signingCredentials: credentials);
             var handler = new JwtSecurityTokenHandler();
             var token = new TokenDetail

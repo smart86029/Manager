@@ -59,7 +59,7 @@ namespace MatchaLatte.Catalog.Data.Configurations
                 new { StoreId = GuidUtility.NewGuid(), Name = "Administrator", Description = "測試der",
                     PhoneType = (int)PhoneType.Landline, CountryCode = "886", AreaCode = "02", BaseNumber = "2658-2882", Extension = string.Empty,
                     PostalCode = "11473", Country = "台灣", City = "台北市", District = "內湖區", Street = "江南街117號",
-                    Remark = string.Empty, CreatedBy = 1, CreatedOn = DateTime.Now }
+                    Remark = string.Empty, CreatedBy = 1, CreatedOn = DateTime.UtcNow }
             };
 
             return result;

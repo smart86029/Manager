@@ -47,7 +47,7 @@ namespace MatchaLatte.Catalog.Domain.Groups
             EndTime = endTime;
             Remark = remark;
             CreatedBy = createdBy;
-            CreatedOn = DateTime.Now;
+            CreatedOn = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// 取得是否進行中。
         /// </summary>
         /// <value>是否進行中。</value>
-        public bool IsActive => StartTime >= DateTime.Now && EndTime < DateTime.Now;
+        public bool IsActive => StartTime >= DateTime.UtcNow && EndTime < DateTime.UtcNow;
 
         /// <summary>
         /// 取得店家。
