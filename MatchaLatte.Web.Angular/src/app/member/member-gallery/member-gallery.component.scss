@@ -2,7 +2,7 @@
   margin: 20px;
 }
 
-.store-card-overlay {
+.group-card-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -15,14 +15,14 @@
   color: rgba(0, 0, 0, 0);
   font-size: 108px;
   text-decoration: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, .4);
+    visibility: visible;
+    color: rgba(255, 255, 255, .9);
+  }
 }
 
-.store-card-overlay:hover {
-  background: rgba(0, 0, 0, .4);
-  visibility: visible;
-  color: rgba(255, 255, 255, .9);
-}
-
-.store-card-content {
+.group-card-content {
   text-align: center;
 }

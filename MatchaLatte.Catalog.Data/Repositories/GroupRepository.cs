@@ -52,7 +52,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
             var result = await context
                 .Set<Group>()
                 .Include(g => g.Store)
-                .Where(x => x.IsActive)
+                .Where(g => g.StartTime <= DateTime.UtcNow && g.EndTime > DateTime.UtcNow)
                 .Skip(offset)
                 .Take(limit)
                 .ToListAsync();
@@ -90,7 +90,11 @@ namespace MatchaLatte.Catalog.Data.Repositories
         /// <returns>所有進行中團的數量。</returns>
         public async Task<int> GetActiveGroupsCountAsync()
         {
-            return await context.Set<Group>().CountAsync(x => x.IsActive);
+            var result = await context
+                .Set<Group>()
+                .CountAsync(g => g.StartTime <= DateTime.UtcNow && g.EndTime > DateTime.UtcNow);
+
+            return result;
         }
 
         /// <summary>

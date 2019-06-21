@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using MatchaLatte.Catalog.Domain.Stores;
 using MatchaLatte.Common.Domain;
 using MatchaLatte.Common.Utilities;
@@ -96,7 +97,7 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// 取得是否進行中。
         /// </summary>
         /// <value>是否進行中。</value>
-        public bool IsActive => StartTime >= DateTime.UtcNow && EndTime < DateTime.UtcNow;
+        public bool IsActive => StartTime <= DateTime.UtcNow && EndTime > DateTime.UtcNow;
 
         /// <summary>
         /// 取得店家。

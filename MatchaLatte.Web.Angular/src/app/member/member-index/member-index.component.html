@@ -1,13 +1,14 @@
 <header class="{{selectedTheme}}">
   <nav class="nav">
     <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()" *ngIf="isHandset$ | async">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()"
+        *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">AAAAA</mat-icon>
       </button>
       <span class="fill-space"></span>
       <!-- <button mat-icon-button [matMenuTriggerFor]="themeMenu" #themeButton>
-        <mat-icon>format_color_fill</mat-icon>
-      </button> -->
+          <mat-icon>format_color_fill</mat-icon>
+        </button> -->
       <button mat-icon-button>
         <mat-icon>notifications</mat-icon>
       </button>
