@@ -5,7 +5,7 @@ namespace MatchaLatte.Catalog.App.Commands.Stores
 {
     public class ProductDto
     {
-        public Guid ProductId { get; set; }
+        public Guid id { get; set; }
 
         public string Name { get; set; }
 

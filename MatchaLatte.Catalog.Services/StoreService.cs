@@ -48,7 +48,7 @@ namespace MatchaLatte.Catalog.Services
                 Items = stores
                     .Select(x => new StoreSummary
                     {
-                        StoreId = x.Id,
+                        Id = x.Id,
                         Name = x.Name,
                         CreatedOn = x.CreatedOn,
                         LogoUri = $"{pictureSettings.BaseUri}{x.Id}/logo"
@@ -70,7 +70,7 @@ namespace MatchaLatte.Catalog.Services
             var store = await storeRepository.GetStoreAsync(storeId);
             var result = new StoreDetail
             {
-                StoreId = store.Id,
+                Id = store.Id,
                 Name = store.Name,
                 Description = store.Description,
                 Phone = store.Phone.PhoneNumber,
@@ -86,21 +86,21 @@ namespace MatchaLatte.Catalog.Services
                 ProductCategories = store.ProductCategories
                     .Select(c => new ProductCategoryDetail
                     {
-                        ProductCategoryId = c.Id,
+                        Id = c.Id,
                         Name = c.Name,
                         IsDefault = c.IsDefault,
                         Sequence = c.Sequence,
                         Products = c.Products
                             .Select(p => new ProductDetail
                             {
-                                ProductId = p.Id,
+                                Id = p.Id,
                                 Name = p.Name,
                                 Description = p.Description,
                                 Sequence = p.Sequence,
                                 ProductItems = p.ProductItems
                                     .Select(i => new ProductItemDetail
                                     {
-                                        ProductItemId = i.Id,
+                                        Id = i.Id,
                                         Name = i.Name,
                                         Price = i.Price
                                     })
@@ -178,7 +178,7 @@ namespace MatchaLatte.Catalog.Services
 
             var result = new StoreDetail
             {
-                StoreId = store.Id,
+                Id = store.Id,
                 Name = store.Name,
                 Description = store.Description,
                 Phone = store.Phone.PhoneNumber,
@@ -203,7 +203,7 @@ namespace MatchaLatte.Catalog.Services
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
         public async Task<bool> UpdateStoreAsync(UpdateStoreCommand command)
         {
-            var store = await storeRepository.GetStoreAsync(command.StoreId);
+            var store = await storeRepository.GetStoreAsync(command.id);
 
             store.UpdateName(command.Name);
             store.UpdateDescription(command.Description);
@@ -213,18 +213,18 @@ namespace MatchaLatte.Catalog.Services
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = c.ProductCategoryId != Guid.Empty ?
-                    store.ProductCategories.Single(x => x.Id == c.ProductCategoryId) : new ProductCategory(c.Name, false);
+                var productCategory = c.id != Guid.Empty ?
+                    store.ProductCategories.Single(x => x.Id == c.id) : new ProductCategory(c.Name, false);
                 foreach (var p in c.Products)
                 {
-                    var product = p.ProductId != Guid.Empty ?
-                        productCategory.Products.Single(x => x.Id == p.ProductId) : new Product(p.Name, p.Description);
+                    var product = p.id != Guid.Empty ?
+                        productCategory.Products.Single(x => x.Id == p.id) : new Product(p.Name, p.Description);
                     foreach (var i in p.ProductItems)
                     {
-                        var productItem = i.ProductItemId != Guid.Empty ?
-                            product.ProductItems.Single(x => x.Id == i.ProductItemId) : new ProductItem(i.Name, i.Price);
+                        var productItem = i.id != Guid.Empty ?
+                            product.ProductItems.Single(x => x.Id == i.id) : new ProductItem(i.Name, i.Price);
 
-                        if (i.ProductItemId != Guid.Empty)
+                        if (i.id != Guid.Empty)
                         {
                             productItem.UpdateName(i.Name);
                             productItem.UpdatePrice(i.Price);
@@ -233,7 +233,7 @@ namespace MatchaLatte.Catalog.Services
                             product.AddProductItem(productItem);
                     }
 
-                    if (p.ProductId != Guid.Empty)
+                    if (p.id != Guid.Empty)
                     {
                         product.UpdateName(p.Name);
                         product.UpdateDescription(p.Description);
@@ -242,7 +242,7 @@ namespace MatchaLatte.Catalog.Services
                         productCategory.AddProduct(product);
                 }
 
-                if (c.ProductCategoryId != Guid.Empty)
+                if (c.id != Guid.Empty)
                     productCategory.UpdateName(c.Name);
                 else
                     store.AddProductCategory(productCategory);

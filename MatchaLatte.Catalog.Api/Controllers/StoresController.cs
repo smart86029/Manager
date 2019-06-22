@@ -97,7 +97,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
         {
             var store = await storeService.CreateStoreAsync(command);
 
-            return CreatedAtAction(nameof(GetAsync), new { id = store.StoreId }, store);
+            return CreatedAtAction(nameof(GetAsync), new { id = store.Id }, store);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateStoreCommand command)
         {
-            if (id != command.StoreId)
+            if (id != command.id)
                 return BadRequest();
 
             await storeService.UpdateStoreAsync(command);

@@ -67,7 +67,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         {
             var permission = await permissionService.CreatePermissionAsync(option);
 
-            return CreatedAtAction(nameof(GetAsync), new { id = permission.PermissionId }, permission);
+            return CreatedAtAction(nameof(GetAsync), new { id = permission.Id }, permission);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdatePermissionCommand command)
         {
-            if (id != command.PermissionId)
+            if (id != command.Id)
                 return BadRequest();
 
             await permissionService.UpdatePermissionAsync(command);

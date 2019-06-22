@@ -34,7 +34,7 @@ export class GroupJoinComponent implements OnInit {
       .getGroup(new Guid(id))
       .pipe(
         tap(group => this.group = group),
-        switchMap(group => this.storeService.getStore(group.store.storeId)))
+        switchMap(group => this.storeService.getStore(group.store.id)))
       .subscribe({
         next: store => this.store = store,
         complete: () => this.isLoading = false

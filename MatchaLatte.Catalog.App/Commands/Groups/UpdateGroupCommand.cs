@@ -5,7 +5,7 @@ namespace MatchaLatte.Catalog.App.Commands.Groups
 {
     public class UpdateGroupCommand : ICommand<bool>
     {
-        public Guid GroupId { get; set; }
+        public Guid id { get; set; }
 
         public DateTime StartTime { get; set; }
 

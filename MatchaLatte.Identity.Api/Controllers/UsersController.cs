@@ -79,7 +79,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         {
             var user = await userService.CreateUserAsync(command);
 
-            return CreatedAtAction(nameof(GetAsync), new { id = user.UserId }, user);
+            return CreatedAtAction(nameof(GetAsync), new { id = user.Id }, user);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateUserCommand command)
         {
-            if (id != command.UserId)
+            if (id != command.Id)
                 return BadRequest();
 
             await userService.UpdateUserAsync(command);

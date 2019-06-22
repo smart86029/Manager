@@ -42,7 +42,7 @@ namespace MatchaLatte.Identity.Services
             {
                 Items = permissions.Select(p => new PermissionSummary
                 {
-                    PermissionId = p.Id,
+                    Id = p.Id,
                     Name = p.Name,
                     IsEnabled = p.IsEnabled
                 }).ToList(),
@@ -62,7 +62,7 @@ namespace MatchaLatte.Identity.Services
             var permission = await permissionRepository.GetPermissionAsync(permissionId);
             var result = new PermissionDetail
             {
-                PermissionId = permission.Id,
+                Id = permission.Id,
                 Name = permission.Name,
                 Description = permission.Description,
                 IsEnabled = permission.IsEnabled
@@ -85,7 +85,7 @@ namespace MatchaLatte.Identity.Services
 
             var result = new PermissionDetail
             {
-                PermissionId = permission.Id,
+                Id = permission.Id,
                 Name = permission.Name,
                 Description = permission.Description,
                 IsEnabled = permission.IsEnabled
@@ -101,7 +101,7 @@ namespace MatchaLatte.Identity.Services
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
         public async Task<bool> UpdatePermissionAsync(UpdatePermissionCommand command)
         {
-            var permission = await permissionRepository.GetPermissionAsync(command.PermissionId);
+            var permission = await permissionRepository.GetPermissionAsync(command.Id);
             if (permission == default(Permission))
                 return false;
 

@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   isLoading = false;
   users = new PaginationResult<User>();
   dataSource = new MatTableDataSource<User>();
-  displayedColumns = ['id', 'userName', 'isEnabled', 'action'];
+  displayedColumns = ['rowId', 'userName', 'isEnabled', 'action'];
 
   constructor(private userService: UserService) { }
 

@@ -6,9 +6,8 @@ namespace MatchaLatte.Catalog.App.Queries.Stores
 {
     public class ProductCategoryDetail
     {
-        public Guid ProductCategoryId { get; set; }
+        public Guid Id { get; set; }
 
-        [Column("CategoryName")]
         public string Name { get; set; }
 
         public bool IsDefault { get; set; }

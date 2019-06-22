@@ -63,7 +63,7 @@ namespace MatchaLatte.Catalog.Services
                 Items = groups
                     .Select(x => new GroupSummary
                     {
-                        GroupId = x.Id,
+                        Id = x.Id,
                         StartTime = x.StartTime,
                         EndTime = x.EndTime,
                         CreatedOn = x.CreatedOn,
@@ -90,13 +90,13 @@ namespace MatchaLatte.Catalog.Services
             var group = await groupRepository.GetGroupAsync(groupId);
             var result = new GroupDetail
             {
-                GroupId = group.Id,
+                Id = group.Id,
                 StartTime = group.StartTime,
                 EndTime = group.EndTime,
                 Remark = group.Remark,
                 Store = new StoreDetail
                 {
-                    StoreId = group.StoreId,
+                    Id = group.StoreId,
                     Name = group.Store.Name
                 }
             };
@@ -111,24 +111,24 @@ namespace MatchaLatte.Catalog.Services
         /// <returns>團。</returns>
         public async Task<GroupDetail> CreateGroupAsync(CreateGroupCommand command)
         {
-            var store = await storeRepository.GetStoreAsync(command.Store.StoreId);
+            var store = await storeRepository.GetStoreAsync(command.Store.id);
             if (store == default(Store))
                 throw new InvalidException();
 
-            var group = new Group(command.Store.StoreId, command.StartTime, command.EndTime, command.Remark, command.CreatedBy);
+            var group = new Group(command.Store.id, command.StartTime, command.EndTime, command.Remark, command.CreatedBy);
 
             groupRepository.Add(group);
             await unitOfWork.CommitAsync();
 
             var result = new GroupDetail
             {
-                GroupId = group.Id,
+                Id = group.Id,
                 StartTime = group.StartTime,
                 EndTime = group.EndTime,
                 Remark = group.Remark,
                 Store = new StoreDetail
                 {
-                    StoreId = store.Id,
+                    Id = store.Id,
                     Name = store.Name
                 }
             };
@@ -143,7 +143,7 @@ namespace MatchaLatte.Catalog.Services
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
         public async Task<bool> UpdateGroupAsync(UpdateGroupCommand command)
         {
-            var group = await groupRepository.GetGroupAsync(command.GroupId);
+            var group = await groupRepository.GetGroupAsync(command.id);
 
             group.UpdateStartTime(command.StartTime);
             group.UpdateEndTime(command.EndTime);

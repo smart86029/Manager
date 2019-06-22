@@ -14,7 +14,7 @@ export class RoleListComponent implements OnInit {
   isLoading = false;
   roles = new PaginationResult<Role>();
   dataSource = new MatTableDataSource<Role>();
-  displayedColumns = ['id', 'name', 'isEnabled', 'action'];
+  displayedColumns = ['rowId', 'name', 'isEnabled', 'action'];
 
   constructor(private roleService: RoleService) { }
 

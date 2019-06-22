@@ -47,7 +47,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.httpClient.put<User>(`${this.usersUrl}/${user.userId}`, user).pipe(
+    return this.httpClient.put<User>(`${this.usersUrl}/${user.id}`, user).pipe(
       catchError(this.handleError('updateUser', user))
     );
   }
