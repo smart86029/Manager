@@ -31,12 +31,6 @@ namespace MatchaLatte.Catalog.Domain.Products
         }
 
         /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid ProductItemId { get; private set; }
-
-        /// <summary>
         /// 取得名稱。
         /// </summary>
         /// <value>名稱。</value>

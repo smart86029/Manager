@@ -63,7 +63,7 @@ namespace MatchaLatte.Catalog.Services
                 Items = groups
                     .Select(x => new GroupSummary
                     {
-                        GroupId = x.GroupId,
+                        GroupId = x.Id,
                         StartTime = x.StartTime,
                         EndTime = x.EndTime,
                         CreatedOn = x.CreatedOn,
@@ -90,7 +90,7 @@ namespace MatchaLatte.Catalog.Services
             var group = await groupRepository.GetGroupAsync(groupId);
             var result = new GroupDetail
             {
-                GroupId = group.GroupId,
+                GroupId = group.Id,
                 StartTime = group.StartTime,
                 EndTime = group.EndTime,
                 Remark = group.Remark,
@@ -122,13 +122,13 @@ namespace MatchaLatte.Catalog.Services
 
             var result = new GroupDetail
             {
-                GroupId = group.GroupId,
+                GroupId = group.Id,
                 StartTime = group.StartTime,
                 EndTime = group.EndTime,
                 Remark = group.Remark,
                 Store = new StoreDetail
                 {
-                    StoreId = store.StoreId,
+                    StoreId = store.Id,
                     Name = store.Name
                 }
             };

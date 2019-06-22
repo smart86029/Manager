@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Common.Utilities;
 
 namespace MatchaLatte.Catalog.Domain.Stores
 {
@@ -29,23 +28,7 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// <param name="remark">備註。</param>
         /// <param name="createdBy">新增者 ID。</param>
         public Store(string name, string description, Picture logo, Phone phone, Address address, string remark, Guid createdBy)
-            : this(GuidUtility.NewGuid(), name, description, logo, phone, address, remark, createdBy)
         {
-        }
-
-        /// <summary>
-        /// 初始化 <see cref="Store"/> 類別的新執行個體。
-        /// </summary>
-        /// <param name="storeId">店家 ID。</param>
-        /// <param name="name">名稱。</param>
-        /// <param name="description">描述。</param>
-        /// <param name="phone">電話。</param>
-        /// <param name="address">地址。</param>
-        /// <param name="remark">備註。</param>
-        /// <param name="createdBy">新增者 ID。</param>
-        public Store(Guid storeId, string name, string description, Picture logo, Phone phone, Address address, string remark, Guid createdBy)
-        {
-            StoreId = storeId;
             Name = name;
             Description = description;
             Logo = logo;
@@ -56,12 +39,6 @@ namespace MatchaLatte.Catalog.Domain.Stores
             CreatedOn = DateTime.UtcNow;
             productCategories.Add(new ProductCategory("Default", true));
         }
-
-        /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid StoreId { get; private set; }
 
         /// <summary>
         /// 取得名稱。

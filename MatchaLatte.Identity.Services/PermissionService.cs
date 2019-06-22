@@ -42,7 +42,7 @@ namespace MatchaLatte.Identity.Services
             {
                 Items = permissions.Select(p => new PermissionSummary
                 {
-                    PermissionId = p.PermissionId,
+                    PermissionId = p.Id,
                     Name = p.Name,
                     IsEnabled = p.IsEnabled
                 }).ToList(),
@@ -62,7 +62,7 @@ namespace MatchaLatte.Identity.Services
             var permission = await permissionRepository.GetPermissionAsync(permissionId);
             var result = new PermissionDetail
             {
-                PermissionId = permission.PermissionId,
+                PermissionId = permission.Id,
                 Name = permission.Name,
                 Description = permission.Description,
                 IsEnabled = permission.IsEnabled
@@ -85,7 +85,7 @@ namespace MatchaLatte.Identity.Services
 
             var result = new PermissionDetail
             {
-                PermissionId = permission.PermissionId,
+                PermissionId = permission.Id,
                 Name = permission.Name,
                 Description = permission.Description,
                 IsEnabled = permission.IsEnabled

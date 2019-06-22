@@ -70,7 +70,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
             var result = await context
                 .Set<Group>()
                 .Include(g => g.Store)
-                .SingleOrDefaultAsync(s => s.GroupId == groupId);
+                .SingleOrDefaultAsync(s => s.Id == groupId);
 
             return result;
         }

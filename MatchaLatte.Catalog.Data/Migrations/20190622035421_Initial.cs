@@ -15,7 +15,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 schema: "Catalog",
                 columns: table => new
                 {
-                    StoreId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     Description = table.Column<string>(maxLength: 512, nullable: true),
                     LogoFileName = table.Column<string>(maxLength: 256, nullable: false),
@@ -33,7 +33,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Store", x => x.StoreId);
+                    table.PrimaryKey("PK_Store", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,7 +41,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 schema: "Catalog",
                 columns: table => new
                 {
-                    GroupId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     StoreId = table.Column<Guid>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
@@ -51,13 +51,13 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Group", x => x.GroupId);
+                    table.PrimaryKey("PK_Group", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Group_Store_StoreId",
                         column: x => x.StoreId,
                         principalSchema: "Catalog",
                         principalTable: "Store",
-                        principalColumn: "StoreId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -66,7 +66,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 schema: "Catalog",
                 columns: table => new
                 {
-                    ProductCategoryId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     IsDefault = table.Column<bool>(nullable: false),
                     Sequence = table.Column<int>(nullable: false),
@@ -74,13 +74,13 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategory", x => x.ProductCategoryId);
+                    table.PrimaryKey("PK_ProductCategory", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProductCategory_Store_StoreId",
                         column: x => x.StoreId,
                         principalSchema: "Catalog",
                         principalTable: "Store",
-                        principalColumn: "StoreId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -89,7 +89,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 schema: "Catalog",
                 columns: table => new
                 {
-                    ProductId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     Description = table.Column<string>(maxLength: 512, nullable: true),
                     Sequence = table.Column<int>(nullable: false),
@@ -97,13 +97,13 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ProductId);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Product_ProductCategory_ProductCategoryId",
                         column: x => x.ProductCategoryId,
                         principalSchema: "Catalog",
                         principalTable: "ProductCategory",
-                        principalColumn: "ProductCategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -112,20 +112,20 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 schema: "Catalog",
                 columns: table => new
                 {
-                    ProductItemId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(19, 4)", nullable: false),
                     ProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductItem", x => x.ProductItemId);
+                    table.PrimaryKey("PK_ProductItem", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProductItem_Product_ProductId",
                         column: x => x.ProductId,
                         principalSchema: "Catalog",
                         principalTable: "Product",
-                        principalColumn: "ProductId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

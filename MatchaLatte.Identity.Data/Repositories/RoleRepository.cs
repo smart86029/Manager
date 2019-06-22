@@ -61,7 +61,7 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>角色。</returns>
         public async Task<Role> GetRoleAsync(Guid roleId)
         {
-            return await context.Set<Role>().Include(r => r.RolePermissions).SingleOrDefaultAsync(r => r.RoleId == roleId);
+            return await context.Set<Role>().Include(r => r.RolePermissions).SingleOrDefaultAsync(r => r.Id == roleId);
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using MatchaLatte.Catalog.Domain.Products;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Common.Utilities;
 
 namespace MatchaLatte.Catalog.Domain.Stores
 {
@@ -25,28 +24,11 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// </summary>
         /// <param name="name">名稱。</param>
         /// <param name="isDefault">是否預設。</param>
-        public ProductCategory(string name, bool isDefault) : this(GuidUtility.NewGuid(), name, isDefault)
+        public ProductCategory(string name, bool isDefault)
         {
-        }
-
-        /// <summary>
-        /// 初始化 <see cref="ProductCategory"/> 類別的新執行個體。
-        /// </summary>
-        /// <param name="productCategoryId">商品分類 ID。</param>
-        /// <param name="name">名稱。</param>
-        /// <param name="isDefault">是否預設。</param>
-        public ProductCategory(Guid productCategoryId, string name, bool isDefault)
-        {
-            ProductCategoryId = productCategoryId;
             Name = name.Trim();
             IsDefault = isDefault;
         }
-
-        /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid ProductCategoryId { get; private set; }
 
         /// <summary>
         /// 取得名稱。

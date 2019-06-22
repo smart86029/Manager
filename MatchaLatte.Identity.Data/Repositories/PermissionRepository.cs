@@ -61,7 +61,7 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>權限。</returns>
         public async Task<Permission> GetPermissionAsync(Guid permissionId)
         {
-            return await context.Set<Permission>().SingleOrDefaultAsync(p => p.PermissionId == permissionId);
+            return await context.Set<Permission>().SingleOrDefaultAsync(p => p.Id == permissionId);
         }
 
         /// <summary>

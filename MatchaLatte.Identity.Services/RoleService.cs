@@ -46,7 +46,7 @@ namespace MatchaLatte.Identity.Services
             {
                 Items = roles.Select(r => new RoleSummary
                 {
-                    RoleId = r.RoleId,
+                    RoleId = r.Id,
                     Name = r.Name,
                     IsEnabled = r.IsEnabled
                 }).ToList(),
@@ -67,14 +67,14 @@ namespace MatchaLatte.Identity.Services
             var permissions = await permissionRepository.GetPermissionsAsync();
             var result = new RoleDetail
             {
-                RoleId = role.RoleId,
+                RoleId = role.Id,
                 Name = role.Name,
                 IsEnabled = role.IsEnabled,
                 Permissions = permissions.Select(p => new PermissionDetail
                 {
-                    PermissionId = p.PermissionId,
+                    PermissionId = p.Id,
                     Name = p.Name,
-                    IsChecked = role.RolePermissions.Any(x => x.PermissionId == p.PermissionId)
+                    IsChecked = role.RolePermissions.Any(x => x.PermissionId == p.Id)
                 }).ToList()
             };
 
@@ -92,7 +92,7 @@ namespace MatchaLatte.Identity.Services
             {
                 Permissions = permissions.Select(p => new PermissionDetail
                 {
-                    PermissionId = p.PermissionId,
+                    PermissionId = p.Id,
                     Name = p.Name
                 }).ToList()
             };
@@ -109,7 +109,7 @@ namespace MatchaLatte.Identity.Services
         {
             var role = new Role(command.Name, command.IsEnabled);
             var permissionIdsToAssign = command.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId);
-            var permissionsToAssign = await permissionRepository.GetPermissionsAsync(p => permissionIdsToAssign.Contains(p.PermissionId));
+            var permissionsToAssign = await permissionRepository.GetPermissionsAsync(p => permissionIdsToAssign.Contains(p.Id));
             foreach (var permission in permissionsToAssign)
                 role.AssignPermission(permission);
 
@@ -118,7 +118,7 @@ namespace MatchaLatte.Identity.Services
 
             var result = new RoleDetail
             {
-                RoleId = role.RoleId,
+                RoleId = role.Id,
                 Name = role.Name,
                 IsEnabled = role.IsEnabled
             };
@@ -146,13 +146,13 @@ namespace MatchaLatte.Identity.Services
 
             var permissionIdsToAssign = command.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId)
                 .Except(role.RolePermissions.Select(x => x.PermissionId));
-            var permissionsToAssign = await permissionRepository.GetPermissionsAsync(r => permissionIdsToAssign.Contains(r.PermissionId));
+            var permissionsToAssign = await permissionRepository.GetPermissionsAsync(r => permissionIdsToAssign.Contains(r.Id));
             foreach (var permission in permissionsToAssign)
                 role.AssignPermission(permission);
 
             var permissionIdsToUnassign = role.RolePermissions.Select(x => x.PermissionId)
                 .Except(command.Permissions.Where(x => x.IsChecked).Select(x => x.PermissionId));
-            var permissionsToUnassign = await permissionRepository.GetPermissionsAsync(r => permissionIdsToUnassign.Contains(r.PermissionId));
+            var permissionsToUnassign = await permissionRepository.GetPermissionsAsync(r => permissionIdsToUnassign.Contains(r.Id));
             foreach (var permission in permissionsToUnassign)
                 role.UnassignPermission(permission);
 

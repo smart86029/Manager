@@ -46,7 +46,7 @@ namespace MatchaLatte.Identity.Services
             {
                 Items = users.Select(u => new UserSummary
                 {
-                    UserId = u.UserId,
+                    UserId = u.Id,
                     UserName = u.UserName,
                     IsEnabled = u.IsEnabled
                 }).ToList(),
@@ -67,14 +67,14 @@ namespace MatchaLatte.Identity.Services
             var roles = await roleRepository.GetRolesAsync();
             var result = new UserDetail
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 UserName = user.UserName,
                 IsEnabled = user.IsEnabled,
                 Roles = roles.Select(r => new RoleDetail
                 {
-                    RoleId = r.RoleId,
+                    RoleId = r.Id,
                     Name = r.Name,
-                    IsChecked = user.UserRoles.Any(x => x.RoleId == r.RoleId)
+                    IsChecked = user.UserRoles.Any(x => x.RoleId == r.Id)
                 }).ToList()
             };
 
@@ -92,7 +92,7 @@ namespace MatchaLatte.Identity.Services
             {
                 Roles = roles.Select(r => new RoleDetail
                 {
-                    RoleId = r.RoleId,
+                    RoleId = r.Id,
                     Name = r.Name
                 }).ToList()
             };
@@ -109,7 +109,7 @@ namespace MatchaLatte.Identity.Services
         {
             var user = new User(command.UserName, command.Password, command.IsEnabled);
             var roleIdsToAssign = command.Roles.Where(x => x.IsChecked).Select(x => x.RoleId);
-            var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.RoleId));
+            var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.Id));
             foreach (var role in rolesToAssign)
                 user.AssignRole(role);
 
@@ -118,7 +118,7 @@ namespace MatchaLatte.Identity.Services
 
             var result = new UserDetail
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 UserName = user.UserName,
                 IsEnabled = user.IsEnabled
             };
@@ -147,13 +147,13 @@ namespace MatchaLatte.Identity.Services
 
             var roleIdsToAssign = command.Roles.Where(x => x.IsChecked).Select(x => x.RoleId)
                 .Except(user.UserRoles.Select(x => x.RoleId));
-            var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.RoleId));
+            var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.Id));
             foreach (var role in rolesToAssign)
                 user.AssignRole(role);
 
             var roleIdsToUnassign = user.UserRoles.Select(x => x.RoleId)
                 .Except(command.Roles.Where(x => x.IsChecked).Select(x => x.RoleId));
-            var rolesToUnassign = await roleRepository.GetRolesAsync(r => roleIdsToUnassign.Contains(r.RoleId));
+            var rolesToUnassign = await roleRepository.GetRolesAsync(r => roleIdsToUnassign.Contains(r.Id));
             foreach (var role in rolesToUnassign)
                 user.UnassignRole(role);
 

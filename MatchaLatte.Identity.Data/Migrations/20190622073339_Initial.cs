@@ -15,14 +15,14 @@ namespace MatchaLatte.Identity.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    PermissionId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     Description = table.Column<string>(maxLength: 64, nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Permission", x => x.PermissionId);
+                    table.PrimaryKey("PK_Permission", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,13 +30,13 @@ namespace MatchaLatte.Identity.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    RoleId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.RoleId);
+                    table.PrimaryKey("PK_Role", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,14 +44,15 @@ namespace MatchaLatte.Identity.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(maxLength: 32, nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
-                    IsEnabled = table.Column<bool>(nullable: false)
+                    IsEnabled = table.Column<bool>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.UserId);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,25 +60,26 @@ namespace MatchaLatte.Identity.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(nullable: false),
                     RoleId = table.Column<Guid>(nullable: false),
                     PermissionId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RolePermission", x => new { x.RoleId, x.PermissionId });
+                    table.PrimaryKey("PK_RolePermission", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RolePermission_Permission_PermissionId",
                         column: x => x.PermissionId,
                         principalSchema: "Identity",
                         principalTable: "Permission",
-                        principalColumn: "PermissionId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RolePermission_Role_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "Identity",
                         principalTable: "Role",
-                        principalColumn: "RoleId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -86,59 +88,66 @@ namespace MatchaLatte.Identity.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     RoleId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_UserRole", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserRole_Role_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "Identity",
                         principalTable: "Role",
-                        principalColumn: "RoleId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserRole_User_UserId",
                         column: x => x.UserId,
                         principalSchema: "Identity",
                         principalTable: "User",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Permission",
-                columns: new[] { "PermissionId", "Description", "IsEnabled", "Name" },
+                columns: new[] { "Id", "Description", "IsEnabled", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("a9d3b317-19ed-4f94-8db1-a99801134e9e"), "", true, "特殊權限" },
-                    { new Guid("8d4c0ae7-13d6-4f10-9c8a-a99801134e9e"), "", true, "登入" }
+                    { new Guid("a02964a6-3422-4071-9ef6-016b7e1ae134"), "", true, "特殊權限" },
+                    { new Guid("02438156-bc63-498f-8a4a-016b7e1ae134"), "", true, "登入" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Role",
-                columns: new[] { "RoleId", "IsEnabled", "Name" },
+                columns: new[] { "Id", "IsEnabled", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("24b28b7a-862e-4ffd-9593-a99801134e9d"), true, "Administrator" },
-                    { new Guid("9c18a848-132a-47cb-8290-a99801134e9d"), true, "HumanResources" }
+                    { new Guid("c46463cd-52e2-441b-aa0a-016b7e1ae132"), true, "Administrator" },
+                    { new Guid("79e9d629-23ed-407b-8f27-016b7e1ae132"), true, "HumanResources" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "User",
-                columns: new[] { "UserId", "IsEnabled", "PasswordHash", "UserName" },
-                values: new object[] { new Guid("50d4ac2a-daa8-4f35-b732-a99801134e9a"), true, "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", "Admin" });
+                columns: new[] { "Id", "CreatedOn", "IsEnabled", "PasswordHash", "UserName" },
+                values: new object[] { new Guid("8422986b-dcd1-4c0b-b182-016b7e1ae12a"), new DateTime(2019, 6, 22, 7, 33, 39, 239, DateTimeKind.Utc).AddTicks(5936), true, "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermission_PermissionId",
                 schema: "Identity",
                 table: "RolePermission",
                 column: "PermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RolePermission_RoleId",
+                schema: "Identity",
+                table: "RolePermission",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_UserName",
@@ -152,6 +161,12 @@ namespace MatchaLatte.Identity.Data.Migrations
                 schema: "Identity",
                 table: "UserRole",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_UserId",
+                schema: "Identity",
+                table: "UserRole",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

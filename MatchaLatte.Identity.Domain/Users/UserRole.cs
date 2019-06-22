@@ -1,4 +1,5 @@
 ﻿using System;
+using MatchaLatte.Common.Domain;
 using MatchaLatte.Identity.Domain.Roles;
 
 namespace MatchaLatte.Identity.Domain.Users
@@ -6,7 +7,7 @@ namespace MatchaLatte.Identity.Domain.Users
     /// <summary>
     /// 使用者角色。
     /// </summary>
-    public class UserRole
+    public class UserRole : Entity
     {
         /// <summary>
         /// 初始化 <see cref="UserRole"/> 類別的新執行個體。

@@ -1,6 +1,4 @@
-﻿using System;
-using MatchaLatte.Common.Utilities;
-using MatchaLatte.Identity.Domain.Users;
+﻿using MatchaLatte.Identity.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,14 +8,19 @@ namespace MatchaLatte.Identity.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("User");
-            builder.Property(u => u.UserName)
+            builder
+                .Property(u => u.UserName)
                 .IsRequired()
                 .HasMaxLength(32);
-            builder.HasIndex(u => u.UserName)
+
+            builder
+                .HasIndex(u => u.UserName)
                 .IsUnique();
-            builder.Metadata.FindNavigation(nameof(User.UserRoles))
+
+            builder.Metadata
+                .FindNavigation(nameof(User.UserRoles))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
+
             builder.HasData(GetSeedData());
         }
 
@@ -25,7 +28,7 @@ namespace MatchaLatte.Identity.Data.Configurations
         {
             var result = new User[]
             {
-                new User(GuidUtility.NewGuid(), "Admin", "123fff", true)
+                new User("Admin", "123fff", true)
             };
 
             return result;
