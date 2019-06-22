@@ -3,13 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MemberGalleryComponent } from './member-gallery/member-gallery.component';
 import { MemberIndexComponent } from './member-index/member-index.component';
+import { GroupJoinComponent } from './group-join/group-join.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MemberIndexComponent,
     children: [
-      { path: '', component: MemberGalleryComponent }
+      { path: '', component: MemberGalleryComponent },
+      { path: 'groups/:id/join', component: GroupJoinComponent }
     ]
   }
 ];

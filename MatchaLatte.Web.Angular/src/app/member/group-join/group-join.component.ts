@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 import { Guid } from 'src/app/shared/guid';
+import { Product } from 'src/app/store/product';
 import { StoreService } from 'src/app/store/store.service';
 
-import { Group } from '../group';
-import { GroupService } from '../group.service';
-import { Store } from '../store';
-import { MatDialog } from '@angular/material/dialog';
+import { Group } from '../../group/group';
+import { GroupService } from '../../group/group.service';
+import { Store } from '../../group/store';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
-import { Product } from 'src/app/store/product';
 
 @Component({
   selector: 'app-group-join',
