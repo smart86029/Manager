@@ -104,5 +104,14 @@ namespace MatchaLatte.Catalog.Domain.Products
         {
             productItems.Add(productItem);
         }
+
+        /// <summary>
+        /// 移除商品項目。
+        /// </summary>
+        /// <param name="productItem">商品項目。</param>
+        public void RemoveProductItem(ProductItem productItem)
+        {
+            productItems.Remove(productItem);
+        }
     }
 }

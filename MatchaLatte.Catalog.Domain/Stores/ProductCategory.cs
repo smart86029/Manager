@@ -76,12 +76,21 @@ namespace MatchaLatte.Catalog.Domain.Stores
         }
 
         /// <summary>
-        /// 加入商品項目。
+        /// 加入商品。
         /// </summary>
         /// <param name="product">商品。</param>
         public void AddProduct(Product product)
         {
             products.Add(product);
+        }
+
+        /// <summary>
+        /// 移除商品。
+        /// </summary>
+        /// <param name="product">商品。</param>
+        public void RemoveProduct(Product product)
+        {
+            products.Remove(product);
         }
     }
 }

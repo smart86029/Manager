@@ -63,7 +63,7 @@
                   <span *ngIf="category.isDefault">{{category.name}}</span>
                   <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
                   <span class="fill-space"></span>
-                  <button mat-icon-button color="warn" matTooltip="刪除分類" (click)="deleteProductCategory(category)">
+                  <button mat-icon-button *ngIf="!category.isDefault" color="warn" matTooltip="刪除分類" (click)="deleteProductCategory(category)">
                     <mat-icon>remove_circle</mat-icon>
                   </button>
                 </div>

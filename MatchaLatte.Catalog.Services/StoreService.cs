@@ -213,18 +213,18 @@ namespace MatchaLatte.Catalog.Services
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = c.id != Guid.Empty ?
-                    store.ProductCategories.Single(x => x.Id == c.id) : new ProductCategory(c.Name, false);
+                var productCategory = c.Id != Guid.Empty ?
+                    store.ProductCategories.Single(x => x.Id == c.Id) : new ProductCategory(c.Name, false);
                 foreach (var p in c.Products)
                 {
-                    var product = p.id != Guid.Empty ?
-                        productCategory.Products.Single(x => x.Id == p.id) : new Product(p.Name, p.Description);
+                    var product = p.Id != Guid.Empty ?
+                        productCategory.Products.Single(x => x.Id == p.Id) : new Product(p.Name, p.Description);
                     foreach (var i in p.ProductItems)
                     {
-                        var productItem = i.id != Guid.Empty ?
-                            product.ProductItems.Single(x => x.Id == i.id) : new ProductItem(i.Name, i.Price);
+                        var productItem = i.Id != Guid.Empty ?
+                            product.ProductItems.Single(x => x.Id == i.Id) : new ProductItem(i.Name, i.Price);
 
-                        if (i.id != Guid.Empty)
+                        if (i.Id != Guid.Empty)
                         {
                             productItem.UpdateName(i.Name);
                             productItem.UpdatePrice(i.Price);
@@ -233,20 +233,35 @@ namespace MatchaLatte.Catalog.Services
                             product.AddProductItem(productItem);
                     }
 
-                    if (p.id != Guid.Empty)
+                    if (p.Id != Guid.Empty)
                     {
                         product.UpdateName(p.Name);
                         product.UpdateDescription(p.Description);
                     }
                     else
                         productCategory.AddProduct(product);
+
+                    var productItemIdsExist = p.ProductItems.Select(x => x.Id);
+                    var productItemToRemove = product.ProductItems.Where(x => productItemIdsExist.Contains(x.Id)).ToList();
+                    foreach (var i in productItemToRemove)
+                        product.RemoveProductItem(i);
                 }
 
-                if (c.id != Guid.Empty)
+                if (c.Id != Guid.Empty)
                     productCategory.UpdateName(c.Name);
                 else
                     store.AddProductCategory(productCategory);
+
+                var productIdsExist = c.Products.Select(x => x.Id);
+                var productToRemove = productCategory.Products.Where(x => !productIdsExist.Contains(x.Id)).ToList();
+                foreach (var p in productToRemove)
+                    productCategory.RemoveProduct(p);
             }
+
+            var productCategoryIdsExist = command.ProductCategories.Select(x => x.Id);
+            var productCategoryToRemove = store.ProductCategories.Where(x => !productCategoryIdsExist.Contains(x.Id)).ToList();
+            foreach (var c in productCategoryToRemove)
+                store.RemoveProductCategory(c);
 
             storeRepository.Update(store);
             await unitOfWork.CommitAsync();

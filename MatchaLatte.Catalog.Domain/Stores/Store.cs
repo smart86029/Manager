@@ -147,5 +147,15 @@ namespace MatchaLatte.Catalog.Domain.Stores
         {
             productCategories.Add(productCategory);
         }
+
+        /// <summary>
+        /// 移除商品分類。
+        /// </summary>
+        /// <param name="productCategory">商品分類。</param>
+        public void RemoveProductCategory(ProductCategory productCategory)
+        {
+            if (!productCategory.IsDefault)
+                productCategories.Remove(productCategory);
+        }
     }
 }
