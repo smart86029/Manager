@@ -4,16 +4,10 @@ using MatchaLatte.Common.Domain;
 namespace MatchaLatte.Ordering.Domain.Buyers
 {
     /// <summary>
-    /// 購買者。
+    /// 買家。
     /// </summary>
     public class Buyer : AggregateRoot
     {
-        /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid BuyerId { get; private set; }
-
         /// <summary>
         /// 取得名。
         /// </summary>

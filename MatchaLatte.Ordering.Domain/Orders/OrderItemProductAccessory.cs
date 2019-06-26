@@ -6,7 +6,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
     /// <summary>
     /// 訂單明細商品配件。
     /// </summary>
-    public class OrderDetailProductAccessory : Entity
+    public class OrderItemProductAccessory : Entity
     {
         /// <summary>
         /// 取得或設定訂單明細 ID。
@@ -36,6 +36,6 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// 取得或設定訂單明細。
         /// </summary>
         /// <value>訂單明細。</value>
-        public OrderDetail OrderDetail { get; set; }
+        public OrderItem OrderDetail { get; set; }
     }
 }
