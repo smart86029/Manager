@@ -11,7 +11,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
     /// </summary>
     public class Order : AggregateRoot
     {
-        private List<OrderItem> orderDetails = new List<OrderItem>();
+        private List<OrderItem> orderItems = new List<OrderItem>();
 
         /// <summary>
         /// 初始化 <see cref="Order"/> 類別的新執行個體。
@@ -32,10 +32,16 @@ namespace MatchaLatte.Ordering.Domain.Orders
         }
 
         /// <summary>
+        /// 取得訂單狀態。
+        /// </summary>
+        /// <value>訂單狀態。</value>
+        public OrderStatus OrderStatus { get; private set; } = OrderStatus.Created;
+
+        /// <summary>
         /// 取得應付金額。
         /// </summary>
         /// <value>應付金額。</value>
-        public decimal AmountPayable => orderDetails.Sum(x => x.ProductItemPrice * x.Quantity);
+        public decimal AmountPayable => orderItems.Sum(x => x.ProductItemPrice * x.Quantity + x.OrderItemProductAccessories.Sum(y => y.ProductAccessoryPrice));
 
         /// <summary>
         /// 取得實付金額。
@@ -71,19 +77,13 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// 取得是否已付款。
         /// </summary>
         /// <value>是否已付款。</value>
-        public bool HasPaid => AmountPaid > AmountPayable;
-
-        /// <summary>
-        /// 取得買家。
-        /// </summary>
-        /// <value>買家。</value>
-        public Buyer Buyer { get; private set; }
+        public bool HasPaid => AmountPaid >= AmountPayable;
 
         /// <summary>
         /// 取得訂單明細的集合。
         /// </summary>
         /// <value>訂單明細的集合。</value>
-        public IReadOnlyCollection<OrderItem> OrderDetails => orderDetails;
+        public IReadOnlyCollection<OrderItem> OrderItems => orderItems;
 
         /// <summary>
         /// 付款。

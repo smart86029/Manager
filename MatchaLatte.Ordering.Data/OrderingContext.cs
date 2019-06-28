@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using MatchaLatte.Ordering.Data.Configurations;
+using MatchaLatte.Ordering.Data.Converters;
+using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.Ordering.Data
 {
@@ -18,6 +22,19 @@ namespace MatchaLatte.Ordering.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Ordering");
+            modelBuilder.ApplyConfiguration(new BuyerConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderItemProductAccessoryConfiguration());
+
+            var utcDateTimeConverter = new UtcDateTimeConverter();
+            var dateTimeProperties = modelBuilder.Model
+                .GetEntityTypes()
+                .SelectMany(x => x.GetProperties())
+                .Where(x => x.ClrType == typeof(DateTime));
+
+            foreach (var property in dateTimeProperties)
+                property.SetValueConverter(utcDateTimeConverter);
         }
     }
 }

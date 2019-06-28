@@ -9,7 +9,35 @@ namespace MatchaLatte.Ordering.Domain.Orders
     /// </summary>
     public class OrderItem : Entity
     {
-        private List<OrderItemProductAccessory> productAccessories = new List<OrderItemProductAccessory>();
+        private List<OrderItemProductAccessory> orderItemProductAccessories = new List<OrderItemProductAccessory>();
+
+        /// <summary>
+        /// 初始化 <see cref="OrderItem"/> 類別的新執行個體。
+        /// </summary>
+        private OrderItem()
+        {
+        }
+
+        /// <summary>
+        /// 初始化 <see cref="OrderItem"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="productItemId">商品項目 ID。</param>
+        /// <param name="productItemName">商品項目名稱。</param>
+        /// <param name="productItemPrice">商品項目價格。</param>
+        /// <param name="quantity">數量。</param>
+        public OrderItem(Guid productItemId, string productItemName, decimal productItemPrice, int quantity)
+        {
+            ProductItemId = productItemId;
+            ProductItemName = productItemName;
+            ProductItemPrice = productItemPrice;
+            Quantity = quantity;
+        }
+
+        /// <summary>
+        /// 取得商品項目 ID。
+        /// </summary>
+        /// <value>商品項目 ID。</value>
+        public Guid ProductItemId { get; private set; }
 
         /// <summary>
         /// 取得商品項目名稱。
@@ -36,15 +64,9 @@ namespace MatchaLatte.Ordering.Domain.Orders
         public Guid OrderId { get; private set; }
 
         /// <summary>
-        /// 取得商品項目 ID。
-        /// </summary>
-        /// <value>商品項目 ID。</value>
-        public Guid ProductItemId { get; private set; }
-
-        /// <summary>
         /// 取得訂單項目商品配件的集合。
         /// </summary>
         /// <value>訂單項目商品配件的集合。</value>
-        public IReadOnlyCollection<OrderItemProductAccessory> ProductAccessories => productAccessories;
+        public IReadOnlyCollection<OrderItemProductAccessory> OrderItemProductAccessories => orderItemProductAccessories;
     }
 }
