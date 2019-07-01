@@ -7,6 +7,8 @@ namespace MatchaLatte.Ordering.App.Commands.Orders
 {
     public class CreateOrderCommand : ICommand<OrderDetail>
     {
+        public Guid GroupId { get; set; }
+
         public Guid UserId { get; set; }
 
         public string FirstName { get; set; }

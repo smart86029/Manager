@@ -29,6 +29,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
         {
             GroupId = groupId;
             BuyerId = buyerId;
+            RaiseDomainEvent(new OrderCreated(Id, buyerId));
         }
 
         /// <summary>
