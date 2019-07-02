@@ -1,26 +1,53 @@
-<div class="grid-container">
-  <h2 class="mat-h2">進行中的團購</h2>
-  <div *ngIf="store.productCategories?.length > 1" fxLayout="row" fxLayoutGap="15px">
-    <mat-card class="category-card" *ngFor="let category of store.productCategories" fxFlex="33">
+<div fxLayout="row">
+  <div class="grid-container" fxFlex="75">
+    <h2 class="mat-h2">進行中的團購</h2>
+    <div *ngIf="store.productCategories?.length > 1" fxLayout="row" fxLayoutGap="15px">
+      <mat-card class="category-card" *ngFor="let category of store.productCategories" fxFlex="33">
+        <mat-card-header>
+          <mat-card-title>
+            <span *ngIf="!category.isDefault">{{category.name}}</span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="category-card-content">
+          <div>
+            <mat-list>
+              <mat-list-item *ngFor="let product of category.products" (click)="selectProduct(product)">
+                <span>{{product.name}}</span>
+                <span class="fill-space"></span>
+                <mat-chip-list>
+                  <mat-chip *ngFor="let productItem of product.productItems">
+                    <span *ngIf="productItem.name">{{productItem.name}}:</span>
+                    {{productItem.price}}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="order-container" fxFlex="25">
+    <mat-card class="order-card">
       <mat-card-header>
         <mat-card-title>
-          <span *ngIf="!category.isDefault">{{category.name}}</span>
+          我的訂單
         </mat-card-title>
       </mat-card-header>
-      <mat-card-content class="category-card-content">
+      <mat-card-content class="order-card-content">
         <div>
           <mat-list>
-            <mat-list-item *ngFor="let product of category.products" (click)="createOrder(product)">
-              <span>{{product.name}}</span>
-              <span class="fill-space"></span>
-              <mat-chip-list>
-                <mat-chip *ngFor="let productItem of product.productItems">
-                  <span *ngIf="productItem.name">{{productItem.name}}:</span>
-                  {{productItem.price}}
-                </mat-chip>
-              </mat-chip-list>
+            <mat-list-item *ngFor="let orderItem of order.orderItems">
+              {{orderItem.product.name}}
+              <span>{{orderItem.productItem.name}}</span>
             </mat-list-item>
           </mat-list>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end">
+          總額: {{total}}
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end">
+          <button mat-button color="primary" (click)="save()">送出訂單</button>
         </div>
       </mat-card-content>
     </mat-card>

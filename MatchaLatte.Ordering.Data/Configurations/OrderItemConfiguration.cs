@@ -8,6 +8,13 @@ namespace MatchaLatte.Ordering.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
+            builder.HasIndex(i => i.ProductId);
+
+            builder
+                .Property(i => i.ProductName)
+                .IsRequired()
+                .HasMaxLength(32);
+
             builder.HasIndex(i => i.ProductItemId);
 
             builder

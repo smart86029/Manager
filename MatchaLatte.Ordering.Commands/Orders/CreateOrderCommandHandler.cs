@@ -22,10 +22,19 @@ namespace MatchaLatte.Ordering.Commands.Orders
         public async Task<OrderDetail> HandleAsync(CreateOrderCommand command)
         {
             var order = new Order(command.GroupId, command.UserId);
+
+            foreach (var i in command.OrderItems)
+            {
+                order.AddOrderItem(new OrderItem(i.Product.Id, i.Product.Name, i.ProductItem.Id, i.ProductItem.Name, i.ProductItem.Price, i.Quantity));
+            }
+
             orderRepository.Add(order);
             await unitOfWork.CommitAsync();
 
-            var result = new OrderDetail();
+            var result = new OrderDetail
+            {
+                Id = order.Id
+            };
 
             return result;
         }

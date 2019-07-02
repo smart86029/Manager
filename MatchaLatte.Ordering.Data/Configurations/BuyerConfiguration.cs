@@ -8,8 +8,6 @@ namespace MatchaLatte.Ordering.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Buyer> builder)
         {
-            builder.HasIndex(b => b.UserId);
-
             builder
                 .Property(b => b.FirstName)
                 .IsRequired()

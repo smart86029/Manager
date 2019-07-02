@@ -1,5 +1,7 @@
+import { Guid } from '../shared/guid';
+
 export class ProductItem {
-  productItem: number;
+  id: Guid;
   name: string;
   price: number;
 }

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OrderItem } from 'src/app/order/order-item';
 import { Product } from 'src/app/store/product';
 
 @Component({
@@ -9,12 +10,13 @@ import { Product } from 'src/app/store/product';
 })
 export class OrderDialogComponent implements OnInit {
   product = new Product();
+  orderItem = new OrderItem();
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: Product) {
   }
 
   ngOnInit(): void {
     this.product = this.data;
+    this.orderItem.product = this.data;
   }
-
 }

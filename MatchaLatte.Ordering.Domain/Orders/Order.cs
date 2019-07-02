@@ -87,6 +87,15 @@ namespace MatchaLatte.Ordering.Domain.Orders
         public IReadOnlyCollection<OrderItem> OrderItems => orderItems;
 
         /// <summary>
+        /// 加入訂單項目。
+        /// </summary>
+        /// <param name="product">訂單項目。</param>
+        public void AddOrderItem(OrderItem orderItem)
+        {
+            orderItems.Add(orderItem);
+        }
+
+        /// <summary>
         /// 付款。
         /// </summary>
         /// <param name="money">金額。</param>

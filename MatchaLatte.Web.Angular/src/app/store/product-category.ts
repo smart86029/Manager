@@ -1,7 +1,8 @@
+import { Guid } from '../shared/guid';
 import { Product } from './product';
 
 export class ProductCategory {
-  productCategoryId: number;
+  id: Guid;
   name: string;
   isDefault: boolean;
   products: Product[] = [];
