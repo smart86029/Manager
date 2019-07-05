@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using MatchaLatte.Common.Domain;
 using MatchaLatte.Common.Events;
 using MatchaLatte.Ordering.Domain;
 
@@ -31,8 +33,20 @@ namespace MatchaLatte.Ordering.Data
         public async Task<bool> CommitAsync()
         {
             await context.SaveChangesAsync();
+            await PublishEventsAsync();
 
             return true;
+        }
+
+        private async Task PublishEventsAsync()
+        {
+            var domainEntities = context.ChangeTracker.Entries<Entity>().Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any()).ToList();
+            var domainEvents = domainEntities.SelectMany(x => x.Entity.DomainEvents).ToList();
+            var tasks = domainEvents.Select(async domainEvent => await eventBus.PublishAsync(domainEvent as Event));
+
+            await Task.WhenAll(tasks);
+            foreach (var entity in domainEntities)
+                entity.Entity.AcceptChanges();
         }
     }
 }

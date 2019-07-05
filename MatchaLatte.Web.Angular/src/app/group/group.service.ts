@@ -62,6 +62,6 @@ export class GroupService {
   }
 
   updateGroup(group: Group): Observable<Group> {
-    return this.httpClient.put<Group>(`${this.groupsUrl}/${group.groupId}`, group);
+    return this.httpClient.put<Group>(`${this.groupsUrl}/${group.id}`, group);
   }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.Exceptions;
 using MatchaLatte.Ordering.Domain.Buyers;
 
 namespace MatchaLatte.Ordering.Domain.Orders
@@ -93,6 +94,20 @@ namespace MatchaLatte.Ordering.Domain.Orders
         public void AddOrderItem(OrderItem orderItem)
         {
             orderItems.Add(orderItem);
+        }
+
+        /// <summary>
+        /// 設定買家已確認。
+        /// </summary>
+        public void SetBuyerConfirmed()
+        {
+            if (BuyerId == default)
+                throw new InvalidException();
+
+            if (OrderStatus != OrderStatus.Created)
+                throw new InvalidException();
+
+            OrderStatus = OrderStatus.BuyerConfirmed;
         }
 
         /// <summary>

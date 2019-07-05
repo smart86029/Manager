@@ -13,6 +13,6 @@ namespace MatchaLatte.Common.Events
         /// </summary>
         /// <param name="event">事件。</param>
         /// <returns>工作。</returns>
-        Task HandleAsync(Event @event);
+        Task HandleAsync(TEvent @event);
     }
 }
