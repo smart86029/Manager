@@ -10,6 +10,7 @@ using MatchaLatte.Ordering.Api.AutofacModules;
 using MatchaLatte.Ordering.Api.Models;
 using MatchaLatte.Ordering.App.Events;
 using MatchaLatte.Ordering.Data;
+using MatchaLatte.Ordering.Domain.Orders;
 using MatchaLatte.Ordering.Queries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -117,6 +118,7 @@ namespace MatchaLatte.Ordering.Api
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             eventBus.Subscribe<UserDisabled, IEventHandler<UserDisabled>>();
+            eventBus.Subscribe<OrderCreated, IEventHandler<OrderCreated>>();
         }
     }
 }

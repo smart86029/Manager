@@ -4,7 +4,7 @@ namespace MatchaLatte.Catalog.App.Queries.Stores
 {
     public class StoreSummary
     {
-        public Guid StoreId { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 

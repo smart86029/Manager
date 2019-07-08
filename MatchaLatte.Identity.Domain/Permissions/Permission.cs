@@ -9,7 +9,7 @@ namespace MatchaLatte.Identity.Domain.Permissions
     /// <summary>
     /// 權限。
     /// </summary>
-    public class Permission : Entity, IAggregateRoot
+    public class Permission : AggregateRoot
     {
         private readonly List<RolePermission> rolePermissions = new List<RolePermission>();
 
@@ -27,30 +27,11 @@ namespace MatchaLatte.Identity.Domain.Permissions
         /// <param name="description">描述。</param>
         /// <param name="isEnabled">是否啟用。</param>
         public Permission(string name, string description, bool isEnabled)
-            : this(GuidUtility.NewGuid(), name, description, isEnabled)
         {
-        }
-
-        /// <summary>
-        /// 初始化 <see cref="Permission"/> 類別的新執行個體。
-        /// </summary>
-        /// <param name="permissionId">權限 ID。</param>
-        /// <param name="name">名稱。</param>
-        /// <param name="description">描述。</param>
-        /// <param name="isEnabled">是否啟用。</param>
-        public Permission(Guid permissionId, string name, string description, bool isEnabled)
-        {
-            PermissionId = permissionId;
             Name = name;
             Description = description;
             IsEnabled = isEnabled;
         }
-
-        /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid PermissionId { get; private set; }
 
         /// <summary>
         /// 取得名稱。

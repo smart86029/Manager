@@ -10,13 +10,16 @@ namespace MatchaLatte.Identity.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Permission> builder)
         {
-            builder.ToTable("Permission");
-            builder.Property(p => p.Name)
+            builder
+                .Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(32);
-            builder.Property(p => p.Description)
+
+            builder
+                .Property(p => p.Description)
                 .IsRequired()
                 .HasMaxLength(64);
+
             builder.HasData(GetSeedData());
         }
 
@@ -24,8 +27,8 @@ namespace MatchaLatte.Identity.Data.Configurations
         {
             var result = new Permission[]
             {
-                new Permission(GuidUtility.NewGuid(), "特殊權限", string.Empty, true),
-                new Permission(GuidUtility.NewGuid(), "登入", string.Empty, true)
+                new Permission("特殊權限", string.Empty, true),
+                new Permission("登入", string.Empty, true)
             };
 
             return result;

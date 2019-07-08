@@ -30,13 +30,20 @@ export class GroupService {
       );
   }
 
-  getActiveGroups(): Observable<Group[]> {
+  getActiveGroups(pageIndex: number, pageSize: number): Observable<PaginationResult<Group>> {
     const params = new HttpParams()
       .set('offset', '0')
       .set('limit', '10')
       .set('searchType', '1');
 
-    return this.httpClient.get<Group[]>(this.groupsUrl, { params: params });
+    return this.httpClient
+      .get<Group[]>(this.groupsUrl, { params: params, observe: 'response' })
+      .pipe(
+        map(response => {
+          const itemCount = +response.headers.get('X-Total-Count');
+          return new PaginationResult<Group>(pageIndex, pageSize, itemCount, response.body);
+        })
+      );
   }
 
   getGroup(id: Guid): Observable<Group> {
@@ -55,6 +62,6 @@ export class GroupService {
   }
 
   updateGroup(group: Group): Observable<Group> {
-    return this.httpClient.put<Group>(`${this.groupsUrl}/${group.groupId}`, group);
+    return this.httpClient.put<Group>(`${this.groupsUrl}/${group.id}`, group);
   }
 }

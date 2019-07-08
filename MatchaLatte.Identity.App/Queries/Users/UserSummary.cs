@@ -4,8 +4,10 @@ namespace MatchaLatte.Identity.App.Queries.Users
 {
     public class UserSummary
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
+
         public string UserName { get; set; }
+
         public bool IsEnabled { get; set; }
     }
 }

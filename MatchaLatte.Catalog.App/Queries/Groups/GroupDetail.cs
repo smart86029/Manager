@@ -4,7 +4,7 @@ namespace MatchaLatte.Catalog.App.Queries.Groups
 {
     public class GroupDetail
     {
-        public Guid GroupId { get; set; }
+        public Guid Id { get; set; }
 
         public DateTime StartTime { get; set; }
 

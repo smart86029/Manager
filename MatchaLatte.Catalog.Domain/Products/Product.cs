@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using MatchaLatte.Catalog.Domain.Stores;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Common.Utilities;
 
 namespace MatchaLatte.Catalog.Domain.Products
 {
     /// <summary>
     /// 商品。
     /// </summary>
-    public class Product : Entity, IAggregateRoot
+    public class Product : AggregateRoot
     {
         private List<ProductItem> productItems = new List<ProductItem>();
 
@@ -25,27 +24,11 @@ namespace MatchaLatte.Catalog.Domain.Products
         /// </summary>
         /// <param name="name">名稱。</param>
         /// <param name="description">描述。</param>
-        public Product(string name, string description) : this(GuidUtility.NewGuid(), name, description)
-        {
-        }
-
-        /// <summary>
-        /// 初始化 <see cref="Product"/> 類別的新執行個體。
-        /// </summary>
-        /// <param name="productId">商品 ID。</param>
-        /// <param name="name">名稱。</param>
-        /// <param name="description">描述。</param>
-        public Product(Guid productId, string name, string description)
+        public Product(string name, string description)
         {
             Name = name.Trim();
             Description = description?.Trim();
         }
-
-        /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid ProductId { get; private set; }
 
         /// <summary>
         /// 取得名稱。
@@ -120,6 +103,15 @@ namespace MatchaLatte.Catalog.Domain.Products
         public void AddProductItem(ProductItem productItem)
         {
             productItems.Add(productItem);
+        }
+
+        /// <summary>
+        /// 移除商品項目。
+        /// </summary>
+        /// <param name="productItem">商品項目。</param>
+        public void RemoveProductItem(ProductItem productItem)
+        {
+            productItems.Remove(productItem);
         }
     }
 }

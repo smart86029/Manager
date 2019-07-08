@@ -9,12 +9,6 @@ namespace MatchaLatte.Catalog.Domain.Products
     public class ProductOption : Entity
     {
         /// <summary>
-        /// 取得或設定主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid ProductOptionId { get; set; }
-
-        /// <summary>
         /// 取得或設定商品選項類型。
         /// </summary>
         /// <value>商品選項類型。</value>

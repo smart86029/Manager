@@ -23,6 +23,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -67,6 +68,7 @@ import { AppPaginatorIntl } from './app-paginator-intl';
     MatSelectModule,
     MatSidenavModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
     MatStepperModule,
     MatTableModule,
     MatToolbarModule,
@@ -77,7 +79,8 @@ import { AppPaginatorIntl } from './app-paginator-intl';
   providers: [
     { provide: MatPaginatorIntl, useClass: AppPaginatorIntl },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } }
   ],
 })
 export class MaterialModule { }

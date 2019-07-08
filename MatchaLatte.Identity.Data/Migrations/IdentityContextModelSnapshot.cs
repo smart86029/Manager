@@ -16,13 +16,13 @@ namespace MatchaLatte.Identity.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Identity")
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Permissions.Permission", b =>
                 {
-                    b.Property<Guid>("PermissionId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
@@ -35,19 +35,30 @@ namespace MatchaLatte.Identity.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
-                    b.HasKey("PermissionId");
+                    b.HasKey("Id");
 
                     b.ToTable("Permission");
 
                     b.HasData(
-                        new { PermissionId = new Guid("a9d3b317-19ed-4f94-8db1-a99801134e9e"), Description = "", IsEnabled = true, Name = "特殊權限" },
-                        new { PermissionId = new Guid("8d4c0ae7-13d6-4f10-9c8a-a99801134e9e"), Description = "", IsEnabled = true, Name = "登入" }
-                    );
+                        new
+                        {
+                            Id = new Guid("a02964a6-3422-4071-9ef6-016b7e1ae134"),
+                            Description = "",
+                            IsEnabled = true,
+                            Name = "特殊權限"
+                        },
+                        new
+                        {
+                            Id = new Guid("02438156-bc63-498f-8a4a-016b7e1ae134"),
+                            Description = "",
+                            IsEnabled = true,
+                            Name = "登入"
+                        });
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Roles.Role", b =>
                 {
-                    b.Property<Guid>("RoleId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsEnabled");
@@ -56,33 +67,49 @@ namespace MatchaLatte.Identity.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
-                    b.HasKey("RoleId");
+                    b.HasKey("Id");
 
                     b.ToTable("Role");
 
                     b.HasData(
-                        new { RoleId = new Guid("24b28b7a-862e-4ffd-9593-a99801134e9d"), IsEnabled = true, Name = "Administrator" },
-                        new { RoleId = new Guid("9c18a848-132a-47cb-8290-a99801134e9d"), IsEnabled = true, Name = "HumanResources" }
-                    );
+                        new
+                        {
+                            Id = new Guid("c46463cd-52e2-441b-aa0a-016b7e1ae132"),
+                            IsEnabled = true,
+                            Name = "Administrator"
+                        },
+                        new
+                        {
+                            Id = new Guid("79e9d629-23ed-407b-8f27-016b7e1ae132"),
+                            IsEnabled = true,
+                            Name = "HumanResources"
+                        });
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Roles.RolePermission", b =>
                 {
-                    b.Property<Guid>("RoleId");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("PermissionId");
 
-                    b.HasKey("RoleId", "PermissionId");
+                    b.Property<Guid>("RoleId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("PermissionId");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("RolePermission");
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.User", b =>
                 {
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
 
                     b.Property<bool>("IsEnabled");
 
@@ -92,7 +119,7 @@ namespace MatchaLatte.Identity.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserName")
                         .IsUnique();
@@ -100,19 +127,30 @@ namespace MatchaLatte.Identity.Data.Migrations
                     b.ToTable("User");
 
                     b.HasData(
-                        new { UserId = new Guid("50d4ac2a-daa8-4f35-b732-a99801134e9a"), IsEnabled = true, PasswordHash = "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", UserName = "Admin" }
-                    );
+                        new
+                        {
+                            Id = new Guid("8422986b-dcd1-4c0b-b182-016b7e1ae12a"),
+                            CreatedOn = new DateTime(2019, 6, 22, 7, 33, 39, 239, DateTimeKind.Utc).AddTicks(5936),
+                            IsEnabled = true,
+                            PasswordHash = "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=",
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRole", b =>
                 {
-                    b.Property<Guid>("UserId");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("RoleId");
 
-                    b.HasKey("UserId", "RoleId");
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserRole");
                 });

@@ -14,7 +14,7 @@ export class GroupListComponent implements OnInit {
   isLoading = false;
   groups = new PaginationResult<Group>();
   dataSource = new MatTableDataSource<Group>();
-  displayedColumns = ['id', 'storeName', 'startTime', 'endTime', 'createdOn', 'action'];
+  displayedColumns = ['rowId', 'storeName', 'startTime', 'endTime', 'createdOn', 'action'];
 
   constructor(private groupService: GroupService) { }
 

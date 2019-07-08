@@ -9,12 +9,6 @@ namespace MatchaLatte.Catalog.Domain.Products
     public class ProductAccessory : Entity
     {
         /// <summary>
-        /// 取得或設定主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid ProductAccessoryId { get; set; }
-
-        /// <summary>
         /// 取得或設定名稱。
         /// </summary>
         /// <value>名稱。</value>

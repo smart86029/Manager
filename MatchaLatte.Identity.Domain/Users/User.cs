@@ -10,7 +10,7 @@ namespace MatchaLatte.Identity.Domain.Users
     /// <summary>
     /// 使用者。
     /// </summary>
-    public class User : Entity, IAggregateRoot
+    public class User : AggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
 
@@ -28,30 +28,11 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="password">密碼。</param>
         /// <param name="isEnabled">是否啟用。</param>
         public User(string userName, string password, bool isEnabled)
-            : this(GuidUtility.NewGuid(), userName, password, isEnabled)
         {
-        }
-
-        /// <summary>
-        /// 初始化 <see cref="User"/> 類別的新執行個體。
-        /// </summary>
-        /// <param name="userId">使用者 ID。</param>
-        /// <param name="userName">使用者名稱。</param>
-        /// <param name="password">密碼。</param>
-        /// <param name="isEnabled">是否啟用。</param>
-        public User(Guid userId, string userName, string password, bool isEnabled)
-        {
-            UserId = userId;
             UserName = userName;
             PasswordHash = CryptographyUtility.Hash(password);
             IsEnabled = isEnabled;
         }
-
-        /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid UserId { get; private set; }
 
         /// <summary>
         /// 取得使用者名稱。
@@ -70,6 +51,12 @@ namespace MatchaLatte.Identity.Domain.Users
         /// </summary>
         /// <value>如果啟用則為 <c>true</c>，否則為 <c>false</c>。</value>
         public bool IsEnabled { get; private set; }
+
+        /// <summary>
+        /// 取得新增時間。
+        /// </summary>
+        /// <value>新增時間。</value>
+        public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
 
         /// <summary>
         /// 取得使用者角色的集合。
@@ -102,7 +89,7 @@ namespace MatchaLatte.Identity.Domain.Users
         public void Enable()
         {
             IsEnabled = true;
-            RaiseDomainEvent(new UserDisabled(UserId));
+            RaiseDomainEvent(new UserDisabled(Id));
         }
 
         /// <summary>
@@ -111,7 +98,7 @@ namespace MatchaLatte.Identity.Domain.Users
         public void Disable()
         {
             IsEnabled = false;
-            RaiseDomainEvent(new UserDisabled(UserId));
+            RaiseDomainEvent(new UserDisabled(Id));
         }
 
         /// <summary>
@@ -120,8 +107,8 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="role">角色。</param>
         public void AssignRole(Role role)
         {
-            if (!userRoles.Any(x => x.RoleId == role.RoleId))
-                userRoles.Add(new UserRole(UserId, role.RoleId));
+            if (!userRoles.Any(x => x.RoleId == role.Id))
+                userRoles.Add(new UserRole(Id, role.Id));
         }
 
         /// <summary>
@@ -130,7 +117,7 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="role">角色。</param>
         public void UnassignRole(Role role)
         {
-            var userRole = userRoles.FirstOrDefault(x => x.RoleId == role.RoleId);
+            var userRole = userRoles.FirstOrDefault(x => x.RoleId == role.Id);
             if (userRole != default(UserRole))
                 userRoles.Remove(userRole);
         }

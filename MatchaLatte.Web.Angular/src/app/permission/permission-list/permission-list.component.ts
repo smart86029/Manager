@@ -14,7 +14,7 @@ export class PermissionListComponent implements OnInit {
   isLoading: boolean;
   permissions = new PaginationResult<Permission>();
   dataSource = new MatTableDataSource<Permission>();
-  displayedColumns = ['id', 'name', 'isEnabled', 'action'];
+  displayedColumns = ['rowId', 'name', 'isEnabled', 'action'];
 
   constructor(private permissionService: PermissionService, private resolver: ComponentFactoryResolver) { }
 

@@ -48,10 +48,10 @@ namespace MatchaLatte.Catalog.Services
                 Items = stores
                     .Select(x => new StoreSummary
                     {
-                        StoreId = x.StoreId,
+                        Id = x.Id,
                         Name = x.Name,
                         CreatedOn = x.CreatedOn,
-                        LogoUri = $"{pictureSettings.BaseUri}{x.StoreId}/logo"
+                        LogoUri = $"{pictureSettings.BaseUri}{x.Id}/logo"
                     })
                     .ToList(),
                 ItemCount = count
@@ -70,7 +70,7 @@ namespace MatchaLatte.Catalog.Services
             var store = await storeRepository.GetStoreAsync(storeId);
             var result = new StoreDetail
             {
-                StoreId = store.StoreId,
+                Id = store.Id,
                 Name = store.Name,
                 Description = store.Description,
                 Phone = store.Phone.PhoneNumber,
@@ -86,21 +86,21 @@ namespace MatchaLatte.Catalog.Services
                 ProductCategories = store.ProductCategories
                     .Select(c => new ProductCategoryDetail
                     {
-                        ProductCategoryId = c.ProductCategoryId,
+                        Id = c.Id,
                         Name = c.Name,
                         IsDefault = c.IsDefault,
                         Sequence = c.Sequence,
                         Products = c.Products
                             .Select(p => new ProductDetail
                             {
-                                ProductId = p.ProductId,
+                                Id = p.Id,
                                 Name = p.Name,
                                 Description = p.Description,
                                 Sequence = p.Sequence,
                                 ProductItems = p.ProductItems
                                     .Select(i => new ProductItemDetail
                                     {
-                                        ProductItemId = i.ProductItemId,
+                                        Id = i.Id,
                                         Name = i.Name,
                                         Price = i.Price
                                     })
@@ -178,7 +178,7 @@ namespace MatchaLatte.Catalog.Services
 
             var result = new StoreDetail
             {
-                StoreId = store.StoreId,
+                Id = store.Id,
                 Name = store.Name,
                 Description = store.Description,
                 Phone = store.Phone.PhoneNumber,
@@ -203,7 +203,7 @@ namespace MatchaLatte.Catalog.Services
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
         public async Task<bool> UpdateStoreAsync(UpdateStoreCommand command)
         {
-            var store = await storeRepository.GetStoreAsync(command.StoreId);
+            var store = await storeRepository.GetStoreAsync(command.id);
 
             store.UpdateName(command.Name);
             store.UpdateDescription(command.Description);
@@ -213,18 +213,18 @@ namespace MatchaLatte.Catalog.Services
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = c.ProductCategoryId != Guid.Empty ?
-                    store.ProductCategories.Single(x => x.ProductCategoryId == c.ProductCategoryId) : new ProductCategory(c.Name, false);
+                var productCategory = c.Id != Guid.Empty ?
+                    store.ProductCategories.Single(x => x.Id == c.Id) : new ProductCategory(c.Name, false);
                 foreach (var p in c.Products)
                 {
-                    var product = p.ProductId != Guid.Empty ?
-                        productCategory.Products.Single(x => x.ProductId == p.ProductId) : new Product(p.Name, p.Description);
+                    var product = p.Id != Guid.Empty ?
+                        productCategory.Products.Single(x => x.Id == p.Id) : new Product(p.Name, p.Description);
                     foreach (var i in p.ProductItems)
                     {
-                        var productItem = i.ProductItemId != Guid.Empty ?
-                            product.ProductItems.Single(x => x.ProductItemId == i.ProductItemId) : new ProductItem(i.Name, i.Price);
+                        var productItem = i.Id != Guid.Empty ?
+                            product.ProductItems.Single(x => x.Id == i.Id) : new ProductItem(i.Name, i.Price);
 
-                        if (i.ProductItemId != Guid.Empty)
+                        if (i.Id != Guid.Empty)
                         {
                             productItem.UpdateName(i.Name);
                             productItem.UpdatePrice(i.Price);
@@ -233,20 +233,35 @@ namespace MatchaLatte.Catalog.Services
                             product.AddProductItem(productItem);
                     }
 
-                    if (p.ProductId != Guid.Empty)
+                    if (p.Id != Guid.Empty)
                     {
                         product.UpdateName(p.Name);
                         product.UpdateDescription(p.Description);
                     }
                     else
                         productCategory.AddProduct(product);
+
+                    var productItemIdsExist = p.ProductItems.Select(x => x.Id);
+                    var productItemToRemove = product.ProductItems.Where(x => productItemIdsExist.Contains(x.Id)).ToList();
+                    foreach (var i in productItemToRemove)
+                        product.RemoveProductItem(i);
                 }
 
-                if (c.ProductCategoryId != Guid.Empty)
+                if (c.Id != Guid.Empty)
                     productCategory.UpdateName(c.Name);
                 else
                     store.AddProductCategory(productCategory);
+
+                var productIdsExist = c.Products.Select(x => x.Id);
+                var productToRemove = productCategory.Products.Where(x => !productIdsExist.Contains(x.Id)).ToList();
+                foreach (var p in productToRemove)
+                    productCategory.RemoveProduct(p);
             }
+
+            var productCategoryIdsExist = command.ProductCategories.Select(x => x.Id);
+            var productCategoryToRemove = store.ProductCategories.Where(x => !productCategoryIdsExist.Contains(x.Id)).ToList();
+            foreach (var c in productCategoryToRemove)
+                store.RemoveProductCategory(c);
 
             storeRepository.Update(store);
             await unitOfWork.CommitAsync();

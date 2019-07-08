@@ -41,7 +41,7 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>使用者。</returns>
         public async Task<User> GetUserAsync(Guid userId)
         {
-            return await context.Set<User>().Include(u => u.UserRoles).SingleOrDefaultAsync(u => u.UserId == userId);
+            return await context.Set<User>().Include(u => u.UserRoles).SingleOrDefaultAsync(u => u.Id == userId);
         }
 
         /// <summary>

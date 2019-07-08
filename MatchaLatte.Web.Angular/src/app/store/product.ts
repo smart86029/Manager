@@ -1,7 +1,8 @@
+import { Guid } from '../shared/guid';
 import { ProductItem } from './product-item';
 
 export class Product {
-  productId: number;
+  id: Guid;
   name: string;
   sequence: number;
   productItems: ProductItem[] = [];

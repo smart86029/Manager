@@ -52,7 +52,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
                 .Include(s => s.ProductCategories)
                 .ThenInclude(c => c.Products)
                 .ThenInclude(p => p.ProductItems)
-                .SingleOrDefaultAsync(s => s.StoreId == storeId);
+                .SingleOrDefaultAsync(s => s.Id == storeId);
 
             return result;
         }

@@ -79,7 +79,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         {
             var role = await roleService.CreateRoleAsync(command);
 
-            return CreatedAtAction(nameof(GetAsync), new { id = role.RoleId }, role);
+            return CreatedAtAction(nameof(GetAsync), new { id = role.Id }, role);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateRoleCommand command)
         {
-            if (id != command.RoleId)
+            if (id != command.Id)
                 return BadRequest();
 
             await roleService.UpdateRoleAsync(command);

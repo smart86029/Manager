@@ -2,7 +2,7 @@ import { Role } from './role';
 import { Guid } from '../shared/guid';
 
 export class User {
-  userId: Guid;
+  id: Guid;
   userName: string;
   password: string;
   isEnabled: boolean;

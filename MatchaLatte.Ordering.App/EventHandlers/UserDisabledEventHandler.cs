@@ -9,7 +9,7 @@ namespace MatchaLatte.Ordering.App.EventHandlers
 {
     public class UserDisabledEventHandler : IEventHandler<UserDisabled>
     {
-        public Task HandleAsync(Event @event)
+        public Task HandleAsync(UserDisabled @event)
         {
             Console.WriteLine("A");
 

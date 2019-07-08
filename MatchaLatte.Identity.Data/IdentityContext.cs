@@ -1,4 +1,7 @@
-﻿using MatchaLatte.Identity.Data.Configurations;
+﻿using System;
+using System.Linq;
+using MatchaLatte.Identity.Data.Configurations;
+using MatchaLatte.Identity.Data.Converters;
 using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.Identity.Data
@@ -27,6 +30,15 @@ namespace MatchaLatte.Identity.Data
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new RolePermissionConfiguration());
+
+            var utcDateTimeConverter = new UtcDateTimeConverter();
+            var dateTimeProperties = modelBuilder.Model
+                .GetEntityTypes()
+                .SelectMany(x => x.GetProperties())
+                .Where(x => x.ClrType == typeof(DateTime));
+
+            foreach (var property in dateTimeProperties)
+                property.SetValueConverter(utcDateTimeConverter);
         }
     }
 }

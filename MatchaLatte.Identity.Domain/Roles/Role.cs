@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Common.Utilities;
 using MatchaLatte.Identity.Domain.Permissions;
 using MatchaLatte.Identity.Domain.Users;
 
@@ -11,7 +10,7 @@ namespace MatchaLatte.Identity.Domain.Roles
     /// <summary>
     /// 角色。
     /// </summary>
-    public class Role : Entity, IAggregateRoot
+    public class Role : AggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
         private readonly List<RolePermission> rolePermissions = new List<RolePermission>();
@@ -29,28 +28,10 @@ namespace MatchaLatte.Identity.Domain.Roles
         /// <param name="name">名稱。</param>
         /// <param name="isEnabled">是否啟用。</param>
         public Role(string name, bool isEnabled)
-            : this(GuidUtility.NewGuid(), name, isEnabled)
         {
-        }
-
-        /// <summary>
-        /// 初始化 <see cref="Role"/> 類別的新執行個體。
-        /// </summary>
-        /// <param name="roleId">角色 ID。</param>
-        /// <param name="name">名稱。</param>
-        /// <param name="isEnabled">是否啟用。</param>
-        public Role(Guid roleId, string name, bool isEnabled)
-        {
-            RoleId = roleId;
             Name = name;
             IsEnabled = isEnabled;
         }
-
-        /// <summary>
-        /// 取得主鍵。
-        /// </summary>
-        /// <value>主鍵。</value>
-        public Guid RoleId { get; private set; }
 
         /// <summary>
         /// 取得名稱。
@@ -107,8 +88,8 @@ namespace MatchaLatte.Identity.Domain.Roles
         /// <param name="permission">權限。</param>
         public void AssignPermission(Permission permission)
         {
-            if (!rolePermissions.Any(x => x.RoleId == permission.PermissionId))
-                rolePermissions.Add(new RolePermission(RoleId, permission.PermissionId));
+            if (!rolePermissions.Any(x => x.PermissionId == permission.Id))
+                rolePermissions.Add(new RolePermission(Id, permission.Id));
         }
 
         /// <summary>
@@ -117,7 +98,7 @@ namespace MatchaLatte.Identity.Domain.Roles
         /// <param name="permission">權限。</param>
         public void UnassignPermission(Permission permission)
         {
-            var rolePermission = rolePermissions.FirstOrDefault(x => x.PermissionId == permission.PermissionId);
+            var rolePermission = rolePermissions.FirstOrDefault(x => x.PermissionId == permission.Id);
             if (rolePermission != default(RolePermission))
                 rolePermissions.Remove(rolePermission);
         }

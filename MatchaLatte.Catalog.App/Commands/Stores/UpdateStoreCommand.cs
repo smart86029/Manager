@@ -6,7 +6,7 @@ namespace MatchaLatte.Catalog.App.Commands.Stores
 {
     public class UpdateStoreCommand : ICommand<bool>
     {
-        public Guid StoreId { get; set; }
+        public Guid id { get; set; }
 
         public string Name { get; set; }
 

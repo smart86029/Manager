@@ -71,7 +71,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
             command.CreatedBy = currentUser.UserId;
             var group = await groupService.CreateGroupAsync(command);
 
-            return CreatedAtAction(nameof(GetAsync), new { id = group.GroupId }, group);
+            return CreatedAtAction(nameof(GetAsync), new { id = group.Id }, group);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateGroupCommand command)
         {
-            if (id != command.GroupId)
+            if (id != command.id)
                 return BadRequest();
 
             await groupService.UpdateGroupAsync(command);

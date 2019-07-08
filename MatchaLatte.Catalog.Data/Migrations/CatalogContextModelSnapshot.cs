@@ -22,7 +22,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Groups.Group", b =>
                 {
-                    b.Property<Guid>("GroupId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("CreatedBy");
@@ -38,7 +38,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
                     b.Property<Guid>("StoreId");
 
-                    b.HasKey("GroupId");
+                    b.HasKey("Id");
 
                     b.HasIndex("StoreId");
 
@@ -47,7 +47,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Products.Product", b =>
                 {
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
@@ -61,7 +61,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
                     b.Property<int>("Sequence");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductCategoryId");
 
@@ -70,7 +70,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Products.ProductItem", b =>
                 {
-                    b.Property<Guid>("ProductItemId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
@@ -81,7 +81,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
                     b.Property<Guid>("ProductId");
 
-                    b.HasKey("ProductItemId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
@@ -90,7 +90,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Stores.ProductCategory", b =>
                 {
-                    b.Property<Guid>("ProductCategoryId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsDefault");
@@ -103,7 +103,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
                     b.Property<Guid>("StoreId");
 
-                    b.HasKey("ProductCategoryId");
+                    b.HasKey("Id");
 
                     b.HasIndex("StoreId");
 
@@ -112,7 +112,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Stores.Store", b =>
                 {
-                    b.Property<Guid>("StoreId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("CreatedBy");
@@ -129,7 +129,7 @@ namespace MatchaLatte.Catalog.Data.Migrations
                     b.Property<string>("Remark")
                         .HasMaxLength(512);
 
-                    b.HasKey("StoreId");
+                    b.HasKey("Id");
 
                     b.ToTable("Store");
                 });

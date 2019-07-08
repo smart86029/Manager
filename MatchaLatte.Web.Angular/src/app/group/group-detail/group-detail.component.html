@@ -43,7 +43,7 @@
             </div>
             <div *ngIf="canSelectStore">
               <mat-paginator [length]="stores.itemCount" [pageSize]="stores.pageSize" [pageSizeOptions]="[5, 10, 20]"
-                (page)="pageEvent = getGroups($event.pageIndex, $event.pageSize)" showFirstLastButtons></mat-paginator>
+                (page)="pageEvent = loadStores($event.pageIndex, $event.pageSize)" showFirstLastButtons></mat-paginator>
               <div fxLayout="row" fxLayoutGap="15px">
                 <mat-card class="store-card" *ngFor="let store of stores.items" fxFlex="20">
                   <mat-card-header>

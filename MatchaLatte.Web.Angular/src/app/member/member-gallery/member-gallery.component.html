@@ -1,0 +1,23 @@
+<div class="grid-container">
+  <h2 class="mat-h2">進行中的團購</h2>
+  <mat-paginator [length]="groups.itemCount" [pageSize]="groups.pageSize" [pageSizeOptions]="[5, 10, 20]"
+    (page)="pageEvent = loadGroups($event.pageIndex, $event.pageSize)" showFirstLastButtons></mat-paginator>
+  <div fxLayout="row" fxLayoutGap="15px">
+    <mat-card class="group-card" *ngFor="let group of groups.items" fxFlex="20">
+      <mat-card-header>
+        <mat-card-title>
+          {{group.store.name}}
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{group.store.logoUri}}" alt="{{group.store.name}}">
+      <mat-card-content class="group-card-content">
+        <div>
+          截止日期: {{group.endTime | date:'yyyy-MM-dd HH:mm:ss'}}
+        </div>
+      </mat-card-content>
+      <a class="group-card-overlay" [routerLink]="['../groups', group.id, 'join']">
+        <mat-icon class="no-select" inline>add_shopping_cart</mat-icon>
+      </a>
+    </mat-card>
+  </div>
+</div>

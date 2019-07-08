@@ -3,7 +3,7 @@ import { Address } from './address';
 import { ProductCategory } from './product-category';
 
 export class Store {
-  storeId: Guid;
+  id: Guid;
   name: string;
   description: string;
   logoUri: string;

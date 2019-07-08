@@ -14,7 +14,7 @@ export class StoreListComponent implements OnInit {
   isLoading = false;
   stores = new PaginationResult<Store>();
   dataSource = new MatTableDataSource<Store>();
-  displayedColumns = ['id', 'name', 'createdOn', 'action'];
+  displayedColumns = ['rowId', 'name', 'createdOn', 'action'];
 
   constructor(private storeService: StoreService) { }
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using MatchaLatte.Common.Utilities;
 
 namespace MatchaLatte.Common.Domain
 {
@@ -8,6 +10,12 @@ namespace MatchaLatte.Common.Domain
     public abstract class Entity
     {
         private Queue<IDomainEvent> domainEvents = new Queue<IDomainEvent>();
+
+        /// <summary>
+        /// 取得主鍵。
+        /// </summary>
+        /// <value>主鍵。</value>
+        public Guid Id { get; protected set; } = GuidUtility.NewGuid();
 
         /// <summary>
         /// 取得領域事件的集合。

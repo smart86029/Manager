@@ -20,25 +20,65 @@ namespace MatchaLatte.Catalog.Data.Configurations
                 .Property(s => s.Description)
                 .HasMaxLength(512);
 
-            builder.OwnsOne(s => s.Logo, x =>
+            builder.OwnsOne(s => s.Logo, innerBuilder =>
             {
-                x.Property(p => p.FileName).HasColumnName("LogoFileName").IsRequired().HasMaxLength(256);
+                innerBuilder
+                    .Property(p => p.FileName)
+                    .HasColumnName("LogoFileName")
+                    .IsRequired()
+                    .HasMaxLength(256);
             });
 
-            builder.OwnsOne(s => s.Phone, x =>
+            builder.OwnsOne(s => s.Phone, innerBuilder =>
             {
-                x.Property(p => p.PhoneType).HasColumnName("PhoneType");
-                x.Property(p => p.CountryCode).HasColumnName("CountryCode").IsRequired().HasMaxLength(4);
-                x.Property(p => p.PhoneNumber).HasColumnName("PhoneNumber").IsRequired().HasMaxLength(32);
+                innerBuilder
+                    .Property(p => p.PhoneType)
+                    .HasColumnName("PhoneType");
+
+                innerBuilder
+                    .Property(p => p.CountryCode)
+                    .HasColumnName("CountryCode")
+                    .IsRequired()
+                    .HasMaxLength(4);
+
+                innerBuilder
+                    .Property(p => p.PhoneNumber)
+                    .HasColumnName("PhoneNumber")
+                    .IsRequired()
+                    .HasMaxLength(32);
             });
 
-            builder.OwnsOne(s => s.Address, x =>
+            builder.OwnsOne(s => s.Address, innerBuilder =>
             {
-                x.Property(a => a.PostalCode).HasColumnName("PostalCode").IsRequired().HasMaxLength(8);
-                x.Property(a => a.Country).HasColumnName("Country").IsRequired().HasMaxLength(32);
-                x.Property(a => a.City).HasColumnName("City").IsRequired().HasMaxLength(32);
-                x.Property(a => a.District).HasColumnName("District").IsRequired().HasMaxLength(32);
-                x.Property(a => a.Street).HasColumnName("Street").IsRequired().HasMaxLength(128);
+                innerBuilder
+                    .Property(a => a.PostalCode)
+                    .HasColumnName("PostalCode")
+                    .IsRequired()
+                    .HasMaxLength(8);
+
+                innerBuilder
+                    .Property(a => a.Country)
+                    .HasColumnName("Country")
+                    .IsRequired()
+                    .HasMaxLength(32);
+
+                innerBuilder
+                    .Property(a => a.City)
+                    .HasColumnName("City")
+                    .IsRequired()
+                    .HasMaxLength(32);
+
+                innerBuilder
+                    .Property(a => a.District)
+                    .HasColumnName("District")
+                    .IsRequired()
+                    .HasMaxLength(32);
+
+                innerBuilder
+                    .Property(a => a.Street)
+                    .HasColumnName("Street")
+                    .IsRequired()
+                    .HasMaxLength(128);
             });
 
             builder
