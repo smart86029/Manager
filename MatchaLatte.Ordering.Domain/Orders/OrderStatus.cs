@@ -11,23 +11,18 @@
         Created = 0,
 
         /// <summary>
-        /// 買家已確認。
+        /// 已確認。
         /// </summary>
-        BuyerConfirmed = 1,
-
-        /// <summary>
-        /// 商品已確認。
-        /// </summary>
-        ProductConfirmed = 2,
+        Confirmed = 1,
 
         /// <summary>
         /// 已完成。
         /// </summary>
-        Completed = 3,
+        Completed = 2,
 
         /// <summary>
         /// 已取消。
         /// </summary>
-        Cancelled = 4,
+        Cancelled = 3,
     }
 }
