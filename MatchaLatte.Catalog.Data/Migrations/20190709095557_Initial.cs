@@ -10,6 +10,9 @@ namespace MatchaLatte.Catalog.Data.Migrations
             migrationBuilder.EnsureSchema(
                 name: "Catalog");
 
+            migrationBuilder.EnsureSchema(
+                name: "Common");
+
             migrationBuilder.CreateTable(
                 name: "Store",
                 schema: "Catalog",
@@ -34,6 +37,24 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Store", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventLog",
+                schema: "Common",
+                columns: table => new
+                {
+                    EventId = table.Column<Guid>(nullable: false),
+                    EventTypeNamespace = table.Column<string>(maxLength: 256, nullable: false),
+                    EventTypeName = table.Column<string>(maxLength: 256, nullable: false),
+                    EventContent = table.Column<string>(nullable: false),
+                    PublishState = table.Column<int>(nullable: false),
+                    PublishCount = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventLog", x => x.EventId);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,6 +184,10 @@ namespace MatchaLatte.Catalog.Data.Migrations
             migrationBuilder.DropTable(
                 name: "ProductItem",
                 schema: "Catalog");
+
+            migrationBuilder.DropTable(
+                name: "EventLog",
+                schema: "Common");
 
             migrationBuilder.DropTable(
                 name: "Product",

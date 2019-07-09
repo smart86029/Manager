@@ -134,6 +134,33 @@ namespace MatchaLatte.Catalog.Data.Migrations
                     b.ToTable("Store");
                 });
 
+            modelBuilder.Entity("MatchaLatte.Common.Events.EventLog", b =>
+                {
+                    b.Property<Guid>("EventId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("EventContent")
+                        .IsRequired();
+
+                    b.Property<string>("EventTypeName")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("EventTypeNamespace")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<int>("PublishCount");
+
+                    b.Property<int>("PublishState");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("EventLog","Common");
+                });
+
             modelBuilder.Entity("MatchaLatte.Catalog.Domain.Groups.Group", b =>
                 {
                     b.HasOne("MatchaLatte.Catalog.Domain.Stores.Store", "Store")

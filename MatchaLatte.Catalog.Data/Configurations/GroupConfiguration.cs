@@ -11,17 +11,6 @@ namespace MatchaLatte.Catalog.Data.Configurations
             builder
                 .Property(g => g.Remark)
                 .HasMaxLength(512);
-
-            builder.HasData(GetSeedData());
-        }
-
-        private object[] GetSeedData()
-        {
-            var result = new object[]
-            {
-            };
-
-            return result;
         }
     }
 }

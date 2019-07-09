@@ -1,7 +1,4 @@
-﻿using System;
-using MatchaLatte.Catalog.Domain;
-using MatchaLatte.Catalog.Domain.Stores;
-using MatchaLatte.Common.Utilities;
+﻿using MatchaLatte.Catalog.Domain.Stores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -88,21 +85,6 @@ namespace MatchaLatte.Catalog.Data.Configurations
             builder.Metadata
                 .FindNavigation(nameof(Store.ProductCategories))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-            //builder.HasData(GetSeedData());
-        }
-
-        private object[] GetSeedData()
-        {
-            var result = new object[]
-            {
-                new { StoreId = GuidUtility.NewGuid(), Name = "Administrator", Description = "測試der",
-                    PhoneType = (int)PhoneType.Landline, CountryCode = "886", AreaCode = "02", BaseNumber = "2658-2882", Extension = string.Empty,
-                    PostalCode = "11473", Country = "台灣", City = "台北市", District = "內湖區", Street = "江南街117號",
-                    Remark = string.Empty, CreatedBy = 1, CreatedOn = DateTime.UtcNow }
-            };
-
-            return result;
         }
     }
 }

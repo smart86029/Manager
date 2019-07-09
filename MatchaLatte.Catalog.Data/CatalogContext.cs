@@ -2,6 +2,7 @@
 using System.Linq;
 using MatchaLatte.Catalog.Data.Configurations;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.EntityFramework.Configurations;
 using MatchaLatte.Common.EntityFramework.Converters;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,7 @@ namespace MatchaLatte.Catalog.Data
         {
             modelBuilder.HasDefaultSchema("Catalog");
             modelBuilder.Ignore<DomainEvent>();
+            modelBuilder.ApplyConfiguration(new EventLogConfiguration());
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
             modelBuilder.ApplyConfiguration(new StoreConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
