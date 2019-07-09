@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MatchaLatte.Catalog.Data.Converters
+namespace MatchaLatte.Common.EntityFramework.Converters
 {
     public class UtcDateTimeConverter : ValueConverter<DateTime, DateTime>
     {

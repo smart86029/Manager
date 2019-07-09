@@ -32,8 +32,16 @@ namespace MatchaLatte.Identity.Data
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
         public async Task<bool> CommitAsync()
         {
+            var events = context.ChangeTracker
+                .Entries<Entity>()
+                .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any())
+                .SelectMany(x => x.Entity.DomainEvents)
+                .ToList();
+
+            context.Set<EventLog>().AddRange(events.Select(e => new EventLog(e)));
+
             await context.SaveChangesAsync();
-            await PublishEventsAsync();
+            // await PublishEventsAsync();
 
             return true;
         }

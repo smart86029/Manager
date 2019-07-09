@@ -26,12 +26,17 @@ namespace MatchaLatte.Identity.Domain.Users
         /// </summary>
         /// <param name="userName">使用者名稱。</param>
         /// <param name="password">密碼。</param>
+        /// <param name="firstName">名。</param>
+        /// <param name="lastName">姓。</param>
         /// <param name="isEnabled">是否啟用。</param>
-        public User(string userName, string password, bool isEnabled)
+        public User(string userName, string password, string firstName, string lastName, bool isEnabled)
         {
             UserName = userName;
             PasswordHash = CryptographyUtility.Hash(password);
+            FirstName = firstName;
+            LastName = lastName;
             IsEnabled = isEnabled;
+            RaiseDomainEvent(new UserCreated(Id));
         }
 
         /// <summary>
@@ -45,6 +50,16 @@ namespace MatchaLatte.Identity.Domain.Users
         /// </summary>
         /// <value>密碼雜湊。</value>
         public string PasswordHash { get; private set; }
+
+        /// <summary>
+        /// 取得名。
+        /// </summary>
+        public string FirstName { get; private set; }
+
+        /// <summary>
+        /// 取得姓。
+        /// </summary>
+        public string LastName { get; private set; }
 
         /// <summary>
         /// 取得值，這個值指出是否啟用。

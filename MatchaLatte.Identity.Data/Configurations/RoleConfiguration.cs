@@ -12,19 +12,6 @@ namespace MatchaLatte.Identity.Data.Configurations
                 .Property(r => r.Name)
                 .IsRequired()
                 .HasMaxLength(32);
-
-            builder.HasData(GetSeedData());
-        }
-
-        private Role[] GetSeedData()
-        {
-            var result = new Role[]
-            {
-                new Role("Administrator", true),
-                new Role("HumanResources", true)
-            };
-
-            return result;
         }
     }
 }

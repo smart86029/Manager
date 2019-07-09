@@ -4,7 +4,7 @@ using EasyNetQ;
 using EasyNetQ.Topology;
 using MatchaLatte.Common.Utilities;
 
-namespace MatchaLatte.Common.Events
+namespace MatchaLatte.Common.Events.RabbitMQ
 {
     /// <summary>
     /// 事件匯流排。

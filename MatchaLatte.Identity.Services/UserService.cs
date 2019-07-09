@@ -107,7 +107,7 @@ namespace MatchaLatte.Identity.Services
         /// <returns>使用者。</returns>
         public async Task<UserDetail> CreateUserAsync(CreateUserCommand command)
         {
-            var user = new User(command.UserName, command.Password, command.IsEnabled);
+            var user = new User(command.UserName, command.Password, "", "", command.IsEnabled);
             var roleIdsToAssign = command.Roles.Where(x => x.IsChecked).Select(x => x.Id);
             var rolesToAssign = await roleRepository.GetRolesAsync(r => roleIdsToAssign.Contains(r.Id));
             foreach (var role in rolesToAssign)

@@ -3,9 +3,9 @@ using MatchaLatte.Common.Domain;
 
 namespace MatchaLatte.Identity.Domain.Users
 {
-    public class UserDisabled : DomainEvent
+    public class UserCreated : DomainEvent
     {
-        public UserDisabled(Guid userId)
+        public UserCreated(Guid userId)
         {
             UserId = userId;
         }

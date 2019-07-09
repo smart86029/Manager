@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Identity.Data.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20190622073339_Initial")]
+    [Migration("20190709092453_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,33 @@ namespace MatchaLatte.Identity.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MatchaLatte.Common.Events.EventLog", b =>
+                {
+                    b.Property<Guid>("EventId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("EventContent")
+                        .IsRequired();
+
+                    b.Property<string>("EventTypeName")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("EventTypeNamespace")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<int>("PublishCount");
+
+                    b.Property<int>("PublishState");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("EventLog","Common");
+                });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Permissions.Permission", b =>
                 {
@@ -40,22 +67,6 @@ namespace MatchaLatte.Identity.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Permission");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a02964a6-3422-4071-9ef6-016b7e1ae134"),
-                            Description = "",
-                            IsEnabled = true,
-                            Name = "特殊權限"
-                        },
-                        new
-                        {
-                            Id = new Guid("02438156-bc63-498f-8a4a-016b7e1ae134"),
-                            Description = "",
-                            IsEnabled = true,
-                            Name = "登入"
-                        });
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Roles.Role", b =>
@@ -72,20 +83,6 @@ namespace MatchaLatte.Identity.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c46463cd-52e2-441b-aa0a-016b7e1ae132"),
-                            IsEnabled = true,
-                            Name = "Administrator"
-                        },
-                        new
-                        {
-                            Id = new Guid("79e9d629-23ed-407b-8f27-016b7e1ae132"),
-                            IsEnabled = true,
-                            Name = "HumanResources"
-                        });
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Roles.RolePermission", b =>
@@ -113,7 +110,15 @@ namespace MatchaLatte.Identity.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(32);
+
                     b.Property<bool>("IsEnabled");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
                     b.Property<string>("PasswordHash");
 
@@ -127,16 +132,6 @@ namespace MatchaLatte.Identity.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8422986b-dcd1-4c0b-b182-016b7e1ae12a"),
-                            CreatedOn = new DateTime(2019, 6, 22, 7, 33, 39, 239, DateTimeKind.Utc).AddTicks(5936),
-                            IsEnabled = true,
-                            PasswordHash = "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=",
-                            UserName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRole", b =>

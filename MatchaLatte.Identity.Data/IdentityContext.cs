@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.EntityFramework.Configurations;
+using MatchaLatte.Common.EntityFramework.Converters;
 using MatchaLatte.Identity.Data.Configurations;
-using MatchaLatte.Identity.Data.Converters;
 using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.Identity.Data
@@ -25,6 +27,8 @@ namespace MatchaLatte.Identity.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Identity");
+            modelBuilder.Ignore<DomainEvent>();
+            modelBuilder.ApplyConfiguration(new EventLogConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());

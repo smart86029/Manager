@@ -35,15 +35,17 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatchaLatte.Catalog", "MatchaLatte.Catalog", "{BAEF03E4-26BF-40BD-B166-BF3DD4BA375C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Catalog.Api", "MatchaLatte.Catalog.Api\MatchaLatte.Catalog.Api.csproj", "{FAB1899F-B7A7-4EB4-B085-F2EC72560EF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Catalog.Api", "MatchaLatte.Catalog.Api\MatchaLatte.Catalog.Api.csproj", "{FAB1899F-B7A7-4EB4-B085-F2EC72560EF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Catalog.App", "MatchaLatte.Catalog.App\MatchaLatte.Catalog.App.csproj", "{59AA382E-0649-42C0-A8CC-FC67D8B75D21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Catalog.App", "MatchaLatte.Catalog.App\MatchaLatte.Catalog.App.csproj", "{59AA382E-0649-42C0-A8CC-FC67D8B75D21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Catalog.Data", "MatchaLatte.Catalog.Data\MatchaLatte.Catalog.Data.csproj", "{839D84E2-7752-4D8B-A3CB-8F96FD633237}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Catalog.Data", "MatchaLatte.Catalog.Data\MatchaLatte.Catalog.Data.csproj", "{839D84E2-7752-4D8B-A3CB-8F96FD633237}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Catalog.Domain", "MatchaLatte.Catalog.Domain\MatchaLatte.Catalog.Domain.csproj", "{936EC5D1-F857-4EF5-BEEF-A75A65091662}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Catalog.Domain", "MatchaLatte.Catalog.Domain\MatchaLatte.Catalog.Domain.csproj", "{936EC5D1-F857-4EF5-BEEF-A75A65091662}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Catalog.Services", "MatchaLatte.Catalog.Services\MatchaLatte.Catalog.Services.csproj", "{3639FBBC-767C-48A2-9E25-A02F49FFB259}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Catalog.Services", "MatchaLatte.Catalog.Services\MatchaLatte.Catalog.Services.csproj", "{3639FBBC-767C-48A2-9E25-A02F49FFB259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Common.EntityFramework", "src\MatchaLatte.Common.EntityFramework\MatchaLatte.Common.EntityFramework.csproj", "{83C847FB-4EC7-4029-9C98-E8DE0AFFC7EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{3639FBBC-767C-48A2-9E25-A02F49FFB259}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3639FBBC-767C-48A2-9E25-A02F49FFB259}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3639FBBC-767C-48A2-9E25-A02F49FFB259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83C847FB-4EC7-4029-9C98-E8DE0AFFC7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83C847FB-4EC7-4029-9C98-E8DE0AFFC7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83C847FB-4EC7-4029-9C98-E8DE0AFFC7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83C847FB-4EC7-4029-9C98-E8DE0AFFC7EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

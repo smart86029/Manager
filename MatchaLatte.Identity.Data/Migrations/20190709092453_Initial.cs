@@ -8,7 +8,28 @@ namespace MatchaLatte.Identity.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
+                name: "Common");
+
+            migrationBuilder.EnsureSchema(
                 name: "Identity");
+
+            migrationBuilder.CreateTable(
+                name: "EventLog",
+                schema: "Common",
+                columns: table => new
+                {
+                    EventId = table.Column<Guid>(nullable: false),
+                    EventTypeNamespace = table.Column<string>(maxLength: 256, nullable: false),
+                    EventTypeName = table.Column<string>(maxLength: 256, nullable: false),
+                    EventContent = table.Column<string>(nullable: false),
+                    PublishState = table.Column<int>(nullable: false),
+                    PublishCount = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventLog", x => x.EventId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Permission",
@@ -47,6 +68,8 @@ namespace MatchaLatte.Identity.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(maxLength: 32, nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 32, nullable: false),
+                    LastName = table.Column<string>(maxLength: 32, nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false)
                 },
@@ -111,32 +134,6 @@ namespace MatchaLatte.Identity.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                schema: "Identity",
-                table: "Permission",
-                columns: new[] { "Id", "Description", "IsEnabled", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("a02964a6-3422-4071-9ef6-016b7e1ae134"), "", true, "特殊權限" },
-                    { new Guid("02438156-bc63-498f-8a4a-016b7e1ae134"), "", true, "登入" }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "Identity",
-                table: "Role",
-                columns: new[] { "Id", "IsEnabled", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("c46463cd-52e2-441b-aa0a-016b7e1ae132"), true, "Administrator" },
-                    { new Guid("79e9d629-23ed-407b-8f27-016b7e1ae132"), true, "HumanResources" }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "Identity",
-                table: "User",
-                columns: new[] { "Id", "CreatedOn", "IsEnabled", "PasswordHash", "UserName" },
-                values: new object[] { new Guid("8422986b-dcd1-4c0b-b182-016b7e1ae12a"), new DateTime(2019, 6, 22, 7, 33, 39, 239, DateTimeKind.Utc).AddTicks(5936), true, "rlS0uO5WqqdUOtJbKHz87yQ/ZumG1eRhjol3zl/oJeU=", "Admin" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermission_PermissionId",
                 schema: "Identity",
@@ -171,6 +168,10 @@ namespace MatchaLatte.Identity.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EventLog",
+                schema: "Common");
+
             migrationBuilder.DropTable(
                 name: "RolePermission",
                 schema: "Identity");

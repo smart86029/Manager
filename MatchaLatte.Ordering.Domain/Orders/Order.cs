@@ -107,7 +107,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
             if (OrderStatus != OrderStatus.Created)
                 throw new InvalidException();
 
-            OrderStatus = OrderStatus.BuyerConfirmed;
+            OrderStatus = OrderStatus.Confirmed;
         }
 
         /// <summary>

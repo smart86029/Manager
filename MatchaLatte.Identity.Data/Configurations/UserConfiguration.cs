@@ -17,21 +17,19 @@ namespace MatchaLatte.Identity.Data.Configurations
                 .HasIndex(u => u.UserName)
                 .IsUnique();
 
+            builder
+                .Property(u => u.FirstName)
+                .IsRequired()
+                .HasMaxLength(32);
+
+            builder
+                .Property(u => u.LastName)
+                .IsRequired()
+                .HasMaxLength(32);
+
             builder.Metadata
                 .FindNavigation(nameof(User.UserRoles))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-            builder.HasData(GetSeedData());
-        }
-
-        private User[] GetSeedData()
-        {
-            var result = new User[]
-            {
-                new User("Admin", "123fff", true)
-            };
-
-            return result;
         }
     }
 }

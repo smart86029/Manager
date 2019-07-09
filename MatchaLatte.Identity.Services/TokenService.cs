@@ -46,7 +46,7 @@ namespace MatchaLatte.Identity.Services
             var passwordHash = CryptographyUtility.Hash(command.Password);
             var user = await userRepository.GetUserAsync(command.UserName, passwordHash);
             if (user == default)
-                return default(TokenDetail);
+                return default;
 
             var claims = new List<Claim>
             {

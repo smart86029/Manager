@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MatchaLatte.Ordering.Domain\MatchaLatte.Ordering.Domain.csproj" />
+    <ProjectReference Include="..\src\MatchaLatte.Common.EntityFramework\MatchaLatte.Common.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

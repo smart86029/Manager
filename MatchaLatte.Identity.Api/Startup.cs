@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MatchaLatte.Common.EntityFramework;
 using MatchaLatte.Identity.Api.AutofacModules;
 using MatchaLatte.Identity.Data;
 using MatchaLatte.Identity.Services;
