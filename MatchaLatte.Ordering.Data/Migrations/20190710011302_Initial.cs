@@ -8,7 +8,28 @@ namespace MatchaLatte.Ordering.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
+                name: "Common");
+
+            migrationBuilder.EnsureSchema(
                 name: "Ordering");
+
+            migrationBuilder.CreateTable(
+                name: "EventLog",
+                schema: "Common",
+                columns: table => new
+                {
+                    EventId = table.Column<Guid>(nullable: false),
+                    EventTypeNamespace = table.Column<string>(maxLength: 256, nullable: false),
+                    EventTypeName = table.Column<string>(maxLength: 256, nullable: false),
+                    EventContent = table.Column<string>(nullable: false),
+                    PublishState = table.Column<int>(nullable: false),
+                    PublishCount = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventLog", x => x.EventId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Buyer",
@@ -136,6 +157,10 @@ namespace MatchaLatte.Ordering.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EventLog",
+                schema: "Common");
+
             migrationBuilder.DropTable(
                 name: "Buyer",
                 schema: "Ordering");

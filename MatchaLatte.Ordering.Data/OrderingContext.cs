@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.EntityFramework.Configurations;
 using MatchaLatte.Common.EntityFramework.Converters;
 using MatchaLatte.Ordering.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace MatchaLatte.Ordering.Data
         {
             modelBuilder.HasDefaultSchema("Ordering");
             modelBuilder.Ignore<DomainEvent>();
+            modelBuilder.ApplyConfiguration(new EventLogConfiguration());
             modelBuilder.ApplyConfiguration(new BuyerConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderItemConfiguration());

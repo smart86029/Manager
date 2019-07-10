@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MatchaLatte.Common.Commands;
 using MatchaLatte.Common.Events;
-using MatchaLatte.Ordering.App.Commands.Orders;
 using MatchaLatte.Ordering.Domain;
 using MatchaLatte.Ordering.Domain.Buyers;
 using MatchaLatte.Ordering.Domain.Orders;
@@ -11,17 +9,17 @@ namespace MatchaLatte.Ordering.App.EventHandlers
 {
     public class OrderCreatedEventHandler : IEventHandler<OrderCreated>
     {
-        private readonly ICommandService commandService;
         private readonly IEventBus eventBus;
         private readonly IOrderingUnitOfWork unitOfWork;
         private readonly IBuyerRepository buyerRepository;
+        private readonly IOrderRepository orderRepository;
 
-        public OrderCreatedEventHandler(ICommandService commandService, IEventBus eventBus, IOrderingUnitOfWork unitOfWork, IBuyerRepository buyerRepository)
+        public OrderCreatedEventHandler(IEventBus eventBus, IOrderingUnitOfWork unitOfWork, IBuyerRepository buyerRepository, IOrderRepository orderRepository)
         {
-            this.commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.buyerRepository = buyerRepository ?? throw new ArgumentNullException(nameof(buyerRepository));
+            this.orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
         }
 
         public async Task HandleAsync(OrderCreated @event)
@@ -31,15 +29,14 @@ namespace MatchaLatte.Ordering.App.EventHandlers
 
             if (!existed)
             {
-                //await eventBus.PublishAsync(new GetUser { }
+                // TODO: 處理未同步
                 return;
             }
 
-            buyerRepository.Update(buyer);
-            await unitOfWork.CommitAsync();
+            var order = await orderRepository.GetOrderAsync(@event.OrderId);
+            order.SetBuyerConfirmed();
 
-            var command = new ConfirmBuyerCommand();
-            await commandService.ExecuteAsync(command);
+            await unitOfWork.CommitAsync();
         }
     }
 }

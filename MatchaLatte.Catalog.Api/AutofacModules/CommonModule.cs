@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using MatchaLatte.Common.Events.RabbitMQ;
+using MatchaLatte.Common.RabbitMQ;
 
 namespace MatchaLatte.Catalog.Api.AutofacModules
 {

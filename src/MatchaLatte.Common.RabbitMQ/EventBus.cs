@@ -2,14 +2,12 @@
 using System.Threading.Tasks;
 using EasyNetQ;
 using EasyNetQ.Topology;
+using MatchaLatte.Common.Events;
 using MatchaLatte.Common.Utilities;
 
-namespace MatchaLatte.Common.Events.RabbitMQ
+namespace MatchaLatte.Common.RabbitMQ
 {
-    /// <summary>
-    /// 事件匯流排。
-    /// </summary>
-    public class EventBus : IEventBus
+    public class EventBus : Events.IEventBus
     {
         private readonly string connectionString;
         private readonly IServiceProvider serviceProvider;

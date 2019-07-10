@@ -21,6 +21,7 @@
     <ProjectReference Include="..\MatchaLatte.Identity.Data\MatchaLatte.Identity.Data.csproj" />
     <ProjectReference Include="..\MatchaLatte.Identity.Services\MatchaLatte.Identity.Services.csproj" />
     <ProjectReference Include="..\src\MatchaLatte.Common.EntityFramework\MatchaLatte.Common.EntityFramework.csproj" />
+    <ProjectReference Include="..\src\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>

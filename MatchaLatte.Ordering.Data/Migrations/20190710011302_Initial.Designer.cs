@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Ordering.Data.Migrations
 {
     [DbContext(typeof(OrderingContext))]
-    [Migration("20190702033017_Initial")]
+    [Migration("20190710011302_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,33 @@ namespace MatchaLatte.Ordering.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MatchaLatte.Common.Events.EventLog", b =>
+                {
+                    b.Property<Guid>("EventId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("EventContent")
+                        .IsRequired();
+
+                    b.Property<string>("EventTypeName")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("EventTypeNamespace")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<int>("PublishCount");
+
+                    b.Property<int>("PublishState");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("EventLog","Common");
+                });
 
             modelBuilder.Entity("MatchaLatte.Ordering.Domain.Buyers.Buyer", b =>
                 {
