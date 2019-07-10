@@ -17,17 +17,20 @@ namespace MatchaLatte.Catalog.Api.AutofacModules
         {
             var assembly = typeof(CatalogContext).Assembly;
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("Context"))
                 .AsSelf()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("UnitOfWork"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();

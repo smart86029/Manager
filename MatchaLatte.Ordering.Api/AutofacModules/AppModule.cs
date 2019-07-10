@@ -17,7 +17,8 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
         {
             var assembly = typeof(UserDisabledEventHandler).Assembly;
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("EventHandler"))
                 .AsImplementedInterfaces();
         }

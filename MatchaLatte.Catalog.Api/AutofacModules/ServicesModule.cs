@@ -17,7 +17,8 @@ namespace MatchaLatte.Catalog.Api.AutofacModules
         {
             var assembly = typeof(StoreService).Assembly;
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("Service"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();

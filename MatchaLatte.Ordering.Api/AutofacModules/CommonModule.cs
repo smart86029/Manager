@@ -25,7 +25,8 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
         /// <param name="builder">可以註冊組件的構建器。</param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<EventBus>()
+            builder
+                .RegisterType<EventBus>()
                 .AsImplementedInterfaces()
                 .WithParameter("connectionString", connectionString)
                 .SingleInstance();

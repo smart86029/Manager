@@ -14,7 +14,8 @@ namespace MatchaLatte.Identity.Api.AutofacModules
         {
             var assembly = typeof(TokenService).Assembly;
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("Service"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
