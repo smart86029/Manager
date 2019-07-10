@@ -36,7 +36,7 @@ namespace MatchaLatte.Identity.Domain.Users
             FirstName = firstName;
             LastName = lastName;
             IsEnabled = isEnabled;
-            RaiseDomainEvent(new UserCreated(Id));
+            RaiseDomainEvent(new UserCreated(Id, FirstName, LastName));
         }
 
         /// <summary>
@@ -96,6 +96,24 @@ namespace MatchaLatte.Identity.Domain.Users
         {
             if (!string.IsNullOrWhiteSpace(password))
                 PasswordHash = CryptographyUtility.Hash(password);
+        }
+
+        /// <summary>
+        /// 更新名。
+        /// </summary>
+        /// <param name="firstName">名。</param>
+        public void UpdateFirstName(string firstName)
+        {
+            FirstName = firstName ?? string.Empty;
+        }
+
+        /// <summary>
+        /// 更新姓。
+        /// </summary>
+        /// <param name="lastName">姓。</param>
+        public void UpdateLastName(string lastName)
+        {
+            LastName = lastName ?? string.Empty;
         }
 
         /// <summary>

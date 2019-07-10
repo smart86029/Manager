@@ -1,9 +1,9 @@
 ﻿using System;
-using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.Events;
 
-namespace MatchaLatte.Identity.Domain.Users
+namespace MatchaLatte.Ordering.App.Events.Users
 {
-    public class UserCreated : DomainEvent
+    public class UserCreated : Event
     {
         public UserCreated(Guid userId, string firstName, string lastName)
         {

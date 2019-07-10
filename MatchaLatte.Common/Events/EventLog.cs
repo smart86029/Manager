@@ -78,5 +78,45 @@ namespace MatchaLatte.Common.Events
                 @event = value;
             }
         }
+
+        /// <summary>
+        /// 發布。
+        /// </summary>
+        public void Publish()
+        {
+            switch (PublishState)
+            {
+                case PublishState.Waiting:
+                case PublishState.Failed:
+                    PublishState = PublishState.InProgress;
+                    PublishCount++;
+                    break;
+
+                case PublishState.InProgress:
+                    PublishCount++;
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
+        /// <summary>
+        /// 完成。
+        /// </summary>
+        public void Complete()
+        {
+            if (PublishState == PublishState.InProgress)
+                PublishState = PublishState.Completed;
+        }
+
+        /// <summary>
+        /// 失敗。
+        /// </summary>
+        public void Fail()
+        {
+            if (PublishState != PublishState.Completed)
+                PublishState = PublishState.Failed;
+        }
     }
 }
