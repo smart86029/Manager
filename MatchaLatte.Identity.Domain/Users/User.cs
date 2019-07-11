@@ -33,8 +33,8 @@ namespace MatchaLatte.Identity.Domain.Users
         {
             UserName = userName;
             PasswordHash = CryptographyUtility.Hash(password);
-            FirstName = firstName;
-            LastName = lastName;
+            FirstName = firstName ?? string.Empty;
+            LastName = lastName ?? string.Empty;
             IsEnabled = isEnabled;
             RaiseDomainEvent(new UserCreated(Id, FirstName, LastName));
         }

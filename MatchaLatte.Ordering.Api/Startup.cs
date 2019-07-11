@@ -7,6 +7,7 @@ using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.Common.Events;
 using MatchaLatte.Common.Exceptions;
 using MatchaLatte.Ordering.Api.AutofacModules;
+using MatchaLatte.Ordering.Api.Extensions;
 using MatchaLatte.Ordering.Api.Models;
 using MatchaLatte.Ordering.App.Events;
 using MatchaLatte.Ordering.App.Events.Users;
@@ -111,16 +112,7 @@ namespace MatchaLatte.Ordering.Api
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
-            ConfigureEventBus(app);
-        }
-
-        private void ConfigureEventBus(IApplicationBuilder app)
-        {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-
-            eventBus.Subscribe<UserCreated, IEventHandler<UserCreated>>();
-            eventBus.Subscribe<UserDisabled, IEventHandler<UserDisabled>>();
-            eventBus.Subscribe<OrderCreated, IEventHandler<OrderCreated>>();
+            app.UseEventBus();
         }
     }
 }
