@@ -24,10 +24,9 @@ namespace MatchaLatte.Ordering.Commands.Orders
             var order = new Order(command.GroupId, command.UserId);
 
             foreach (var i in command.OrderItems)
-            {
-                order.AddOrderItem(new OrderItem(i.Product.Id, i.Product.Name, i.ProductItem.Id, i.ProductItem.Name, i.ProductItem.Price, i.Quantity));
-            }
+                order.AddOrderItem(i.Product.Id, i.Product.Name, i.ProductItem.Id, i.ProductItem.Name, i.ProductItem.Price, i.Quantity);
 
+            order.Create();
             orderRepository.Add(order);
             await unitOfWork.CommitAsync();
 

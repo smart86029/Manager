@@ -1,5 +1,5 @@
 ﻿using MatchaLatte.Common.Events;
-using MatchaLatte.Ordering.App.Events;
+using MatchaLatte.Ordering.App.Events.Orders;
 using MatchaLatte.Ordering.App.Events.Users;
 using MatchaLatte.Ordering.Domain.Orders;
 using Microsoft.AspNetCore.Builder;
@@ -14,8 +14,7 @@ namespace MatchaLatte.Ordering.Api.Extensions
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             eventBus.Subscribe<UserCreated, IEventHandler<UserCreated>>();
-            eventBus.Subscribe<UserDisabled, IEventHandler<UserDisabled>>();
-            eventBus.Subscribe<OrderCreated, IEventHandler<OrderCreated>>();
+            eventBus.Subscribe<OrderStockConfirmed, IEventHandler<OrderStockConfirmed>>();
 
             return app;
         }

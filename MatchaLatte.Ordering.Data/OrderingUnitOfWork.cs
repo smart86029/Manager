@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.Common.Domain;
@@ -32,21 +33,37 @@ namespace MatchaLatte.Ordering.Data
         /// <returns>成功返回 <c>true</c>，否則為 <c>false</c>。</returns>
         public async Task<bool> CommitAsync()
         {
+            var entities = context.ChangeTracker
+                .Entries<Entity>()
+                .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any())
+                .ToList();
+            var events = entities.SelectMany(x => x.Entity.DomainEvents).ToList();
+            var eventLogs = events.Select(e => new EventLog(e)).ToList();
+
+            context.Set<EventLog>().AddRange(eventLogs);
+            foreach (var entity in entities)
+                entity.Entity.AcceptChanges();
+
             await context.SaveChangesAsync();
-            await PublishEventsAsync();
+            await PublishEventsAsync(eventLogs);
 
             return true;
         }
 
-        private async Task PublishEventsAsync()
+        private async Task PublishEventsAsync(IEnumerable<EventLog> eventLogs)
         {
-            var domainEntities = context.ChangeTracker.Entries<Entity>().Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any()).ToList();
-            var domainEvents = domainEntities.SelectMany(x => x.Entity.DomainEvents).ToList();
-            var tasks = domainEvents.Select(async domainEvent => await eventBus.PublishAsync(domainEvent as Event));
+            var tasks = eventLogs.Select(async eventLog =>
+            {
+                eventLog.Publish();
+                await context.SaveChangesAsync();
+
+                await eventBus.PublishAsync(eventLog.Event);
+
+                eventLog.Complete();
+                await context.SaveChangesAsync();
+            });
 
             await Task.WhenAll(tasks);
-            foreach (var entity in domainEntities)
-                entity.Entity.AcceptChanges();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Autofac;
-using MatchaLatte.Ordering.App.EventHandlers.Orders;
+using MatchaLatte.Catalog.App.EventHandlers.Orders;
 
-namespace MatchaLatte.Ordering.Api.AutofacModules
+namespace MatchaLatte.Catalog.Api.AutofacModules
 {
     /// <summary>
     /// <see cref="App"/> 模組。
@@ -15,7 +15,7 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
         /// <param name="builder">可以註冊組件的構建器。</param>
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(OrderStockConfirmedEventHandler).Assembly;
+            var assembly = typeof(OrderCreatedEventHandler).Assembly;
 
             builder
                 .RegisterAssemblyTypes(assembly)

@@ -58,6 +58,7 @@ namespace MatchaLatte.Catalog.Api
             services.AddScoped<CurrentUser, CurrentUser>();
 
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new AppModule());
             containerBuilder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new ServicesModule());

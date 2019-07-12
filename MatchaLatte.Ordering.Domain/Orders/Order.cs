@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MatchaLatte.Common.Domain;
 using MatchaLatte.Common.Exceptions;
-using MatchaLatte.Ordering.Domain.Buyers;
 
 namespace MatchaLatte.Ordering.Domain.Orders
 {
@@ -30,14 +29,13 @@ namespace MatchaLatte.Ordering.Domain.Orders
         {
             GroupId = groupId;
             BuyerId = buyerId;
-            RaiseDomainEvent(new OrderCreated(Id, buyerId));
         }
 
         /// <summary>
         /// 取得訂單狀態。
         /// </summary>
         /// <value>訂單狀態。</value>
-        public OrderStatus OrderStatus { get; private set; } = OrderStatus.Created;
+        public OrderStatus OrderStatus { get; private set; } = OrderStatus.Creating;
 
         /// <summary>
         /// 取得應付金額。
@@ -67,7 +65,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// 取得新增時間。
         /// </summary>
         /// <value>新增時間。</value>
-        public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; private set; }
 
         /// <summary>
         /// 取得付款時間。
@@ -90,16 +88,37 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// <summary>
         /// 加入訂單項目。
         /// </summary>
-        /// <param name="product">訂單項目。</param>
-        public void AddOrderItem(OrderItem orderItem)
+        /// <param name="productId">商品 ID。</param>
+        /// <param name="productName">商品名稱。</param>
+        /// <param name="productItemId">商品項目 ID。</param>
+        /// <param name="productItemName">商品項目名稱。</param>
+        /// <param name="productItemPrice">商品項目價格。</param>
+        /// <param name="quantity">數量。</param>
+        public void AddOrderItem(Guid productId, string productName, Guid productItemId, string productItemName, decimal productItemPrice, int quantity)
         {
-            orderItems.Add(orderItem);
+            if (OrderStatus != OrderStatus.Creating)
+                throw new InvalidException();
+
+            orderItems.Add(new OrderItem(productId, productName, productItemId, productItemName, productItemPrice, quantity));
         }
 
         /// <summary>
-        /// 設定買家已確認。
+        /// 建立。
         /// </summary>
-        public void SetBuyerConfirmed()
+        public void Create()
+        {
+            if (OrderStatus != OrderStatus.Creating)
+                throw new InvalidException();
+
+            OrderStatus = OrderStatus.Created;
+            CreatedOn = DateTime.UtcNow;
+            RaiseDomainEvent(new OrderCreated(Id, GroupId, BuyerId, OrderItems));
+        }
+
+        /// <summary>
+        /// 確認。
+        /// </summary>
+        public void Confirm()
         {
             if (BuyerId == default)
                 throw new InvalidException();

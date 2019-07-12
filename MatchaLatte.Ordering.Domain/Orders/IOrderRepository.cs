@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MatchaLatte.Common.Domain;
 
 namespace MatchaLatte.Ordering.Domain.Orders
 {
     /// <summary>
     /// 訂單存放庫。
     /// </summary>
-    public interface IOrderRepository
+    public interface IOrderRepository : IRepository<Order>
     {
         /// <summary>
         /// 取得訂單。

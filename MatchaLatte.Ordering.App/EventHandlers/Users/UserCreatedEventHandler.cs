@@ -5,7 +5,7 @@ using MatchaLatte.Ordering.App.Events.Users;
 using MatchaLatte.Ordering.Domain;
 using MatchaLatte.Ordering.Domain.Buyers;
 
-namespace MatchaLatte.Ordering.App.EventHandlers
+namespace MatchaLatte.Ordering.App.EventHandlers.Users
 {
     public class UserCreatedEventHandler : IEventHandler<UserCreated>
     {

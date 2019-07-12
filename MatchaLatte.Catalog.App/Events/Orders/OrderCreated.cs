@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MatchaLatte.Common.Events;
 
 namespace MatchaLatte.Catalog.App.Events.Orders
@@ -11,7 +12,7 @@ namespace MatchaLatte.Catalog.App.Events.Orders
             OrderId = orderId;
             GroupId = groupId;
             BuyerId = buyerId;
-            OrderItems = orderItems;
+            OrderItems = orderItems.ToList();
         }
 
         public Guid OrderId { get; private set; }
@@ -20,6 +21,6 @@ namespace MatchaLatte.Catalog.App.Events.Orders
 
         public Guid BuyerId { get; private set; }
 
-        public IEnumerable<OrderItemDto> OrderItems { get; private set; }
+        public IReadOnlyCollection<OrderItemDto> OrderItems { get; private set; }
     }
 }

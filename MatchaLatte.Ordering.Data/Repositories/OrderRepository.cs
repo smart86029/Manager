@@ -31,7 +31,7 @@ namespace MatchaLatte.Ordering.Data.Repositories
             var result = await context
                 .Set<Order>()
                 .Include(o => o.OrderItems)
-                .Include(nameof(OrderItem.OrderItemProductAccessories))
+                //.Include(nameof(OrderItem.OrderItemProductAccessories))
                 .SingleOrDefaultAsync(o => o.Id == orderId);
 
             return result;
