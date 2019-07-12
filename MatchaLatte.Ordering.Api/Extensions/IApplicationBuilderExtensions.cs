@@ -1,7 +1,6 @@
 ﻿using MatchaLatte.Common.Events;
 using MatchaLatte.Ordering.App.Events.Orders;
 using MatchaLatte.Ordering.App.Events.Users;
-using MatchaLatte.Ordering.Domain.Orders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

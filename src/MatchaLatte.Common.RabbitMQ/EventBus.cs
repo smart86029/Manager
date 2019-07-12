@@ -7,9 +7,9 @@ using MatchaLatte.Common.Utilities;
 
 namespace MatchaLatte.Common.RabbitMQ
 {
-    public class EventBus : Events.IEventBus
+    public class EventBus : Events.IEventBus, IDisposable
     {
-        private readonly string connectionString;
+        private readonly IAdvancedBus advancedBus;
         private readonly IServiceProvider serviceProvider;
 
         /// <summary>
@@ -19,8 +19,13 @@ namespace MatchaLatte.Common.RabbitMQ
         /// <param name="serviceProvider">服務提供者。</param>
         public EventBus(string connectionString, IServiceProvider serviceProvider)
         {
-            this.connectionString = connectionString;
+            advancedBus = RabbitHutch.CreateBus(connectionString).Advanced;
             this.serviceProvider = serviceProvider;
+        }
+
+        public void Dispose()
+        {
+            advancedBus.Dispose();
         }
 
         /// <summary>
@@ -29,15 +34,12 @@ namespace MatchaLatte.Common.RabbitMQ
         /// <param name="@event">事件。</param>
         public async Task PublishAsync(Event @event)
         {
-            using (var advancedBus = RabbitHutch.CreateBus(connectionString).Advanced)
-            {
-                var exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Direct);
-                var queue = advancedBus.QueueDeclare("event");
-                var routingKey = "test";
-                var binding = advancedBus.Bind(exchange, queue, routingKey, null);
+            var exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Direct);
+            var queue = advancedBus.QueueDeclare("event");
+            var routingKey = @event.GetType().Name;
+            advancedBus.Bind(exchange, queue, routingKey);
 
-                await advancedBus.PublishAsync(exchange, routingKey, false, new Message<string>(JsonUtility.Serialize(@event)));
-            }
+            await advancedBus.PublishAsync(exchange, routingKey, false, new Message<string>(JsonUtility.Serialize(@event)));
         }
 
         /// <summary>
@@ -49,13 +51,12 @@ namespace MatchaLatte.Common.RabbitMQ
             where TEvent : Event
             where TEventHandler : IEventHandler<TEvent>
         {
-            var advancedBus = RabbitHutch.CreateBus(connectionString).Advanced;
             var exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Direct);
             var queue = advancedBus.QueueDeclare("event");
-            var routingKey = "test";
-            var binding = advancedBus.Bind(exchange, queue, routingKey, null);
-            var handler = serviceProvider.GetService(typeof(TEventHandler)) as IEventHandler<TEvent>;
+            var routingKey = typeof(TEvent).Name;
+            advancedBus.Bind(exchange, queue, routingKey);
 
+            var handler = serviceProvider.GetService(typeof(TEventHandler)) as IEventHandler<TEvent>;
             advancedBus.Consume(queue, (IMessage<string> message, MessageReceivedInfo info) => handler.HandleAsync(JsonUtility.Deserialize<TEvent>(message.Body)));
         }
     }
