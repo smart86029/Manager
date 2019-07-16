@@ -21,11 +21,13 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// <summary>
         /// 初始化 <see cref="OrderItem"/> 類別的新執行個體。
         /// </summary>
+        /// <param name="productId">商品 ID。</param>
+        /// <param name="productName">商品名稱。</param>
         /// <param name="productItemId">商品項目 ID。</param>
         /// <param name="productItemName">商品項目名稱。</param>
         /// <param name="productItemPrice">商品項目價格。</param>
         /// <param name="quantity">數量。</param>
-        public OrderItem(Guid productId, string productName, Guid productItemId, string productItemName, decimal productItemPrice, int quantity)
+        internal OrderItem(Guid productId, string productName, Guid productItemId, string productItemName, decimal productItemPrice, int quantity)
         {
             ProductId = productId;
             ProductName = productName;

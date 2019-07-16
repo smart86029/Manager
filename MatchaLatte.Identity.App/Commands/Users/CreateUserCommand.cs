@@ -10,6 +10,10 @@ namespace MatchaLatte.Identity.App.Commands.Users
 
         public string Password { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public bool IsEnabled { get; set; }
 
         public ICollection<RoleDto> Roles { get; set; }

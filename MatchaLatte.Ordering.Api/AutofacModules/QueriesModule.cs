@@ -28,7 +28,8 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
         {
             var assembly = typeof(OrderQueryService).Assembly;
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("QueryService"))
                 .AsImplementedInterfaces()
                 .WithParameter("connectionString", connectionString)

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using MatchaLatte.Common.Events;
+using MatchaLatte.Common.RabbitMQ;
 
 namespace MatchaLatte.Identity.Api.AutofacModules
 {    /// <summary>
@@ -24,7 +24,8 @@ namespace MatchaLatte.Identity.Api.AutofacModules
         /// <param name="builder">可以註冊組件的構建器。</param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<EventBus>()
+            builder
+                .RegisterType<EventBus>()
                 .AsImplementedInterfaces()
                 .WithParameter("connectionString", connectionString)
                 .SingleInstance();

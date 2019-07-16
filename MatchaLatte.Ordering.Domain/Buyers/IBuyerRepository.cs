@@ -14,13 +14,6 @@ namespace MatchaLatte.Ordering.Domain.Buyers
         Task<Buyer> GetBuyerAsync(Guid buyerId);
 
         /// <summary>
-        /// 取得買家。
-        /// </summary>
-        /// <param name="buyerId">使用者 ID。</param>
-        /// <returns>買家。</returns>
-        Task<Buyer> GetBuyerByUserIdAsync(Guid userId);
-
-        /// <summary>
         /// 加入買家。
         /// </summary>
         /// <param name="buyer">買家。</param>

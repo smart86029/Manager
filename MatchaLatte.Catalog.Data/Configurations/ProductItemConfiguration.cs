@@ -20,17 +20,6 @@ namespace MatchaLatte.Catalog.Data.Configurations
                 .HasOne(i => i.Product)
                 .WithMany(p => p.ProductItems)
                 .HasForeignKey(i => i.ProductId);
-
-            builder.HasData(GetSeedData());
-        }
-
-        private object[] GetSeedData()
-        {
-            var result = new object[]
-            {
-            };
-
-            return result;
         }
     }
 }

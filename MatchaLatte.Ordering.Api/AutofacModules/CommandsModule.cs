@@ -25,16 +25,19 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
         {
             var assembly = typeof(CommandService).Assembly;
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("CommandService"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("CommandHandler"))
                 .AsClosedTypesOf(typeof(ICommandHandler<,>));
 
-            builder.RegisterGeneric(typeof(CommandHandlerAdapter<,>))
+            builder
+                .RegisterGeneric(typeof(CommandHandlerAdapter<,>))
                 .AsSelf()
                 .InstancePerLifetimeScope();
         }

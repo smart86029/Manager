@@ -20,6 +20,33 @@ namespace MatchaLatte.Ordering.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("MatchaLatte.Common.Events.EventLog", b =>
+                {
+                    b.Property<Guid>("EventId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("EventContent")
+                        .IsRequired();
+
+                    b.Property<string>("EventTypeName")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("EventTypeNamespace")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<int>("PublishCount");
+
+                    b.Property<int>("PublishState");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("EventLog","Common");
+                });
+
             modelBuilder.Entity("MatchaLatte.Ordering.Domain.Buyers.Buyer", b =>
                 {
                     b.Property<Guid>("Id")

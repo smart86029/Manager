@@ -8,12 +8,22 @@
         </div>
         <div>
           <mat-form-field>
-            <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="user.userName">
+            <input matInput type="text" name="userName" placeholder="使用者名稱" [(ngModel)]="user.userName">
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
             <input matInput type="password" name="password" placeholder="密碼" [(ngModel)]="user.password">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput type="text" name="lastName" placeholder="姓" [(ngModel)]="user.lastName">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput type="text" name="firstName" placeholder="名" [(ngModel)]="user.firstName">
           </mat-form-field>
         </div>
         <div>

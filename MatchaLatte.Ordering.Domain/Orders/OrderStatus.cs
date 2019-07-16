@@ -6,23 +6,28 @@
     public enum OrderStatus
     {
         /// <summary>
+        /// 建立中。
+        /// </summary>
+        Creating = 0,
+
+        /// <summary>
         /// 已建立。
         /// </summary>
-        Created = 0,
+        Created = 1,
 
         /// <summary>
         /// 已確認。
         /// </summary>
-        Confirmed = 1,
+        Confirmed = 2,
 
         /// <summary>
         /// 已完成。
         /// </summary>
-        Completed = 2,
+        Completed = 3,
 
         /// <summary>
         /// 已取消。
         /// </summary>
-        Cancelled = 3,
+        Cancelled = 4,
     }
 }

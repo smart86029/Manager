@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
-using MatchaLatte.Ordering.App.EventHandlers;
+using MatchaLatte.Ordering.App.EventHandlers.Orders;
 
 namespace MatchaLatte.Ordering.Api.AutofacModules
 {
@@ -15,9 +15,10 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
         /// <param name="builder">可以註冊組件的構建器。</param>
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(UserDisabledEventHandler).Assembly;
+            var assembly = typeof(OrderStockConfirmedEventHandler).Assembly;
 
-            builder.RegisterAssemblyTypes(assembly)
+            builder
+                .RegisterAssemblyTypes(assembly)
                 .Where(x => x.Name.EndsWith("EventHandler"))
                 .AsImplementedInterfaces();
         }

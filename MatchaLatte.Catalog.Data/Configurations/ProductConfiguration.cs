@@ -25,17 +25,6 @@ namespace MatchaLatte.Catalog.Data.Configurations
             builder.Metadata
                 .FindNavigation(nameof(Product.ProductItems))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-            builder.HasData(GetSeedData());
-        }
-
-        private object[] GetSeedData()
-        {
-            var result = new object[]
-            {
-            };
-
-            return result;
         }
     }
 }

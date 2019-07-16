@@ -15,6 +15,7 @@
     <ProjectReference Include="..\MatchaLatte.Catalog.Data\MatchaLatte.Catalog.Data.csproj" />
     <ProjectReference Include="..\MatchaLatte.Catalog.Services\MatchaLatte.Catalog.Services.csproj" />
     <ProjectReference Include="..\MatchaLatte.Common\MatchaLatte.Common.csproj" />
+    <ProjectReference Include="..\src\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

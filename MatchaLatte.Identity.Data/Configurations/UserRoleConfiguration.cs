@@ -8,16 +8,6 @@ namespace MatchaLatte.Identity.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-            builder.HasData(GetSeedData());
-        }
-
-        private UserRole[] GetSeedData()
-        {
-            var result = new UserRole[]
-            {
-            };
-
-            return result;
         }
     }
 }

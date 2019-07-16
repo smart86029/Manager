@@ -10,8 +10,9 @@ namespace MatchaLatte.Common.Events
         /// <summary>
         /// 發布。
         /// </summary>
-        /// <param name="e">事件。</param>
-        Task PublishAsync(Event e);
+        /// <param name="event">事件。</param>
+        Task PublishAsync<TEvent>(TEvent @event)
+            where TEvent : Event;
 
         /// <summary>
         /// 訂閱。

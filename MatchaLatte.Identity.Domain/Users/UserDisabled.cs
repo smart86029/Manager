@@ -1,10 +1,9 @@
 ﻿using System;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Common.Events;
 
 namespace MatchaLatte.Identity.Domain.Users
 {
-    public class UserDisabled : Event, IDomainEvent
+    public class UserDisabled : DomainEvent
     {
         public UserDisabled(Guid userId)
         {

@@ -4,6 +4,7 @@ using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.Catalog.Api.AutofacModules;
+using MatchaLatte.Catalog.Api.Extensions;
 using MatchaLatte.Catalog.Api.Models;
 using MatchaLatte.Catalog.Data;
 using MatchaLatte.Catalog.Services;
@@ -57,6 +58,7 @@ namespace MatchaLatte.Catalog.Api
             services.AddScoped<CurrentUser, CurrentUser>();
 
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new AppModule());
             containerBuilder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
             containerBuilder.RegisterModule(new DataModule());
             containerBuilder.RegisterModule(new ServicesModule());
@@ -83,6 +85,7 @@ namespace MatchaLatte.Catalog.Api
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseEventBus();
         }
     }
 }

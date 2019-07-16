@@ -9,8 +9,4 @@
     <ProjectReference Include="..\MatchaLatte.Ordering.Domain\MatchaLatte.Ordering.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Events\Orders\" />
-  </ItemGroup>
-
 </Project>

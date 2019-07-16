@@ -1,4 +1,5 @@
 ﻿using System;
+using MatchaLatte.Common.Utilities;
 
 namespace MatchaLatte.Common.Events
 {
@@ -7,18 +8,8 @@ namespace MatchaLatte.Common.Events
     /// </summary>
     public abstract class Event
     {
-        public Event() : this(Guid.NewGuid(), DateTime.UtcNow)
-        {
-        }
+        public Guid Id { get; private set; } = GuidUtility.NewGuid();
 
-        public Event(Guid eventId, DateTime createdOn)
-        {
-            EventId = eventId;
-            CreatedOn = createdOn;
-        }
-
-        public Guid EventId { get; private set; }
-
-        public DateTime CreatedOn { get; private set; }
+        public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
     }
 }

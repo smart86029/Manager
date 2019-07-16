@@ -21,6 +21,7 @@
     <ProjectReference Include="..\MatchaLatte.Ordering.Commands\MatchaLatte.Ordering.Commands.csproj" />
     <ProjectReference Include="..\MatchaLatte.Ordering.Data\MatchaLatte.Ordering.Data.csproj" />
     <ProjectReference Include="..\MatchaLatte.Ordering.Queries\MatchaLatte.Ordering.Queries.csproj" />
+    <ProjectReference Include="..\src\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>
