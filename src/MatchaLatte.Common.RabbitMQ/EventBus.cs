@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using EasyNetQ;
 using EasyNetQ.Topology;
@@ -10,17 +12,36 @@ namespace MatchaLatte.Common.RabbitMQ
     public class EventBus : Events.IEventBus, IDisposable
     {
         private readonly IAdvancedBus advancedBus;
+        private readonly IExchange exchange;
+        private readonly IQueue queue;
         private readonly IServiceProvider serviceProvider;
+        private readonly Dictionary<string, Subscription> subscriptions = new Dictionary<string, Subscription>();
 
         /// <summary>
         /// 初始化 <see cref="EventBus"/> 類別的新執行個體。
         /// </summary>
         /// <param name="connectionString">連接字串。</param>
+        /// <param name="queueName">佇列名稱。</param>
         /// <param name="serviceProvider">服務提供者。</param>
-        public EventBus(string connectionString, IServiceProvider serviceProvider)
+        public EventBus(string connectionString, string queueName, IServiceProvider serviceProvider)
         {
             advancedBus = RabbitHutch.CreateBus(connectionString).Advanced;
+            exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Topic);
+            queue = advancedBus.QueueDeclare(queueName);
             this.serviceProvider = serviceProvider;
+
+            advancedBus.Consume(queue, async (byte[] body, MessageProperties properties, MessageReceivedInfo info) =>
+            {
+                if (subscriptions.TryGetValue(info.RoutingKey, out var subscription))
+                {
+                    var @event = JsonUtility.Deserialize(Encoding.UTF8.GetString(body), subscription.EventType);
+                    var eventHandler = serviceProvider.GetService(subscription.EventHandlerType);
+                    var concreteType = typeof(IEventHandler<>).MakeGenericType(subscription.EventType);
+
+                    await Task.Yield();
+                    await (Task)concreteType.GetMethod("HandleAsync").Invoke(eventHandler, new object[] { @event });
+                }
+            });
         }
 
         public void Dispose()
@@ -32,14 +53,14 @@ namespace MatchaLatte.Common.RabbitMQ
         /// 發布。
         /// </summary>
         /// <param name="@event">事件。</param>
-        public async Task PublishAsync(Event @event)
+        public async Task PublishAsync<TEvent>(TEvent @event)
+            where TEvent : Event
         {
-            var exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Direct);
-            var queue = advancedBus.QueueDeclare("event");
             var routingKey = @event.GetType().Name;
-            advancedBus.Bind(exchange, queue, routingKey);
+            var properties = new MessageProperties();
+            var body = Encoding.UTF8.GetBytes(JsonUtility.Serialize(@event));
 
-            await advancedBus.PublishAsync(exchange, routingKey, false, new Message<string>(JsonUtility.Serialize(@event)));
+            await advancedBus.PublishAsync(exchange, routingKey, false, properties, body);
         }
 
         /// <summary>
@@ -51,13 +72,10 @@ namespace MatchaLatte.Common.RabbitMQ
             where TEvent : Event
             where TEventHandler : IEventHandler<TEvent>
         {
-            var exchange = advancedBus.ExchangeDeclare("eventExchange", ExchangeType.Direct);
-            var queue = advancedBus.QueueDeclare("event");
             var routingKey = typeof(TEvent).Name;
-            advancedBus.Bind(exchange, queue, routingKey);
 
-            var handler = serviceProvider.GetService(typeof(TEventHandler)) as IEventHandler<TEvent>;
-            advancedBus.Consume(queue, (IMessage<string> message, MessageReceivedInfo info) => handler.HandleAsync(JsonUtility.Deserialize<TEvent>(message.Body)));
+            advancedBus.Bind(exchange, queue, routingKey);
+            subscriptions.Add(routingKey, new Subscription(typeof(TEvent), typeof(TEventHandler)));
         }
     }
 }

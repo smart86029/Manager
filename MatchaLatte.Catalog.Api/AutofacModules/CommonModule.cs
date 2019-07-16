@@ -29,6 +29,7 @@ namespace MatchaLatte.Catalog.Api.AutofacModules
                 .RegisterType<EventBus>()
                 .AsImplementedInterfaces()
                 .WithParameter("connectionString", connectionString)
+                .WithParameter("queueName", "Catalog")
                 .SingleInstance();
         }
     }

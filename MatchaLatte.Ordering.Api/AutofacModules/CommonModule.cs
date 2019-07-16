@@ -29,6 +29,7 @@ namespace MatchaLatte.Ordering.Api.AutofacModules
                 .RegisterType<EventBus>()
                 .AsImplementedInterfaces()
                 .WithParameter("connectionString", connectionString)
+                .WithParameter("queueName", "Ordering")
                 .SingleInstance();
         }
     }
