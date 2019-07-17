@@ -93,8 +93,6 @@ namespace MatchaLatte.Catalog.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsDefault");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);

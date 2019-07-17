@@ -88,7 +88,6 @@ namespace MatchaLatte.Catalog.Services
                     {
                         Id = c.Id,
                         Name = c.Name,
-                        IsDefault = c.IsDefault,
                         Sequence = c.Sequence,
                         Products = c.Products
                             .Select(p => new ProductDetail
@@ -115,34 +114,15 @@ namespace MatchaLatte.Catalog.Services
         }
 
         /// <summary>
-        /// 取得新店家。
-        /// </summary>
-        /// <returns>新店家。</returns>
-        public Task<StoreDetail> GetNewStoreAsync()
-        {
-            var result = new StoreDetail
-            {
-                ProductCategories = new List<ProductCategoryDetail>
-                {
-                    new ProductCategoryDetail
-                    {
-                        Name = "Default",
-                        IsDefault = true
-                    }
-                }
-            };
-
-            return Task.FromResult(result);
-        }
-
-        /// <summary>
         /// 取得商標檔案名稱。
         /// </summary>
         /// <param name="storeId">店家 ID。</param>
         /// <returns>商標檔案名稱。</returns>
-        public Task<string> GetLogoFileNameAsync(Guid storeId)
+        public async Task<string> GetLogoFileNameAsync(Guid storeId)
         {
-            throw new NotImplementedException();
+            var store = await storeRepository.GetLogoAsync(storeId);
+
+            return store.FileName;
         }
 
         /// <summary>
@@ -157,14 +137,13 @@ namespace MatchaLatte.Catalog.Services
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = c.IsDefault ? store.ProductCategories.Single(x => x.IsDefault) : new ProductCategory(c.Name, false);
+                var productCategory = new ProductCategory(c.Name);
                 foreach (var p in c.Products)
                 {
                     var product = new Product(p.Name, p.Description);
                     foreach (var i in p.ProductItems)
                     {
-                        var productItem = new ProductItem(i.Name, i.Price);
-                        product.AddProductItem(productItem);
+                        product.AddProductItem(i.Name, i.Price);
                     }
 
                     productCategory.AddProduct(product);
@@ -214,32 +193,34 @@ namespace MatchaLatte.Catalog.Services
             foreach (var c in command.ProductCategories)
             {
                 var productCategory = c.Id != Guid.Empty ?
-                    store.ProductCategories.Single(x => x.Id == c.Id) : new ProductCategory(c.Name, false);
+                    store.ProductCategories.Single(x => x.Id == c.Id) : new ProductCategory(c.Name);
                 foreach (var p in c.Products)
                 {
                     var product = p.Id != Guid.Empty ?
                         productCategory.Products.Single(x => x.Id == p.Id) : new Product(p.Name, p.Description);
                     foreach (var i in p.ProductItems)
                     {
-                        var productItem = i.Id != Guid.Empty ?
-                            product.ProductItems.Single(x => x.Id == i.Id) : new ProductItem(i.Name, i.Price);
-
-                        if (i.Id != Guid.Empty)
+                        if (i.Id == Guid.Empty)
                         {
+                            product.AddProductItem(i.Name, i.Price);
+                        }
+                        else
+                        {
+                            var productItem = product.ProductItems.Single(x => x.Id == i.Id);
                             productItem.UpdateName(i.Name);
                             productItem.UpdatePrice(i.Price);
                         }
-                        else
-                            product.AddProductItem(productItem);
                     }
 
-                    if (p.Id != Guid.Empty)
+                    if (p.Id == Guid.Empty)
+                    {
+                        productCategory.AddProduct(product);
+                    }
+                    else
                     {
                         product.UpdateName(p.Name);
                         product.UpdateDescription(p.Description);
                     }
-                    else
-                        productCategory.AddProduct(product);
 
                     var productItemIdsExist = p.ProductItems.Select(x => x.Id);
                     var productItemToRemove = product.ProductItems.Where(x => productItemIdsExist.Contains(x.Id)).ToList();
@@ -247,10 +228,10 @@ namespace MatchaLatte.Catalog.Services
                         product.RemoveProductItem(i);
                 }
 
-                if (c.Id != Guid.Empty)
-                    productCategory.UpdateName(c.Name);
-                else
+                if (c.Id == Guid.Empty)
                     store.AddProductCategory(productCategory);
+                else
+                    productCategory.UpdateName(c.Name);
 
                 var productIdsExist = c.Products.Select(x => x.Id);
                 var productToRemove = productCategory.Products.Where(x => !productIdsExist.Contains(x.Id)).ToList();

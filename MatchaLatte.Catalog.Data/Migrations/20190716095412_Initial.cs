@@ -89,7 +89,6 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
-                    IsDefault = table.Column<bool>(nullable: false),
                     Sequence = table.Column<int>(nullable: false),
                     StoreId = table.Column<Guid>(nullable: false)
                 },

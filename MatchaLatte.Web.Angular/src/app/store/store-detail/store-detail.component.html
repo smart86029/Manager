@@ -45,7 +45,8 @@
             </div>
             <div>
               <mat-form-field>
-                <textarea matInput name="remark" placeholder="備註" [(ngModel)]="store.remark" matTextareaAutosize></textarea>
+                <textarea matInput name="remark" placeholder="備註" [(ngModel)]="store.remark"
+                  matTextareaAutosize></textarea>
               </mat-form-field>
             </div>
             <div>
@@ -56,18 +57,19 @@
           <mat-step>
             <ng-template matStepLabel>商品</ng-template>
             <button mat-button color="primary" (click)="createProductCategory()">新增分類</button>
-            <div cdkDropList class="category-list" [cdkDropListData]="store.productCategories" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList class="category-list" [cdkDropListData]="store.productCategories"
+              (cdkDropListDropped)="drop($event)">
               <div cdkDrag class="category-box" *ngFor="let category of store.productCategories">
                 <div fxLayout="row" fxLayoutAlign="start center">
-                  <app-inline-editor *ngIf="!category.isDefault" name="分類名稱" [(value)]="category.name"></app-inline-editor>
-                  <span *ngIf="category.isDefault">{{category.name}}</span>
+                  <app-inline-editor name="分類名稱" [(value)]="category.name"></app-inline-editor>
                   <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
                   <span class="fill-space"></span>
-                  <button mat-icon-button *ngIf="!category.isDefault" color="warn" matTooltip="刪除分類" (click)="deleteProductCategory(category)">
+                  <button mat-icon-button color="warn" matTooltip="刪除分類" (click)="deleteProductCategory(category)">
                     <mat-icon>remove_circle</mat-icon>
                   </button>
                 </div>
-                <div cdkDropList class="product-list" [cdkDropListData]="category.products" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList class="product-list" [cdkDropListData]="category.products"
+                  (cdkDropListDropped)="drop($event)">
                   <div cdkDrag class="product-box" *ngFor="let product of category.products">
                     <button mat-button (click)="updateProduct(product)">{{product.name}}</button>
                     <span class="fill-space"></span>

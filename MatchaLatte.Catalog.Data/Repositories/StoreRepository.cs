@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MatchaLatte.Catalog.Domain;
 using MatchaLatte.Catalog.Domain.Stores;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,22 @@ namespace MatchaLatte.Catalog.Data.Repositories
                 .ThenInclude(c => c.Products)
                 .ThenInclude(p => p.ProductItems)
                 .SingleOrDefaultAsync(s => s.Id == storeId);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 取得商標。
+        /// </summary>
+        /// <param name="storeId">店家 ID。</param>
+        /// <returns>商標。</returns>
+        public async Task<Picture> GetLogoAsync(Guid storeId)
+        {
+            var result = await context
+                .Set<Store>()
+                .Where(s => s.Id == storeId)
+                .Select(s => s.Logo)
+                .SingleOrDefaultAsync();
 
             return result;
         }

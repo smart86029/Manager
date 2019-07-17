@@ -18,4 +18,8 @@
     <ProjectReference Include="..\src\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Pictures\茶湯會.png" />
+  </ItemGroup>
+
 </Project>

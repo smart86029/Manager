@@ -5,6 +5,7 @@ using MatchaLatte.Catalog.App.Commands.Stores;
 using MatchaLatte.Catalog.App.Queries;
 using MatchaLatte.Catalog.App.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Catalog.Api.Controllers
@@ -17,14 +18,17 @@ namespace MatchaLatte.Catalog.Api.Controllers
     [ApiController]
     public class StoresController : ControllerBase
     {
+        private readonly IHostingEnvironment environment;
         private readonly IStoreService storeService;
 
         /// <summary>
         /// 初始化 <see cref="StoresController"/> 類別的新執行個體。
         /// </summary>
+        /// <param name="environment">裝載環境。</param>
         /// <param name="storeService">店家查詢服務。</param>
-        public StoresController(IStoreService storeService)
+        public StoresController(IHostingEnvironment environment, IStoreService storeService)
         {
+            this.environment = environment ?? throw new ArgumentNullException(nameof(environment));
             this.storeService = storeService ?? throw new ArgumentNullException(nameof(storeService));
         }
 
@@ -58,18 +62,6 @@ namespace MatchaLatte.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// 取得新店家。
-        /// </summary>
-        /// <returns>新店家。</returns>
-        [HttpGet("new")]
-        public async Task<IActionResult> GetNewAsync()
-        {
-            var store = await storeService.GetNewStoreAsync();
-
-            return Ok(store);
-        }
-
-        /// <summary>
         /// 取得商標。
         /// </summary>
         /// <param name="id">店家 ID。</param>
@@ -82,7 +74,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
             if (string.IsNullOrWhiteSpace(fileName))
                 return NotFound();
 
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "Pictures", fileName);
+            var path = Path.Combine(environment.WebRootPath, "Pictures", fileName);
 
             return PhysicalFile(path, "image/png");
         }

@@ -23,11 +23,9 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// 初始化 <see cref="ProductCategory"/> 類別的新執行個體。
         /// </summary>
         /// <param name="name">名稱。</param>
-        /// <param name="isDefault">是否預設。</param>
-        public ProductCategory(string name, bool isDefault)
+        public ProductCategory(string name)
         {
-            Name = name.Trim();
-            IsDefault = isDefault;
+            Name = name?.Trim() ?? string.Empty;
         }
 
         /// <summary>
@@ -35,12 +33,6 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// </summary>
         /// <value>名稱。</value>
         public string Name { get; private set; }
-
-        /// <summary>
-        /// 取得值，這個值指出是否預設。
-        /// </summary>
-        /// <value>如果預設則為 <c>true</c>，否則為 <c>false</c>。</value>
-        public bool IsDefault { get; private set; }
 
         /// <summary>
         /// 取得次序。

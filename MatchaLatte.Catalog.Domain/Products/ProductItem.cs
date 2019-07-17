@@ -21,12 +21,12 @@ namespace MatchaLatte.Catalog.Domain.Products
         /// </summary>
         /// <param name="name">名稱。</param>
         /// <param name="price">價格。</param>
-        public ProductItem(string name, decimal price)
+        internal ProductItem(string name, decimal price)
         {
             if (price < 0)
                 throw new InvalidException();
 
-            Name = name;
+            Name = name?.Trim();
             Price = price;
         }
 
@@ -60,7 +60,7 @@ namespace MatchaLatte.Catalog.Domain.Products
         /// <param name="name">名稱。</param>
         public void UpdateName(string name)
         {
-            Name = name;
+            Name = name?.Trim();
         }
 
         /// <summary>
@@ -69,6 +69,9 @@ namespace MatchaLatte.Catalog.Domain.Products
         /// <param name="price">價格。</param>
         public void UpdatePrice(decimal price)
         {
+            if (price < 0)
+                throw new InvalidException();
+
             Price = price;
         }
     }

@@ -26,6 +26,13 @@ namespace MatchaLatte.Catalog.Domain.Stores
         Task<Store> GetStoreAsync(Guid storeId);
 
         /// <summary>
+        /// 取得商標。
+        /// </summary>
+        /// <param name="storeId">店家 ID。</param>
+        /// <returns>商標。</returns>
+        Task<Picture> GetLogoAsync(Guid storeId);
+
+        /// <summary>
         /// 取得所有店家的數量。
         /// </summary>
         /// <returns>所有店家的數量。</returns>

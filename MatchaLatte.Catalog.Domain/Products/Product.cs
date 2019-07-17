@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MatchaLatte.Catalog.Domain.Stores;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.Exceptions;
 
 namespace MatchaLatte.Catalog.Domain.Products
 {
@@ -84,7 +86,7 @@ namespace MatchaLatte.Catalog.Domain.Products
         /// <param name="name">名稱。</param>
         public void UpdateName(string name)
         {
-            Name = name.Trim();
+            Name = name?.Trim();
         }
 
         /// <summary>
@@ -99,10 +101,12 @@ namespace MatchaLatte.Catalog.Domain.Products
         /// <summary>
         /// 加入商品項目。
         /// </summary>
-        /// <param name="productItem">商品項目。</param>
-        public void AddProductItem(ProductItem productItem)
+        /// <param name="name">名稱。</param>
+        /// <param name="price">價格。</param>
+        public void AddProductItem(string name, decimal price)
         {
-            productItems.Add(productItem);
+            productItems.Add(new ProductItem(name, price));
+            ValidateProductItems();
         }
 
         /// <summary>
@@ -112,6 +116,12 @@ namespace MatchaLatte.Catalog.Domain.Products
         public void RemoveProductItem(ProductItem productItem)
         {
             productItems.Remove(productItem);
+        }
+
+        private void ValidateProductItems()
+        {
+            if (productItems.Count(i => string.IsNullOrWhiteSpace(i.Name)) > 1)
+                throw new InvalidException("商品項目名稱為空白只能唯一");
         }
     }
 }
