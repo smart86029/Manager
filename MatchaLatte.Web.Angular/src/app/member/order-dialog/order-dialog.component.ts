@@ -18,5 +18,15 @@ export class OrderDialogComponent implements OnInit {
   ngOnInit(): void {
     this.product = this.data;
     this.orderItem.product = this.data;
+    this.orderItem.productItem = this.data.productItems[0];
+    this.orderItem.quantity = 1;
+  }
+
+  addQuantity(): void {
+    this.orderItem.quantity++;
+  }
+
+  minusQuantity(): void {
+    this.orderItem.quantity = Math.max(this.orderItem.quantity - 1, 1);
   }
 }

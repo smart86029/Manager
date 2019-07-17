@@ -1,6 +1,6 @@
 <div fxLayout="row">
   <div class="grid-container" fxFlex="75">
-    <h2 class="mat-h2">進行中的團購</h2>
+    <h2 class="mat-h2">{{store.name}}</h2>
     <div *ngIf="store.productCategories?.length > 1" fxLayout="row" fxLayoutGap="15px">
       <mat-card class="category-card" *ngFor="let category of store.productCategories" fxFlex.gt-md="33" fxFlex="50">
         <mat-card-header>

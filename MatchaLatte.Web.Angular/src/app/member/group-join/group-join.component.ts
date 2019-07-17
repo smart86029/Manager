@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { Order } from 'src/app/order/order';
 import { OrderService } from 'src/app/order/order.service';
 import { Guid } from 'src/app/shared/guid';
@@ -12,8 +14,6 @@ import { Group } from '../../group/group';
 import { GroupService } from '../../group/group.service';
 import { Store } from '../../group/store';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, from, of, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-group-join',
@@ -71,8 +71,10 @@ export class GroupJoinComponent implements OnInit {
       .afterClosed()
       .subscribe({
         next: item => {
-          this.order.orderItems.push(item);
-          this.orderItemsChanged$.next();
+          if (item) {
+            this.order.orderItems.push(item);
+            this.orderItemsChanged$.next();
+          }
         }
       });
   }
