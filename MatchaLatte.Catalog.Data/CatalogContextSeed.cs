@@ -37,8 +37,9 @@ namespace MatchaLatte.Catalog.Data
 
         private IEnumerable<Store> GetStores()
         {
-            var store = new Store("茶湯會", string.Empty, new Picture("茶湯會.png"), new Phone("26582882"), new Address("台北市", "內湖區", "江南街117號"), string.Empty, Guid.Empty);
-            var category = new ProductCategory("排行榜");
+            var store = new Store("茶湯會", "內湖江南店", new Picture("茶湯會.png"), new Phone("26582882"), new Address("台北市", "內湖區", "江南街117號"), "測試資料", Guid.Empty);
+            store.AddProductCategory("排行榜");
+            var category = store.ProductCategories.Last();
             var product = new Product("觀音拿鐵", null);
             product.AddProductItem("冰", 59);
             product.AddProductItem("熱", 59);
@@ -58,9 +59,9 @@ namespace MatchaLatte.Catalog.Data
             product.AddProductItem("冰", 59);
             product.AddProductItem("熱", 59);
             category.AddProduct(product);
-            store.AddProductCategory(category);
 
-            category = new ProductCategory("原味茶");
+            store.AddProductCategory("原味茶");
+            category = store.ProductCategories.Last();
             product = new Product("蔗香紅茶", null);
             product.AddProductItem("冰", 25);
             product.AddProductItem("熱", 25);
@@ -87,7 +88,6 @@ namespace MatchaLatte.Catalog.Data
             product.AddProductItem("冰", 39);
             product.AddProductItem("熱", 39);
             category.AddProduct(product);
-            store.AddProductCategory(category);
 
             var result = new Store[]
             {

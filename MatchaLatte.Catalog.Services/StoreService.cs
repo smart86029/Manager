@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.Catalog.App.Commands.Stores;
@@ -137,7 +136,8 @@ namespace MatchaLatte.Catalog.Services
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = new ProductCategory(c.Name);
+                store.AddProductCategory(c.Name);
+                var productCategory = store.ProductCategories.Last();
                 foreach (var p in c.Products)
                 {
                     var product = new Product(p.Name, p.Description);
@@ -148,8 +148,6 @@ namespace MatchaLatte.Catalog.Services
 
                     productCategory.AddProduct(product);
                 }
-
-                store.AddProductCategory(productCategory);
             }
 
             storeRepository.Add(store);
@@ -192,15 +190,36 @@ namespace MatchaLatte.Catalog.Services
 
             foreach (var c in command.ProductCategories)
             {
-                var productCategory = c.Id != Guid.Empty ?
-                    store.ProductCategories.Single(x => x.Id == c.Id) : new ProductCategory(c.Name);
+                var productCategory = default(ProductCategory);
+                if (c.Id == default)
+                {
+                    store.AddProductCategory(c.Name);
+                    productCategory = store.ProductCategories.Last();
+                }
+                else
+                {
+                    productCategory = store.ProductCategories.Single(x => x.Id == c.Id);
+                    productCategory.UpdateName(c.Name);
+                }
+
                 foreach (var p in c.Products)
                 {
-                    var product = p.Id != Guid.Empty ?
-                        productCategory.Products.Single(x => x.Id == p.Id) : new Product(p.Name, p.Description);
+                    var product = default(Product);
+                    if (p.Id == default)
+                    {
+                        product = new Product(p.Name, p.Description);
+                        productCategory.AddProduct(product);
+                    }
+                    else
+                    {
+                        product = productCategory.Products.Single(x => x.Id == p.Id);
+                        product.UpdateName(p.Name);
+                        product.UpdateDescription(p.Description);
+                    }
+
                     foreach (var i in p.ProductItems)
                     {
-                        if (i.Id == Guid.Empty)
+                        if (i.Id == default)
                         {
                             product.AddProductItem(i.Name, i.Price);
                         }
@@ -212,26 +231,11 @@ namespace MatchaLatte.Catalog.Services
                         }
                     }
 
-                    if (p.Id == Guid.Empty)
-                    {
-                        productCategory.AddProduct(product);
-                    }
-                    else
-                    {
-                        product.UpdateName(p.Name);
-                        product.UpdateDescription(p.Description);
-                    }
-
                     var productItemIdsExist = p.ProductItems.Select(x => x.Id);
                     var productItemToRemove = product.ProductItems.Where(x => productItemIdsExist.Contains(x.Id)).ToList();
                     foreach (var i in productItemToRemove)
                         product.RemoveProductItem(i);
                 }
-
-                if (c.Id == Guid.Empty)
-                    store.AddProductCategory(productCategory);
-                else
-                    productCategory.UpdateName(c.Name);
 
                 var productIdsExist = c.Products.Select(x => x.Id);
                 var productToRemove = productCategory.Products.Where(x => !productIdsExist.Contains(x.Id)).ToList();

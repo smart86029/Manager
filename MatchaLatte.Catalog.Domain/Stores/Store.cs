@@ -141,10 +141,10 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// <summary>
         /// 加入商品分類。
         /// </summary>
-        /// <param name="productCategory">商品分類。</param>
-        public void AddProductCategory(ProductCategory productCategory)
+        /// <param name="name">商品分類名稱。</param>
+        public void AddProductCategory(string name)
         {
-            productCategories.Add(productCategory);
+            productCategories.Add(new ProductCategory(name));
         }
 
         /// <summary>

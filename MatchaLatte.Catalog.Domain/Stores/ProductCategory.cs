@@ -23,7 +23,7 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// 初始化 <see cref="ProductCategory"/> 類別的新執行個體。
         /// </summary>
         /// <param name="name">名稱。</param>
-        public ProductCategory(string name)
+        internal ProductCategory(string name)
         {
             Name = name?.Trim() ?? string.Empty;
         }
