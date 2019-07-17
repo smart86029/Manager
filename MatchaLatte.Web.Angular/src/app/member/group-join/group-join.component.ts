@@ -14,6 +14,7 @@ import { Group } from '../../group/group';
 import { GroupService } from '../../group/group.service';
 import { Store } from '../../group/store';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
+import { OrderItem } from 'src/app/order/order-item';
 
 @Component({
   selector: 'app-group-join',
@@ -77,6 +78,12 @@ export class GroupJoinComponent implements OnInit {
           }
         }
       });
+  }
+
+  deleteOrderItem(orderItem: OrderItem): void {
+    const index = this.order.orderItems.indexOf(orderItem);
+    this.order.orderItems.splice(index, 1);
+    this.orderItemsChanged$.next();
   }
 
   save(): void {

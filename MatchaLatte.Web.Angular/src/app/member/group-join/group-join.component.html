@@ -37,12 +37,15 @@
       <mat-card-content class="order-card-content">
         <mat-list>
           <mat-list-item *ngFor="let orderItem of order.orderItems">
+            <button mat-icon-button color="warn" matTooltip="刪除商品項目" (click)="deleteOrderItem(orderItem)">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
             <span matLine>{{orderItem.product.name}}</span>
-            <span matLine>{{orderItem.productItem.name}} {{orderItem.productItem.price}} X {{orderItem.quantity}}</span>
+            <span matLine>{{orderItem.productItem.name}} ${{orderItem.productItem.price}} X {{orderItem.quantity}}</span>
           </mat-list-item>
         </mat-list>
         <div fxLayout="row" fxLayoutAlign="end">
-          總額: {{total}}
+          總額: ${{total}}
         </div>
         <div fxLayout="row" fxLayoutAlign="end">
           <button mat-button color="primary" (click)="save()">送出訂單</button>
