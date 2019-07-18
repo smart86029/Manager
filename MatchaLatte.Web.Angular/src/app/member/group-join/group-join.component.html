@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="grid-container">
+  <div class="store-container">
     <h2 class="mat-h2">{{store.name}}</h2>
     <div class="category-container" *ngIf="store.productCategories?.length > 1">
       <mat-card class="category-card" *ngFor="let category of store.productCategories">
@@ -41,14 +41,15 @@
               <mat-icon>remove_circle</mat-icon>
             </button>
             <span matLine>{{orderItem.product.name}}</span>
-            <span matLine>{{orderItem.productItem.name}} ${{orderItem.productItem.price}} X
-              {{orderItem.quantity}}</span>
+            <span matLine>
+              {{orderItem.productItem.name}} ${{orderItem.productItem.price}} X {{orderItem.quantity}}
+            </span>
           </mat-list-item>
         </mat-list>
-        <div fxLayout="row" fxLayoutAlign="end">
+        <div class="total">
           總額: ${{total}}
         </div>
-        <div fxLayout="row" fxLayoutAlign="end">
+        <div class="submit-order">
           <button mat-button color="primary" (click)="save()">送出訂單</button>
         </div>
       </mat-card-content>

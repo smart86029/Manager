@@ -1,26 +1,24 @@
-.container>*:not(:first-child) {
-  margin-left: 20px;
+.container {
+  display: flex;
 }
 
-.grid-container {
+.store-container {
   flex: 3;
 }
 
 .order-container {
   flex: 1;
-  box-sizing: border-box;
+  margin-left: 20px;
 }
-
-$gap: 6px;
 
 .category-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -$gap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 12px 12px;
 }
 
-.category-card {
-  flex: 0 1 calc(33.33% - #{$gap} * 2);
-  box-sizing: border-box;
-  margin: $gap;
+.total,
+.submit-order {
+  display: flex;
+  justify-content: flex-end;
 }
