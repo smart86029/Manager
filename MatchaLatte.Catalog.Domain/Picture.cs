@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
 
 namespace MatchaLatte.Catalog.Domain
@@ -25,7 +24,6 @@ namespace MatchaLatte.Catalog.Domain
         /// <summary>
         /// 取得檔案名稱。
         /// </summary>
-        /// <value>檔案名稱。</value>
         public string FileName { get; private set; }
 
         protected override IEnumerable<object> GetAtomicValues()

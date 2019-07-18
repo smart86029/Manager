@@ -1,4 +1,4 @@
-<div class="container" fxLayout="column">
+<div class="container">
   <form autocomplete="off">
     <h2 class="mat-h2">{{saveMode | actionName}}團</h2>
     <mat-card>
@@ -44,8 +44,8 @@
             <div *ngIf="canSelectStore">
               <mat-paginator [length]="stores.itemCount" [pageSize]="stores.pageSize" [pageSizeOptions]="[5, 10, 20]"
                 (page)="pageEvent = loadStores($event.pageIndex, $event.pageSize)" showFirstLastButtons></mat-paginator>
-              <div fxLayout="row" fxLayoutGap="15px">
-                <mat-card class="store-card" *ngFor="let store of stores.items" fxFlex="20">
+              <div class="store-container">
+                <mat-card class="store-card" *ngFor="let store of stores.items">
                   <mat-card-header>
                     <mat-card-title>
                       {{store.name}}

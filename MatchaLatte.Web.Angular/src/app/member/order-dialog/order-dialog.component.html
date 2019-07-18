@@ -1,17 +1,28 @@
 <form>
   <h2 matDialogTitle>{{product.name}}</h2>
-  <mat-dialog-content>
-    商品項目
-    <mat-radio-group class="product-items" name="productItems" fxLayout="column" fxLayoutGap="5px" [(ngModel)]="orderItem.productItem">
-      <mat-radio-button class="product-item" *ngFor="let productItem of product.productItems" [value]="productItem">
-        {{productItem.name}}
-      </mat-radio-button>
-    </mat-radio-group>
-    數量
+  <mat-dialog-content fxLayout="column" fxLayoutGap="20px">
     <div>
-      <mat-form-field>
-        <input matInput type="number" name="quantity" placeholder="數量" [(ngModel)]="orderItem.quantity">
-      </mat-form-field>
+      商品項目
+      <mat-radio-group class="product-items" name="productItems" fxLayout="column" fxLayoutGap="5px"
+        [(ngModel)]="orderItem.productItem">
+        <mat-radio-button class="product-item" *ngFor="let productItem of product.productItems" [value]="productItem">
+          {{productItem.name}} {{productItem.price}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      數量
+      <div>
+        <mat-form-field>
+          <button mat-icon-button matPrefix (click)="minusQuantity()">
+            <mat-icon color="primary">remove</mat-icon>
+          </button>
+          <input matInput type="number" class="quantity" name="quantity" min="1" [(ngModel)]="orderItem.quantity">
+          <button mat-icon-button matSuffix (click)="addQuantity()">
+            <mat-icon color="primary">add</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>

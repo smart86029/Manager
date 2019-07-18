@@ -1,4 +1,24 @@
-.grid-container,
+.container {
+  display: flex;
+}
+
+.store-container {
+  flex: 3;
+}
+
 .order-container {
-  margin: 20px;
+  flex: 1;
+  margin-left: 20px;
+}
+
+.category-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 12px 12px;
+}
+
+.total,
+.submit-order {
+  display: flex;
+  justify-content: flex-end;
 }

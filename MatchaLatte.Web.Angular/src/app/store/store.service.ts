@@ -1,11 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Guid } from '../shared/guid';
 import { PaginationResult } from '../shared/pagination-result';
 import { Store } from './store';
+import { ProductCategory } from './product-category';
 
 
 @Injectable({
@@ -36,7 +37,11 @@ export class StoreService {
   }
 
   getNewStore(): Observable<Store> {
-    return this.httpClient.get<Store>(`${this.storesUrl}/new`);
+    const store = new Store();
+    const category = new ProductCategory();
+    category.name = 'default';
+    store.productCategories.push(category);
+    return of(store);
   }
 
   createStore(store: Store): Observable<Store> {

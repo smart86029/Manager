@@ -37,7 +37,6 @@ namespace MatchaLatte.Catalog.Domain.Stores
             Remark = remark;
             CreatedBy = createdBy;
             CreatedOn = DateTime.UtcNow;
-            productCategories.Add(new ProductCategory("Default", true));
         }
 
         /// <summary>
@@ -142,10 +141,10 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// <summary>
         /// 加入商品分類。
         /// </summary>
-        /// <param name="productCategory">商品分類。</param>
-        public void AddProductCategory(ProductCategory productCategory)
+        /// <param name="name">商品分類名稱。</param>
+        public void AddProductCategory(string name)
         {
-            productCategories.Add(productCategory);
+            productCategories.Add(new ProductCategory(name));
         }
 
         /// <summary>
@@ -154,8 +153,7 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// <param name="productCategory">商品分類。</param>
         public void RemoveProductCategory(ProductCategory productCategory)
         {
-            if (!productCategory.IsDefault)
-                productCategories.Remove(productCategory);
+            productCategories.Remove(productCategory);
         }
     }
 }
