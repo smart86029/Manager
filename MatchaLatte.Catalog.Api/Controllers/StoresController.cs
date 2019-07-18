@@ -74,9 +74,11 @@ namespace MatchaLatte.Catalog.Api.Controllers
             if (string.IsNullOrWhiteSpace(fileName))
                 return NotFound();
 
+            var extension = Path.GetExtension(fileName);
+            var mimeType = GetMimeType(extension);
             var path = Path.Combine(environment.WebRootPath, "Pictures", fileName);
 
-            return PhysicalFile(path, "image/png");
+            return PhysicalFile(path, mimeType);
         }
 
         /// <summary>
@@ -107,6 +109,40 @@ namespace MatchaLatte.Catalog.Api.Controllers
             await storeService.UpdateStoreAsync(command);
 
             return NoContent();
+        }
+
+        private string GetMimeType(string extension)
+        {
+            switch (extension)
+            {
+                case ".png":
+                    return "image/png";
+
+                case ".gif":
+                    return "image/gif";
+
+                case ".jpg":
+                case ".jpeg":
+                    return "image/jpeg";
+
+                case ".bmp":
+                    return "image/bmp";
+
+                case ".tiff":
+                    return "image/tiff";
+
+                case ".wmf":
+                    return "image/wmf";
+
+                case ".jp2":
+                    return "image/jp2";
+
+                case ".svg":
+                    return "image/svg+xml";
+
+                default:
+                    return "application/octet-stream";
+            }
         }
     }
 }

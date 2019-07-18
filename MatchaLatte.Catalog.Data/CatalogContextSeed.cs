@@ -37,7 +37,8 @@ namespace MatchaLatte.Catalog.Data
 
         private IEnumerable<Store> GetStores()
         {
-            var store = new Store("茶湯會", "內湖江南店", new Picture("茶湯會.png"), new Phone("26582882"), new Address("台北市", "內湖區", "江南街117號"), "測試資料", Guid.Empty);
+            var result = new List<Store>();
+            var store = new Store("茶湯會", "內湖江南店", new Picture("茶湯會.png"), new Phone("26582882"), new Address("臺北市", "內湖區", "江南街117號"), "測試資料", Guid.Empty);
             store.AddProductCategory("排行榜");
             var category = store.ProductCategories.Last();
             var product = new Product("觀音拿鐵", null);
@@ -243,10 +244,85 @@ namespace MatchaLatte.Catalog.Data
             product.AddProductItem("熱", 65);
             category.AddProduct(product);
 
-            var result = new Store[]
-            {
-                store
-            };
+            result.Add(store);
+
+            store=  new Store("約翰紅茶公司", "內湖江南店", new Picture("約翰紅茶公司.png"), new Phone("26594567"), new Address("臺北市", "內湖區", "江南街98號"), "測試資料", Guid.Empty);
+            store.AddProductCategory("紅茶經典");
+            category = store.ProductCategories.Last();
+            product = new Product("康提紅茶", "斯里蘭卡");
+            product.AddProductItem("冰M", 25);
+            product.AddProductItem("冰L", 30);
+            category.AddProduct(product);
+            product = new Product("雨果紅茶", "斯里蘭卡");
+            product.AddProductItem("冰M", 30);
+            product.AddProductItem("冰L", 35);
+            product.AddProductItem("熱M", 35);
+            category.AddProduct(product);
+            product = new Product("曼非紅茶", "肯亞");
+            product.AddProductItem("冰M", 30);
+            product.AddProductItem("冰L", 35);
+            product.AddProductItem("熱M", 35);
+            category.AddProduct(product);
+            product = new Product("茶中香檳", "斯里蘭卡");
+            product.AddProductItem("冰M", 35);
+            product.AddProductItem("冰L", 40);
+            product.AddProductItem("熱M", 40);
+            category.AddProduct(product);
+            product = new Product("錫金紅茶", "尼泊爾-夏摘");
+            product.AddProductItem("冰M", 45);
+            category.AddProduct(product);
+            product = new Product("夢幻紅茶", "台灣");
+            product.AddProductItem("冰M", 50);
+            category.AddProduct(product);
+
+            store.AddProductCategory("紅茶那堤");
+            category = store.ProductCategories.Last();
+            product = new Product("珍珠那堤", "斯里蘭卡");
+            product.AddProductItem("冰L", 60);
+            product.AddProductItem("熱M", 60);
+            category.AddProduct(product);
+            product = new Product("雨果那堤", "斯里蘭卡");
+            product.AddProductItem("冰M", 50);
+            product.AddProductItem("冰L", 55);
+            product.AddProductItem("熱M", 55);
+            category.AddProduct(product);
+            product = new Product("曼非那堤", "肯亞");
+            product.AddProductItem("冰M", 50);
+            product.AddProductItem("冰L", 55);
+            product.AddProductItem("熱M", 55);
+            category.AddProduct(product);
+            product = new Product("烏瓦那堤", "斯里蘭卡");
+            product.AddProductItem("冰M", 55);
+            product.AddProductItem("冰L", 60);
+            product.AddProductItem("熱M", 60);
+            category.AddProduct(product);
+            product = new Product("抹茶那堤", "台灣");
+            product.AddProductItem("冰M", 60);
+            product.AddProductItem("熱M", 60);
+            category.AddProduct(product);
+            product = new Product("煮濃那堤", "斯里蘭卡");
+            product.AddProductItem("冰M", 60);
+            category.AddProduct(product);
+
+            store.AddProductCategory("紅茶調飲");
+            category = store.ProductCategories.Last();
+            product = new Product("生乳紅茶", "斯里蘭卡");
+            product.AddProductItem("冰M", 50);
+            category.AddProduct(product);
+            product = new Product("生乳抹茶", "台灣");
+            product.AddProductItem("冰M", 55);
+            category.AddProduct(product);
+            product = new Product("糖檸紅茶", "斯里蘭卡");
+            product.AddProductItem("冰L", 55);
+            category.AddProduct(product);
+            product = new Product("玉釀紅茶", "斯里蘭卡");
+            product.AddProductItem("冰L", 55);
+            category.AddProduct(product);
+            product = new Product("冰淇淋紅茶", "斯里蘭卡");
+            product.AddProductItem("冰L", 60);
+            category.AddProduct(product);
+
+            result.Add(store);
 
             return result;
         }
