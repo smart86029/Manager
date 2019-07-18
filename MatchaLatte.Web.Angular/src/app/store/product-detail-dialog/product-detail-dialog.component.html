@@ -7,14 +7,14 @@
       </mat-form-field>
     </div>
     <div>
-      <div fxLayout="row">
+      <div class="product-item-title">
         商品項目
         <span class="fill-space"></span>
         <button mat-icon-button color="primary" matTooltip="新增商品項目" (click)="createProductItem()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
-      <div *ngFor="let item of data.productItems; let i = index;" fxLayout="row" fxLayoutGap="15px">
+      <div class="product-item-list" *ngFor="let item of data.productItems; let i = index;">
         <mat-form-field>
           <input matInput type="text" name="productItemName{{i}}" placeholder="名稱" [(ngModel)]="item.name">
         </mat-form-field>

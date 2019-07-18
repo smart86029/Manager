@@ -1,7 +1,7 @@
 <div class="container">
   <div class="store-container">
     <h2 class="mat-h2">{{store.name}}</h2>
-    <div class="category-container" *ngIf="store.productCategories?.length > 1">
+    <div class="category-list" *ngIf="store.productCategories?.length > 1">
       <mat-card class="category-card" *ngFor="let category of store.productCategories">
         <mat-card-header>
           <mat-card-title>
