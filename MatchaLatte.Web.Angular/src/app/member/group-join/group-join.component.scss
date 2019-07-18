@@ -1,4 +1,26 @@
-.grid-container,
+.container>*:not(:first-child) {
+  margin-left: 20px;
+}
+
+.grid-container {
+  flex: 3;
+}
+
 .order-container {
-  margin: 20px;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+$gap: 6px;
+
+.category-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$gap;
+}
+
+.category-card {
+  flex: 0 1 calc(33.33% - #{$gap} * 2);
+  box-sizing: border-box;
+  margin: $gap;
 }
