@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.Catalog.App.Events.Orders;
@@ -30,45 +31,66 @@ namespace MatchaLatte.Catalog.App.EventHandlers.Orders
         public async Task HandleAsync(OrderCreated @event)
         {
             var orderId = @event.OrderId;
-            //var group = await groupRepository.GetGroupAsync(@event.GroupId);
-            //if (group == default)
-            //    await RejectAsync(orderId);
-            //if (@event.CreatedOn < group.StartTime || @event.CreatedOn >= group.EndTime)
-            //    await RejectAsync(orderId);
+            var group = await groupRepository.GetGroupAsync(@event.GroupId);
+            if (group == default)
+            {
+                await PublishAsync(new OrderStockRejected(orderId, "團不存在"));
+                return;
+            }
+            if (@event.CreatedOn < group.StartOn)
+            {
+                await PublishAsync(new OrderStockRejected(orderId, "團尚未開始"));
+                return;
+            }
+            if (@event.CreatedOn >= group.EndOn)
+            {
+                await PublishAsync(new OrderStockRejected(orderId, "團已結束"));
+                return;
+            }
 
-            //var store = await storeRepository.GetStoreAsync(group.StoreId);
-            //var products = store.ProductCategories.SelectMany(c => c.Products).ToList();
-            //foreach (var orderItem in @event.OrderItems)
-            //{
-            //    var product = products.SingleOrDefault(p => p.Id == orderItem.ProductId);
-            //    if (product == default)
-            //        await RejectAsync(orderId);
-            //    if (orderItem.ProductName != product.Name)
-            //        await RejectAsync(orderId);
+            var invalidOrderItems = new List<InvalidOrderItemDto>();
+            var store = await storeRepository.GetStoreAsync(group.StoreId);
+            var products = store.ProductCategories.SelectMany(c => c.Products).ToList();
+            foreach (var orderItem in @event.OrderItems)
+            {
+                var product = products.SingleOrDefault(p => p.Id == orderItem.ProductId);
+                if (product == default)
+                {
+                    invalidOrderItems.Add(new InvalidOrderItemDto(orderItem, "商品不存在"));
+                    continue;
+                }
+                if (orderItem.ProductName != product.Name)
+                {
+                    invalidOrderItems.Add(new InvalidOrderItemDto(orderItem, "商品名稱錯誤"));
+                    continue;
+                }
 
-            //    var productItem = product.ProductItems.SingleOrDefault(i => i.Id == orderItem.ProductItemId);
-            //    if (productItem == default)
-            //        await RejectAsync(orderId);
-            //    if (orderItem.ProductItemName != productItem.Name)
-            //        await RejectAsync(orderId);
-            //    if (orderItem.ProductItemPrice != productItem.Price)
-            //        await RejectAsync(orderId);
-            //}
+                var productItem = product.ProductItems.SingleOrDefault(i => i.Id == orderItem.ProductItemId);
+                if (productItem == default)
+                {
+                    invalidOrderItems.Add(new InvalidOrderItemDto(orderItem, "商品項目不存在"));
+                    continue;
+                }
+                if (orderItem.ProductItemName != productItem.Name)
+                {
+                    invalidOrderItems.Add(new InvalidOrderItemDto(orderItem, "商品項目名稱錯誤"));
+                    continue;
+                }
+                if (orderItem.ProductItemPrice != productItem.Price)
+                {
+                    invalidOrderItems.Add(new InvalidOrderItemDto(orderItem, "商品項目價格錯誤"));
+                    continue;
+                }
+            }
 
-            await ConfirmAsync(orderId);
+            if (invalidOrderItems.Any())
+                await PublishAsync(new OrderStockRejected(orderId, null, invalidOrderItems));
+            else
+                await PublishAsync(new OrderStockConfirmed(orderId));
         }
 
-        private async Task ConfirmAsync(Guid orderId)
+        private async Task PublishAsync(Event @event)
         {
-            var @event = new OrderStockConfirmed(orderId);
-            eventLogRepository.Add(new EventLog(@event));
-            await unitOfWork.CommitAsync();
-            await eventBus.PublishAsync(@event);
-        }
-
-        private async Task RejectAsync(Guid orderId)
-        {
-            var @event = new OrderStockRejected(orderId);
             eventLogRepository.Add(new EventLog(@event));
             await unitOfWork.CommitAsync();
             await eventBus.PublishAsync(@event);
