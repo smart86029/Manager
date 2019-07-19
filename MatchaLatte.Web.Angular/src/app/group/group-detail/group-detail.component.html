@@ -8,18 +8,18 @@
             <ng-template matStepLabel>基本設置</ng-template>
             <div>
               <mat-form-field>
-                <input matInput name="startTime" placeholder="開始時間" [(ngModel)]="group.startTime"
-                  [matDatepicker]="pickerStartTime" [max]="group.endTime">
-                <mat-datepicker-toggle matSuffix [for]="pickerStartTime"></mat-datepicker-toggle>
-                <mat-datepicker type="datetime" #pickerStartTime></mat-datepicker>
+                <input matInput name="startOn" placeholder="開始時間" [(ngModel)]="group.startOn"
+                  [matDatepicker]="pickerStartOn" [max]="group.endOn">
+                <mat-datepicker-toggle matSuffix [for]="pickerStartOn"></mat-datepicker-toggle>
+                <mat-datepicker type="datetime" #pickerStartOn></mat-datepicker>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field>
-                <input matInput name="endTime" placeholder="結束時間" [(ngModel)]="group.endTime"
-                  [matDatepicker]="pickerEndTime" [min]="group.startTime">
-                <mat-datepicker-toggle matSuffix [for]="pickerEndTime"></mat-datepicker-toggle>
-                <mat-datepicker type="datetime" #pickerEndTime></mat-datepicker>
+                <input matInput name="endOn" placeholder="結束時間" [(ngModel)]="group.endOn" [matDatepicker]="pickerEndOn"
+                  [min]="group.startOn">
+                <mat-datepicker-toggle matSuffix [for]="pickerEndOn"></mat-datepicker-toggle>
+                <mat-datepicker type="datetime" #pickerEndOn></mat-datepicker>
               </mat-form-field>
             </div>
             <div>

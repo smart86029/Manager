@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Catalog.Data.Migrations
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20190716095412_Initial")]
+    [Migration("20190719062451_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,12 +31,12 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("EndTime");
+                    b.Property<DateTime>("EndOn");
 
                     b.Property<string>("Remark")
                         .HasMaxLength(512);
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<DateTime>("StartOn");
 
                     b.Property<Guid>("StoreId");
 

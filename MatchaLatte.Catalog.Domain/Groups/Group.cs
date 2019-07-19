@@ -20,15 +20,15 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// 初始化 <see cref="Group"/> 類別的新執行個體。
         /// </summary>
         /// <param name="storeId">店家 ID。</param>
-        /// <param name="startTime">開始時間。</param>
-        /// <param name="endTime">結束時間。</param>
+        /// <param name="startOn">開始時間。</param>
+        /// <param name="endOn">結束時間。</param>
         /// <param name="remark">備註。</param>
         /// <param name="createdBy">新增者 ID。</param>
-        public Group(Guid storeId, DateTime startTime, DateTime endTime, string remark, Guid createdBy)
+        public Group(Guid storeId, DateTime startOn, DateTime endOn, string remark, Guid createdBy)
         {
             StoreId = storeId;
-            StartOn = startTime;
-            EndOn = endTime;
+            StartOn = startOn;
+            EndOn = endOn;
             Remark = remark;
             CreatedBy = createdBy;
             CreatedOn = DateTime.UtcNow;
@@ -85,19 +85,19 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// <summary>
         /// 更新開始時間。
         /// </summary>
-        /// <param name="startTime">開始時間。</param>
-        public void UpdateStartTime(DateTime startTime)
+        /// <param name="startOn">開始時間。</param>
+        public void UpdateStartOn(DateTime startOn)
         {
-            StartOn = startTime;
+            StartOn = startOn;
         }
 
         /// <summary>
         /// 更新結束時間。
         /// </summary>
-        /// <param name="endTime">結束時間。</param>
-        public void UpdateEndTime(DateTime endTime)
+        /// <param name="endOn">結束時間。</param>
+        public void UpdateEndOn(DateTime endOn)
         {
-            EndOn = endTime;
+            EndOn = endOn;
         }
 
         /// <summary>

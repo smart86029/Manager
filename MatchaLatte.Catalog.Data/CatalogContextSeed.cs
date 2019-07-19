@@ -246,7 +246,7 @@ namespace MatchaLatte.Catalog.Data
 
             result.Add(store);
 
-            store=  new Store("約翰紅茶公司", "內湖江南店", new Picture("約翰紅茶公司.png"), new Phone("26594567"), new Address("臺北市", "內湖區", "江南街98號"), "測試資料", Guid.Empty);
+            store=  new Store("約翰紅茶公司", "內湖江南店", new Picture("約翰紅茶公司.jpg"), new Phone("26594567"), new Address("臺北市", "內湖區", "江南街98號"), "測試資料", Guid.Empty);
             store.AddProductCategory("紅茶經典");
             category = store.ProductCategories.Last();
             product = new Product("康提紅茶", "斯里蘭卡");

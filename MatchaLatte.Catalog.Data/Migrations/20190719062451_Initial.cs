@@ -64,8 +64,8 @@ namespace MatchaLatte.Catalog.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     StoreId = table.Column<Guid>(nullable: false),
-                    StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
+                    StartOn = table.Column<DateTime>(nullable: false),
+                    EndOn = table.Column<DateTime>(nullable: false),
                     Remark = table.Column<string>(maxLength: 512, nullable: true),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false)

@@ -7,9 +7,9 @@ namespace MatchaLatte.Catalog.App.Commands.Groups
     {
         public Guid id { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public DateTime StartOn { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public DateTime EndOn { get; set; }
 
         public string Remark { get; set; }
     }
