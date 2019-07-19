@@ -27,8 +27,8 @@ namespace MatchaLatte.Catalog.Domain.Groups
         public Group(Guid storeId, DateTime startTime, DateTime endTime, string remark, Guid createdBy)
         {
             StoreId = storeId;
-            StartTime = startTime;
-            EndTime = endTime;
+            StartOn = startTime;
+            EndOn = endTime;
             Remark = remark;
             CreatedBy = createdBy;
             CreatedOn = DateTime.UtcNow;
@@ -44,13 +44,13 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// 取得開始時間。
         /// </summary>
         /// <value>開始時間。</value>
-        public DateTime StartTime { get; private set; }
+        public DateTime StartOn { get; private set; }
 
         /// <summary>
         /// 取得結束時間。
         /// </summary>
         /// <value>結束時間。</value>
-        public DateTime EndTime { get; private set; }
+        public DateTime EndOn { get; private set; }
 
         /// <summary>
         /// 取得備註。
@@ -74,7 +74,7 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// 取得是否進行中。
         /// </summary>
         /// <value>是否進行中。</value>
-        public bool IsActive => StartTime <= DateTime.UtcNow && EndTime > DateTime.UtcNow;
+        public bool IsActive => StartOn <= DateTime.UtcNow && EndOn > DateTime.UtcNow;
 
         /// <summary>
         /// 取得店家。
@@ -88,7 +88,7 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// <param name="startTime">開始時間。</param>
         public void UpdateStartTime(DateTime startTime)
         {
-            StartTime = startTime;
+            StartOn = startTime;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace MatchaLatte.Catalog.Domain.Groups
         /// <param name="endTime">結束時間。</param>
         public void UpdateEndTime(DateTime endTime)
         {
-            EndTime = endTime;
+            EndOn = endTime;
         }
 
         /// <summary>

@@ -52,7 +52,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
             var result = await context
                 .Set<Group>()
                 .Include(g => g.Store)
-                .Where(g => g.StartTime <= DateTime.UtcNow && g.EndTime > DateTime.UtcNow)
+                .Where(g => g.StartOn <= DateTime.UtcNow && g.EndOn > DateTime.UtcNow)
                 .Skip(offset)
                 .Take(limit)
                 .ToListAsync();
@@ -92,7 +92,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
         {
             var result = await context
                 .Set<Group>()
-                .CountAsync(g => g.StartTime <= DateTime.UtcNow && g.EndTime > DateTime.UtcNow);
+                .CountAsync(g => g.StartOn <= DateTime.UtcNow && g.EndOn > DateTime.UtcNow);
 
             return result;
         }

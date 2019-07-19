@@ -64,8 +64,8 @@ namespace MatchaLatte.Catalog.Services
                     .Select(x => new GroupSummary
                     {
                         Id = x.Id,
-                        StartTime = x.StartTime,
-                        EndTime = x.EndTime,
+                        StartTime = x.StartOn,
+                        EndTime = x.EndOn,
                         CreatedOn = x.CreatedOn,
                         Store = new StoreSummary
                         {
@@ -91,8 +91,8 @@ namespace MatchaLatte.Catalog.Services
             var result = new GroupDetail
             {
                 Id = group.Id,
-                StartTime = group.StartTime,
-                EndTime = group.EndTime,
+                StartTime = group.StartOn,
+                EndTime = group.EndOn,
                 Remark = group.Remark,
                 Store = new StoreDetail
                 {
@@ -123,8 +123,8 @@ namespace MatchaLatte.Catalog.Services
             var result = new GroupDetail
             {
                 Id = group.Id,
-                StartTime = group.StartTime,
-                EndTime = group.EndTime,
+                StartTime = group.StartOn,
+                EndTime = group.EndOn,
                 Remark = group.Remark,
                 Store = new StoreDetail
                 {
