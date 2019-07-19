@@ -113,7 +113,7 @@ namespace MatchaLatte.Catalog.Services
         {
             var store = await storeRepository.GetStoreAsync(command.Store.id);
             if (store == default(Store))
-                throw new InvalidException();
+                throw new InvalidException("商店不存在");
 
             var group = new Group(command.Store.id, command.StartTime, command.EndTime, command.Remark, command.CreatedBy);
 

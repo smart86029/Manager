@@ -97,7 +97,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
         public void AddOrderItem(Guid productId, string productName, Guid productItemId, string productItemName, decimal productItemPrice, int quantity)
         {
             if (OrderStatus != OrderStatus.Creating)
-                throw new InvalidException();
+                throw new DomainException($"{OrderStatus}不可加入訂單項目");
 
             orderItems.Add(new OrderItem(productId, productName, productItemId, productItemName, productItemPrice, quantity));
         }
@@ -108,7 +108,7 @@ namespace MatchaLatte.Ordering.Domain.Orders
         public void Create()
         {
             if (OrderStatus != OrderStatus.Creating)
-                throw new InvalidException();
+                throw new DomainException($"{OrderStatus}不可建立");
 
             OrderStatus = OrderStatus.Created;
             CreatedOn = DateTime.UtcNow;
@@ -121,10 +121,10 @@ namespace MatchaLatte.Ordering.Domain.Orders
         public void Confirm()
         {
             if (BuyerId == default)
-                throw new InvalidException();
+                throw new DomainException("買家不存在");
 
             if (OrderStatus != OrderStatus.Created)
-                throw new InvalidException();
+                throw new DomainException($"{OrderStatus}不可確認");
 
             OrderStatus = OrderStatus.Confirmed;
         }

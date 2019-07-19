@@ -121,7 +121,7 @@ namespace MatchaLatte.Catalog.Domain.Products
         private void ValidateProductItems()
         {
             if (productItems.Count(i => string.IsNullOrWhiteSpace(i.Name)) > 1)
-                throw new InvalidException("商品項目名稱為空白只能唯一");
+                throw new DomainException("商品項目名稱為空白只能唯一");
         }
     }
 }
