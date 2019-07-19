@@ -28,6 +28,7 @@ namespace MatchaLatte.Identity.Api.AutofacModules
                 .RegisterType<EventBus>()
                 .AsImplementedInterfaces()
                 .WithParameter("connectionString", connectionString)
+                .WithParameter("queueName", "Identity")
                 .SingleInstance();
         }
     }

@@ -1,0 +1,11 @@
+.product-item-title {
+  display: flex;
+}
+
+.product-item-list {
+  display: flex;
+
+  &>*:not(:last-child) {
+    margin-right: 12px;
+  }
+}

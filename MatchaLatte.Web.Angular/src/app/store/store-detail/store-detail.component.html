@@ -1,4 +1,4 @@
-<div class="container" fxLayout="column">
+<div class="container">
   <form autocomplete="off">
     <h2 class="mat-h2">{{saveMode | actionName}}店家</h2>
     <mat-card>
@@ -22,7 +22,7 @@
                 <input matInput type="tel" name="phone" placeholder="電話" [(ngModel)]="store.phone">
               </mat-form-field>
             </div>
-            <div fxLayout="row">
+            <div>
               <mat-form-field>
                 <mat-select name="addressCity" placeholder="縣市" [(value)]="selectedCity">
                   <mat-option *ngFor="let city of cities" [value]="city">
@@ -60,7 +60,7 @@
             <div cdkDropList class="category-list" [cdkDropListData]="store.productCategories"
               (cdkDropListDropped)="drop($event)">
               <div cdkDrag class="category-box" *ngFor="let category of store.productCategories">
-                <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="category-title">
                   <app-inline-editor name="分類名稱" [(value)]="category.name"></app-inline-editor>
                   <button mat-button color="primary" (click)="createProduct(category)">新增商品</button>
                   <span class="fill-space"></span>
