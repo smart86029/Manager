@@ -14,7 +14,7 @@
         public int Limit
         {
             get => limit;
-            set => limit = value > 0 && value < 100 ? value : limit;
+            set => limit = value > 0 && value <= 100 ? value : limit;
         }
     }
 }
