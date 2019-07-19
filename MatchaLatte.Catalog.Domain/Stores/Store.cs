@@ -30,7 +30,7 @@ namespace MatchaLatte.Catalog.Domain.Stores
         public Store(string name, string description, Picture logo, Phone phone, Address address, string remark, Guid createdBy)
         {
             Name = name;
-            Description = description;
+            Description = description?.Trim();
             Logo = logo;
             Phone = phone;
             Address = address;
@@ -108,7 +108,7 @@ namespace MatchaLatte.Catalog.Domain.Stores
         /// <param name="description">描述。</param>
         public void UpdateDescription(string description)
         {
-            Description = description;
+            Description = description?.Trim();
         }
 
         /// <summary>

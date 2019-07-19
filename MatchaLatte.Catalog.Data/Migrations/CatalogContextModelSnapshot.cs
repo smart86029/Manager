@@ -29,12 +29,12 @@ namespace MatchaLatte.Catalog.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("EndTime");
+                    b.Property<DateTime>("EndOn");
 
                     b.Property<string>("Remark")
                         .HasMaxLength(512);
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<DateTime>("StartOn");
 
                     b.Property<Guid>("StoreId");
 

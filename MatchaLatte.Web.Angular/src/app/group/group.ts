@@ -3,8 +3,8 @@ import { Store } from './store';
 
 export class Group {
   id: Guid;
-  startTime: Date;
-  endTime: Date;
+  startOn: Date;
+  endOn: Date;
   createdOn: Date;
   store: Store;
 }

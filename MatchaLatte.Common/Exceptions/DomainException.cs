@@ -5,13 +5,13 @@ namespace MatchaLatte.Common.Exceptions
     /// <summary>
     /// 非法例外。
     /// </summary>
-    public class InvalidException : Exception
+    public class DomainException : Exception
     {
         /// <summary>
-        /// 初始化 <see cref="InvalidException"/> 類別的新執行個體。
+        /// 初始化 <see cref="DomainException"/> 類別的新執行個體。
         /// </summary>
         /// <param name="message">訊息。</param>
-        public InvalidException(string message) : base(message)
+        public DomainException(string message) : base(message)
         {
         }
     }

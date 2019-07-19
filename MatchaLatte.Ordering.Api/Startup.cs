@@ -102,7 +102,7 @@ namespace MatchaLatte.Ordering.Api
                     var ex = context.Features.Get<IExceptionHandlerFeature>();
                     if (ex != null)
                     {
-                        if (ex.Error is InvalidException)
+                        if (ex.Error is DomainException)
                             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                         var json = $@"{{ ""Message"": ""{ex.Error.ToString()}"" }}";
                         await context.Response.WriteAsync(json).ConfigureAwait(false);

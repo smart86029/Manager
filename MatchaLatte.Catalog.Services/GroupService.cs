@@ -64,8 +64,8 @@ namespace MatchaLatte.Catalog.Services
                     .Select(x => new GroupSummary
                     {
                         Id = x.Id,
-                        StartTime = x.StartTime,
-                        EndTime = x.EndTime,
+                        StartOn = x.StartOn,
+                        EndOn = x.EndOn,
                         CreatedOn = x.CreatedOn,
                         Store = new StoreSummary
                         {
@@ -91,8 +91,8 @@ namespace MatchaLatte.Catalog.Services
             var result = new GroupDetail
             {
                 Id = group.Id,
-                StartTime = group.StartTime,
-                EndTime = group.EndTime,
+                StartOn = group.StartOn,
+                EndOn = group.EndOn,
                 Remark = group.Remark,
                 Store = new StoreDetail
                 {
@@ -113,9 +113,9 @@ namespace MatchaLatte.Catalog.Services
         {
             var store = await storeRepository.GetStoreAsync(command.Store.id);
             if (store == default(Store))
-                throw new InvalidException();
+                throw new InvalidException("商店不存在");
 
-            var group = new Group(command.Store.id, command.StartTime, command.EndTime, command.Remark, command.CreatedBy);
+            var group = new Group(command.Store.id, command.StartOn, command.EndOn, command.Remark, command.CreatedBy);
 
             groupRepository.Add(group);
             await unitOfWork.CommitAsync();
@@ -123,8 +123,8 @@ namespace MatchaLatte.Catalog.Services
             var result = new GroupDetail
             {
                 Id = group.Id,
-                StartTime = group.StartTime,
-                EndTime = group.EndTime,
+                StartOn = group.StartOn,
+                EndOn = group.EndOn,
                 Remark = group.Remark,
                 Store = new StoreDetail
                 {
@@ -145,8 +145,8 @@ namespace MatchaLatte.Catalog.Services
         {
             var group = await groupRepository.GetGroupAsync(command.id);
 
-            group.UpdateStartTime(command.StartTime);
-            group.UpdateEndTime(command.EndTime);
+            group.UpdateStartOn(command.StartOn);
+            group.UpdateEndOn(command.EndOn);
             group.UpdateRemark(command.Remark);
             groupRepository.Update(group);
             await unitOfWork.CommitAsync();

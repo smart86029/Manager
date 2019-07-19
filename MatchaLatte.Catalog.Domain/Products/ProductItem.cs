@@ -24,7 +24,7 @@ namespace MatchaLatte.Catalog.Domain.Products
         internal ProductItem(string name, decimal price)
         {
             if (price < 0)
-                throw new InvalidException();
+                throw new DomainException("價格不可低於 0");
 
             Name = name?.Trim();
             Price = price;
@@ -70,7 +70,7 @@ namespace MatchaLatte.Catalog.Domain.Products
         public void UpdatePrice(decimal price)
         {
             if (price < 0)
-                throw new InvalidException();
+                throw new DomainException("價格不可低於 0");
 
             Price = price;
         }
