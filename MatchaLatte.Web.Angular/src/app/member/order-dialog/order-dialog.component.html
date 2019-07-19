@@ -1,10 +1,9 @@
 <form>
   <h2 matDialogTitle>{{product.name}}</h2>
-  <mat-dialog-content fxLayout="column" fxLayoutGap="20px">
+  <mat-dialog-content class="order-item">
     <div>
       商品項目
-      <mat-radio-group class="product-items" name="productItems" fxLayout="column" fxLayoutGap="5px"
-        [(ngModel)]="orderItem.productItem">
+      <mat-radio-group class="product-items" name="productItems" [(ngModel)]="orderItem.productItem">
         <mat-radio-button class="product-item" *ngFor="let productItem of product.productItems" [value]="productItem">
           {{productItem.name}} {{productItem.price}}
         </mat-radio-button>

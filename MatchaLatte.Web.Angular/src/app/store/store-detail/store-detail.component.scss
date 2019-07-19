@@ -1,7 +1,3 @@
-.mat-form-field {
-  // width: 50%;
-}
-
 .mat-card-content {
   min-height: 300px;
 }
@@ -48,14 +44,19 @@
   padding: 10px;
   background-color: #fff;
   border-bottom: solid 1px #ccc;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
   cursor: move;
+
+  &:last-child {
+    border: none;
+  }
 }
 
-.category-box:last-child {
-  border: none;
+.category-title {
+  display: flex;
+  align-items: center;
 }
 
 .product-list {
@@ -72,12 +73,12 @@
   background-color: #fff;
   border-bottom: solid 1px #ccc;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
   cursor: move;
-}
 
-.product-box:last-child {
-  border: none;
+  &:last-child {
+    border: none;
+  }
 }
