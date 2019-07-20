@@ -8,9 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.App\MatchaLatte.HumanResources.App.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.Data\MatchaLatte.HumanResources.Data.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.Services\MatchaLatte.HumanResources.Services.csproj" />
   </ItemGroup>
 
 </Project>

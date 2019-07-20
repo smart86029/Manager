@@ -1,4 +1,5 @@
 ﻿using System;
+using MatchaLatte.Common.Domain;
 using MatchaLatte.Common.Exceptions;
 
 namespace MatchaLatte.HumanResources.Domain.JobTitles
@@ -6,7 +7,7 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
     /// <summary>
     /// 職稱。
     /// </summary>
-    public class JobTitle
+    public class JobTitle : Entity
     {
         /// <summary>
         /// 初始化 <see cref="JobTitle"/> 類別的新執行個體。
