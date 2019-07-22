@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MatchaLatte.HumanResources.Domain\MatchaLatte.HumanResources.Domain.csproj" />
-    <ProjectReference Include="..\MatchaLatte.HumanResources.Services\MatchaLatte.HumanResources.Services.csproj" />
   </ItemGroup>
 
 </Project>

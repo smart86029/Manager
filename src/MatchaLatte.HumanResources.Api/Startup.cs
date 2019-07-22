@@ -58,6 +58,7 @@ namespace MatchaLatte.HumanResources.Api
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
             containerBuilder.RegisterModule(new DataModule());
+            containerBuilder.RegisterModule(new ServicesModule());
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();
