@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using MatchaLatte.Common.Commands;
 using MatchaLatte.Ordering.Api.Models;
 using MatchaLatte.Ordering.App.Commands.Orders;
+using MatchaLatte.Ordering.App.Queries.Orders;
+using MatchaLatte.Ordering.App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,33 +17,32 @@ namespace MatchaLatte.Ordering.Api.Controllers
     {
         private readonly CurrentUser currentUser;
         private readonly ICommandService commandService;
+        private readonly IOrderQueryService orderQueryService;
 
         /// <summary>
         /// 初始化 <see cref="OrdersController"/> 類別的新執行個體。
         /// </summary>
         /// <param name="currentUser">當前使用者。</param>
         /// <param name="commandService">命令服務。</param>
-        public OrdersController(CurrentUser currentUser, ICommandService commandService)
+        public OrdersController(CurrentUser currentUser, ICommandService commandService, IOrderQueryService orderQueryService)
         {
             this.currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
             this.commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
+            this.orderQueryService = orderQueryService ?? throw new ArgumentNullException(nameof(orderQueryService));
         }
 
         /// <summary>
-        /// 取得訂單。
+        /// 取得所有訂單。
         /// </summary>
-        /// <param name="id">訂單 ID。</param>
-        /// <returns>訂單。</returns>
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(Guid id)
+        /// <param name="option">分頁查詢。</param>
+        /// <returns>所有訂單。</returns>
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(OrderOption option)
         {
-            throw new NotImplementedException();
+            var orders = await orderQueryService.GetOrdersAsync(option);
+            Response.Headers.Add("X-Total-Count", orders.ItemCount.ToString());
 
-            //var group = await groupService.GetGroupAsync(id);
-            //if (group == null)
-            //    return NotFound();
-
-            //return Ok(group);
+            return Ok(orders);
         }
 
         /// <summary>
