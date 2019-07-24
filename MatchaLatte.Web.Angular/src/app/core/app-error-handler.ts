@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
-import { Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {
@@ -16,7 +16,7 @@ export class AppErrorHandler implements ErrorHandler {
                 ngZone.run(() => router.navigate(['/auth/signin'], { queryParams: { returnUrl: router.url } })).then();
             }
         } else {
-            router.navigate(['/error'], { queryParams: { error: error } });
+            router.navigate(['/error'], { queryParams: { error } });
         }
     }
 }

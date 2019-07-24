@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './member/member.module#MemberModule'
-  },
-  {
-    path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule'
+    loadChildren: () => import('./member/member.module').then(mod => mod.MemberModule)
   },
   {
     path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule'
+    loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule)
   },
 ];
 
