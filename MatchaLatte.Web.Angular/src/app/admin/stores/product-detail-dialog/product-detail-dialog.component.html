@@ -1,0 +1,34 @@
+<form>
+  <h2 matDialogTitle>{{saveMode | actionName}}商品</h2>
+  <mat-dialog-content>
+    <div>
+      <mat-form-field>
+        <input matInput type="text" name="productName" placeholder="名稱" [(ngModel)]="data.name">
+      </mat-form-field>
+    </div>
+    <div>
+      <div class="product-item-title">
+        商品項目
+        <span class="fill-space"></span>
+        <button mat-icon-button color="primary" matTooltip="新增商品項目" (click)="createProductItem()">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
+      <div class="product-item-list" *ngFor="let item of data.productItems; let i = index;">
+        <mat-form-field>
+          <input matInput type="text" name="productItemName{{i}}" placeholder="名稱" [(ngModel)]="item.name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" name="productItemPrice{{i}}" placeholder="價格" [(ngModel)]="item.price">
+        </mat-form-field>
+        <button mat-icon-button color="warn" matTooltip="刪除商品項目" (click)="deleteProductItem(i)">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="button" matDialogClose>返回</button>
+    <button mat-button type="submit" color="primary" [matDialogClose]="data">{{saveMode | actionName}}</button>
+  </mat-dialog-actions>
+</form>

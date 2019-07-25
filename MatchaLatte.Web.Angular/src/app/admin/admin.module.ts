@@ -13,6 +13,6 @@ import { AdminComponent } from './admin.component';
   imports: [
     SharedModule,
     AdminRoutingModule,
-  ]
+  ],
 })
 export class AdminModule { }

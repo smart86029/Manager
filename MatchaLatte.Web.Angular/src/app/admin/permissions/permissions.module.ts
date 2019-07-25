@@ -8,7 +8,7 @@ import { PermissionDetailComponent } from './permission-detail/permission-detail
 @NgModule({
   declarations: [
     PermissionListComponent,
-    PermissionDetailComponent
+    PermissionDetailComponent,
   ],
   imports: [
     SharedModule,

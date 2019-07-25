@@ -8,11 +8,11 @@ import { UsersRoutingModule } from './users-routing.module';
 @NgModule({
   declarations: [
     UserListComponent,
-    UserDetailComponent
+    UserDetailComponent,
   ],
   imports: [
     SharedModule,
-    UsersRoutingModule
+    UsersRoutingModule,
   ],
 })
 export class UsersModule { }
