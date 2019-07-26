@@ -48,9 +48,8 @@
 </header>
 <main class="{{selectedTheme}}">
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
       <mat-toolbar color="primary"><a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a></mat-toolbar>
       <mat-nav-list>
         <mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl" class="menu-tree">
