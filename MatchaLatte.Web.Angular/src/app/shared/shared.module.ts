@@ -4,11 +4,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { InlineEditorComponent } from './inline-editor/inline-editor.component';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './material/material.module';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { ActionNamePipe } from './save-mode/action-name.pipe';
 
 @NgModule({
+  declarations: [
+    ActionNamePipe,
+    InlineEditorComponent,
+    YesNoPipe,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,10 +30,5 @@ import { ActionNamePipe } from './save-mode/action-name.pipe';
     InlineEditorComponent,
     YesNoPipe,
   ],
-  declarations: [
-    ActionNamePipe,
-    InlineEditorComponent,
-    YesNoPipe,
-  ]
 })
 export class SharedModule { }

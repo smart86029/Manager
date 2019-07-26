@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Group } from 'src/app/group/group';
-import { GroupService } from 'src/app/group/group.service';
-import { PaginationResult } from 'src/app/shared/pagination-result';
+import { Group } from 'src/app/core/group/group';
+import { GroupService } from 'src/app/core/group/group.service';
+import { PaginationResult } from 'src/app/core/pagination-result';
 
 @Component({
   selector: 'app-member-gallery',
@@ -14,7 +14,7 @@ export class MemberGalleryComponent implements OnInit {
 
   constructor(private groupService: GroupService) { }
 
-  ngOnInit(): void  {
+  ngOnInit(): void {
     this.loadGroups(0, this.groups.pageSize);
   }
 

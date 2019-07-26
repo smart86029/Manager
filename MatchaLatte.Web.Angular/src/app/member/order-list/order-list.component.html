@@ -1,0 +1,19 @@
+<div class="container">
+  <h2 class="mat-h2">訂單</h2>
+  <mat-card>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let order of orders">
+          <h3 matLine>{{order.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</h3>
+          <p matLine *ngFor="let orderItem of order.orderItems">
+            <span>{{orderItem.productName}}</span>
+            <span>{{orderItem.productItemName}}</span>
+            <span>{{orderItem.quantity}}</span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+      <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+      <p *ngIf="!isLoading && orders.itemCount === 0" class="empty-result">查無資料</p>
+    </mat-card-content>
+  </mat-card>
+</div>

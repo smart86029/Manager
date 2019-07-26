@@ -4,9 +4,15 @@ namespace MatchaLatte.Ordering.App.Commands.Orders
 {
     public class OrderItemDto
     {
-        public ProductDto Product { get; set; }
+        public Guid ProductId { get; set; }
 
-        public ProductItemDto ProductItem { get; set; }
+        public string ProductName { get; set; }
+
+        public Guid ProductItemId { get; set; }
+
+        public string ProductItemName { get; set; }
+
+        public decimal ProductItemPrice { get; set; }
 
         public int Quantity { get; set; }
     }

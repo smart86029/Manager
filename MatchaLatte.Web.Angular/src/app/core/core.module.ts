@@ -4,12 +4,11 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { AppErrorHandler } from './app-error-handler';
 
 @NgModule({
-  declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   providers: [
-    { provide: ErrorHandler, useClass: AppErrorHandler }
-  ]
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+  ],
 })
 export class CoreModule { }
