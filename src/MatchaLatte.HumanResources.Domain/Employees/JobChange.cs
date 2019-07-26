@@ -8,6 +8,19 @@ namespace MatchaLatte.HumanResources.Domain.Employees
     /// </summary>
     public class JobChange : Entity
     {
+        private JobChange()
+        {
+
+        }
+
+        public JobChange(Guid employeeId, Guid departmentId, Guid jobTitleId, DateTime startOn)
+        {
+            EmployeeId = employeeId;
+            DepartmentId = departmentId;
+            JobTitleId = jobTitleId;
+            StartOn = startOn;
+        }
+
         /// <summary>
         /// 取得員工 ID。
         /// </summary>

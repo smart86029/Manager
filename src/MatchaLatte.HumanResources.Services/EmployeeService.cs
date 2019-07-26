@@ -24,8 +24,10 @@ namespace MatchaLatte.HumanResources.Services
             var result = new PaginationResult<EmployeeSummary>()
             {
                 Items = employees
-                    .Select(x => new EmployeeSummary
+                    .Select(e => new EmployeeSummary
                     {
+                        FirstName = e.FirstName,
+                        LastName =e.LastName,
                     })
                     .ToList(),
                 ItemCount = count
