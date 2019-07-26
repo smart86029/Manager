@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>70c29f57-81c1-4b0c-a270-256ac1bd7554</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.App\MatchaLatte.HumanResources.App.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.Data\MatchaLatte.HumanResources.Data.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.Services\MatchaLatte.HumanResources.Services.csproj" />
+  </ItemGroup>
+
+</Project>

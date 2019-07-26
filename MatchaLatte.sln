@@ -47,7 +47,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Catalog.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Common.EntityFramework", "src\MatchaLatte.Common.EntityFramework\MatchaLatte.Common.EntityFramework.csproj", "{83C847FB-4EC7-4029-9C98-E8DE0AFFC7EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Common.RabbitMQ", "src\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj", "{3D3C1C08-9D97-48DB-9ACD-0F4AC68B32F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Common.RabbitMQ", "src\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj", "{3D3C1C08-9D97-48DB-9ACD-0F4AC68B32F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatchaLatte.HumanResources", "MatchaLatte.HumanResources", "{D4110321-52C3-44DB-8B93-7EACE3F25992}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.HumanResources.Api", "src\MatchaLatte.HumanResources.Api\MatchaLatte.HumanResources.Api.csproj", "{13546EBD-4021-40B0-B1BB-D30A5C578DF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.HumanResources.App", "src\MatchaLatte.HumanResources.App\MatchaLatte.HumanResources.App.csproj", "{E6AE297E-2A86-40F9-BE0A-4C79AC1D9883}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.HumanResources.Data", "src\MatchaLatte.HumanResources.Data\MatchaLatte.HumanResources.Data.csproj", "{3B6BC2D9-326F-40E9-A6D2-F6572676D527}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.HumanResources.Domain", "src\MatchaLatte.HumanResources.Domain\MatchaLatte.HumanResources.Domain.csproj", "{F5CCA588-48AC-4A22-86D0-AC916C55E577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.HumanResources.Services", "src\MatchaLatte.HumanResources.Services\MatchaLatte.HumanResources.Services.csproj", "{6261CF85-F4FB-4727-9620-C4299ACAFFC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +147,26 @@ Global
 		{3D3C1C08-9D97-48DB-9ACD-0F4AC68B32F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D3C1C08-9D97-48DB-9ACD-0F4AC68B32F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D3C1C08-9D97-48DB-9ACD-0F4AC68B32F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13546EBD-4021-40B0-B1BB-D30A5C578DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13546EBD-4021-40B0-B1BB-D30A5C578DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13546EBD-4021-40B0-B1BB-D30A5C578DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13546EBD-4021-40B0-B1BB-D30A5C578DF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6AE297E-2A86-40F9-BE0A-4C79AC1D9883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6AE297E-2A86-40F9-BE0A-4C79AC1D9883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6AE297E-2A86-40F9-BE0A-4C79AC1D9883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6AE297E-2A86-40F9-BE0A-4C79AC1D9883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B6BC2D9-326F-40E9-A6D2-F6572676D527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B6BC2D9-326F-40E9-A6D2-F6572676D527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B6BC2D9-326F-40E9-A6D2-F6572676D527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B6BC2D9-326F-40E9-A6D2-F6572676D527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5CCA588-48AC-4A22-86D0-AC916C55E577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5CCA588-48AC-4A22-86D0-AC916C55E577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5CCA588-48AC-4A22-86D0-AC916C55E577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5CCA588-48AC-4A22-86D0-AC916C55E577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6261CF85-F4FB-4727-9620-C4299ACAFFC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6261CF85-F4FB-4727-9620-C4299ACAFFC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6261CF85-F4FB-4727-9620-C4299ACAFFC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6261CF85-F4FB-4727-9620-C4299ACAFFC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -156,6 +188,11 @@ Global
 		{839D84E2-7752-4D8B-A3CB-8F96FD633237} = {BAEF03E4-26BF-40BD-B166-BF3DD4BA375C}
 		{936EC5D1-F857-4EF5-BEEF-A75A65091662} = {BAEF03E4-26BF-40BD-B166-BF3DD4BA375C}
 		{3639FBBC-767C-48A2-9E25-A02F49FFB259} = {BAEF03E4-26BF-40BD-B166-BF3DD4BA375C}
+		{13546EBD-4021-40B0-B1BB-D30A5C578DF7} = {D4110321-52C3-44DB-8B93-7EACE3F25992}
+		{E6AE297E-2A86-40F9-BE0A-4C79AC1D9883} = {D4110321-52C3-44DB-8B93-7EACE3F25992}
+		{3B6BC2D9-326F-40E9-A6D2-F6572676D527} = {D4110321-52C3-44DB-8B93-7EACE3F25992}
+		{F5CCA588-48AC-4A22-86D0-AC916C55E577} = {D4110321-52C3-44DB-8B93-7EACE3F25992}
+		{6261CF85-F4FB-4727-9620-C4299ACAFFC2} = {D4110321-52C3-44DB-8B93-7EACE3F25992}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C764FA00-239B-4498-9C1B-6B93EE1F4393}
