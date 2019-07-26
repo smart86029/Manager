@@ -3,7 +3,8 @@
   <mat-dialog-content class="order-item">
     <div>
       商品項目
-      <mat-radio-group class="product-items" name="productItems" [(ngModel)]="orderItem.productItem">
+      <mat-radio-group class="product-items" name="productItems" [ngModel]="product.productItems[0]"
+        (change)="selectProductItem($event.value)">
         <mat-radio-button class="product-item" *ngFor="let productItem of product.productItems" [value]="productItem">
           {{productItem.name}} {{productItem.price}}
         </mat-radio-button>

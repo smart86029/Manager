@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderItem } from 'src/app/core/order/order-item';
 import { Product } from 'src/app/core/store/product';
+import { ProductItem } from 'src/app/core/store/product-item';
 
 @Component({
   selector: 'app-order-dialog',
@@ -17,9 +18,16 @@ export class OrderDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.product = this.data;
-    this.orderItem.product = this.data;
-    this.orderItem.productItem = this.data.productItems[0];
+    this.orderItem.productId = this.product.id;
+    this.orderItem.productName = this.product.name;
     this.orderItem.quantity = 1;
+    this.selectProductItem(this.product.productItems[0]);
+  }
+
+  selectProductItem(productItem: ProductItem): void {
+    this.orderItem.productItemId = productItem.id;
+    this.orderItem.productItemName = productItem.name;
+    this.orderItem.productItemPrice = productItem.price;
   }
 
   addQuantity(): void {

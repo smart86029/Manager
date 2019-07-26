@@ -37,12 +37,15 @@ namespace MatchaLatte.Ordering.Api.Controllers
         /// <param name="option">分頁查詢。</param>
         /// <returns>所有訂單。</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAsync(OrderOption option)
+        public async Task<IActionResult> GetAsync([FromQuery] OrderOption option)
         {
+            if (option.BuyerId == default)
+                option.BuyerId = currentUser.UserId;
+
             var orders = await orderQueryService.GetOrdersAsync(option);
             Response.Headers.Add("X-Total-Count", orders.ItemCount.ToString());
 
-            return Ok(orders);
+            return Ok(orders.Items);
         }
 
         /// <summary>

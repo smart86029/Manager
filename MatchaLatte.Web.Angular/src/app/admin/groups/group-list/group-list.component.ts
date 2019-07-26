@@ -13,7 +13,7 @@ export class GroupListComponent implements OnInit {
   isLoading = false;
   groups = new PaginationResult<Group>();
   dataSource = new MatTableDataSource<Group>();
-  displayedColumns = ['rowId', 'storeName', 'startOn', 'endOn', 'createdOn', 'action'];
+  displayedColumns = ['rowId', 'productName', 'startOn', 'endOn', 'createdOn', 'action'];
 
   constructor(private groupService: GroupService) { }
 

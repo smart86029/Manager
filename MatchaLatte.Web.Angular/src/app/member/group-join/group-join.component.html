@@ -40,10 +40,8 @@
             <button mat-icon-button color="warn" matTooltip="刪除商品項目" (click)="deleteOrderItem(orderItem)">
               <mat-icon>remove_circle</mat-icon>
             </button>
-            <span matLine>{{orderItem.product.name}}</span>
-            <span matLine>
-              {{orderItem.productItem.name}} ${{orderItem.productItem.price}} X {{orderItem.quantity}}
-            </span>
+            <span matLine>{{orderItem.productName}}</span>
+            <span matLine>{{orderItem.productItemName}} ${{orderItem.productItemPrice}} X {{orderItem.quantity}}</span>
           </mat-list-item>
         </mat-list>
         <div class="total">

@@ -1,10 +1,12 @@
 import { Guid } from '../guid';
-import { Product } from '../store/product';
-import { ProductItem } from '../store/product-item';
 
 export class OrderItem {
   id: Guid;
-  product: Product;
-  productItem: ProductItem;
+  productId: Guid;
+  productName: string;
+  productItemId: Guid;
+  productItemName: string;
+  productItemPrice: number;
+  price: number;
   quantity = 0;
 }

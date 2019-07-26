@@ -58,7 +58,7 @@ export class GroupJoinComponent implements OnInit {
       .subscribe({
         next: () => {
           let temp = 0;
-          this.order.orderItems.map(item => temp += item.productItem.price * item.quantity);
+          this.order.orderItems.map(item => temp += item.productItemPrice * item.quantity);
           this.total = temp;
         }
       });

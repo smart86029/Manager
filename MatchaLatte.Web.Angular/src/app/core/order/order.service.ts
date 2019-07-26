@@ -12,6 +12,10 @@ export class OrderService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getOrders(): Observable<Order[]> {
+    return this.httpClient.get<Order[]>(`${this.ordersUrl}`);
+  }
+
   createOrder(order: Order): Observable<Order> {
     return this.httpClient.post<Order>(`${this.ordersUrl}`, order);
   }

@@ -1,14 +1,12 @@
 ﻿using System;
 
-namespace MatchaLatte.Ordering.App.Commands.Orders
+namespace MatchaLatte.Ordering.App.Queries.Orders
 {
     public class OrderItemDto
     {
-        public Guid ProductId { get; set; }
+        public Guid Id { get; set; }
 
         public string ProductName { get; set; }
-
-        public Guid ProductItemId { get; set; }
 
         public string ProductItemName { get; set; }
 

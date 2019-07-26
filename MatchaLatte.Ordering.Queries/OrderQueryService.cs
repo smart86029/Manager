@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
@@ -28,17 +29,18 @@ namespace MatchaLatte.Ordering.Queries
         {
             var condition = "[BuyerId] = @BuyerId";
             var sql = $@"
-                SELECT [a].[OrderId], [a].[OrderStatus], [a].[CreatedOn]
+                SELECT [a].[Id], [a].[OrderStatus], [a].[CreatedOn],
+                    [b].[Id], [b].[ProductName], [b].[ProductItemName], [b].[ProductItemPrice], [b].[Quantity]
                 FROM (
-                    SELECT [OrderId], [OrderStatus], [CreatedOn]
+                    SELECT [Id], [OrderStatus], [CreatedOn]
                     FROM [Ordering].[Order] AS [a]
                     WHERE {condition}
                 ) AS [a]
 			    LEFT JOIN (
-                    SELECT [OrderItemId], [ProductName], [ProductItemName], [ProductItemPrice], [Quantity], [OrderId]
+                    SELECT [Id], [ProductName], [ProductItemName], [ProductItemPrice], [Quantity], [OrderId]
                     FROM [Ordering].[OrderItem]
-                ) AS [b] ON [a].[OrderId] = [b].[OrderId]
-                ORDER BY [a].[OrderId]
+                ) AS [b] ON [a].[Id] = [b].[OrderId]
+                ORDER BY [a].[Id]
                 OFFSET @Offset ROWS
                 FETCH NEXT @Limit ROWS ONLY";
             var sqlCount = $@"
@@ -54,11 +56,23 @@ namespace MatchaLatte.Ordering.Queries
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var orders = await connection.QueryAsync<OrderSummary>(sql, param);
-                var count = await connection.QuerySingleAsync<int>(sqlCount);
+                var orders = new Dictionary<Guid, OrderSummary>();
+                var queryResult = await connection.QueryAsync(sql, (OrderSummary o, OrderItemDto i) =>
+                {
+                    if (!orders.TryGetValue(o.Id, out OrderSummary order))
+                        orders.Add(o.Id, order = o);
+
+                    if (i == default)
+                        return order;
+
+                    order.OrderItems.Add(i);
+
+                    return order;
+                }, param);
+                var count = await connection.QuerySingleAsync<int>(sqlCount, param);
                 var result = new PaginationResult<OrderSummary>
                 {
-                    Items = orders.AsList(),
+                    Items = queryResult.AsList(),
                     ItemCount = count
                 };
 
