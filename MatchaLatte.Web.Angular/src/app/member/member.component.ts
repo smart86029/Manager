@@ -9,6 +9,7 @@ import { Theme } from '../shared/theme.enum';
   styleUrls: ['./member.component.scss']
 })
 export class MemberComponent implements OnInit {
+  title = 'Matcha Latte';
   selectedTheme = Theme.Strawberry;
 
   constructor(private overlayContainer: OverlayContainer) { }

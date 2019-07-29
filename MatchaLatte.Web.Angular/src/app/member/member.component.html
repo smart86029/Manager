@@ -1,9 +1,10 @@
 <header class="{{selectedTheme}}">
   <nav class="nav">
     <mat-toolbar color="primary">
+      <a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a>
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()"
         *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">AAAAA</mat-icon>
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span class="fill-space"></span>
       <!-- <button mat-icon-button [matMenuTriggerFor]="themeMenu" #themeButton>
