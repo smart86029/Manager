@@ -1,7 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
-
-import { Theme } from '../shared/theme.enum';
+import { ThemeService } from '../core/theme/theme.service';
 
 @Component({
   selector: 'app-member',
@@ -10,11 +9,9 @@ import { Theme } from '../shared/theme.enum';
 })
 export class MemberComponent implements OnInit {
   title = 'Matcha Latte';
-  selectedTheme = Theme.Strawberry;
 
-  constructor(private overlayContainer: OverlayContainer) { }
+  constructor(private themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.overlayContainer.getContainerElement().classList.add(this.selectedTheme);
   }
 }

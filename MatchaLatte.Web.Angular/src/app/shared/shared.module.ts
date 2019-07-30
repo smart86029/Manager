@@ -7,12 +7,14 @@ import { InlineEditorComponent } from './inline-editor/inline-editor.component';
 import { MaterialModule } from './material/material.module';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { ActionNamePipe } from './save-mode/action-name.pipe';
+import { ThemePickerComponent } from './components/theme-picker/theme-picker.component';
 
 @NgModule({
   declarations: [
     ActionNamePipe,
     InlineEditorComponent,
     YesNoPipe,
+    ThemePickerComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { ActionNamePipe } from './save-mode/action-name.pipe';
     ActionNamePipe,
     InlineEditorComponent,
     YesNoPipe,
+    ThemePickerComponent,
   ],
 })
 export class SharedModule { }

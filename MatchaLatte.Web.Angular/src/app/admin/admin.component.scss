@@ -1,5 +1,3 @@
-@import '~@angular/material/theming';
-
 main {
   position: absolute;
   top: 64px;
@@ -32,37 +30,6 @@ screen and (max-width: 959px) and (orientation: landscape) {
 .theme-panel {
   background-color: #fff;
   padding: 8px;
-}
-
-.theme-picker {
-  display: block;
-  min-width: 176px;
-  max-width: 280px;
-  background-color: #fff;
-}
-
-.theme-cell {
-  height: 36px;
-  width: 36px;
-  margin: 8px;
-  overflow: hidden;
-  color: #fff;
-}
-
-.strawberry-primary {
-  background-color: map-get($mat-pink, 500);
-}
-
-.forest-primary {
-  background-color: map-get($mat-teal, 500);
-}
-
-.ocean-primary {
-  background-color: map-get($mat-blue, 500);
-}
-
-.grape-primary {
-  background-color: map-get($mat-deep-purple, 500);
 }
 
 .menu-tree-invisible {
