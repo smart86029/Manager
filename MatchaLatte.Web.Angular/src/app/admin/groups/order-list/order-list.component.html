@@ -2,12 +2,10 @@
   <h2 class="mat-h2">訂單</h2>
   <mat-card>
     <mat-card-content>
-      <mat-paginator [length]="orders.itemCount" [pageSize]="orders.pageSize" [pageSizeOptions]="[5, 10, 20]"
-        (page)="pageEvent = loadOrders($event.pageIndex, $event.pageSize)" showFirstLastButtons></mat-paginator>
-      <table mat-table [dataSource]="dataSource">
+      <table mat-table [dataSource]="orders">
         <ng-container matColumnDef="rowId">
           <th mat-header-cell *matHeaderCellDef>序號</th>
-          <td mat-cell *matCellDef="let i = index">{{orders.pageIndex * orders.pageSize + i + 1}}</td>
+          <td mat-cell *matCellDef="let i = index">{{i + 1}}</td>
         </ng-container>
         <ng-container matColumnDef="createdOn">
           <th mat-header-cell *matHeaderCellDef>訂購日期</th>
@@ -53,7 +51,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-      <p *ngIf="!isLoading && orders.itemCount === 0" class="empty-result">查無資料</p>
+      <p *ngIf="!isLoading && !orders.length" class="empty-result">查無資料</p>
     </mat-card-content>
   </mat-card>
 </div>

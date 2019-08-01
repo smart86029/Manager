@@ -15,9 +15,9 @@ export class OrderService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getOrders(groupId: Guid, pageIndex: number, pageSize: number): Observable<PaginationResult<Order>> {
+  getOrders(pageIndex: number, pageSize: number): Observable<PaginationResult<Order>> {
     const params = new HttpParams()
-      .set('gruopId', groupId.toString())
+      .set('queryType', '0')
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
 
@@ -31,8 +31,17 @@ export class OrderService {
       );
   }
 
+  getGroupOrders(groupId: Guid): Observable<Order[]> {
+    const params = new HttpParams()
+      .set('queryType', '1')
+      .set('groupId', groupId.toString());
+    return this.httpClient.get<Order[]>(`${this.ordersUrl}`, { params });
+  }
+
   getMyOrders(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.ordersUrl}`);
+    const params = new HttpParams()
+      .set('queryType', '2');
+    return this.httpClient.get<Order[]>(`${this.ordersUrl}`, { params });
   }
 
   createOrder(order: Order): Observable<Order> {

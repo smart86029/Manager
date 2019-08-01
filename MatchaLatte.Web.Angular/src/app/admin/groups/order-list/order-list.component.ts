@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'src/app/core/guid';
 import { Order } from 'src/app/core/order/order';
 import { OrderService } from 'src/app/core/order/order.service';
-import { PaginationResult } from 'src/app/core/pagination-result';
 
 @Component({
   selector: 'app-order-list',
@@ -14,28 +12,24 @@ import { PaginationResult } from 'src/app/core/pagination-result';
 export class OrderListComponent implements OnInit {
   isLoading = false;
   groupId: Guid;
-  orders = new PaginationResult<Order>();
-  dataSource = new MatTableDataSource<Order>();
+  orders: Order[];
   displayedColumns = ['rowId', 'createdOn', 'productName', 'productItemName', 'quantity', 'action'];
 
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.groupId = new Guid(this.route.snapshot.paramMap.get('id'));
-    this.loadOrders(0, this.orders.pageSize);
+    this.loadOrders();
   }
 
-  loadOrders(pageIndex: number, pageSize: number): void {
+  loadOrders(): void {
     this.isLoading = true;
     this.orderService
-      .getOrders(this.groupId, pageIndex, pageSize)
+      .getGroupOrders(this.groupId)
       .subscribe({
-        next: orders => {
-          this.orders = orders;
-          this.dataSource.data = orders.items;
-        },
+        next: orders => this.orders = orders,
         complete: () => this.isLoading = false
       });
   }
