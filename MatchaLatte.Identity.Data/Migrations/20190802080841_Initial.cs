@@ -107,6 +107,28 @@ namespace MatchaLatte.Identity.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserRefreshToken",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RefreshToken = table.Column<string>(type: "char(24)", nullable: false),
+                    ExpireOn = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRefreshToken", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserRefreshToken_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRole",
                 schema: "Identity",
                 columns: table => new
@@ -154,6 +176,19 @@ namespace MatchaLatte.Identity.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserRefreshToken_RefreshToken",
+                schema: "Identity",
+                table: "UserRefreshToken",
+                column: "RefreshToken",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRefreshToken_UserId",
+                schema: "Identity",
+                table: "UserRefreshToken",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserRole_RoleId",
                 schema: "Identity",
                 table: "UserRole",
@@ -174,6 +209,10 @@ namespace MatchaLatte.Identity.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "RolePermission",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
+                name: "UserRefreshToken",
                 schema: "Identity");
 
             migrationBuilder.DropTable(

@@ -38,5 +38,21 @@ namespace MatchaLatte.Identity.Api.Controllers
 
             return Ok(token);
         }
+
+        /// <summary>
+        /// 刷新令牌。
+        /// </summary>
+        /// <param name="command">刷新令牌命令。</param>
+        /// <returns>201 Created。</returns>
+        [HttpPost("refresh")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> PostAsync([FromBody] RefreshTokenCommand command)
+        {
+            var token = await tokenService.RefreshTokenAsync(command);
+            if (token == null)
+                return BadRequest();
+
+            return Ok(token);
+        }
     }
 }

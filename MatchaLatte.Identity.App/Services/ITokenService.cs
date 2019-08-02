@@ -7,5 +7,7 @@ namespace MatchaLatte.Identity.App.Services
     public interface ITokenService
     {
         Task<TokenDetail> CreateTokenAsync(CreateTokenCommand command);
+
+        Task<TokenDetail> RefreshTokenAsync(RefreshTokenCommand command);
     }
 }

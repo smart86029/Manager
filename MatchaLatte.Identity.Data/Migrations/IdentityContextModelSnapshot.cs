@@ -16,7 +16,7 @@ namespace MatchaLatte.Identity.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Identity")
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -132,6 +132,29 @@ namespace MatchaLatte.Identity.Data.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ExpireOn");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("char(24)");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RefreshToken")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRefreshToken");
+                });
+
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRole", b =>
                 {
                     b.Property<Guid>("Id")
@@ -160,6 +183,14 @@ namespace MatchaLatte.Identity.Data.Migrations
                     b.HasOne("MatchaLatte.Identity.Domain.Roles.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRefreshToken", b =>
+                {
+                    b.HasOne("MatchaLatte.Identity.Domain.Users.User")
+                        .WithMany("UserRefreshTokens")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -33,6 +33,7 @@ namespace MatchaLatte.Identity.Data
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRefreshTokenConfiguration());
             modelBuilder.ApplyConfiguration(new RolePermissionConfiguration());
 
             var utcDateTimeConverter = new UtcDateTimeConverter();

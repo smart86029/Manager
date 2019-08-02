@@ -13,6 +13,7 @@ namespace MatchaLatte.Identity.Domain.Users
     public class User : AggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
+        private readonly List<UserRefreshToken> userRefreshTokens = new List<UserRefreshToken>();
 
         /// <summary>
         /// 初始化 <see cref="User"/> 類別的新執行個體。
@@ -78,6 +79,12 @@ namespace MatchaLatte.Identity.Domain.Users
         /// </summary>
         /// <value>使用者角色的集合。</value>
         public IReadOnlyCollection<UserRole> UserRoles => userRoles;
+
+        /// <summary>
+        /// 取得更新令牌的集合。
+        /// </summary>
+        /// <value>更新令牌的集合。</value>
+        public IReadOnlyCollection<UserRefreshToken> UserRefreshTokens => userRefreshTokens;
 
         /// <summary>
         /// 更新使用者名稱。
@@ -153,6 +160,19 @@ namespace MatchaLatte.Identity.Domain.Users
             var userRole = userRoles.FirstOrDefault(x => x.RoleId == role.Id);
             if (userRole != default(UserRole))
                 userRoles.Remove(userRole);
+        }
+
+        /// <summary>
+        /// 新增刷新令牌。
+        /// </summary>
+        /// <param name="interval">間隔。</param>
+        /// <returns>刷新令牌。</returns>
+        public string CreateRefreshToken(TimeSpan interval)
+        {
+            var token = new UserRefreshToken(DateTime.UtcNow.Add(interval), Id);
+            userRefreshTokens.Add(token);
+
+            return token.RefreshToken;
         }
     }
 }

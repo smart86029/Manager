@@ -30,6 +30,10 @@ namespace MatchaLatte.Identity.Data.Configurations
             builder.Metadata
                 .FindNavigation(nameof(User.UserRoles))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Metadata
+                .FindNavigation(nameof(User.UserRefreshTokens))
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
