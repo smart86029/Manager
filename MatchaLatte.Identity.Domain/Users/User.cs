@@ -78,13 +78,13 @@ namespace MatchaLatte.Identity.Domain.Users
         /// 取得使用者角色的集合。
         /// </summary>
         /// <value>使用者角色的集合。</value>
-        public IReadOnlyCollection<UserRole> UserRoles => userRoles;
+        public IReadOnlyCollection<UserRole> UserRoles => userRoles.AsReadOnly();
 
         /// <summary>
         /// 取得更新令牌的集合。
         /// </summary>
         /// <value>更新令牌的集合。</value>
-        public IReadOnlyCollection<UserRefreshToken> UserRefreshTokens => userRefreshTokens;
+        public IReadOnlyCollection<UserRefreshToken> UserRefreshTokens => userRefreshTokens.AsReadOnly();
 
         /// <summary>
         /// 更新使用者名稱。
@@ -163,6 +163,16 @@ namespace MatchaLatte.Identity.Domain.Users
         }
 
         /// <summary>
+        /// 是否合法的刷新令牌。
+        /// </summary>
+        /// <param name="refreshToken">刷新令牌。</param>
+        /// <returns>合法返回是，否則為否。</returns>
+        public bool IsValidRefreshToken(string refreshToken)
+        {
+            return userRefreshTokens.Any(x => x.RefreshToken == refreshToken && !x.IsExpired);
+        }
+
+        /// <summary>
         /// 新增刷新令牌。
         /// </summary>
         /// <param name="interval">間隔。</param>
@@ -173,6 +183,16 @@ namespace MatchaLatte.Identity.Domain.Users
             userRefreshTokens.Add(token);
 
             return token.RefreshToken;
+        }
+
+        /// <summary>
+        /// 移除刷新令牌。
+        /// </summary>
+        /// <param name="refreshToken">刷新令牌。</param>
+        public void RemoveRefreshToken(string refreshToken)
+        {
+            var token = userRefreshTokens.First(t => t.RefreshToken == refreshToken);
+            userRefreshTokens.Remove(token);
         }
     }
 }

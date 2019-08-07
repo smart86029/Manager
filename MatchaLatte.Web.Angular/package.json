@@ -21,7 +21,6 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
-    "@auth0/angular-jwt": "^3.0.0",
     "@coachcare/datepicker": "^1.0.0",
     "moment-timezone": "^0.5.26",
     "rxjs": "~6.4.0",

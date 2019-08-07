@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,8 @@ namespace MatchaLatte.Identity.Services
     /// </summary>
     public class TokenService : ITokenService
     {
-        private const int ExpireMinutes = 2 * 60 * 60;
-        private const int RefreshTokenExpireMinutes = 24 * 60 * 60;
+        private const int AccessTokenExpireSeconds = 10 * 60;
+        private const int RefreshTokenExpireSeconds = 24 * 60 * 60;
 
         private readonly IIdentityUnitOfWork unitOfWork;
         private readonly IUserRepository userRepository;
@@ -53,28 +54,17 @@ namespace MatchaLatte.Identity.Services
             if (user == default)
                 return default;
 
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var securityToken = new JwtSecurityToken(jwtSettings.Issuer,
-                jwtSettings.Audience,
-                claims,
-                expires: DateTime.UtcNow.AddSeconds(ExpireMinutes),
-                signingCredentials: credentials);
-            var handler = new JwtSecurityTokenHandler();
-            var refreshToken = user.CreateRefreshToken(TimeSpan.FromSeconds(RefreshTokenExpireMinutes));
+            var accessToken = CreateAccessToken(user);
+            var refreshToken = user.CreateRefreshToken(TimeSpan.FromSeconds(RefreshTokenExpireSeconds));
 
             userRepository.Update(user);
             await unitOfWork.CommitAsync();
 
             var token = new TokenDetail
             {
-                AccessToken = handler.WriteToken(securityToken),
+                AccessToken = accessToken,
                 TokenType = "Bearer",
-                ExpiresIn = ExpireMinutes,
+                ExpiresIn = AccessTokenExpireSeconds,
                 RefreshToken = refreshToken
             };
 
@@ -86,9 +76,65 @@ namespace MatchaLatte.Identity.Services
         /// </summary>
         /// <param name="command">刷新令牌命令。</param>
         /// <returns>令牌。</returns>
-        public Task<TokenDetail> RefreshTokenAsync(RefreshTokenCommand command)
+        public async Task<TokenDetail> RefreshTokenAsync(RefreshTokenCommand command)
         {
-            throw new NotImplementedException();
+            var principal = GetPrincipal(command.AccessToken);
+            Guid.TryParse(principal.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value, out var userId);
+            var user = await userRepository.GetUserAsync(userId);
+            if (user == default)
+                return default;
+
+            if (!user.IsValidRefreshToken(command.RefreshToken))
+                return default;
+
+            user.RemoveRefreshToken(command.RefreshToken);
+            var accessToken = CreateAccessToken(user);
+            var refreshToken = user.CreateRefreshToken(TimeSpan.FromSeconds(RefreshTokenExpireSeconds));
+
+            userRepository.Update(user);
+            await unitOfWork.CommitAsync();
+
+            var token = new TokenDetail
+            {
+                AccessToken = accessToken,
+                TokenType = "Bearer",
+                ExpiresIn = AccessTokenExpireSeconds,
+                RefreshToken = refreshToken
+            };
+
+            return token;
+        }
+
+        private ClaimsPrincipal GetPrincipal(string accessToken)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            return handler.ValidateToken(accessToken, new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = securityKey,
+                ValidateLifetime = false
+            }, out SecurityToken validatedToken);
+        }
+
+        private string CreateAccessToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var securityToken = new JwtSecurityToken(
+                jwtSettings.Issuer,
+                jwtSettings.Audience,
+                claims,
+                expires: DateTime.UtcNow.AddSeconds(AccessTokenExpireSeconds),
+                signingCredentials: credentials);
+            var handler = new JwtSecurityTokenHandler();
+
+            return handler.WriteToken(securityToken);
         }
     }
 }

@@ -49,13 +49,13 @@ namespace MatchaLatte.Identity.Domain.Roles
         /// 取得使用者角色的集合。
         /// </summary>
         /// <value>使用者角色的集合。</value>
-        public IReadOnlyCollection<UserRole> UserRoles => userRoles;
+        public IReadOnlyCollection<UserRole> UserRoles => userRoles.AsReadOnly();
 
         /// <summary>
         /// 取得角色權限的集合。
         /// </summary>
         /// <value>角色權限的集合。</value>
-        public IReadOnlyCollection<RolePermission> RolePermissions => rolePermissions;
+        public IReadOnlyCollection<RolePermission> RolePermissions => rolePermissions.AsReadOnly();
 
         /// <summary>
         /// 更新名稱。
