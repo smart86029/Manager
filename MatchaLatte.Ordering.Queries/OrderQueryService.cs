@@ -48,14 +48,14 @@ namespace MatchaLatte.Ordering.Queries
 
             var sql = $@"
                 SELECT [a].[Id], [a].[OrderStatus], [a].[CreatedOn],
-                    [b].[Id], [b].[ProductName], [b].[ProductItemName], [b].[ProductItemPrice], [b].[Quantity]
+                    [b].[Id], [b].[ProductId], [b].[ProductName], [b].[ProductItemId], [b].[ProductItemName], [b].[ProductItemPrice], [b].[Quantity]
                 FROM (
                     SELECT [Id], [OrderStatus], [CreatedOn]
                     FROM [Ordering].[Order] AS [a]
                     {condition}
                 ) AS [a]
 			    LEFT JOIN (
-                    SELECT [Id], [ProductName], [ProductItemName], [ProductItemPrice], [Quantity], [OrderId]
+                    SELECT [Id], [ProductId], [ProductName], [ProductItemId], [ProductItemName], [ProductItemPrice], [Quantity], [OrderId]
                     FROM [Ordering].[OrderItem]
                 ) AS [b] ON [a].[Id] = [b].[OrderId]
                 ORDER BY [a].[Id]
