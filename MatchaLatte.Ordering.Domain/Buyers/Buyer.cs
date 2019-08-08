@@ -19,28 +19,23 @@ namespace MatchaLatte.Ordering.Domain.Buyers
         /// 初始化 <see cref="Buyer"/> 類別的新執行個體。
         /// </summary>
         /// <param name="userId">使用者 ID。</param>
-        /// <param name="firstName">名。</param>
-        /// <param name="lastName">姓。</param>
-        public Buyer(Guid userId, string firstName, string lastName)
+        /// <param name="name">姓名。</param>
+        /// <param name="displayName">顯示名稱。</param>
+        public Buyer(Guid userId, string name, string displayName)
         {
             Id = userId;
-            FirstName = firstName;
-            LastName = lastName;
+            Name = name?.Trim() ?? string.Empty;
+            DisplayName = displayName?.Trim() ?? string.Empty;
         }
 
         /// <summary>
-        /// 取得名。
+        /// 取得姓名。
         /// </summary>
-        public string FirstName { get; private set; }
-
-        /// <summary>
-        /// 取得姓。
-        /// </summary>
-        public string LastName { get; private set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// 取得顯示名稱。
         /// </summary>
-        public string DisplayName => FirstName + LastName;
+        public string DisplayName { get; private set; }
     }
 }

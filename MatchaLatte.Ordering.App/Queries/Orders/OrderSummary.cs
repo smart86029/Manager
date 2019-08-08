@@ -11,6 +11,8 @@ namespace MatchaLatte.Ordering.App.Queries.Orders
 
         public Guid BuyerId { get; set; }
 
+        public string BuyerName { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public ICollection<OrderItemDto> OrderItems { get; set; } = new List<OrderItemDto>();

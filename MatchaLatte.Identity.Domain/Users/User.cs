@@ -27,17 +27,17 @@ namespace MatchaLatte.Identity.Domain.Users
         /// </summary>
         /// <param name="userName">使用者名稱。</param>
         /// <param name="password">密碼。</param>
-        /// <param name="firstName">名。</param>
-        /// <param name="lastName">姓。</param>
+        /// <param name="name">姓名。</param>
+        /// <param name="displayName">顯示名稱。</param>
         /// <param name="isEnabled">是否啟用。</param>
-        public User(string userName, string password, string firstName, string lastName, bool isEnabled)
+        public User(string userName, string password, string name, string displayName, bool isEnabled)
         {
             UserName = userName;
             PasswordHash = CryptographyUtility.Hash(password);
-            FirstName = firstName ?? string.Empty;
-            LastName = lastName ?? string.Empty;
+            Name = name?.Trim() ?? string.Empty;
+            DisplayName = displayName?.Trim() ?? string.Empty;
             IsEnabled = isEnabled;
-            RaiseDomainEvent(new UserCreated(Id, FirstName, LastName));
+            RaiseDomainEvent(new UserCreated(Id, Name, DisplayName));
         }
 
         /// <summary>
@@ -53,14 +53,14 @@ namespace MatchaLatte.Identity.Domain.Users
         public string PasswordHash { get; private set; }
 
         /// <summary>
-        /// 取得名。
+        /// 取得姓名。
         /// </summary>
-        public string FirstName { get; private set; }
+        public string Name { get; private set; }
 
         /// <summary>
-        /// 取得姓。
+        /// 取得顯示名稱。
         /// </summary>
-        public string LastName { get; private set; }
+        public string DisplayName { get; private set; }
 
         /// <summary>
         /// 取得值，這個值指出是否啟用。
@@ -106,21 +106,21 @@ namespace MatchaLatte.Identity.Domain.Users
         }
 
         /// <summary>
-        /// 更新名。
+        /// 更新姓名。
         /// </summary>
-        /// <param name="firstName">名。</param>
-        public void UpdateFirstName(string firstName)
+        /// <param name="name">姓名。</param>
+        public void UpdateName(string name)
         {
-            FirstName = firstName ?? string.Empty;
+            Name = name?.Trim() ?? string.Empty;
         }
 
         /// <summary>
-        /// 更新姓。
+        /// 更新顯示名稱。
         /// </summary>
-        /// <param name="lastName">姓。</param>
-        public void UpdateLastName(string lastName)
+        /// <param name="displayName">顯示名稱。</param>
+        public void UpdateDisplayName(string displayName)
         {
-            LastName = lastName ?? string.Empty;
+            DisplayName = displayName?.Trim() ?? string.Empty;
         }
 
         /// <summary>

@@ -68,8 +68,8 @@ namespace MatchaLatte.Identity.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(maxLength: 32, nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(maxLength: 32, nullable: false),
-                    LastName = table.Column<string>(maxLength: 32, nullable: false),
+                    Name = table.Column<string>(maxLength: 32, nullable: false),
+                    DisplayName = table.Column<string>(maxLength: 32, nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false)
                 },

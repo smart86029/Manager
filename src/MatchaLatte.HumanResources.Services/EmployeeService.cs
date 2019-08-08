@@ -26,8 +26,8 @@ namespace MatchaLatte.HumanResources.Services
                 Items = employees
                     .Select(e => new EmployeeSummary
                     {
-                        FirstName = e.FirstName,
-                        LastName =e.LastName,
+                        FirstName = e.Name,
+                        LastName =e.DisplayName,
                     })
                     .ToList(),
                 ItemCount = count

@@ -108,13 +108,13 @@ namespace MatchaLatte.Identity.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(32);
 
                     b.Property<bool>("IsEnabled");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);
 

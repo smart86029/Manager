@@ -11,14 +11,14 @@ namespace MatchaLatte.HumanResources.Domain
     public abstract class Person : AggregateRoot
     {
         /// <summary>
-        /// 取得名。
+        /// 取得姓名。
         /// </summary>
-        public string FirstName { get; private set; }
+        public string Name { get; private set; }
 
         /// <summary>
-        /// 取得姓。
+        /// 取得顯示名稱。
         /// </summary>
-        public string LastName { get; private set; }
+        public string DisplayName { get; private set; }
 
         /// <summary>
         /// 取得出生日期。

@@ -5,17 +5,17 @@ namespace MatchaLatte.Identity.Domain.Users
 {
     public class UserCreated : DomainEvent
     {
-        public UserCreated(Guid userId, string firstName, string lastName)
+        public UserCreated(Guid userId, string name, string displayName)
         {
             UserId = userId;
-            FirstName = firstName;
-            LastName = lastName;
+            Name = name;
+            DisplayName = displayName;
         }
 
         public Guid UserId { get; private set; }
 
-        public string FirstName { get; private set; }
+        public string Name { get; private set; }
 
-        public string LastName { get; private set; }
+        public string DisplayName { get; private set; }
     }
 }

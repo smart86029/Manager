@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Identity.Data.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20190802080841_Initial")]
+    [Migration("20190808075144_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,13 +110,13 @@ namespace MatchaLatte.Identity.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(32);
 
                     b.Property<bool>("IsEnabled");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);
 
