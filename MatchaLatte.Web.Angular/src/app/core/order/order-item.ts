@@ -7,6 +7,5 @@ export class OrderItem {
   productItemId: Guid;
   productItemName: string;
   productItemPrice: number;
-  price: number;
   quantity = 0;
 }

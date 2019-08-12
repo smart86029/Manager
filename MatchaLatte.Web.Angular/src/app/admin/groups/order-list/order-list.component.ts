@@ -15,8 +15,10 @@ export class OrderListComponent implements OnInit {
   groupId: Guid;
   orders: Order[];
   orderItems: OrderItem[];
+  totalPrice = 0;
+  totalQuantity = 0;
   displayedColumns = ['rowId', 'createdOn', 'productName', 'productItemName', 'quantity', 'action'];
-  orderItemColumns = ['rowId', 'productName', 'productItemName', 'quantity'];
+  orderItemColumns = ['rowId', 'productName', 'productItemName', 'productItemPrice', 'quantity'];
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +44,8 @@ export class OrderListComponent implements OnInit {
             } else {
               temp[groupKey].quantity += item.quantity;
             }
+            this.totalPrice += item.productItemPrice * item.quantity;
+            this.totalQuantity += item.quantity;
             return temp;
           }, {});
 

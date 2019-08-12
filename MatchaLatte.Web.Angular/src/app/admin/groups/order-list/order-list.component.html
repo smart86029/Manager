@@ -61,22 +61,32 @@
             <ng-container matColumnDef="rowId">
               <th mat-header-cell *matHeaderCellDef>序號</th>
               <td mat-cell *matCellDef="let i = index">{{i + 1}}</td>
+              <td mat-footer-cell *matFooterCellDef>總計</td>
             </ng-container>
             <ng-container matColumnDef="productName">
               <th mat-header-cell *matHeaderCellDef>商品</th>
               <td mat-cell *matCellDef="let orderItem">{{orderItem.productName}}</td>
+              <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
             <ng-container matColumnDef="productItemName">
               <th mat-header-cell *matHeaderCellDef>商品項目</th>
               <td mat-cell *matCellDef="let orderItem">{{orderItem.productItemName}}</td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container matColumnDef="productItemPrice">
+              <th mat-header-cell *matHeaderCellDef>價格</th>
+              <td mat-cell *matCellDef="let orderItem">{{orderItem.productItemPrice}}</td>
+              <td mat-footer-cell *matFooterCellDef>{{totalPrice}}</td>
             </ng-container>
             <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef>數量</th>
               <td mat-cell *matCellDef="let orderItem">{{orderItem.quantity}}</td>
+              <td mat-footer-cell *matFooterCellDef>{{totalQuantity}}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="orderItemColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: orderItemColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="orderItemColumns"></tr>
           </table>
           <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
           <p *ngIf="!isLoading && !orderItems.length" class="empty-result">查無資料</p>
