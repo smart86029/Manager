@@ -3,42 +3,46 @@
 
 $app-typography: mat-typography-config($font-family: 'Noto Sans TC, sans-serif');
 @include mat-core($app-typography);
-$strawberry-primary: mat-palette($mat-pink);
-$strawberry-accent: mat-palette($mat-pink);
-$strawberry-warn: mat-palette($mat-red);
-$strawberry-theme: mat-light-theme($strawberry-primary, $strawberry-accent, $strawberry-warn);
 
-.strawberry-theme {
-  @include angular-material-theme($strawberry-theme);
-  @include mat-datepicker-theme($strawberry-theme);
-}
+$app-themes:
+  (
+    name: 'strawberry',
+    primary: mat-palette($mat-pink),
+    accent: mat-palette($mat-pink),
+    warn: mat-palette($mat-red)
+  ),
+  (
+    name: 'forest',
+    primary: mat-palette($mat-teal),
+    accent: mat-palette($mat-pink),
+    warn: mat-palette($mat-red)
+  ),
+  (
+    name: 'ocean',
+    primary: mat-palette($mat-blue),
+    accent: mat-palette($mat-deep-orange),
+    warn: mat-palette($mat-red)
+  ),
+  (
+    name: 'grape',
+    primary: mat-palette($mat-deep-purple),
+    accent: mat-palette($mat-pink),
+    warn: mat-palette($mat-red)
+  );
 
-$forest-primary: mat-palette($mat-teal);
-$forest-accent: mat-palette($mat-pink);
-$forest-warn: mat-palette($mat-red);
-$forest-theme: mat-light-theme($forest-primary, $forest-accent, $forest-warn);
+@each $app-theme in $app-themes {
+  $name: map-get($app-theme, name);
+  $primary: map-get($app-theme, primary);
+  $accent: map-get($app-theme, accent);
+  $warn: map-get($app-theme, warn);
+  $theme: mat-light-theme($primary, $accent, $warn);
 
-.forest-theme {
-  @include angular-material-theme($forest-theme);
-  @include mat-datepicker-theme($forest-theme);
-}
+  .#{$name}-theme {
+    @include angular-material-theme($theme);
+    @include mat-datepicker-theme($theme);
 
-$ocean-primary: mat-palette($mat-blue);
-$ocean-accent: mat-palette($mat-deep-orange);
-$ocean-warn: mat-palette($mat-red);
-$ocean-theme: mat-light-theme($ocean-primary, $ocean-accent, $ocean-warn);
-
-.ocean-theme {
-  @include angular-material-theme($ocean-theme);
-  @include mat-datepicker-theme($ocean-theme);
-}
-
-$grape-primary: mat-palette($mat-deep-purple);
-$grape-accent: mat-palette($mat-pink);
-$grape-warn: mat-palette($mat-red);
-$grape-theme: mat-light-theme($grape-primary, $grape-accent, $grape-warn);
-
-.grape-theme {
-  @include angular-material-theme($grape-theme);
-  @include mat-datepicker-theme($grape-theme);
+    .mat-list-item.primary {
+      color: mat-color($primary);
+    }
+  }
 }
