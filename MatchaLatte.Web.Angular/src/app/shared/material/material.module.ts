@@ -26,6 +26,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
@@ -71,6 +72,7 @@ import { AppPaginatorIntl } from './app-paginator-intl';
     MatSnackBarModule,
     MatStepperModule,
     MatTableModule,
+    MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,

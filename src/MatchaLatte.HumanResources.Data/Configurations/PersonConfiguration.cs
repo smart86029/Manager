@@ -9,12 +9,12 @@ namespace MatchaLatte.HumanResources.Data.Configurations
         public void Configure(EntityTypeBuilder<Person> builder)
         {
             builder
-                .Property(p => p.FirstName)
+                .Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(32);
 
             builder
-                .Property(p => p.LastName)
+                .Property(p => p.DisplayName)
                 .IsRequired()
                 .HasMaxLength(32);
 

@@ -37,8 +37,8 @@ namespace MatchaLatte.Ordering.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 32, nullable: false),
-                    LastName = table.Column<string>(maxLength: 32, nullable: false)
+                    Name = table.Column<string>(maxLength: 32, nullable: false),
+                    DisplayName = table.Column<string>(maxLength: 32, nullable: false)
                 },
                 constraints: table =>
                 {

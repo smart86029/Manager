@@ -18,17 +18,21 @@ namespace MatchaLatte.Identity.Data.Configurations
                 .IsUnique();
 
             builder
-                .Property(u => u.FirstName)
+                .Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(32);
 
             builder
-                .Property(u => u.LastName)
+                .Property(u => u.DisplayName)
                 .IsRequired()
                 .HasMaxLength(32);
 
             builder.Metadata
                 .FindNavigation(nameof(User.UserRoles))
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Metadata
+                .FindNavigation(nameof(User.UserRefreshTokens))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }

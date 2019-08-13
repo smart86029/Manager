@@ -20,7 +20,7 @@ namespace MatchaLatte.Ordering.App.EventHandlers.Users
 
         public async Task HandleAsync(UserCreated @event)
         {
-            var buyer = new Buyer(@event.UserId, @event.FirstName, @event.LastName);
+            var buyer = new Buyer(@event.UserId, @event.Name, @event.DisplayName);
 
             buyerRepository.Add(buyer);
 

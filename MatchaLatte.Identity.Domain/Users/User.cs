@@ -13,6 +13,7 @@ namespace MatchaLatte.Identity.Domain.Users
     public class User : AggregateRoot
     {
         private readonly List<UserRole> userRoles = new List<UserRole>();
+        private readonly List<UserRefreshToken> userRefreshTokens = new List<UserRefreshToken>();
 
         /// <summary>
         /// 初始化 <see cref="User"/> 類別的新執行個體。
@@ -26,17 +27,17 @@ namespace MatchaLatte.Identity.Domain.Users
         /// </summary>
         /// <param name="userName">使用者名稱。</param>
         /// <param name="password">密碼。</param>
-        /// <param name="firstName">名。</param>
-        /// <param name="lastName">姓。</param>
+        /// <param name="name">姓名。</param>
+        /// <param name="displayName">顯示名稱。</param>
         /// <param name="isEnabled">是否啟用。</param>
-        public User(string userName, string password, string firstName, string lastName, bool isEnabled)
+        public User(string userName, string password, string name, string displayName, bool isEnabled)
         {
             UserName = userName;
             PasswordHash = CryptographyUtility.Hash(password);
-            FirstName = firstName ?? string.Empty;
-            LastName = lastName ?? string.Empty;
+            Name = name?.Trim() ?? string.Empty;
+            DisplayName = displayName?.Trim() ?? string.Empty;
             IsEnabled = isEnabled;
-            RaiseDomainEvent(new UserCreated(Id, FirstName, LastName));
+            RaiseDomainEvent(new UserCreated(Id, Name, DisplayName));
         }
 
         /// <summary>
@@ -52,14 +53,14 @@ namespace MatchaLatte.Identity.Domain.Users
         public string PasswordHash { get; private set; }
 
         /// <summary>
-        /// 取得名。
+        /// 取得姓名。
         /// </summary>
-        public string FirstName { get; private set; }
+        public string Name { get; private set; }
 
         /// <summary>
-        /// 取得姓。
+        /// 取得顯示名稱。
         /// </summary>
-        public string LastName { get; private set; }
+        public string DisplayName { get; private set; }
 
         /// <summary>
         /// 取得值，這個值指出是否啟用。
@@ -77,7 +78,13 @@ namespace MatchaLatte.Identity.Domain.Users
         /// 取得使用者角色的集合。
         /// </summary>
         /// <value>使用者角色的集合。</value>
-        public IReadOnlyCollection<UserRole> UserRoles => userRoles;
+        public IReadOnlyCollection<UserRole> UserRoles => userRoles.AsReadOnly();
+
+        /// <summary>
+        /// 取得更新令牌的集合。
+        /// </summary>
+        /// <value>更新令牌的集合。</value>
+        public IReadOnlyCollection<UserRefreshToken> UserRefreshTokens => userRefreshTokens.AsReadOnly();
 
         /// <summary>
         /// 更新使用者名稱。
@@ -99,21 +106,21 @@ namespace MatchaLatte.Identity.Domain.Users
         }
 
         /// <summary>
-        /// 更新名。
+        /// 更新姓名。
         /// </summary>
-        /// <param name="firstName">名。</param>
-        public void UpdateFirstName(string firstName)
+        /// <param name="name">姓名。</param>
+        public void UpdateName(string name)
         {
-            FirstName = firstName ?? string.Empty;
+            Name = name?.Trim() ?? string.Empty;
         }
 
         /// <summary>
-        /// 更新姓。
+        /// 更新顯示名稱。
         /// </summary>
-        /// <param name="lastName">姓。</param>
-        public void UpdateLastName(string lastName)
+        /// <param name="displayName">顯示名稱。</param>
+        public void UpdateDisplayName(string displayName)
         {
-            LastName = lastName ?? string.Empty;
+            DisplayName = displayName?.Trim() ?? string.Empty;
         }
 
         /// <summary>
@@ -153,6 +160,39 @@ namespace MatchaLatte.Identity.Domain.Users
             var userRole = userRoles.FirstOrDefault(x => x.RoleId == role.Id);
             if (userRole != default(UserRole))
                 userRoles.Remove(userRole);
+        }
+
+        /// <summary>
+        /// 是否合法的刷新令牌。
+        /// </summary>
+        /// <param name="refreshToken">刷新令牌。</param>
+        /// <returns>合法返回是，否則為否。</returns>
+        public bool IsValidRefreshToken(string refreshToken)
+        {
+            return userRefreshTokens.Any(x => x.RefreshToken == refreshToken && !x.IsExpired);
+        }
+
+        /// <summary>
+        /// 新增刷新令牌。
+        /// </summary>
+        /// <param name="interval">間隔。</param>
+        /// <returns>刷新令牌。</returns>
+        public string CreateRefreshToken(TimeSpan interval)
+        {
+            var token = new UserRefreshToken(DateTime.UtcNow.Add(interval), Id);
+            userRefreshTokens.Add(token);
+
+            return token.RefreshToken;
+        }
+
+        /// <summary>
+        /// 移除刷新令牌。
+        /// </summary>
+        /// <param name="refreshToken">刷新令牌。</param>
+        public void RemoveRefreshToken(string refreshToken)
+        {
+            var token = userRefreshTokens.First(t => t.RefreshToken == refreshToken);
+            userRefreshTokens.Remove(token);
         }
     }
 }

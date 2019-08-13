@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.Identity.Data.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20190709092453_Initial")]
+    [Migration("20190808075144_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace MatchaLatte.Identity.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Identity")
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -110,13 +110,13 @@ namespace MatchaLatte.Identity.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(32);
 
                     b.Property<bool>("IsEnabled");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);
 
@@ -132,6 +132,29 @@ namespace MatchaLatte.Identity.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ExpireOn");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("char(24)");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RefreshToken")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRefreshToken");
                 });
 
             modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRole", b =>
@@ -162,6 +185,14 @@ namespace MatchaLatte.Identity.Data.Migrations
                     b.HasOne("MatchaLatte.Identity.Domain.Roles.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MatchaLatte.Identity.Domain.Users.UserRefreshToken", b =>
+                {
+                    b.HasOne("MatchaLatte.Identity.Domain.Users.User")
+                        .WithMany("UserRefreshTokens")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

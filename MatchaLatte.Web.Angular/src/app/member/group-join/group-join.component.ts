@@ -93,7 +93,7 @@ export class GroupJoinComponent implements OnInit {
     this.orderService
       .createOrder(this.order)
       .subscribe({
-        next: order => this.router.navigate(['/'])
+        next: order => this.router.navigate(['orders'])
       });
   }
 }

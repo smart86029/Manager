@@ -9,12 +9,12 @@ namespace MatchaLatte.Ordering.Data.Configurations
         public void Configure(EntityTypeBuilder<Buyer> builder)
         {
             builder
-                .Property(b => b.FirstName)
+                .Property(b => b.Name)
                 .IsRequired()
                 .HasMaxLength(32);
 
             builder
-                .Property(b => b.LastName)
+                .Property(b => b.DisplayName)
                 .IsRequired()
                 .HasMaxLength(32);
 

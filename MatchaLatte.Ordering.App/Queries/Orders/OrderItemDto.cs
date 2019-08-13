@@ -6,7 +6,11 @@ namespace MatchaLatte.Ordering.App.Queries.Orders
     {
         public Guid Id { get; set; }
 
+        public Guid ProductId { get; set; }
+
         public string ProductName { get; set; }
+
+        public Guid ProductItemId { get; set; }
 
         public string ProductItemName { get; set; }
 

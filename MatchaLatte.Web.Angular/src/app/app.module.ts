@@ -2,10 +2,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
@@ -18,14 +18,10 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => localStorage.getItem('access_token'),
-        whitelistedDomains: [/^null$/]
-      }
-    })
+    AuthModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

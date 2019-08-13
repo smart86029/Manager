@@ -1,5 +1,4 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
@@ -10,7 +9,8 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { Menu } from '../core/menu/menu';
 import { MenuService } from '../core/menu/menu.service';
-import { Theme } from '../shared/theme.enum';
+import { Theme } from '../core/theme/theme.enum';
+import { ThemeService } from '../core/theme/theme.service';
 
 @Component({
   selector: 'app-admin',
@@ -19,8 +19,7 @@ import { Theme } from '../shared/theme.enum';
 })
 export class AdminComponent implements OnInit {
   title = 'Matcha Latte';
-  selectedTheme = Theme.Strawberry;
-  theme = Theme;
+  theme: Theme;
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
@@ -29,20 +28,18 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private overlayContainer: OverlayContainer,
     private router: Router,
     private menuService: MenuService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.overlayContainer.getContainerElement().classList.add(this.selectedTheme);
-    this.menuService.menus$.subscribe(data => this.nestedDataSource.data = data);
-  }
-
-  changeTheme(theme: Theme): void {
-    this.overlayContainer.getContainerElement().classList.remove(this.selectedTheme);
-    this.overlayContainer.getContainerElement().classList.add(theme);
-    this.selectedTheme = theme;
+    this.menuService.menus$.subscribe(menus => {
+      this.nestedDataSource.data = menus;
+      this.nestedTreeControl.dataNodes = menus;
+      this.nestedTreeControl.expandAll();
+    });
+    this.themeService.theme$.subscribe(theme => this.theme = theme);
   }
 
   getChildren(menu: Menu): Observable<Menu[]> {

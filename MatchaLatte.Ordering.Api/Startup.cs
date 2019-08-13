@@ -40,29 +40,29 @@ namespace MatchaLatte.Ordering.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("Ordering");
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove(JwtRegisteredClaimNames.Sub);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<PictureSettings>(Configuration.GetSection("Picture"));
             services.AddDbContext<OrderingContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(Configuration.GetConnectionString("Ordering"));
             });
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                };
-            });
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+                });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<CurrentUser, CurrentUser>();
 
@@ -71,7 +71,7 @@ namespace MatchaLatte.Ordering.Api
             containerBuilder.RegisterModule(new CommandsModule());
             containerBuilder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
             containerBuilder.RegisterModule(new DataModule());
-            containerBuilder.RegisterModule(new QueriesModule(connectionString));
+            containerBuilder.RegisterModule(new QueriesModule(Configuration.GetConnectionString("Ordering")));
             containerBuilder.Register(c => c.Resolve<IOptions<PictureSettings>>().Value);
             containerBuilder.Populate(services);
 

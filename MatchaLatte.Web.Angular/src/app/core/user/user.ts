@@ -5,8 +5,8 @@ export class User {
   id: Guid;
   userName: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  displayName: string;
   isEnabled: boolean;
   roles: Role[];
 }
