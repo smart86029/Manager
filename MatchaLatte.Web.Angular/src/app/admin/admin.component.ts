@@ -34,7 +34,11 @@ export class AdminComponent implements OnInit {
     private themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.menuService.menus$.subscribe(data => this.nestedDataSource.data = data);
+    this.menuService.menus$.subscribe(menus => {
+      this.nestedDataSource.data = menus;
+      this.nestedTreeControl.dataNodes = menus;
+      this.nestedTreeControl.expandAll();
+    });
     this.themeService.theme$.subscribe(theme => this.theme = theme);
   }
 
