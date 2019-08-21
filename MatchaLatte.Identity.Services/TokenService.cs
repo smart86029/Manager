@@ -10,6 +10,8 @@ using MatchaLatte.Identity.App.Commands.Tokens;
 using MatchaLatte.Identity.App.Queries.Tokens;
 using MatchaLatte.Identity.App.Services;
 using MatchaLatte.Identity.Domain;
+using MatchaLatte.Identity.Domain.Permissions;
+using MatchaLatte.Identity.Domain.Roles;
 using MatchaLatte.Identity.Domain.Users;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,11 +22,13 @@ namespace MatchaLatte.Identity.Services
     /// </summary>
     public class TokenService : ITokenService
     {
-        private const int AccessTokenExpireSeconds = 10 * 60;
+        private const int AccessTokenExpireSeconds = 60 * 60;
         private const int RefreshTokenExpireSeconds = 24 * 60 * 60;
 
         private readonly IIdentityUnitOfWork unitOfWork;
         private readonly IUserRepository userRepository;
+        private readonly IRoleRepository roleRepository;
+        private readonly IPermissionRepository permissionRepository;
         private readonly JwtSettings jwtSettings;
         private readonly SymmetricSecurityKey securityKey;
 
@@ -34,10 +38,17 @@ namespace MatchaLatte.Identity.Services
         /// <param name="unitOfWork">工作單元。</param>
         /// <param name="userRepository">使用者存放庫。</param>
         /// <param name="jwtSettings">JWT 設定。</param>
-        public TokenService(IIdentityUnitOfWork unitOfWork, IUserRepository userRepository, JwtSettings jwtSettings)
+        public TokenService(
+            IIdentityUnitOfWork unitOfWork,
+            IUserRepository userRepository, 
+            IRoleRepository roleRepository,
+            IPermissionRepository permissionRepository,
+            JwtSettings jwtSettings)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            this.roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
+            this.permissionRepository = permissionRepository ?? throw new ArgumentNullException(nameof(permissionRepository));
             this.jwtSettings = jwtSettings;
             securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
         }
@@ -54,7 +65,7 @@ namespace MatchaLatte.Identity.Services
             if (user == default)
                 return default;
 
-            var accessToken = CreateAccessToken(user);
+            var accessToken = await CreateAccessTokenAsync(user);
             var refreshToken = user.CreateRefreshToken(TimeSpan.FromSeconds(RefreshTokenExpireSeconds));
 
             userRepository.Update(user);
@@ -88,7 +99,7 @@ namespace MatchaLatte.Identity.Services
                 return default;
 
             user.RemoveRefreshToken(command.RefreshToken);
-            var accessToken = CreateAccessToken(user);
+            var accessToken = CreateAccessTokenAsync(user);
             var refreshToken = user.CreateRefreshToken(TimeSpan.FromSeconds(RefreshTokenExpireSeconds));
 
             userRepository.Update(user);
@@ -96,7 +107,7 @@ namespace MatchaLatte.Identity.Services
 
             var token = new TokenDetail
             {
-                AccessToken = accessToken,
+                AccessToken = await accessToken,
                 TokenType = "Bearer",
                 ExpiresIn = AccessTokenExpireSeconds,
                 RefreshToken = refreshToken
@@ -118,12 +129,13 @@ namespace MatchaLatte.Identity.Services
             }, out SecurityToken validatedToken);
         }
 
-        private string CreateAccessToken(User user)
+        private async Task<string> CreateAccessTokenAsync(User user)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.UserData, JsonUtility.Serialize(await GetPermissionsAsync(user))),
             };
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var securityToken = new JwtSecurityToken(
@@ -135,6 +147,17 @@ namespace MatchaLatte.Identity.Services
             var handler = new JwtSecurityTokenHandler();
 
             return handler.WriteToken(securityToken);
+        }
+
+        private async Task<List<string>> GetPermissionsAsync(User user)
+        {
+            var roleIds = user.UserRoles.Select(x => x.RoleId);
+            var roles = await roleRepository.GetRolesAsync(r => roleIds.Contains(r.Id));
+            var permissionIds = roles.SelectMany(r => r.RolePermissions).Select(x => x.PermissionId).Distinct();
+            var permissions = await permissionRepository.GetPermissionsAsync(p => permissionIds.Contains(p.Id));
+            var result = permissions.Select(p => p.Name).ToList();
+
+            return result;
         }
     }
 }

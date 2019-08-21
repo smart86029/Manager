@@ -28,6 +28,13 @@ const routes: Routes = [
         loadChildren: () => import('./permissions/permissions.module').then(mod => mod.PermissionsModule)
       },
       {
+        path: 'employees',
+        loadChildren: () => import('./employees/employees.module').then(mod => mod.EmployeesModule),
+        data: {
+          permissions: ['特殊權限']
+        }
+      },
+      {
         path: 'stores',
         loadChildren: () => import('./stores/stores.module').then(mod => mod.StoresModule)
       },

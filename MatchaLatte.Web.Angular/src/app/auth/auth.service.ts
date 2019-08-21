@@ -10,6 +10,7 @@ export class AuthService {
   private tokensUrl = 'identity/api/token';
   private accessKey = 'access_token';
   private refreshKey = 'refresh_token';
+  private userDataKey = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -45,22 +46,7 @@ export class AuthService {
   }
 
   isAuthorized(): boolean {
-    const accessToken = this.getAccessToken();
-    if (!accessToken) {
-      return false;
-    }
-
-    const parts = accessToken.split('.');
-    if (parts.length !== 3) {
-      throw new Error('The inspected token doesn\'t appear to be a JWT.');
-    }
-
-    const decoded = atob(parts[1]);
-    if (!decoded) {
-      throw new Error('Cannot decode the token.');
-    }
-
-    const payload = JSON.parse(decoded);
+    const payload = this.decodeAccessToken();
     if (!payload || !payload.hasOwnProperty('exp')) {
       return true;
     }
@@ -73,6 +59,15 @@ export class AuthService {
 
   getAccessToken(): string {
     return localStorage.getItem(this.accessKey);
+  }
+
+  hasPermission(permission: string): boolean {
+    const payload = this.decodeAccessToken();
+    if (!payload || !payload.hasOwnProperty(this.userDataKey)) {
+      return false;
+    }
+    const userData: string[] = JSON.parse(payload[this.userDataKey]);
+    return userData.indexOf(permission) > -1;
   }
 
   private setToken(token: any): void {
@@ -91,11 +86,34 @@ export class AuthService {
       throw new Error('The inspected token doesn\'t appear to be a JWT.');
     }
 
-    const decoded = atob(parts[1]);
+    const decoded = this.base64UrlDecode(parts[1]);
     if (!decoded) {
       throw new Error('Cannot decode the token.');
     }
 
     return JSON.parse(decoded);
+  }
+
+  private base64UrlDecode(input: string): string {
+    let padded = input.replace(/-/g, '+').replace(/_/g, '/');
+    console.log(padded);
+    switch (padded.length % 4) {
+      case 0: {
+        break;
+      }
+      case 2: {
+        padded += '==';
+        break;
+      }
+      case 3: {
+        padded += '=';
+        break;
+      }
+      default: {
+        throw new Error('Illegal base64url string!');
+      }
+    }
+    console.log(padded);
+    return decodeURIComponent(escape(atob(padded)));
   }
 }

@@ -2,7 +2,7 @@ import { Guid } from '../guid';
 import { Permission } from './permission';
 
 export class Role {
-  roleId: Guid;
+  id: Guid;
   name: string;
   isEnabled: boolean;
   isChecked: boolean;

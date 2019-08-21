@@ -37,6 +37,6 @@ export class PermissionService {
   }
 
   updatePermission(permission: Permission): Observable<Permission> {
-    return this.httpClient.put<Permission>(`${this.permissionsUrl}/${permission.permissionId}`, permission);
+    return this.httpClient.put<Permission>(`${this.permissionsUrl}/${permission.id}`, permission);
   }
 }

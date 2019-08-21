@@ -31,7 +31,14 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>使用者的集合。</returns>
         public async Task<ICollection<User>> GetUsersAsync(int offset, int limit)
         {
-            return await context.Set<User>().Include(u => u.UserRoles).Skip(offset).Take(limit).ToListAsync();
+            var result = await context
+                .Set<User>()
+                .Include(u => u.UserRoles)
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync();
+
+            return result;
         }
 
         /// <summary>
@@ -41,13 +48,13 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>使用者。</returns>
         public async Task<User> GetUserAsync(Guid userId)
         {
-            var user = await context
+            var result = await context
                 .Set<User>()
                 .Include(u => u.UserRoles)
                 .Include(u => u.UserRefreshTokens)
                 .SingleOrDefaultAsync(u => u.Id == userId);
 
-            return user;
+            return result;
         }
 
         /// <summary>
@@ -58,7 +65,13 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>使用者。</returns>
         public async Task<User> GetUserAsync(string userName, string passwordHash)
         {
-            return await context.Set<User>().SingleOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash);
+            var result = await context
+                .Set<User>()
+                .Include(u => u.UserRoles)
+                .Include(u => u.UserRefreshTokens)
+                .SingleOrDefaultAsync(u => u.UserName == userName && u.PasswordHash == passwordHash);
+
+            return result;
         }
 
         /// <summary>

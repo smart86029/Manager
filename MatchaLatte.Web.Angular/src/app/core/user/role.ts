@@ -1,7 +1,7 @@
 import { Guid } from '../guid';
 
 export class Role {
-  roleId: Guid;
+  id: Guid;
   name: string;
   isChecked: boolean;
 }

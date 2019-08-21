@@ -31,7 +31,7 @@
         </div>
         <div>
           <p>角色</p>
-          <mat-checkbox *ngFor="let role of user.roles" class="role" name="role{{role.roleId}}"
+          <mat-checkbox *ngFor="let role of user.roles" class="role" name="{{role.id}}"
             [(ngModel)]="role.isChecked">{{role.name}}</mat-checkbox>
         </div>
       </mat-card-content>
