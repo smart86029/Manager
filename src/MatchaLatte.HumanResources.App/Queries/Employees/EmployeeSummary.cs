@@ -2,9 +2,9 @@
 {
     public class EmployeeSummary
     {
-        public string FirstName { get; set; }
+        public string Name { get; set; }
 
-        public string LastName { get; set; }
+        public string DisplayName { get; set; }
 
         public string DepartmentName { get; set; }
 

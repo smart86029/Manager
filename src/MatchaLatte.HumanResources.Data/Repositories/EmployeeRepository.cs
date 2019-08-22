@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MatchaLatte.HumanResources.Domain.Employees;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +27,7 @@ namespace MatchaLatte.HumanResources.Data.Repositories
         {
             var result = await context
                 .Set<Employee>()
+                .Include(e => e.JobChanges)
                 .Skip(offset)
                 .Take(limit)
                 .ToListAsync();

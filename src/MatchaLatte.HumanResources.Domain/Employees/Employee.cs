@@ -14,15 +14,24 @@ namespace MatchaLatte.HumanResources.Domain.Employees
         private List<JobChange> jobChanges = new List<JobChange>();
 
         /// <summary>
-        /// 部門 ID。
+        /// 取得部門 ID。
         /// </summary>
-        public Guid DepartmentId { get; }
+        public Guid DepartmentId => jobChanges.OrderBy(j => j.StartOn).Last().DepartmentId;
 
-        public string JobTitle { get; }
+        /// <summary>
+        /// 取得職稱 ID。
+        /// </summary>
+        public Guid JobTitleId => jobChanges.OrderBy(j => j.StartOn).Last().JobTitleId;
 
+        /// <summary>
+        /// 取得是否在職。
+        /// </summary>
         public bool IsEmployed => jobChanges.Any(j => j.StartOn <= DateTime.UtcNow && j.EndOn >= DateTime.UtcNow);
 
-        public IReadOnlyCollection<JobChange> JobChanges => jobChanges;
+        /// <summary>
+        /// 取得職務異動的集合。
+        /// </summary>
+        public IReadOnlyCollection<JobChange> JobChanges => jobChanges.AsReadOnly();
 
         public void AssignJob(Department department, JobTitle jobTitle, DateTime startOn)
         {

@@ -96,7 +96,6 @@ export class AuthService {
 
   private base64UrlDecode(input: string): string {
     let padded = input.replace(/-/g, '+').replace(/_/g, '/');
-    console.log(padded);
     switch (padded.length % 4) {
       case 0: {
         break;
@@ -113,7 +112,6 @@ export class AuthService {
         throw new Error('Illegal base64url string!');
       }
     }
-    console.log(padded);
     return decodeURIComponent(escape(atob(padded)));
   }
 }
