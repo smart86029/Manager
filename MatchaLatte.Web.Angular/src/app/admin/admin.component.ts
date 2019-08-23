@@ -68,6 +68,7 @@ export class AdminComponent implements OnInit {
     if (this.authService.hasPermission('特殊權限')) {
       menus.push({
         name: '人力資源管理', icon: 'people', url: '', children: [
+          { name: '部門', icon: '', url: 'departments' },
           { name: '員工', icon: '', url: 'employees' },
         ]
       });

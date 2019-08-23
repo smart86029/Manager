@@ -29,7 +29,7 @@ namespace MatchaLatte.HumanResources.Domain.Departments
 
             Name = name?.Trim();
             IsEnabled = isEnabled;
-            ParentId = parentId;
+            ParentId = parentId == Guid.Empty ? null : parentId;
         }
 
         /// <summary>

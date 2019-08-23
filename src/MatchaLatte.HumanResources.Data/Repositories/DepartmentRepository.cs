@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.HumanResources.Data.Repositories
 {
-    public class DepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly HumanResourcesContext context;
 

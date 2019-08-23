@@ -35,6 +35,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'departments',
+        loadChildren: () => import('./departments/departments.module').then(mod => mod.DepartmentsModule),
+        data: {
+          permissions: ['特殊權限']
+        }
+      },
+      {
         path: 'stores',
         loadChildren: () => import('./stores/stores.module').then(mod => mod.StoresModule)
       },
