@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.HumanResources.App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.HumanResources.Api.Controllers
@@ -10,6 +11,7 @@ namespace MatchaLatte.HumanResources.Api.Controllers
     /// <summary>
     /// 部門控制器。
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase

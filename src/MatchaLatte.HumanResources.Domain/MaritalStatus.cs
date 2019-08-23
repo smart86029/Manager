@@ -18,6 +18,6 @@
         /// <summary>
         /// 未婚。
         /// </summary>
-        Single = 2
+        Single = 2,
     }
 }

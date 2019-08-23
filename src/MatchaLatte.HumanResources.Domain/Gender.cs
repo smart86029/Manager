@@ -23,6 +23,6 @@
         /// <summary>
         /// 未規定項。
         /// </summary>
-        NotApplicable = 9
+        NotApplicable = 9,
     }
 }

@@ -1,10 +1,10 @@
+import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { map } from 'rxjs/operators';
 import { Department } from 'src/app/core/department/department';
 import { DepartmentService } from 'src/app/core/department/department.service';
 import { Guid } from 'src/app/core/guid';
-import { NestedTreeControl } from '@angular/cdk/tree';
 
 @Component({
   selector: 'app-department-list',
@@ -17,11 +17,11 @@ export class DepartmentListComponent implements OnInit {
 
   constructor(private departmentService: DepartmentService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadDepartment();
   }
 
-  loadDepartment() {
+  loadDepartment(): void {
     this.departmentService
       .getDepartments()
       .pipe(

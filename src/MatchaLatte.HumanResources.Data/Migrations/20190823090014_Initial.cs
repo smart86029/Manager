@@ -68,8 +68,8 @@ namespace MatchaLatte.HumanResources.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 32, nullable: false),
-                    LastName = table.Column<string>(maxLength: 32, nullable: false),
+                    Name = table.Column<string>(maxLength: 32, nullable: false),
+                    DisplayName = table.Column<string>(maxLength: 32, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "date", nullable: false),
                     Gender = table.Column<int>(nullable: false),
                     MaritalStatus = table.Column<int>(nullable: false),

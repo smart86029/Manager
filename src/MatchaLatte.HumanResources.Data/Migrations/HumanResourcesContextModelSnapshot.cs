@@ -124,17 +124,17 @@ namespace MatchaLatte.HumanResources.Data.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(32);
 
                     b.Property<int>("Gender");
 
-                    b.Property<string>("LastName")
+                    b.Property<int>("MaritalStatus");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32);
-
-                    b.Property<int>("MaritalStatus");
 
                     b.HasKey("Id");
 

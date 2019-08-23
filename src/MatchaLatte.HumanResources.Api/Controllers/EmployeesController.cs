@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MatchaLatte.HumanResources.App.Queries.Employees;
 using MatchaLatte.HumanResources.App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.HumanResources.Api.Controllers
@@ -11,15 +12,16 @@ namespace MatchaLatte.HumanResources.Api.Controllers
     /// <summary>
     /// 員工控制器。
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService employeeService;
 
-        public EmployeeController()
+        public EmployeesController(IEmployeeService employeeService)
         {
-
+            this.employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
 
         /// <summary>

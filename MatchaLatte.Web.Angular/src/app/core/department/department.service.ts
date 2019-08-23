@@ -9,13 +9,13 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DepartmentService {
-  private groupsUrl = 'humanResources/api/departments';
+  private departmentsUrl = 'humanResources/api/departments';
 
   constructor(private httpClient: HttpClient) { }
 
   getDepartments(): Observable<Department[]> {
     return this.httpClient
-      .get<Department[]>(this.groupsUrl)
+      .get<Department[]>(this.departmentsUrl)
       .pipe(
         tap(departments => {
           departments.forEach(department => {

@@ -25,7 +25,7 @@ namespace MatchaLatte.HumanResources.Services
             var employees = await employeeRepository.GetEmployeesAsync(option.Offset, option.Limit);
             var count = await employeeRepository.GetEmployeesCountAsync();
             var departments = await departmentRepository.GetDepartmentsAsync();
-            var result = new PaginationResult<EmployeeSummary>()
+            var result = new PaginationResult<EmployeeSummary>
             {
                 Items = employees
                     .Select(e => new EmployeeSummary
