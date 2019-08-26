@@ -135,7 +135,7 @@ namespace MatchaLatte.Identity.Services
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.UserData, JsonUtility.Serialize(await GetPermissionsAsync(user))),
+                new Claim(ClaimTypes.UserData, JsonUtility.Serialize(await GetPermissionCodesAsync(user))),
             };
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var securityToken = new JwtSecurityToken(
@@ -149,13 +149,13 @@ namespace MatchaLatte.Identity.Services
             return handler.WriteToken(securityToken);
         }
 
-        private async Task<List<string>> GetPermissionsAsync(User user)
+        private async Task<List<string>> GetPermissionCodesAsync(User user)
         {
             var roleIds = user.UserRoles.Select(x => x.RoleId);
             var roles = await roleRepository.GetRolesAsync(r => roleIds.Contains(r.Id));
             var permissionIds = roles.SelectMany(r => r.RolePermissions).Select(x => x.PermissionId).Distinct();
             var permissions = await permissionRepository.GetPermissionsAsync(p => permissionIds.Contains(p.Id));
-            var result = permissions.Select(p => p.Name).ToList();
+            var result = permissions.Select(p => p.Code).ToList();
 
             return result;
         }

@@ -5,6 +5,8 @@ namespace MatchaLatte.Identity.App.Commands.Permissions
 {
     public class CreatePermissionCommand : ICommand<PermissionDetail>
     {
+        public string Code { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

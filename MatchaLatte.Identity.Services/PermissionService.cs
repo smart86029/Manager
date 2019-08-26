@@ -40,12 +40,15 @@ namespace MatchaLatte.Identity.Services
             var count = await permissionRepository.GetCountAsync();
             var result = new PaginationResult<PermissionSummary>
             {
-                Items = permissions.Select(p => new PermissionSummary
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    IsEnabled = p.IsEnabled
-                }).ToList(),
+                Items = permissions
+                    .Select(p => new PermissionSummary
+                    {
+                        Id = p.Id,
+                        Code = p.Code,
+                        Name = p.Name,
+                        IsEnabled = p.IsEnabled,
+                    })
+                    .ToList(),
                 ItemCount = count
             };
 
@@ -63,9 +66,10 @@ namespace MatchaLatte.Identity.Services
             var result = new PermissionDetail
             {
                 Id = permission.Id,
+                Code = permission.Code,
                 Name = permission.Name,
                 Description = permission.Description,
-                IsEnabled = permission.IsEnabled
+                IsEnabled = permission.IsEnabled,
             };
 
             return result;
@@ -78,7 +82,7 @@ namespace MatchaLatte.Identity.Services
         /// <returns>權限。</returns>
         public async Task<PermissionDetail> CreatePermissionAsync(CreatePermissionCommand command)
         {
-            var permission = new Permission(command.Name, command.Description, command.IsEnabled);
+            var permission = new Permission(command.Code, command.Name, command.Description, command.IsEnabled);
 
             permissionRepository.Add(permission);
             await unitOfWork.CommitAsync();
@@ -86,9 +90,10 @@ namespace MatchaLatte.Identity.Services
             var result = new PermissionDetail
             {
                 Id = permission.Id,
+                Code = permission.Code,
                 Name = permission.Name,
                 Description = permission.Description,
-                IsEnabled = permission.IsEnabled
+                IsEnabled = permission.IsEnabled,
             };
 
             return result;

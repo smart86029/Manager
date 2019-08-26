@@ -52,9 +52,12 @@ namespace MatchaLatte.Identity.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(64);
+                        .HasMaxLength(32);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(128);
 
                     b.Property<bool>("IsEnabled");
 
@@ -63,6 +66,9 @@ namespace MatchaLatte.Identity.Data.Migrations
                         .HasMaxLength(32);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("Permission");
                 });
