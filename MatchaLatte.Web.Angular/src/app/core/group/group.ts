@@ -5,6 +5,7 @@ export class Group {
   id: Guid;
   startOn: Date;
   endOn: Date;
+  remark: string;
   createdOn: Date;
   store: Store;
 }

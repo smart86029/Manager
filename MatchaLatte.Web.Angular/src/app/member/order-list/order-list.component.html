@@ -13,7 +13,7 @@
         </mat-list-item>
       </mat-list>
       <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-      <p *ngIf="!isLoading && orders.itemCount === 0" class="empty-result">查無資料</p>
+      <p *ngIf="!isLoading && orders.length === 0" class="empty-result">查無資料</p>
     </mat-card-content>
   </mat-card>
 </div>

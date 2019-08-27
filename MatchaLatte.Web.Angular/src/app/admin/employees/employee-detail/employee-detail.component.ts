@@ -35,4 +35,10 @@ export class EmployeeDetailComponent implements OnInit {
     console.log(this.employee);
   }
 
+  save(): void {
+  }
+
+  back(): void {
+    this.location.back();
+  }
 }

@@ -16,7 +16,7 @@
       </button>
     </mat-toolbar>
   </nav>
-  <mat-menu #themeMenu="matMenu" [class]="theme-panel" [overlapTrigger]="false">
+  <mat-menu #themeMenu="matMenu" class="theme-panel" [overlapTrigger]="false">
     <app-theme-picker></app-theme-picker>
   </mat-menu>
   <mat-menu #profileMenu="matMenu">
@@ -25,7 +25,7 @@
 </header>
 <main class="{{theme}}">
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    <mat-sidenav #sidenav class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
       <mat-toolbar color="primary"><a routerLink="/" mat-button>{{title}}</a></mat-toolbar>
       <mat-nav-list>

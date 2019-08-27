@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { from } from 'rxjs';
+import { startWith, switchMap, tap } from 'rxjs/operators';
 import { Employee } from 'src/app/core/employee/employee';
 import { EmployeeService } from 'src/app/core/employee/employee.service';
 import { PaginationResult } from 'src/app/core/pagination-result';
@@ -9,28 +12,34 @@ import { PaginationResult } from 'src/app/core/pagination-result';
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.scss']
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeeListComponent implements OnInit, AfterViewInit {
   isLoading = false;
+  pageEvent: PageEvent;
   employees = new PaginationResult<Employee>();
   dataSource = new MatTableDataSource<Employee>();
   displayedColumns = ['rowId', 'name', 'displayName', 'action'];
 
+  @ViewChild(MatPaginator, { static: false })
+  paginator: MatPaginator;
+
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
-    this.loadEmployees(0, this.employees.pageSize);
   }
 
-  loadEmployees(pageIndex: number, pageSize: number): void {
-    this.isLoading = true;
-    this.employeeService
-      .getEmployees(pageIndex, pageSize)
+  ngAfterViewInit(): void {
+    from(this.paginator.page)
+      .pipe(
+        startWith({}),
+        tap(() => this.isLoading = true),
+        switchMap(() => this.employeeService.getEmployees(this.paginator.pageIndex, this.paginator.pageSize)),
+        tap(() => this.isLoading = false)
+      )
       .subscribe({
         next: employees => {
           this.employees = employees;
           this.dataSource.data = employees.items;
         },
-        complete: () => this.isLoading = false
       });
   }
 }

@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { Guid } from '../guid';
 import { PaginationResult } from '../pagination-result';
-import { Role } from '../user/role';
+import { Role } from './role';
 
 @Injectable({
   providedIn: 'root'

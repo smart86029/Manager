@@ -85,7 +85,7 @@
                   </div>
                 </div>
               </div>
-              <p *ngIf="!isLoading && store.productCategories.itemCount === 0" class="empty-result">查無資料</p>
+              <p *ngIf="!isLoading && store.productCategories.length === 0" class="empty-result">查無資料</p>
             </div>
             <div>
               <button mat-button matStepperPrevious>上一步</button>

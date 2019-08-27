@@ -1,6 +1,9 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
+import { from } from 'rxjs';
+import { startWith, switchMap, tap } from 'rxjs/operators';
 import { Group } from 'src/app/core/group/group';
 import { GroupService } from 'src/app/core/group/group.service';
 import { Guid } from 'src/app/core/guid';
@@ -14,12 +17,16 @@ import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
   templateUrl: './group-detail.component.html',
   styleUrls: ['./group-detail.component.scss']
 })
-export class GroupDetailComponent implements OnInit {
+export class GroupDetailComponent implements OnInit, AfterViewInit {
   isLoading = false;
+  pageEvent: PageEvent;
   saveMode = SaveMode.Create;
   group = new Group();
   stores = new PaginationResult<Store>();
   canSelectStore = false;
+
+  @ViewChild(MatPaginator, { static: false })
+  paginator: MatPaginator;
 
   constructor(
     private groupService: GroupService,
@@ -40,18 +47,22 @@ export class GroupDetailComponent implements OnInit {
         });
     } else {
       this.canSelectStore = true;
-      this.loadStores(0, this.stores.pageSize);
     }
   }
 
-  loadStores(pageIndex: number, pageSize: number): void {
-    this.isLoading = true;
-    this.storeService
-      .getStores(pageIndex, pageSize)
-      .subscribe({
-        next: stores => this.stores = stores,
-        complete: () => this.isLoading = false
-      });
+  ngAfterViewInit(): void {
+    if (this.canSelectStore) {
+      from(this.paginator.page)
+        .pipe(
+          startWith({}),
+          tap(() => this.isLoading = true),
+          switchMap(() => this.storeService.getStores(this.paginator.pageIndex, this.paginator.pageSize)),
+          tap(() => this.isLoading = false)
+        )
+        .subscribe({
+          next: stores => this.stores = stores,
+        });
+    }
   }
 
   selectStore(store: Store): void {

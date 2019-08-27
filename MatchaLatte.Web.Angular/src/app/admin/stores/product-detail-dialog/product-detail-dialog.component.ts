@@ -12,7 +12,7 @@ import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
 export class ProductDetailDialogComponent implements OnInit {
   saveMode = SaveMode.Create;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: Product) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Product) { }
 
   ngOnInit(): void {
     if (this.data.name) {
