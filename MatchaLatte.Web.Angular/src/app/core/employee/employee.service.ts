@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { PaginationResult } from '../pagination-result';
 import { Employee } from './employee';
+import { Guid } from '../guid';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class EmployeeService {
           return new PaginationResult<Employee>(pageIndex, pageSize, itemCount, response.body);
         })
       );
+  }
+
+  getEmployee(id: Guid): Observable<Employee> {
+    return this.httpClient.get<Employee>(`${this.employeesUrl}/${id}`);
   }
 }

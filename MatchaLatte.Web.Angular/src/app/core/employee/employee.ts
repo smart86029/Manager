@@ -7,6 +7,6 @@ export class Employee {
   name: string;
   displayName: string;
   birthDate: Date;
-  gender: Gender;
+  gender: Gender = Gender.notKnown;
   maritalStatus: MaritalStatus;
 }
