@@ -13,7 +13,7 @@ import { UserService } from 'src/app/core/user/user.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-  isLoading = false;
+  isLoading = true;
   users = new PaginationResult<User>();
   dataSource = new MatTableDataSource<User>();
   displayedColumns = ['rowId', 'userName', 'isEnabled', 'action'];

@@ -13,8 +13,7 @@ import { PaginationResult } from 'src/app/core/pagination-result';
   styleUrls: ['./employee-list.component.scss']
 })
 export class EmployeeListComponent implements OnInit, AfterViewInit {
-  isLoading = false;
-  pageEvent: PageEvent;
+  isLoading = true;
   employees = new PaginationResult<Employee>();
   dataSource = new MatTableDataSource<Employee>();
   displayedColumns = ['rowId', 'name', 'displayName', 'action'];

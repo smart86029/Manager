@@ -13,7 +13,7 @@ import { PaginationResult } from 'src/app/core/pagination-result';
   styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit, AfterViewInit {
-  isLoading = false;
+  isLoading = true;
   groups = new PaginationResult<Group>();
   dataSource = new MatTableDataSource<Group>();
   displayedColumns = ['rowId', 'storeName', 'startOn', 'endOn', 'createdOn', 'action'];

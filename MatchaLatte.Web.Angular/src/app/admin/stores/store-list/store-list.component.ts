@@ -13,7 +13,7 @@ import { StoreService } from 'src/app/core/store/store.service';
   styleUrls: ['./store-list.component.scss']
 })
 export class StoreListComponent implements OnInit, AfterViewInit {
-  isLoading = false;
+  isLoading = true;
   stores = new PaginationResult<Store>();
   dataSource = new MatTableDataSource<Store>();
   displayedColumns = ['rowId', 'name', 'createdOn', 'action'];
