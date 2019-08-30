@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MatchaLatte.HumanResources.App.Queries;
-using MatchaLatte.HumanResources.App.Queries.Employees;
-using MatchaLatte.HumanResources.App.Services;
+using MatchaLatte.Common.Queries;
+using MatchaLatte.HumanResources.App.Employees;
 using MatchaLatte.HumanResources.Domain.Departments;
 using MatchaLatte.HumanResources.Domain.Employees;
 
@@ -38,6 +37,11 @@ namespace MatchaLatte.HumanResources.Services
             };
 
             return result;
+        }
+
+        public Task<EmployeeDetail> CreateEmployeeAsync(CreateEmployeeCommand command)
+        {
+            throw new NotImplementedException();
         }
     }
 }

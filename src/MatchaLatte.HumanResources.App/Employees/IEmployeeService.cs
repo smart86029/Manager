@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
-using MatchaLatte.HumanResources.App.Queries;
-using MatchaLatte.HumanResources.App.Queries.Employees;
+using MatchaLatte.Common.Queries;
 
-namespace MatchaLatte.HumanResources.App.Services
+namespace MatchaLatte.HumanResources.App.Employees
 {
     public interface IEmployeeService
     {
         Task<PaginationResult<EmployeeSummary>> GetEmployeesAsync(EmployeeOption option);
+
+        Task<EmployeeDetail> CreateEmployeeAsync(CreateEmployeeCommand command);
     }
 }

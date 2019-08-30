@@ -1,4 +1,4 @@
-﻿namespace MatchaLatte.HumanResources.App.Queries
+﻿namespace MatchaLatte.Common.Queries
 {
     public class PaginationOption
     {

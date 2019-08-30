@@ -1,7 +1,11 @@
-﻿namespace MatchaLatte.HumanResources.App.Queries.Employees
+﻿using System;
+
+namespace MatchaLatte.HumanResources.App.Employees
 {
-    public class EmployeeSummary
+    public class EmployeeDetail
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string DisplayName { get; set; }

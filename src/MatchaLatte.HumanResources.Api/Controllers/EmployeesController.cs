@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MatchaLatte.HumanResources.App.Queries.Employees;
-using MatchaLatte.HumanResources.App.Services;
+using MatchaLatte.HumanResources.App.Employees;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +33,19 @@ namespace MatchaLatte.HumanResources.Api.Controllers
             Response.Headers.Add("X-Total-Count", employees.ItemCount.ToString());
 
             return Ok(employees.Items);
+        }
+
+        /// <summary>
+        /// 新增員工。
+        /// </summary>
+        /// <param name="command">新增員工命令。</param>
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] CreateEmployeeCommand command)
+        {
+            var employee = await employeeService.CreateEmployeeAsync(command);
+
+            return CreatedAtAction(nameof(GetAsync), new { id = employee.Id }, employee);
         }
     }
 }

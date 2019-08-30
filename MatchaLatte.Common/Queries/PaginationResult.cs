@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MatchaLatte.HumanResources.App.Queries
+namespace MatchaLatte.Common.Queries
 {
     public class PaginationResult<T>
     {
