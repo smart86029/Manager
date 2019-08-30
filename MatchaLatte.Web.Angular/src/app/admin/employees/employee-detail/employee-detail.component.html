@@ -28,7 +28,7 @@
           性別
           <mat-radio-group class="genders" name="gender" [ngModel]="employee.gender">
             <mat-radio-button *ngFor="let item of gender | dictionary" [value]="item.value">
-              {{item.key}}
+              <span i18n="@@gender">{item.key, select, notKnown {Not known}}</span>
             </mat-radio-button>
           </mat-radio-group>
         </div>

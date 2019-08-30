@@ -57,6 +57,13 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "zh-Hant": {
+              "aot": true,
+              "outputPath": "dist/matcha-latte-zh-Hant",
+              "i18nFile": "src/locale/messages.zh-Hant.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "zh-Hant"
             }
           }
         },
@@ -69,6 +76,9 @@
           "configurations": {
             "production": {
               "browserTarget": "MatchaLatte:build:production"
+            },
+            "zh-Hant": {
+              "browserTarget": "MatchaLatte:build:zh-Hant"
             }
           }
         },

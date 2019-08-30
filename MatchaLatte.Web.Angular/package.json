@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --hmr -o",
+    "start": "ng serve --hmr -o -c=zh-Hant",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "xi18n": "ng xi18n --outputPath src/locale --outFile messages.zh-Hant.xlf"
   },
   "private": true,
   "dependencies": {

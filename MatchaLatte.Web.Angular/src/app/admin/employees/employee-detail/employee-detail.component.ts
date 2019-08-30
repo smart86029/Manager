@@ -32,7 +32,6 @@ export class EmployeeDetailComponent implements OnInit {
           complete: () => this.isLoading = false
         });
     }
-    console.log(this.employee);
   }
 
   save(): void {
