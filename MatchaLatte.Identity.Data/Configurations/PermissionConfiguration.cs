@@ -9,14 +9,22 @@ namespace MatchaLatte.Identity.Data.Configurations
         public void Configure(EntityTypeBuilder<Permission> builder)
         {
             builder
+                .Property(p => p.Code)
+                .IsRequired()
+                .HasMaxLength(32);
+
+            builder
+                .HasIndex(p => p.Code)
+                .IsUnique();
+
+            builder
                 .Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(32);
 
             builder
                 .Property(p => p.Description)
-                .IsRequired()
-                .HasMaxLength(64);
+                .HasMaxLength(128);
         }
     }
 }

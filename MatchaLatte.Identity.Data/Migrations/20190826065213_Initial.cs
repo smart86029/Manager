@@ -37,8 +37,9 @@ namespace MatchaLatte.Identity.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Code = table.Column<string>(maxLength: 32, nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
-                    Description = table.Column<string>(maxLength: 64, nullable: false),
+                    Description = table.Column<string>(maxLength: 128, nullable: true),
                     IsEnabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -155,6 +156,13 @@ namespace MatchaLatte.Identity.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Permission_Code",
+                schema: "Identity",
+                table: "Permission",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermission_PermissionId",

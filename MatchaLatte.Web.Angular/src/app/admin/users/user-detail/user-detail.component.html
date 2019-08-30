@@ -4,7 +4,7 @@
     <mat-card>
       <mat-card-content>
         <div class="loading-overlay" *ngIf="isLoading">
-          <mat-progress-bar [mode]="indeterminate"></mat-progress-bar>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <div>
           <mat-form-field>
@@ -31,7 +31,7 @@
         </div>
         <div>
           <p>角色</p>
-          <mat-checkbox *ngFor="let role of user.roles" class="role" name="role{{role.roleId}}"
+          <mat-checkbox *ngFor="let role of user.roles" class="role" name="{{role.id}}"
             [(ngModel)]="role.isChecked">{{role.name}}</mat-checkbox>
         </div>
       </mat-card-content>

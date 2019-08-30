@@ -10,7 +10,6 @@ namespace MatchaLatte.HumanResources.Domain.Employees
     {
         private JobChange()
         {
-
         }
 
         public JobChange(Guid employeeId, Guid departmentId, Guid jobTitleId, DateTime startOn)

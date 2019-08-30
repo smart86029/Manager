@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
 import { Menu } from '../core/menu/menu';
-import { MenuService } from '../core/menu/menu.service';
 import { Theme } from '../core/theme/theme.enum';
 import { ThemeService } from '../core/theme/theme.service';
 
@@ -29,16 +28,14 @@ export class AdminComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private menuService: MenuService,
     private authService: AuthService,
     private themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.menuService.menus$.subscribe(menus => {
-      this.nestedDataSource.data = menus;
-      this.nestedTreeControl.dataNodes = menus;
-      this.nestedTreeControl.expandAll();
-    });
+    const menus = this.getMenus();
+    this.nestedDataSource.data = menus;
+    this.nestedTreeControl.dataNodes = menus;
+    this.nestedTreeControl.expandAll();
     this.themeService.theme$.subscribe(theme => this.theme = theme);
   }
 
@@ -53,5 +50,35 @@ export class AdminComponent implements OnInit {
   signOut(): void {
     this.authService.signOut();
     this.router.navigate(['/']);
+  }
+
+  private getMenus(): Menu[] {
+    const menus: Menu[] = [
+      {
+        name: '會員管理', icon: 'person', url: '', children: [
+          { name: '使用者', icon: '', url: 'users' },
+          { name: '角色', icon: '', url: 'roles' },
+          { name: '權限', icon: '', url: 'permissions' }
+        ]
+      },
+    ];
+    if (!this.authService.isAuthorized) {
+      return menus;
+    }
+    if (this.authService.hasPermission('HumanResources')) {
+      menus.push({
+        name: '人力資源管理', icon: 'people', url: '', children: [
+          { name: '部門', icon: '', url: 'departments' },
+          { name: '員工', icon: '', url: 'employees' },
+        ]
+      });
+    }
+    menus.push({
+      name: '目錄管理', icon: 'store', url: '', children: [
+        { name: '店家管理', icon: '', url: 'stores' },
+        { name: '團管理', icon: '', url: 'groups' }
+      ]
+    });
+    return menus;
   }
 }

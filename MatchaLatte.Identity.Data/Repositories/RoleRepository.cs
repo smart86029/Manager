@@ -40,7 +40,13 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>所有符合條件的角色。</returns>
         public async Task<ICollection<Role>> GetRolesAsync(Expression<Func<Role, bool>> criteria)
         {
-            return await context.Set<Role>().Where(criteria).ToListAsync();
+            var result = await context
+                .Set<Role>()
+                .Include(r => r.RolePermissions)
+                .Where(criteria)
+                .ToListAsync();
+
+            return result;
         }
 
         /// <summary>
@@ -51,7 +57,13 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>指定筆數的角色。</returns>
         public async Task<ICollection<Role>> GetRolesAsync(int offset, int limit)
         {
-            return await context.Set<Role>().Skip(offset).Take(limit).ToListAsync();
+            var result = await context
+                .Set<Role>()
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync();
+
+            return result;
         }
 
         /// <summary>
@@ -61,7 +73,12 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <returns>角色。</returns>
         public async Task<Role> GetRoleAsync(Guid roleId)
         {
-            return await context.Set<Role>().Include(r => r.RolePermissions).SingleOrDefaultAsync(r => r.Id == roleId);
+            var result = await context
+                .Set<Role>()
+                .Include(r => r.RolePermissions)
+                .SingleOrDefaultAsync(r => r.Id == roleId);
+
+            return result;
         }
 
         /// <summary>

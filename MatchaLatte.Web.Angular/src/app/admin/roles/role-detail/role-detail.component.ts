@@ -2,8 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'src/app/core/guid';
+import { Role } from 'src/app/core/role/role';
 import { RoleService } from 'src/app/core/role/role.service';
-import { Role } from 'src/app/core/user/role';
 import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
 
 @Component({

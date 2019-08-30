@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MatchaLatte.HumanResources.Api.Extensions;
+using MatchaLatte.HumanResources.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace MatchaLatte.HumanResources.Api
 {
@@ -14,7 +9,10 @@ namespace MatchaLatte.HumanResources.Api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .MigrateDbContext<HumanResourcesContext>((context, services) => new HumanResourcesContextSeed(context).SeedAsync().Wait())
+                .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

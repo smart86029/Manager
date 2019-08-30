@@ -2,10 +2,6 @@
   <nav class="nav">
     <mat-toolbar color="primary">
       <a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a>
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
       <span class="fill-space"></span>
       <button mat-icon-button [matMenuTriggerFor]="themeMenu" #themeButton>
         <mat-icon>format_color_fill</mat-icon>
@@ -18,7 +14,7 @@
       </button>
     </mat-toolbar>
   </nav>
-  <mat-menu #themeMenu="matMenu" [class]="theme-panel" [overlapTrigger]="false">
+  <mat-menu #themeMenu="matMenu" class="theme-panel" [overlapTrigger]="false">
     <app-theme-picker></app-theme-picker>
   </mat-menu>
   <mat-menu #profileMenu="matMenu">

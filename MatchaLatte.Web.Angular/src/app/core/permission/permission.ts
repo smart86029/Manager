@@ -1,7 +1,8 @@
 import { Guid } from '../guid';
 
 export class Permission {
-  permissionId: Guid;
+  id: Guid;
+  code: string;
   name: string;
   description: string;
   isEnabled: boolean;

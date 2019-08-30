@@ -6,6 +6,13 @@
       "^/catalog": ""
     }
   },
+  "/humanResources": {
+    "target": "https://localhost:44316",
+    "secure": false,
+    "pathRewrite": {
+      "^/humanResources": ""
+    }
+  },
   "/identity": {
     "target": "https://localhost:44309",
     "secure": false,

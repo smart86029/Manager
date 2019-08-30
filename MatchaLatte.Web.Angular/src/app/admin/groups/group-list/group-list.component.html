@@ -6,7 +6,7 @@
   <mat-card>
     <mat-card-content>
       <mat-paginator [length]="groups.itemCount" [pageSize]="groups.pageSize" [pageSizeOptions]="[5, 10, 20]"
-        (page)="pageEvent = loadGroups($event.pageIndex, $event.pageSize)" showFirstLastButtons></mat-paginator>
+        showFirstLastButtons></mat-paginator>
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="rowId">
           <th mat-header-cell *matHeaderCellDef>序號</th>

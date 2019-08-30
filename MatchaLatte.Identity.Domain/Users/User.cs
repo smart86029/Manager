@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.Exceptions;
 using MatchaLatte.Common.Utilities;
 using MatchaLatte.Identity.Domain.Roles;
 
@@ -32,10 +33,19 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="isEnabled">是否啟用。</param>
         public User(string userName, string password, string name, string displayName, bool isEnabled)
         {
-            UserName = userName;
-            PasswordHash = CryptographyUtility.Hash(password);
-            Name = name?.Trim() ?? string.Empty;
-            DisplayName = displayName?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(userName))
+                throw new DomainException("使用者名稱不能為空");
+            if (string.IsNullOrWhiteSpace(password))
+                throw new DomainException("密碼不能為空");
+            if (string.IsNullOrWhiteSpace(name))
+                throw new DomainException("名稱不能為空");
+            if (string.IsNullOrWhiteSpace(displayName))
+                throw new DomainException("顯示名稱不能為空");
+
+            UserName = userName.Trim();
+            PasswordHash = CryptographyUtility.Hash(password.Trim());
+            Name = name.Trim();
+            DisplayName = displayName.Trim();
             IsEnabled = isEnabled;
             RaiseDomainEvent(new UserCreated(Id, Name, DisplayName));
         }
@@ -92,7 +102,10 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="userName">使用者名稱。</param>
         public void UpdateUserName(string userName)
         {
-            UserName = userName;
+            if (string.IsNullOrWhiteSpace(userName))
+                throw new DomainException("使用者名稱不能為空");
+
+            UserName = userName.Trim();
         }
 
         /// <summary>
@@ -102,7 +115,7 @@ namespace MatchaLatte.Identity.Domain.Users
         public void UpdatePassword(string password)
         {
             if (!string.IsNullOrWhiteSpace(password))
-                PasswordHash = CryptographyUtility.Hash(password);
+                PasswordHash = CryptographyUtility.Hash(password.Trim());
         }
 
         /// <summary>
@@ -111,7 +124,10 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="name">姓名。</param>
         public void UpdateName(string name)
         {
-            Name = name?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(name))
+                throw new DomainException("名稱不能為空");
+
+            Name = name.Trim();
         }
 
         /// <summary>
@@ -120,7 +136,10 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <param name="displayName">顯示名稱。</param>
         public void UpdateDisplayName(string displayName)
         {
-            DisplayName = displayName?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(displayName))
+                throw new DomainException("顯示名稱不能為空");
+
+            DisplayName = displayName.Trim();
         }
 
         /// <summary>

@@ -51,7 +51,7 @@ namespace MatchaLatte.Identity.Data
         {
             var result = new User[]
             {
-                new User("Admin", "123fff", "管理員", string.Empty, true)
+                new User("Admin", "123fff", "管理員", "管理員", true)
             };
 
             return result;
@@ -61,8 +61,8 @@ namespace MatchaLatte.Identity.Data
         {
             var result = new Role[]
             {
-                new Role("Administrator", true),
-                new Role("HumanResources", true)
+                new Role("系統管理員", true),
+                new Role("人力資源", true)
             };
 
             return result;
@@ -72,8 +72,8 @@ namespace MatchaLatte.Identity.Data
         {
             var result = new Permission[]
             {
-                new Permission("特殊權限", string.Empty, true),
-                new Permission("登入", string.Empty, true)
+                new Permission("SignIn", "登入", null, true),
+                new Permission("HumanResources", "人力資源", null, true),
             };
 
             return result;

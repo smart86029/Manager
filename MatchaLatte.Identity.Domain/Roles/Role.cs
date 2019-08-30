@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.Exceptions;
 using MatchaLatte.Identity.Domain.Permissions;
 using MatchaLatte.Identity.Domain.Users;
 
@@ -29,6 +29,9 @@ namespace MatchaLatte.Identity.Domain.Roles
         /// <param name="isEnabled">是否啟用。</param>
         public Role(string name, bool isEnabled)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new DomainException("名稱不能為空");
+
             Name = name;
             IsEnabled = isEnabled;
         }
@@ -63,6 +66,9 @@ namespace MatchaLatte.Identity.Domain.Roles
         /// <param name="name">名稱。</param>
         public void UpdateName(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new DomainException("名稱不能為空");
+
             Name = name;
         }
 

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { from } from 'rxjs';
+import { startWith, switchMap, tap } from 'rxjs/operators';
 import { PaginationResult } from 'src/app/core/pagination-result';
 import { Store } from 'src/app/core/store/store';
 import { StoreService } from 'src/app/core/store/store.service';
@@ -9,28 +12,33 @@ import { StoreService } from 'src/app/core/store/store.service';
   templateUrl: './store-list.component.html',
   styleUrls: ['./store-list.component.scss']
 })
-export class StoreListComponent implements OnInit {
-  isLoading = false;
+export class StoreListComponent implements OnInit, AfterViewInit {
+  isLoading = true;
   stores = new PaginationResult<Store>();
   dataSource = new MatTableDataSource<Store>();
   displayedColumns = ['rowId', 'name', 'createdOn', 'action'];
 
+  @ViewChild(MatPaginator, { static: false })
+  paginator: MatPaginator;
+
   constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.loadStores(0, this.stores.pageSize);
   }
 
-  loadStores(pageIndex: number, pageSize: number): void {
-    this.isLoading = true;
-    this.storeService
-      .getStores(pageIndex, pageSize)
+  ngAfterViewInit(): void {
+    from(this.paginator.page)
+      .pipe(
+        startWith({}),
+        tap(() => this.isLoading = true),
+        switchMap(() => this.storeService.getStores(this.paginator.pageIndex, this.paginator.pageSize)),
+        tap(() => this.isLoading = false)
+      )
       .subscribe({
         next: stores => {
           this.stores = stores;
           this.dataSource.data = stores.items;
         },
-        complete: () => this.isLoading = false
       });
   }
 }

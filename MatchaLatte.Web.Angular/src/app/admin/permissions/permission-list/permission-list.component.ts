@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { from } from 'rxjs';
+import { startWith, switchMap, tap } from 'rxjs/operators';
 import { PaginationResult } from 'src/app/core/pagination-result';
 import { Permission } from 'src/app/core/permission/permission';
 import { PermissionService } from 'src/app/core/permission/permission.service';
@@ -9,28 +12,33 @@ import { PermissionService } from 'src/app/core/permission/permission.service';
   templateUrl: './permission-list.component.html',
   styleUrls: ['./permission-list.component.scss']
 })
-export class PermissionListComponent implements OnInit {
+export class PermissionListComponent implements OnInit, AfterViewInit {
   isLoading: boolean;
   permissions = new PaginationResult<Permission>();
   dataSource = new MatTableDataSource<Permission>();
-  displayedColumns = ['rowId', 'name', 'isEnabled', 'action'];
+  displayedColumns = ['rowId', 'code', 'name', 'isEnabled', 'action'];
+
+  @ViewChild(MatPaginator, { static: false })
+  paginator: MatPaginator;
 
   constructor(private permissionService: PermissionService) { }
 
   ngOnInit(): void {
-    this.loadPermissions(this.permissions.pageIndex, this.permissions.pageSize);
   }
 
-  loadPermissions(pageIndex: number, pageSize: number): void {
-    this.isLoading = true;
-    this.permissionService
-      .getPermissions(pageIndex, pageSize)
+  ngAfterViewInit(): void {
+    from(this.paginator.page)
+      .pipe(
+        startWith({}),
+        tap(() => this.isLoading = true),
+        switchMap(() => this.permissionService.getPermissions(this.paginator.pageIndex, this.paginator.pageSize)),
+        tap(() => this.isLoading = false)
+      )
       .subscribe({
         next: permissions => {
           this.permissions = permissions;
           this.dataSource.data = permissions.items;
         },
-        complete: () => this.isLoading = false
       });
   }
 }

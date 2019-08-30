@@ -19,13 +19,11 @@ namespace MatchaLatte.Identity.Api.Models
         /// <summary>
         /// 取得主鍵。
         /// </summary>
-        /// <value>主鍵。</value>
         public Guid UserId => Guid.Parse(context.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub).Value);
 
         /// <summary>
         /// 取得使用者名稱。
         /// </summary>
-        /// <value>使用者名稱。</value>
         public string UserName => context.HttpContext.User.FindFirst(JwtRegisteredClaimNames.UniqueName).Value;
     }
 }

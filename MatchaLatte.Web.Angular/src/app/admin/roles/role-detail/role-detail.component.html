@@ -4,7 +4,7 @@
     <mat-card>
       <mat-card-content>
         <div class="loading-overlay" *ngIf="isLoading">
-          <mat-progress-bar [mode]="indeterminate"></mat-progress-bar>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <div>
           <mat-form-field>
@@ -16,8 +16,8 @@
         </div>
         <div>
           <p>權限</p>
-          <mat-checkbox *ngFor="let permission of role.permissions" class="permission"
-            name="permission{{permission.permissionId}}" [(ngModel)]="permission.isChecked">{{permission.name}}
+          <mat-checkbox *ngFor="let permission of role.permissions" class="permission" name="{{permission.id}}"
+            [(ngModel)]="permission.isChecked">{{permission.name}}
           </mat-checkbox>
         </div>
       </mat-card-content>

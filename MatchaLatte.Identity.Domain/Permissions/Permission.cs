@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
-using MatchaLatte.Common.Utilities;
+using MatchaLatte.Common.Exceptions;
 using MatchaLatte.Identity.Domain.Roles;
 
 namespace MatchaLatte.Identity.Domain.Permissions
@@ -23,15 +22,27 @@ namespace MatchaLatte.Identity.Domain.Permissions
         /// <summary>
         /// 初始化 <see cref="Permission"/> 類別的新執行個體。
         /// </summary>
+        /// <param name="code">編碼。</param>
         /// <param name="name">名稱。</param>
         /// <param name="description">描述。</param>
         /// <param name="isEnabled">是否啟用。</param>
-        public Permission(string name, string description, bool isEnabled)
+        public Permission(string code, string name, string description, bool isEnabled)
         {
-            Name = name;
-            Description = description;
+            if (string.IsNullOrWhiteSpace(code))
+                throw new DomainException("編碼不能為空");
+            if (string.IsNullOrWhiteSpace(name))
+                throw new DomainException("名稱不能為空");
+
+            Code = code.Trim();
+            Name = name.Trim();
+            Description = description?.Trim();
             IsEnabled = isEnabled;
         }
+
+        /// <summary>
+        /// 取得編碼。
+        /// </summary>
+        public string Code { get; private set; }
 
         /// <summary>
         /// 取得名稱。
@@ -58,12 +69,27 @@ namespace MatchaLatte.Identity.Domain.Permissions
         public IReadOnlyCollection<RolePermission> RolePermissions => rolePermissions;
 
         /// <summary>
+        /// 更新編碼。
+        /// </summary>
+        /// <param name="code">名稱。</param>
+        public void UpdateCode(string code)
+        {
+            if (string.IsNullOrWhiteSpace(code))
+                throw new DomainException("編碼不能為空");
+
+            Code = code.Trim();
+        }
+
+        /// <summary>
         /// 更新名稱。
         /// </summary>
         /// <param name="name">名稱。</param>
         public void UpdateName(string name)
         {
-            Name = name;
+            if (string.IsNullOrWhiteSpace(name))
+                throw new DomainException("名稱不能為空");
+
+            Name = name.Trim();
         }
 
         /// <summary>
@@ -72,7 +98,7 @@ namespace MatchaLatte.Identity.Domain.Permissions
         /// <param name="name">名稱。</param>
         public void UpdateDescription(string description)
         {
-            Description = description.Trim() ?? string.Empty;
+            Description = description?.Trim();
         }
 
         /// <summary>

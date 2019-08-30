@@ -1,5 +1,7 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../auth/auth.service';
 import { ThemeService } from '../core/theme/theme.service';
 
 @Component({
@@ -10,8 +12,16 @@ import { ThemeService } from '../core/theme/theme.service';
 export class MemberComponent implements OnInit {
   title = 'Matcha Latte';
 
-  constructor(private themeService: ThemeService) { }
+  constructor(
+    public themeService: ThemeService,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  signOut(): void {
+    this.authService.signOut();
+    this.router.navigate(['/']);
   }
 }
