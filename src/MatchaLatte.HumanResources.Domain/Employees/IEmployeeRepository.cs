@@ -22,5 +22,17 @@ namespace MatchaLatte.HumanResources.Domain.Employees
         /// </summary>
         /// <returns>所有員工的數量。</returns>
         Task<int> GetEmployeesCountAsync();
+
+        /// <summary>
+        /// 加入員工。
+        /// </summary>
+        /// <param name="employee">員工。</param>
+        void Add(Employee employee);
+
+        /// <summary>
+        /// 更新員工。
+        /// </summary>
+        /// <param name="employee">員工。</param>
+        void Update(Employee employee);
     }
 }

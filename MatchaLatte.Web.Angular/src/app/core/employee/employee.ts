@@ -8,5 +8,5 @@ export class Employee {
   displayName: string;
   birthDate: Date;
   gender: Gender = Gender.notKnown;
-  maritalStatus: MaritalStatus;
+  maritalStatus: MaritalStatus = MaritalStatus.notKnown;
 }

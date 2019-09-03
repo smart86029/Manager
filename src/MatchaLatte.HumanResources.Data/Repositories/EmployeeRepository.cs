@@ -39,5 +39,15 @@ namespace MatchaLatte.HumanResources.Data.Repositories
         {
             return context.Set<Employee>().CountAsync();
         }
+
+        public void Add(Employee employee)
+        {
+            context.Set<Employee>().Add(employee);
+        }
+
+        public void Update(Employee employee)
+        {
+            context.Entry(employee).State = EntityState.Modified;
+        }
     }
 }

@@ -3,16 +3,14 @@
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="gender" datatype="html">
-        <source>{VAR_SELECT, select, notKnown {Not known} male {Male} female {Female} notApplicable {Not Applicable} }</source>
-        <target>{VAR_SELECT, select, notKnown {未知項} male {男性} female {女性} notApplicable {未規定項} }</target>
+        <source>{VAR_SELECT, select, notKnown {Not known} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/employees/employee-detail/employee-detail.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="maritalStatus" datatype="html">
-        <source>{VAR_SELECT, select, notKnown {Not known} married {Married} single {Sngle} }</source>
-        <target>{VAR_SELECT, select, notKnown {未知項} married {已婚} single {單身} }</target>
+        <source>{VAR_SELECT, select, notKnown {Not known} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/employees/employee-detail/employee-detail.component.html</context>
           <context context-type="linenumber">39</context>

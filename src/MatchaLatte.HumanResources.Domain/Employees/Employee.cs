@@ -11,6 +11,25 @@ namespace MatchaLatte.HumanResources.Domain.Employees
     /// </summary>
     public class Employee : Person
     {
+        /// <summary>
+        /// 初始化 <see cref="Employee"/> 類別的新執行個體。
+        /// </summary>
+        private Employee() : base()
+        {
+        }
+
+        /// <summary>
+        /// 初始化 <see cref="Employee"/> 類別的新執行個體。
+        /// </summary>
+        /// <param name="name">姓名。</param>
+        /// <param name="displayName">顯示名稱。</param>
+        /// <param name="birthDate">出生日期。</param>
+        /// <param name="gender">性別。</param>
+        /// <param name="maritalStatus">婚姻狀況。</param>
+        public Employee(string name, string displayName, DateTime birthDate, Gender gender, MaritalStatus maritalStatus) : base(name, displayName, birthDate, gender, maritalStatus)
+        {
+        }
+
         private List<JobChange> jobChanges = new List<JobChange>();
 
         /// <summary>

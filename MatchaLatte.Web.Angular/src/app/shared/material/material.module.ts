@@ -81,6 +81,7 @@ import { AppPaginatorIntl } from './app-paginator-intl';
   providers: [
     { provide: MatPaginatorIntl, useClass: AppPaginatorIntl },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_LOCALE, useValue: 'zh-tw' },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } },
   ],
