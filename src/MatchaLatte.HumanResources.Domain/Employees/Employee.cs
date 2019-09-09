@@ -35,12 +35,12 @@ namespace MatchaLatte.HumanResources.Domain.Employees
         /// <summary>
         /// 取得部門 ID。
         /// </summary>
-        public Guid DepartmentId => jobChanges.OrderBy(j => j.StartOn).Last().DepartmentId;
+        public Guid DepartmentId => jobChanges.SingleOrDefault(j => j.StartOn <= DateTime.UtcNow && j.EndOn >= DateTime.UtcNow)?.DepartmentId ?? jobChanges.Last().DepartmentId;
 
         /// <summary>
         /// 取得職稱 ID。
         /// </summary>
-        public Guid JobTitleId => jobChanges.OrderBy(j => j.StartOn).Last().JobTitleId;
+        public Guid JobTitleId => jobChanges.SingleOrDefault(j => j.StartOn <= DateTime.UtcNow && j.EndOn >= DateTime.UtcNow)?.JobTitleId ?? jobChanges.Last().JobTitleId;
 
         /// <summary>
         /// 取得是否在職。

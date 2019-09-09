@@ -7,7 +7,7 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
     /// <summary>
     /// 職稱。
     /// </summary>
-    public class JobTitle : Entity
+    public class JobTitle : AggregateRoot
     {
         /// <summary>
         /// 初始化 <see cref="JobTitle"/> 類別的新執行個體。
@@ -26,7 +26,7 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
             if (string.IsNullOrWhiteSpace(name))
                 throw new DomainException("名稱不能為空");
 
-            Name = name?.Trim();
+            Name = name.Trim();
             IsEnabled = isEnabled;
         }
 
@@ -55,7 +55,7 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
             if (string.IsNullOrWhiteSpace(name))
                 throw new DomainException("名稱不能為空");
 
-            Name = name?.Trim();
+            Name = name.Trim();
         }
 
         /// <summary>

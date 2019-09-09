@@ -9,4 +9,7 @@ export class Employee {
   birthDate: Date;
   gender: Gender = Gender.notKnown;
   maritalStatus: MaritalStatus = MaritalStatus.notKnown;
+  departmentId: Guid;
+  jobTitleId: Guid;
+  startOn: Date;
 }

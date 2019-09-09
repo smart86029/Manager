@@ -40,6 +40,32 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
+        <div *ngIf="canAssignJob">
+          <mat-form-field>
+            <mat-select name="departmentId" placeholder="部門" [(value)]="employee.departmentId">
+              <mat-option *ngFor="let department of departments" [value]="department.id">
+                {{department.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="canAssignJob">
+          <mat-form-field>
+            <mat-select name="jobTitleId" placeholder="職稱" [(value)]="employee.jobTitleId">
+              <mat-option *ngFor="let jobTitle of jobTitles" [value]="jobTitle.id">
+                {{jobTitle.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="canAssignJob">
+          <mat-form-field>
+            <input matInput name="startOn" placeholder="到職日期" [(ngModel)]="employee.startOn"
+              [matDatepicker]="pickerStartOn" [min]="now">
+            <mat-datepicker-toggle matSuffix [for]="pickerStartOn"></mat-datepicker-toggle>
+            <mat-datepicker type="date" #pickerStartOn></mat-datepicker>
+          </mat-form-field>
+        </div>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button (click)="back()">返回</button>

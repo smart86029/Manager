@@ -36,6 +36,19 @@ namespace MatchaLatte.HumanResources.Api.Controllers
         }
 
         /// <summary>
+        /// 取得員工。
+        /// </summary>
+        /// <param name="option">分頁查詢。</param>
+        /// <returns>員工。</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(Guid id)
+        {
+            var employee = await employeeService.GetEmployeeAsync(id);
+
+            return Ok(employee);
+        }
+
+        /// <summary>
         /// 新增員工。
         /// </summary>
         /// <param name="command">新增員工命令。</param>

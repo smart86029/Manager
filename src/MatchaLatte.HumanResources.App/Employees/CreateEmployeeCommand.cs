@@ -15,5 +15,11 @@ namespace MatchaLatte.HumanResources.App.Employees
         public Gender Gender { get; set; }
 
         public MaritalStatus MaritalStatus { get; set; }
+
+        public Guid DepartmentId { get; set; }
+
+        public Guid JobTitleId { get; set; }
+
+        public DateTime StartOn { get; set; }
     }
 }

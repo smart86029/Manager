@@ -1,48 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MatchaLatte.HumanResources.Domain.Departments;
+using MatchaLatte.HumanResources.Domain.JobTitles;
 using Microsoft.EntityFrameworkCore;
 
 namespace MatchaLatte.HumanResources.Data.Repositories
 {
-    public class DepartmentRepository : IDepartmentRepository
+    public class JobTitleRepository : IJobTitleRepository
     {
         private readonly HumanResourcesContext context;
 
         /// <summary>
-        /// 初始化 <see cref="DepartmentRepository"/> 類別的新執行個體。
+        /// 初始化 <see cref="JobTitleRepository"/> 類別的新執行個體。
         /// </summary>
         /// <param name="context">人力資源內容。</param>
-        public DepartmentRepository(HumanResourcesContext context)
+        public JobTitleRepository(HumanResourcesContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<ICollection<Department>> GetDepartmentsAsync()
+        public async Task<ICollection<JobTitle>> GetJobTitletsAsync()
         {
             var result = await context
-                .Set<Department>()
+                .Set<JobTitle>()
                 .ToListAsync();
 
             return result;
         }
 
-        public async Task<Department> GetDepartmentAsync(Guid departmentId)
+        public async Task<JobTitle> GetJobTitleAsync(Guid jobTitleId)
         {
             var result = await context
-                .Set<Department>()
-                .SingleOrDefaultAsync(d => d.Id == departmentId);
+                .Set<JobTitle>()
+                .SingleOrDefaultAsync(j => j.Id == jobTitleId);
 
             return result;
         }
 
-        public void Add(Department department)
+        public void Add(JobTitle jobTitle)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Department department)
+        public void Update(JobTitle jobTitle)
         {
             throw new NotImplementedException();
         }
