@@ -52,9 +52,20 @@ namespace MatchaLatte.HumanResources.Services
             return result;
         }
 
-        public Task<EmployeeDetail> GetEmployeeAsync(Guid employeeId)
+        public async Task<EmployeeDetail> GetEmployeeAsync(Guid employeeId)
         {
-            throw new NotImplementedException();
+            var employee = await employeeRepository.GetEmployeeAsync(employeeId);
+            var result = new EmployeeDetail
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                DisplayName = employee.DisplayName,
+                BirthDate = employee.BirthDate,
+                Gender = employee.Gender,
+                MaritalStatus = employee.MaritalStatus,
+            };
+
+            return result;
         }
 
         public async Task<EmployeeDetail> CreateEmployeeAsync(CreateEmployeeCommand command)
@@ -75,6 +86,22 @@ namespace MatchaLatte.HumanResources.Services
             };
 
             return result;
+        }
+
+        public async Task<bool> UpdateEmployeeAsync(UpdateEmployeeCommand command)
+        {
+            var employee =  await employeeRepository.GetEmployeeAsync(command.Id) ?? throw new ArgumentException(nameof(command.Id));
+
+            employee.UpdateName(command.Name);
+            employee.UpdateDisplayName(command.DisplayName);
+            employee.UpdateBirthDate(command.BirthDate);
+            employee.UpdateGender(command.Gender);
+            employee.UpdateMaritalStatus(command.MaritalStatus);
+
+            employeeRepository.Update(employee);
+            await unitOfWork.CommitAsync();
+
+            return true;
         }
     }
 }

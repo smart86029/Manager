@@ -26,7 +26,7 @@
         </div>
         <div>
           <label>性別</label>
-          <mat-radio-group class="genders" name="gender" [ngModel]="employee.gender">
+          <mat-radio-group class="genders" name="gender" [(ngModel)]="employee.gender">
             <mat-radio-button *ngFor="let item of gender | dictionary" [value]="item.value">
               <span i18n="@@gender">{item.key, select, notKnown {Not known}}</span>
             </mat-radio-button>
@@ -34,7 +34,7 @@
         </div>
         <div>
           <label>婚姻狀況</label>
-          <mat-radio-group class="marital-status" name="maritalStatus" [ngModel]="employee.maritalStatus">
+          <mat-radio-group class="marital-status" name="maritalStatus" [(ngModel)]="employee.maritalStatus">
             <mat-radio-button *ngFor="let item of maritalStatus | dictionary" [value]="item.value">
               <span i18n="@@maritalStatus">{item.key, select, notKnown {Not known}}</span>
             </mat-radio-button>

@@ -35,6 +35,16 @@ namespace MatchaLatte.HumanResources.Data.Repositories
             return result;
         }
 
+        public async Task<Employee> GetEmployeeAsync(Guid employeeId)
+        {
+            var result = await context
+                .Set<Employee>()
+                .Include(e => e.JobChanges)
+                .SingleOrDefaultAsync(e => e.Id == employeeId);
+
+            return result;
+        }
+
         public Task<int> GetEmployeesCountAsync()
         {
             return context.Set<Employee>().CountAsync();

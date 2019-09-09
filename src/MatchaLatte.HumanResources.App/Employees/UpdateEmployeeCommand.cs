@@ -1,9 +1,10 @@
 ﻿using System;
+using MatchaLatte.Common.Commands;
 using MatchaLatte.HumanResources.Domain;
 
 namespace MatchaLatte.HumanResources.App.Employees
 {
-    public class EmployeeDetail
+    public class UpdateEmployeeCommand : ICommand<bool>
     {
         public Guid Id { get; set; }
 
@@ -17,8 +18,10 @@ namespace MatchaLatte.HumanResources.App.Employees
 
         public MaritalStatus MaritalStatus { get; set; }
 
-        public string DepartmentName { get; set; }
+        public Guid DepartmentId { get; set; }
 
-        public string JobTitleName { get; set; }
+        public Guid JobTitleId { get; set; }
+
+        public DateTime StartOn { get; set; }
     }
 }
