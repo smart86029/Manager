@@ -34,10 +34,10 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 取得所有角色。
+        /// 取得角色的集合。
         /// </summary>
         /// <param name="option">分頁選項。</param>
-        /// <returns>所有角色。</returns>
+        /// <returns>角色的集合。</returns>
         public async Task<PaginationResult<RoleSummary>> GetRolesAsync(PaginationOption option)
         {
             var roles = await roleRepository.GetRolesAsync(option.Offset, option.Limit);
@@ -101,9 +101,9 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 新增角色。
+        /// 建立角色。
         /// </summary>
-        /// <param name="command">新增角色命令。</param>
+        /// <param name="command">建立角色命令。</param>
         /// <returns>角色。</returns>
         public async Task<RoleDetail> CreateRoleAsync(CreateRoleCommand command)
         {

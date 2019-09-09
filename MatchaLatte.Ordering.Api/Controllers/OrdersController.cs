@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MatchaLatte.Ordering.Api.Controllers
 {
+    /// <summary>
+    /// 訂單控制器。
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -32,10 +35,10 @@ namespace MatchaLatte.Ordering.Api.Controllers
         }
 
         /// <summary>
-        /// 取得所有訂單。
+        /// 取得訂單的集合。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
-        /// <returns>所有訂單。</returns>
+        /// <param name="option">分頁選項。</param>
+        /// <returns>訂單的集合。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] OrderOption option)
         {
@@ -49,9 +52,9 @@ namespace MatchaLatte.Ordering.Api.Controllers
         }
 
         /// <summary>
-        /// 新增訂單。
+        /// 建立訂單。
         /// </summary>
-        /// <param name="command">新增訂單查詢。</param>
+        /// <param name="command">建立訂單命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateOrderCommand command)

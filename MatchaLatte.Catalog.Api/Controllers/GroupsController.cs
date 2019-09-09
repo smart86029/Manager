@@ -24,7 +24,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
         /// 初始化 <see cref="GroupsController"/> 類別的新執行個體。
         /// </summary>
         /// <param name="currentUser">當前使用者。</param>
-        /// <param name="groupService">團查詢服務。</param>
+        /// <param name="groupService">團服務。</param>
         public GroupsController(CurrentUser currentUser, IGroupService groupService)
         {
             this.currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
@@ -32,10 +32,10 @@ namespace MatchaLatte.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// 取得所有團。
+        /// 取得團的集合。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
-        /// <returns>所有團。</returns>
+        /// <param name="option">團選項。</param>
+        /// <returns>團的集合。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] GroupOption option)
         {
@@ -61,9 +61,9 @@ namespace MatchaLatte.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// 新增團。
+        /// 建立團。
         /// </summary>
-        /// <param name="command">新增團查詢。</param>
+        /// <param name="command">建立團命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateGroupCommand command)
@@ -75,10 +75,10 @@ namespace MatchaLatte.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// 修改團。
+        /// 更新團。
         /// </summary>
-        /// <param name="id">團ID。</param>
-        /// <param name="command">修改團命令。</param>
+        /// <param name="id">團 ID。</param>
+        /// <param name="command">更新團命令。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateGroupCommand command)

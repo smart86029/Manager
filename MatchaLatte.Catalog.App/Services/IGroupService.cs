@@ -14,7 +14,7 @@ namespace MatchaLatte.Catalog.App.Services
         /// <summary>
         /// 取得團的集合。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
+        /// <param name="option">團選項。</param>
         /// <returns>團的集合。</returns>
         Task<PaginationResult<GroupSummary>> GetGroupsAsync(GroupOption option);
 
@@ -26,9 +26,9 @@ namespace MatchaLatte.Catalog.App.Services
         Task<GroupDetail> GetGroupAsync(Guid groupId);
 
         /// <summary>
-        /// 新增團。
+        /// 建立團。
         /// </summary>
-        /// <param name="command">新增團命令。</param>
+        /// <param name="command">建立團命令。</param>
         /// <returns>團。</returns>
         Task<GroupDetail> CreateGroupAsync(CreateGroupCommand command);
 

@@ -24,9 +24,9 @@ namespace MatchaLatte.Identity.Api.Controllers
         }
 
         /// <summary>
-        /// 新增令牌。
+        /// 建立令牌。
         /// </summary>
-        /// <param name="command">新增令牌命令。</param>
+        /// <param name="command">建立令牌命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]

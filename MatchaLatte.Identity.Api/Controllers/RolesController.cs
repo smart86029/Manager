@@ -29,10 +29,10 @@ namespace MatchaLatte.Identity.Api.Controllers
         }
 
         /// <summary>
-        /// 取得所有角色。
+        /// 取得角色的集合。
         /// </summary>
         /// <param name="option">分頁選項。</param>
-        /// <returns>所有角色。</returns>
+        /// <returns>角色的集合。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
         {
@@ -45,7 +45,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 取得角色。
         /// </summary>
-        /// <param name="id">角色ID。</param>
+        /// <param name="id">角色 ID。</param>
         /// <returns>角色。</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
@@ -70,9 +70,9 @@ namespace MatchaLatte.Identity.Api.Controllers
         }
 
         /// <summary>
-        /// 新增角色。
+        /// 建立角色。
         /// </summary>
-        /// <param name="command">新增角色命令。</param>
+        /// <param name="command">建立角色命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateRoleCommand command)
@@ -83,9 +83,9 @@ namespace MatchaLatte.Identity.Api.Controllers
         }
 
         /// <summary>
-        /// 修改角色。
+        /// 更新角色。
         /// </summary>
-        /// <param name="id">角色ID。</param>
+        /// <param name="id">角色 ID。</param>
         /// <param name="command">更新角色命令。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]

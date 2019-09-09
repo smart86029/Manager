@@ -30,10 +30,10 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 取得所有權限。
+        /// 取得權限的集合。
         /// </summary>
         /// <param name="option">分頁選項。</param>
-        /// <returns>所有權限。</returns>
+        /// <returns>權限的集合。</returns>
         public async Task<PaginationResult<PermissionSummary>> GetPermissionsAsync(PaginationOption option)
         {
             var permissions = await permissionRepository.GetPermissionsAsync(option.Offset, option.Limit);
@@ -76,9 +76,9 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 新增權限。
+        /// 建立權限。
         /// </summary>
-        /// <param name="option">新增權限命令。</param>
+        /// <param name="option">建立權限命令。</param>
         /// <returns>權限。</returns>
         public async Task<PermissionDetail> CreatePermissionAsync(CreatePermissionCommand command)
         {

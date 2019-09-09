@@ -29,10 +29,10 @@ namespace MatchaLatte.Identity.Api.Controllers
         }
 
         /// <summary>
-        /// 取得所有權限。
+        /// 取得權限的集合。
         /// </summary>
         /// <param name="option">分頁選項。</param>
-        /// <returns>所有權限。</returns>
+        /// <returns>權限的集合。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
         {
@@ -45,7 +45,7 @@ namespace MatchaLatte.Identity.Api.Controllers
         /// <summary>
         /// 取得權限。
         /// </summary>
-        /// <param name="id">權限ID。</param>
+        /// <param name="id">權限 ID。</param>
         /// <returns>權限。</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
@@ -58,9 +58,9 @@ namespace MatchaLatte.Identity.Api.Controllers
         }
 
         /// <summary>
-        /// 新增權限。
+        /// 建立權限。
         /// </summary>
-        /// <param name="command">新增權限命令。</param>
+        /// <param name="command">建立權限命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreatePermissionCommand option)
@@ -71,9 +71,9 @@ namespace MatchaLatte.Identity.Api.Controllers
         }
 
         /// <summary>
-        /// 修改權限。
+        /// 更新權限。
         /// </summary>
-        /// <param name="id">權限ID。</param>
+        /// <param name="id">權限 ID。</param>
         /// <param name="command">更新權限命令。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]

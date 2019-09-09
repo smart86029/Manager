@@ -34,10 +34,10 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 取得所有使用者。
+        /// 取得使用者的集合。
         /// </summary>
         /// <param name="option">分頁選項。</param>
-        /// <returns>所有使用者。</returns>
+        /// <returns>使用者的集合。</returns>
         public async Task<PaginationResult<UserSummary>> GetUsersAsync(PaginationOption option)
         {
             var users = await userRepository.GetUsersAsync(option.Offset, option.Limit);
@@ -103,9 +103,9 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 新增使用者。
+        /// 建立使用者。
         /// </summary>
-        /// <param name="command">新增使用者命令。</param>
+        /// <param name="command">建立使用者命令。</param>
         /// <returns>使用者。</returns>
         public async Task<UserDetail> CreateUserAsync(CreateUserCommand command)
         {

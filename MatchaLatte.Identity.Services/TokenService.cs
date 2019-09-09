@@ -54,9 +54,9 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 新增令牌。
+        /// 建立令牌。
         /// </summary>
-        /// <param name="command">新增令牌命令。</param>
+        /// <param name="command">建立令牌命令。</param>
         /// <returns>令牌。</returns>
         public async Task<TokenDetail> CreateTokenAsync(CreateTokenCommand command)
         {

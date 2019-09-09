@@ -36,7 +36,7 @@ namespace MatchaLatte.Catalog.Services
         /// <summary>
         /// 取得店家的集合。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
+        /// <param name="option">分頁選項。</param>
         /// <returns>店家的集合。</returns>
         public async Task<PaginationResult<StoreSummary>> GetStoresAsync(PaginationOption option)
         {
@@ -125,10 +125,10 @@ namespace MatchaLatte.Catalog.Services
         }
 
         /// <summary>
-        /// 新增店家。
+        /// 建立店家。
         /// </summary>
-        /// <param name="command">新增店家命令。</param>
-        /// <returns>使用者。</returns>
+        /// <param name="command">建立店家命令。</param>
+        /// <returns>店家。</returns>
         public async Task<StoreDetail> CreateStoreAsync(CreateStoreCommand command)
         {
             var store = new Store(command.Name, command.Description, new Picture(""), new Phone(command.Phone),

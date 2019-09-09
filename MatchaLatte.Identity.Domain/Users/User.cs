@@ -53,13 +53,11 @@ namespace MatchaLatte.Identity.Domain.Users
         /// <summary>
         /// 取得使用者名稱。
         /// </summary>
-        /// <value>使用者名稱。</value>
         public string UserName { get; private set; }
 
         /// <summary>
         /// 取得密碼雜湊。
         /// </summary>
-        /// <value>密碼雜湊。</value>
         public string PasswordHash { get; private set; }
 
         /// <summary>
@@ -73,27 +71,23 @@ namespace MatchaLatte.Identity.Domain.Users
         public string DisplayName { get; private set; }
 
         /// <summary>
-        /// 取得值，這個值指出是否啟用。
+        /// 取得是否啟用。
         /// </summary>
-        /// <value>如果啟用則為 <c>true</c>，否則為 <c>false</c>。</value>
         public bool IsEnabled { get; private set; }
 
         /// <summary>
-        /// 取得新增時間。
+        /// 取得建立時間。
         /// </summary>
-        /// <value>新增時間。</value>
         public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
 
         /// <summary>
         /// 取得使用者角色的集合。
         /// </summary>
-        /// <value>使用者角色的集合。</value>
         public IReadOnlyCollection<UserRole> UserRoles => userRoles.AsReadOnly();
 
         /// <summary>
         /// 取得更新令牌的集合。
         /// </summary>
-        /// <value>更新令牌的集合。</value>
         public IReadOnlyCollection<UserRefreshToken> UserRefreshTokens => userRefreshTokens.AsReadOnly();
 
         /// <summary>
@@ -192,7 +186,7 @@ namespace MatchaLatte.Identity.Domain.Users
         }
 
         /// <summary>
-        /// 新增刷新令牌。
+        /// 建立刷新令牌。
         /// </summary>
         /// <param name="interval">間隔。</param>
         /// <returns>刷新令牌。</returns>

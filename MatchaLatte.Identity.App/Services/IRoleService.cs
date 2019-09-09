@@ -32,9 +32,9 @@ namespace MatchaLatte.Identity.App.Services
         Task<RoleDetail> GetNewRoleAsync();
 
         /// <summary>
-        /// 新增角色。
+        /// 建立角色。
         /// </summary>
-        /// <param name="command">新增角色命令。</param>
+        /// <param name="command">建立角色命令。</param>
         /// <returns>角色。</returns>
         Task<RoleDetail> CreateRoleAsync(CreateRoleCommand command);
 

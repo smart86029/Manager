@@ -33,7 +33,7 @@ namespace MatchaLatte.HumanResources.Domain.Departments
         }
 
         /// <summary>
-        /// 名稱。
+        /// 取得名稱。
         /// </summary>
         public string Name { get; private set; }
 
@@ -48,9 +48,8 @@ namespace MatchaLatte.HumanResources.Domain.Departments
         public Guid? ParentId { get; private set; }
 
         /// <summary>
-        /// 取得新增時間。
+        /// 取得建立時間。
         /// </summary>
-        /// <value>新增時間。</value>
         public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
 
         /// <summary>

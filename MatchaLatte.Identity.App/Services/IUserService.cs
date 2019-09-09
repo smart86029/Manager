@@ -32,9 +32,9 @@ namespace MatchaLatte.Identity.App.Services
         Task<UserDetail> GetNewUserAsync();
 
         /// <summary>
-        /// 新增使用者。
+        /// 建立使用者。
         /// </summary>
-        /// <param name="command">新增使用者命令。</param>
+        /// <param name="command">建立使用者命令。</param>
         /// <returns>使用者。</returns>
         Task<UserDetail> CreateUserAsync(CreateUserCommand command);
 
