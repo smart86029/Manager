@@ -31,14 +31,21 @@ const routes: Routes = [
         path: 'employees',
         loadChildren: () => import('./employees/employees.module').then(mod => mod.EmployeesModule),
         data: {
-          permissions: ['特殊權限']
+          permissions: ['HumanResources']
         }
       },
       {
         path: 'departments',
         loadChildren: () => import('./departments/departments.module').then(mod => mod.DepartmentsModule),
         data: {
-          permissions: ['特殊權限']
+          permissions: ['HumanResources']
+        }
+      },
+      {
+        path: 'job-titles',
+        loadChildren: () => import('./job-titles/job-titles.module').then(mod => mod.JobTitlesModule),
+        data: {
+          permissions: ['HumanResources']
         }
       },
       {

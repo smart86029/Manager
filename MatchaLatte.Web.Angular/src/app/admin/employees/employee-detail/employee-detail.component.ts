@@ -2,6 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
+import { Department } from 'src/app/core/department/department';
+import { DepartmentService } from 'src/app/core/department/department.service';
 import { Employee } from 'src/app/core/employee/employee';
 import { EmployeeService } from 'src/app/core/employee/employee.service';
 import { Gender } from 'src/app/core/gender.enum';
@@ -10,8 +12,6 @@ import { JobTitle } from 'src/app/core/job-title/job-title';
 import { JobTitleService } from 'src/app/core/job-title/job-title.service';
 import { MaritalStatus } from 'src/app/core/marital-status.enum';
 import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
-import { DepartmentService } from 'src/app/core/department/department.service';
-import { Department } from 'src/app/core/department/department';
 
 @Component({
   selector: 'app-employee-detail',
