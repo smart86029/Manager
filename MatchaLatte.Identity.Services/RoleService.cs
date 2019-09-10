@@ -44,12 +44,14 @@ namespace MatchaLatte.Identity.Services
             var count = await roleRepository.GetCountAsync();
             var result = new PaginationResult<RoleSummary>
             {
-                Items = roles.Select(r => new RoleSummary
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    IsEnabled = r.IsEnabled
-                }).ToList(),
+                Items = roles
+                    .Select(r => new RoleSummary
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        IsEnabled = r.IsEnabled
+                    })
+                    .ToList(),
                 ItemCount = count
             };
 
@@ -70,12 +72,14 @@ namespace MatchaLatte.Identity.Services
                 Id = role.Id,
                 Name = role.Name,
                 IsEnabled = role.IsEnabled,
-                Permissions = permissions.Select(p => new PermissionDetail
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    IsChecked = role.RolePermissions.Any(x => x.PermissionId == p.Id)
-                }).ToList()
+                Permissions = permissions
+                    .Select(p => new PermissionDetail
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        IsChecked = role.RolePermissions.Any(x => x.PermissionId == p.Id)
+                    })
+                    .ToList()
             };
 
             return result;
@@ -90,11 +94,13 @@ namespace MatchaLatte.Identity.Services
             var permissions = await permissionRepository.GetPermissionsAsync();
             var result = new RoleDetail
             {
-                Permissions = permissions.Select(p => new PermissionDetail
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                }).ToList()
+                Permissions = permissions
+                    .Select(p => new PermissionDetail
+                    {
+                        Id = p.Id,
+                        Name = p.Name
+                    })
+                    .ToList()
             };
 
             return result;
