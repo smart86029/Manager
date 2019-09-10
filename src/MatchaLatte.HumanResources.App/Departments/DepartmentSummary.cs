@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MatchaLatte.HumanResources.App.Queries.Departments
+namespace MatchaLatte.HumanResources.App.Departments
 {
     public class DepartmentSummary
     {

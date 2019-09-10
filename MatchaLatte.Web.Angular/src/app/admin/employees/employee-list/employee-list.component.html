@@ -18,6 +18,14 @@
       <th mat-header-cell *matHeaderCellDef>顯示名稱</th>
       <td mat-cell *matCellDef="let employee">{{employee.displayName}}</td>
     </ng-container>
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef>部門</th>
+      <td mat-cell *matCellDef="let employee">{{getDepartmentName(employee.departmentId)}}</td>
+    </ng-container>
+    <ng-container matColumnDef="jobTitle">
+      <th mat-header-cell *matHeaderCellDef>職稱</th>
+      <td mat-cell *matCellDef="let employee">{{getJobTitle(employee.jobTitleId)}}</td>
+    </ng-container>
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>操作</th>
       <td mat-cell *matCellDef="let employee">

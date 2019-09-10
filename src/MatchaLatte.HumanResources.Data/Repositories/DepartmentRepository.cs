@@ -27,5 +27,24 @@ namespace MatchaLatte.HumanResources.Data.Repositories
 
             return result;
         }
+
+        public async Task<Department> GetDepartmentAsync(Guid departmentId)
+        {
+            var result = await context
+                .Set<Department>()
+                .SingleOrDefaultAsync(d => d.Id == departmentId);
+
+            return result;
+        }
+
+        public void Add(Department department)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Department department)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
     /// <summary>
     /// 職稱。
     /// </summary>
-    public class JobTitle : Entity
+    public class JobTitle : AggregateRoot
     {
         /// <summary>
         /// 初始化 <see cref="JobTitle"/> 類別的新執行個體。
@@ -26,12 +26,12 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
             if (string.IsNullOrWhiteSpace(name))
                 throw new DomainException("名稱不能為空");
 
-            Name = name?.Trim();
+            Name = name.Trim();
             IsEnabled = isEnabled;
         }
 
         /// <summary>
-        /// 名稱。
+        /// 取得名稱。
         /// </summary>
         public string Name { get; private set; }
 
@@ -41,9 +41,8 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
         public bool IsEnabled { get; private set; }
 
         /// <summary>
-        /// 取得新增時間。
+        /// 取得建立時間。
         /// </summary>
-        /// <value>新增時間。</value>
         public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace MatchaLatte.HumanResources.Domain.JobTitles
             if (string.IsNullOrWhiteSpace(name))
                 throw new DomainException("名稱不能為空");
 
-            Name = name?.Trim();
+            Name = name.Trim();
         }
 
         /// <summary>

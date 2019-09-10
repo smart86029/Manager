@@ -34,22 +34,24 @@ namespace MatchaLatte.Identity.Services
         }
 
         /// <summary>
-        /// 取得所有角色。
+        /// 取得角色的集合。
         /// </summary>
         /// <param name="option">分頁選項。</param>
-        /// <returns>所有角色。</returns>
+        /// <returns>角色的集合。</returns>
         public async Task<PaginationResult<RoleSummary>> GetRolesAsync(PaginationOption option)
         {
             var roles = await roleRepository.GetRolesAsync(option.Offset, option.Limit);
             var count = await roleRepository.GetCountAsync();
             var result = new PaginationResult<RoleSummary>
             {
-                Items = roles.Select(r => new RoleSummary
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    IsEnabled = r.IsEnabled
-                }).ToList(),
+                Items = roles
+                    .Select(r => new RoleSummary
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        IsEnabled = r.IsEnabled
+                    })
+                    .ToList(),
                 ItemCount = count
             };
 
@@ -70,12 +72,14 @@ namespace MatchaLatte.Identity.Services
                 Id = role.Id,
                 Name = role.Name,
                 IsEnabled = role.IsEnabled,
-                Permissions = permissions.Select(p => new PermissionDetail
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    IsChecked = role.RolePermissions.Any(x => x.PermissionId == p.Id)
-                }).ToList()
+                Permissions = permissions
+                    .Select(p => new PermissionDetail
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        IsChecked = role.RolePermissions.Any(x => x.PermissionId == p.Id)
+                    })
+                    .ToList()
             };
 
             return result;
@@ -90,20 +94,22 @@ namespace MatchaLatte.Identity.Services
             var permissions = await permissionRepository.GetPermissionsAsync();
             var result = new RoleDetail
             {
-                Permissions = permissions.Select(p => new PermissionDetail
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                }).ToList()
+                Permissions = permissions
+                    .Select(p => new PermissionDetail
+                    {
+                        Id = p.Id,
+                        Name = p.Name
+                    })
+                    .ToList()
             };
 
             return result;
         }
 
         /// <summary>
-        /// 新增角色。
+        /// 建立角色。
         /// </summary>
-        /// <param name="command">新增角色命令。</param>
+        /// <param name="command">建立角色命令。</param>
         /// <returns>角色。</returns>
         public async Task<RoleDetail> CreateRoleAsync(CreateRoleCommand command)
         {

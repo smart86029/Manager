@@ -26,9 +26,9 @@ namespace MatchaLatte.Identity.App.Services
         Task<PermissionDetail> GetPermissionAsync(Guid permissionId);
 
         /// <summary>
-        /// 新增權限。
+        /// 建立權限。
         /// </summary>
-        /// <param name="command">新增權限命令。</param>
+        /// <param name="command">建立權限命令。</param>
         /// <returns>權限。</returns>
         Task<PermissionDetail> CreatePermissionAsync(CreatePermissionCommand command);
 

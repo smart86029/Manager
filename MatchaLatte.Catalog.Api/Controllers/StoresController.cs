@@ -25,7 +25,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
         /// 初始化 <see cref="StoresController"/> 類別的新執行個體。
         /// </summary>
         /// <param name="environment">裝載環境。</param>
-        /// <param name="storeService">店家查詢服務。</param>
+        /// <param name="storeService">店家服務。</param>
         public StoresController(IHostingEnvironment environment, IStoreService storeService)
         {
             this.environment = environment ?? throw new ArgumentNullException(nameof(environment));
@@ -35,7 +35,7 @@ namespace MatchaLatte.Catalog.Api.Controllers
         /// <summary>
         /// 取得店家的集合。
         /// </summary>
-        /// <param name="option">分頁查詢。</param>
+        /// <param name="option">分頁選項。</param>
         /// <returns>店家的集合。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationOption option)
@@ -82,9 +82,9 @@ namespace MatchaLatte.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// 新增店家。
+        /// 建立店家。
         /// </summary>
-        /// <param name="command">新增店家查詢。</param>
+        /// <param name="command">建立店家命令。</param>
         /// <returns>201 Created。</returns>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateStoreCommand command)
@@ -95,10 +95,10 @@ namespace MatchaLatte.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// 修改店家。
+        /// 更新店家。
         /// </summary>
-        /// <param name="id">店家ID。</param>
-        /// <param name="command">修改店家命令。</param>
+        /// <param name="id">店家 ID。</param>
+        /// <param name="command">更新店家命令。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateStoreCommand command)

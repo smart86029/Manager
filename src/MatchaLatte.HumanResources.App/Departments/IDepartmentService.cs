@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MatchaLatte.HumanResources.App.Queries.Departments;
 
-namespace MatchaLatte.HumanResources.App.Services
+namespace MatchaLatte.HumanResources.App.Departments
 {
     public interface IDepartmentService
     {

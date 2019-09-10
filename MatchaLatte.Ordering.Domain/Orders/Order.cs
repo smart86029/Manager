@@ -34,55 +34,46 @@ namespace MatchaLatte.Ordering.Domain.Orders
         /// <summary>
         /// 取得訂單狀態。
         /// </summary>
-        /// <value>訂單狀態。</value>
         public OrderStatus OrderStatus { get; private set; } = OrderStatus.Creating;
 
         /// <summary>
         /// 取得應付金額。
         /// </summary>
-        /// <value>應付金額。</value>
         public decimal AmountPayable => orderItems.Sum(x => x.ProductItemPrice * x.Quantity + x.OrderItemProductAccessories.Sum(y => y.ProductAccessoryPrice));
 
         /// <summary>
         /// 取得實付金額。
         /// </summary>
-        /// <value>實付金額。</value>
         public decimal AmountPaid { get; private set; }
 
         /// <summary>
         /// 取得團 ID。
         /// </summary>
-        /// <value>團 ID。</value>
         public Guid GroupId { get; private set; }
 
         /// <summary>
         /// 取得買家 ID。
         /// </summary>
-        /// <value>買家 ID。</value>
         public Guid BuyerId { get; private set; }
 
         /// <summary>
-        /// 取得新增時間。
+        /// 取得建立時間。
         /// </summary>
-        /// <value>新增時間。</value>
         public DateTime CreatedOn { get; private set; }
 
         /// <summary>
         /// 取得付款時間。
         /// </summary>
-        /// <value>付款時間。</value>
         public DateTime? PaidOn { get; private set; }
 
         /// <summary>
         /// 取得是否已付款。
         /// </summary>
-        /// <value>是否已付款。</value>
         public bool HasPaid => AmountPaid >= AmountPayable;
 
         /// <summary>
         /// 取得訂單明細的集合。
         /// </summary>
-        /// <value>訂單明細的集合。</value>
         public IReadOnlyCollection<OrderItem> OrderItems => orderItems;
 
         /// <summary>

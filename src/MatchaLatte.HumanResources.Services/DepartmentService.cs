@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MatchaLatte.HumanResources.App.Queries.Departments;
-using MatchaLatte.HumanResources.App.Services;
+using MatchaLatte.HumanResources.App.Departments;
 using MatchaLatte.HumanResources.Domain.Departments;
 
 namespace MatchaLatte.HumanResources.Services

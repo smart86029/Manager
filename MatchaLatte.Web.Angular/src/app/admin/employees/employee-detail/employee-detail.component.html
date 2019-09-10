@@ -25,12 +25,46 @@
           </mat-form-field>
         </div>
         <div>
-          性別
-          <mat-radio-group class="genders" name="gender" [ngModel]="employee.gender">
+          <label>性別</label>
+          <mat-radio-group class="genders" name="gender" [(ngModel)]="employee.gender">
             <mat-radio-button *ngFor="let item of gender | dictionary" [value]="item.value">
               <span i18n="@@gender">{item.key, select, notKnown {Not known}}</span>
             </mat-radio-button>
           </mat-radio-group>
+        </div>
+        <div>
+          <label>婚姻狀況</label>
+          <mat-radio-group class="marital-status" name="maritalStatus" [(ngModel)]="employee.maritalStatus">
+            <mat-radio-button *ngFor="let item of maritalStatus | dictionary" [value]="item.value">
+              <span i18n="@@maritalStatus">{item.key, select, notKnown {Not known}}</span>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div *ngIf="canAssignJob">
+          <mat-form-field>
+            <mat-select name="departmentId" placeholder="部門" [(value)]="employee.departmentId">
+              <mat-option *ngFor="let department of departments" [value]="department.id">
+                {{department.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="canAssignJob">
+          <mat-form-field>
+            <mat-select name="jobTitleId" placeholder="職稱" [(value)]="employee.jobTitleId">
+              <mat-option *ngFor="let jobTitle of jobTitles" [value]="jobTitle.id">
+                {{jobTitle.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="canAssignJob">
+          <mat-form-field>
+            <input matInput name="startOn" placeholder="到職日期" [(ngModel)]="employee.startOn"
+              [matDatepicker]="pickerStartOn" [min]="now">
+            <mat-datepicker-toggle matSuffix [for]="pickerStartOn"></mat-datepicker-toggle>
+            <mat-datepicker type="date" #pickerStartOn></mat-datepicker>
+          </mat-form-field>
         </div>
       </mat-card-content>
       <mat-card-actions>
