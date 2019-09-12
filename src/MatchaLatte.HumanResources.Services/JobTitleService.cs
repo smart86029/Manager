@@ -19,7 +19,7 @@ namespace MatchaLatte.HumanResources.Services
             this.jobTitleRepository = jobTitleRepository ?? throw new ArgumentNullException(nameof(jobTitleRepository));
         }
 
-        public async Task<ICollection<JobTitlSummary>> GetJobTitlsAsync()
+        public async Task<ICollection<JobTitlSummary>> GetJobTitlesAsync()
         {
             var jobTitles = await jobTitleRepository.GetJobTitletsAsync();
             var result = jobTitles
@@ -32,6 +32,53 @@ namespace MatchaLatte.HumanResources.Services
                 .ToList();
 
             return result;
+        }
+
+        public async Task<JobTitleDetail> GetJobTitleAsync(Guid jobTitleId)
+        {
+            var jobTitle = await jobTitleRepository.GetJobTitleAsync(jobTitleId) ?? throw new ArgumentException(nameof(jobTitleId));
+            var result = new JobTitleDetail
+            {
+                Id = jobTitle.Id,
+                Name = jobTitle.Name,
+                IsEnabled = jobTitle.IsEnabled,
+            };
+
+            return result;
+        }
+
+        public async Task<JobTitleDetail> CreateJobTitleAsync(CreateJobTitleCommand command)
+        {
+            var jobTitle = new JobTitle(command.Name, command.IsEnabled);
+
+            jobTitleRepository.Add(jobTitle);
+            await unitOfWork.CommitAsync();
+
+            var result = new JobTitleDetail
+            {
+                Id = jobTitle.Id,
+                Name = jobTitle.Name,
+                IsEnabled = jobTitle.IsEnabled,
+            };
+
+            return result;
+        }
+
+        public async Task<bool> UpdateJobTitleAsync(UpdateJobTitleCommand command)
+        {
+            var jobTitle = await jobTitleRepository.GetJobTitleAsync(command.Id) ?? throw new ArgumentException(nameof(command.Id));
+
+            jobTitle.UpdateName(command.Name);
+
+            if (command.IsEnabled)
+                jobTitle.Enable();
+            else
+                jobTitle.Disable();
+
+            jobTitleRepository.Update(jobTitle);
+            await unitOfWork.CommitAsync();
+
+            return true;
         }
     }
 }

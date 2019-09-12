@@ -26,15 +26,57 @@ namespace MatchaLatte.HumanResources.Api.Controllers
         }
 
         /// <summary>
-        /// 取得所有職稱。
+        /// 取得職稱的集合。
         /// </summary>
-        /// <returns>所有職稱。</returns>
+        /// <returns>職稱的集合。</returns>
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var jobTitls = await jobTitleService.GetJobTitlsAsync();
+            var jobTitles = await jobTitleService.GetJobTitlesAsync();
 
-            return Ok(jobTitls);
+            return Ok(jobTitles);
+        }
+
+        /// <summary>
+        /// 取得職稱。
+        /// </summary>
+        /// <returns>職稱。</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(Guid id)
+        {
+            var jobTitle = await jobTitleService.GetJobTitleAsync(id);
+
+            return Ok(jobTitle);
+        }
+
+        /// <summary>
+        /// 建立職稱。
+        /// </summary>
+        /// <param name="command">建立職稱命令。</param>
+        /// <returns>201 Created。</returns>
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] CreateJobTitleCommand command)
+        {
+            var jobTitle = await jobTitleService.CreateJobTitleAsync(command);
+
+            return CreatedAtAction(nameof(GetAsync), new { id = jobTitle.Id }, jobTitle);
+        }
+
+        /// <summary>
+        /// 更新職稱。
+        /// </summary>
+        /// <param name="id">職稱 ID。</param>
+        /// <param name="command">更新職稱命令。</param>
+        /// <returns>204 NoContent。</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateJobTitleCommand command)
+        {
+            if (id != command.Id)
+                return BadRequest();
+
+            await jobTitleService.UpdateJobTitleAsync(command);
+
+            return NoContent();
         }
     }
 }

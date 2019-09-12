@@ -98,7 +98,7 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <param name="user">使用者。</param>
         public void Update(User user)
         {
-            context.Entry(user).State = EntityState.Modified;
+            context.Set<User>().Update(user);
         }
     }
 }

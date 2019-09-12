@@ -68,15 +68,16 @@ export class AdminComponent implements OnInit {
     if (this.authService.hasPermission('HumanResources')) {
       menus.push({
         name: '人力資源管理', icon: 'people', url: '', children: [
-          { name: '部門', icon: '', url: 'departments' },
           { name: '員工', icon: '', url: 'employees' },
+          { name: '部門', icon: '', url: 'departments' },
+          { name: '職稱', icon: '', url: 'job-titles' },
         ]
       });
     }
     menus.push({
       name: '目錄管理', icon: 'store', url: '', children: [
         { name: '店家管理', icon: '', url: 'stores' },
-        { name: '團管理', icon: '', url: 'groups' }
+        { name: '團管理', icon: '', url: 'groups' },
       ]
     });
     return menus;

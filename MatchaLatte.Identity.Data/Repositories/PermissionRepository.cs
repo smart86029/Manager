@@ -88,7 +88,7 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <param name="permission">權限。</param>
         public void Update(Permission permission)
         {
-            context.Entry(permission).State = EntityState.Modified;
+            context.Set<Permission>().Update(permission);
         }
     }
 }

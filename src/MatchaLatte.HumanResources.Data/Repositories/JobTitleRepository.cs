@@ -39,12 +39,12 @@ namespace MatchaLatte.HumanResources.Data.Repositories
 
         public void Add(JobTitle jobTitle)
         {
-            throw new NotImplementedException();
+            context.Set<JobTitle>().Add(jobTitle);
         }
 
         public void Update(JobTitle jobTitle)
         {
-            throw new NotImplementedException();
+            context.Set<JobTitle>().Update(jobTitle);
         }
     }
 }

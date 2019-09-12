@@ -43,7 +43,7 @@ namespace MatchaLatte.Ordering.Data.Repositories
         /// <param name="buyer">買家。</param>
         public void Update(Buyer buyer)
         {
-            context.Entry(buyer).State = EntityState.Modified;
+            context.Set<Buyer>().Update(buyer);
         }
     }
 }

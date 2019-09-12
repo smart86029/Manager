@@ -57,7 +57,7 @@ namespace MatchaLatte.HumanResources.Data.Repositories
 
         public void Update(Employee employee)
         {
-            context.Entry(employee).State = EntityState.Modified;
+            context.Set<Employee>().Update(employee);
         }
     }
 }
