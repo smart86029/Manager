@@ -98,7 +98,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
         /// <param name="store">店家。</param>
         public void Update(Store store)
         {
-            context.Entry(store).State = EntityState.Modified;
+            context.Set<Store>().Update(store);
         }
     }
 }

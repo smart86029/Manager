@@ -52,7 +52,7 @@ namespace MatchaLatte.Ordering.Data.Repositories
         /// <param name="order">訂單。</param>
         public void Update(Order order)
         {
-            context.Entry(order).State = EntityState.Modified;
+            context.Set<Order>().Update(order);
         }
     }
 }

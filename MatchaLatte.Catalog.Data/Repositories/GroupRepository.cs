@@ -112,7 +112,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
         /// <param name="group">團。</param>
         public void Update(Group group)
         {
-            context.Entry(group).State = EntityState.Modified;
+            context.Set<Group>().Update(group);
         }
     }
 }

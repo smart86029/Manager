@@ -105,7 +105,7 @@ namespace MatchaLatte.Identity.Data.Repositories
         /// <param name="role">角色。</param>
         public void Update(Role role)
         {
-            context.Entry(role).State = EntityState.Modified;
+            context.Set<Role>().Update(role);
         }
     }
 }

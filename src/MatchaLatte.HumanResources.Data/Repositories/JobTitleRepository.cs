@@ -44,7 +44,7 @@ namespace MatchaLatte.HumanResources.Data.Repositories
 
         public void Update(JobTitle jobTitle)
         {
-            context.Entry(jobTitle).State = EntityState.Modified;
+            context.Set<JobTitle>().Update(jobTitle);
         }
     }
 }
