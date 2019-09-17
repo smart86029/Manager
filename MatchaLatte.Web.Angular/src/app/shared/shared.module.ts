@@ -9,6 +9,7 @@ import { MaterialModule } from './material/material.module';
 import { DictionaryPipe } from './pipes/dictionary.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { ActionNamePipe } from './save-mode/action-name.pipe';
+import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ActionNamePipe } from './save-mode/action-name.pipe';
     YesNoPipe,
     ThemePickerComponent,
     DictionaryPipe,
+    ChatRoomComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { ActionNamePipe } from './save-mode/action-name.pipe';
     YesNoPipe,
     ThemePickerComponent,
     DictionaryPipe,
+    ChatRoomComponent,
   ],
 })
 export class SharedModule { }
