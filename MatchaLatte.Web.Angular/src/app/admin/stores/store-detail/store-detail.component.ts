@@ -9,11 +9,11 @@ import { City } from 'src/app/core/city/city';
 import { CityService } from 'src/app/core/city/city.service';
 import { District } from 'src/app/core/city/district';
 import { Guid } from 'src/app/core/guid';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 import { Product } from 'src/app/core/store/product';
 import { ProductCategory } from 'src/app/core/store/product-category';
 import { Store } from 'src/app/core/store/store';
 import { StoreService } from 'src/app/core/store/store.service';
-import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
 
 import { ProductDetailDialogComponent } from '../product-detail-dialog/product-detail-dialog.component';
 

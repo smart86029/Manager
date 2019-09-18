@@ -2,10 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'src/app/core/guid';
-
-import { PermissionService } from 'src/app/core/permission/permission.service';
-import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
 import { Permission } from 'src/app/core/permission/permission';
+import { PermissionService } from 'src/app/core/permission/permission.service';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 
 @Component({
   selector: 'app-permission-detail',

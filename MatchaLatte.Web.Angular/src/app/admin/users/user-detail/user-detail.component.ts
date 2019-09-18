@@ -2,9 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'src/app/core/guid';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 import { User } from 'src/app/core/user/user';
 import { UserService } from 'src/app/core/user/user.service';
-import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
 
 @Component({
   selector: 'app-user-detail',
