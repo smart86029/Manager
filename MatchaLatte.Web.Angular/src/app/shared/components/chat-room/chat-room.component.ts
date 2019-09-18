@@ -10,6 +10,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
   styleUrls: ['./chat-room.component.scss']
 })
 export class ChatRoomComponent implements OnInit {
+  messages = '';
   message: string;
   overlayRef: OverlayRef;
 
@@ -33,10 +34,14 @@ export class ChatRoomComponent implements OnInit {
     this.overlayRef = this.overlay.create({
       positionStrategy: strategy
     });
+    this.notificationService.message$.subscribe({
+      next: message => this.messages += '\n' + message
+    });
   }
 
   send(): void {
-
+    this.notificationService.send(this.message);
+    this.message = '';
   }
 
   openChatRoom(): void {

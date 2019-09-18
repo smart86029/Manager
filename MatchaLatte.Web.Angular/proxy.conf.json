@@ -20,11 +20,12 @@
       "^/identity": ""
     }
   },
-  "/notificationUrl": {
+  "/notification": {
     "target": "https://localhost:44394",
     "secure": false,
+    "ws": true,
     "pathRewrite": {
-      "^/notificationUrl": ""
+      "^/notification": ""
     }
   },
   "/ordering": {

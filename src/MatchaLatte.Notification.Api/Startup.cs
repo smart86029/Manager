@@ -44,7 +44,7 @@ namespace MatchaLatte.Notification.Api
             }
 
             app.UseHttpsRedirection();
-            app.UseSignalR(routes => routes.MapHub<ChatHub>("/chat"));
+            app.UseSignalR(routes => routes.MapHub<ChatHub>("/hub", options => options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransports.All));
             app.UseMvc();
         }
     }

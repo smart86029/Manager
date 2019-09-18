@@ -5,23 +5,18 @@
 <ng-template #chatRoom>
   <div class="chat-room">
     <form autocomplete="off">
-      <!-- <mat-form-field>
-            <textarea matInput name="remark" placeholder="備註" matTextareaAutosize></textarea>
-          </mat-form-field>
-        
-         -->
+      <mat-form-field>
+        <textarea matInput name="messages" placeholder="備註" [(ngModel)]="messages" matTextareaAutosize></textarea>
+      </mat-form-field>
 
-      <div id="divMessages" class="messages">
-      </div>
       <div class="input-zone">
-        <label id="lblMessage" for="tbMessage">Message:</label>
         <div>
           <mat-form-field>
             <input matInput type="text" name="name" placeholder="訊息" [(ngModel)]="message">
           </mat-form-field>
         </div>
         <button mat-button color="primary" (click)="send()">
-            <mat-icon>send</mat-icon>
+          <mat-icon>send</mat-icon>
         </button>
       </div>
     </form>
