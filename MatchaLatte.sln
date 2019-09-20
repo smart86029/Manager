@@ -63,7 +63,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.HumanResources.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatchaLatte.Notification", "MatchaLatte.Notification", "{2841B12A-00AA-481E-9142-182A51EB18B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Notification.Api", "src\MatchaLatte.Notification.Api\MatchaLatte.Notification.Api.csproj", "{DB6AB8E1-9C0E-45FA-BBE7-2F63B2E4A45D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Notification.Api", "src\MatchaLatte.Notification.Api\MatchaLatte.Notification.Api.csproj", "{DB6AB8E1-9C0E-45FA-BBE7-2F63B2E4A45D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Notification.App", "src\MatchaLatte.Notification.App\MatchaLatte.Notification.App.csproj", "{0F989340-CE11-4C7A-B39D-B07489B5BFCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Notification.Data", "src\MatchaLatte.Notification.Data\MatchaLatte.Notification.Data.csproj", "{40043B50-4C1C-4DC9-84FD-6D6EC34A1D40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Notification.Domain", "src\MatchaLatte.Notification.Domain\MatchaLatte.Notification.Domain.csproj", "{F614F4E1-B00F-4EA5-A573-304DAD84C9FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Notification.Service", "src\MatchaLatte.Notification.Service\MatchaLatte.Notification.Service.csproj", "{388073E6-89E3-44DF-A0DE-4842DC3D4560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,6 +183,22 @@ Global
 		{DB6AB8E1-9C0E-45FA-BBE7-2F63B2E4A45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB6AB8E1-9C0E-45FA-BBE7-2F63B2E4A45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB6AB8E1-9C0E-45FA-BBE7-2F63B2E4A45D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F989340-CE11-4C7A-B39D-B07489B5BFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F989340-CE11-4C7A-B39D-B07489B5BFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F989340-CE11-4C7A-B39D-B07489B5BFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F989340-CE11-4C7A-B39D-B07489B5BFCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40043B50-4C1C-4DC9-84FD-6D6EC34A1D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40043B50-4C1C-4DC9-84FD-6D6EC34A1D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40043B50-4C1C-4DC9-84FD-6D6EC34A1D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40043B50-4C1C-4DC9-84FD-6D6EC34A1D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F614F4E1-B00F-4EA5-A573-304DAD84C9FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F614F4E1-B00F-4EA5-A573-304DAD84C9FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F614F4E1-B00F-4EA5-A573-304DAD84C9FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F614F4E1-B00F-4EA5-A573-304DAD84C9FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{388073E6-89E3-44DF-A0DE-4842DC3D4560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{388073E6-89E3-44DF-A0DE-4842DC3D4560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{388073E6-89E3-44DF-A0DE-4842DC3D4560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{388073E6-89E3-44DF-A0DE-4842DC3D4560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -202,6 +226,10 @@ Global
 		{F5CCA588-48AC-4A22-86D0-AC916C55E577} = {D4110321-52C3-44DB-8B93-7EACE3F25992}
 		{6261CF85-F4FB-4727-9620-C4299ACAFFC2} = {D4110321-52C3-44DB-8B93-7EACE3F25992}
 		{DB6AB8E1-9C0E-45FA-BBE7-2F63B2E4A45D} = {2841B12A-00AA-481E-9142-182A51EB18B6}
+		{0F989340-CE11-4C7A-B39D-B07489B5BFCE} = {2841B12A-00AA-481E-9142-182A51EB18B6}
+		{40043B50-4C1C-4DC9-84FD-6D6EC34A1D40} = {2841B12A-00AA-481E-9142-182A51EB18B6}
+		{F614F4E1-B00F-4EA5-A573-304DAD84C9FE} = {2841B12A-00AA-481E-9142-182A51EB18B6}
+		{388073E6-89E3-44DF-A0DE-4842DC3D4560} = {2841B12A-00AA-481E-9142-182A51EB18B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C764FA00-239B-4498-9C1B-6B93EE1F4393}
