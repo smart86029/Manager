@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'src/app/core/guid';
 import { Role } from 'src/app/core/role/role';
 import { RoleService } from 'src/app/core/role/role.service';
-import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 
 @Component({
   selector: 'app-role-detail',

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { OverlayRef, Overlay } from '@angular/cdk/overlay';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
@@ -15,13 +17,19 @@ export class MemberComponent implements OnInit {
   constructor(
     public themeService: ThemeService,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
+
   }
 
   signOut(): void {
     this.authService.signOut();
     this.router.navigate(['/']);
+  }
+
+  openChatRoom(): void {
+
   }
 }

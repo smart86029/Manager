@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
-import { SaveMode } from './save-mode.enum';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 
 @Pipe({
   name: 'actionName'

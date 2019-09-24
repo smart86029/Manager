@@ -1,0 +1,24 @@
+<button mat-fab class="chat-button" color="primary" (click)="openChatRoom()" #chatButton>
+  <mat-icon>chat</mat-icon>
+</button>
+
+<ng-template #chatRoom>
+  <div class="chat-room">
+    <form autocomplete="off">
+      <mat-form-field>
+        <textarea matInput name="messages" placeholder="備註" [(ngModel)]="messages" matTextareaAutosize></textarea>
+      </mat-form-field>
+
+      <div class="input-zone">
+        <div>
+          <mat-form-field>
+            <input matInput type="text" name="name" placeholder="訊息" [(ngModel)]="message">
+          </mat-form-field>
+        </div>
+        <button mat-button color="primary" (click)="send()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

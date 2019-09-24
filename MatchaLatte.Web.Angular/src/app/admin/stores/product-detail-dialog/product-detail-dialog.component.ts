@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 import { Product } from 'src/app/core/store/product';
 import { ProductItem } from 'src/app/core/store/product-item';
-import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
 
 @Component({
   selector: 'app-product-detail-dialog',

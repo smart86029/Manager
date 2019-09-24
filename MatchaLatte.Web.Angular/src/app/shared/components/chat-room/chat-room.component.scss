@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+.chat-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+
+.chat-room {
+  @include mat-elevation(10);
+  display: block;
+  background: #f9f9f9;
+  padding: 16px 24px 8px;
+  min-width: 240px;
+}

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'src/app/core/guid';
 import { JobTitle } from 'src/app/core/job-title/job-title';
 import { JobTitleService } from 'src/app/core/job-title/job-title.service';
-import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 
 @Component({
   selector: 'app-job-title-detail',

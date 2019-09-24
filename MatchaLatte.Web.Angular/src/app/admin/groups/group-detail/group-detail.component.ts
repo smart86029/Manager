@@ -8,9 +8,9 @@ import { Group } from 'src/app/core/group/group';
 import { GroupService } from 'src/app/core/group/group.service';
 import { Guid } from 'src/app/core/guid';
 import { PaginationResult } from 'src/app/core/pagination-result';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 import { Store } from 'src/app/core/store/store';
 import { StoreService } from 'src/app/core/store/store.service';
-import { SaveMode } from 'src/app/shared/save-mode/save-mode.enum';
 
 @Component({
   selector: 'app-group-detail',
@@ -34,7 +34,7 @@ export class GroupDetailComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private location: Location) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {

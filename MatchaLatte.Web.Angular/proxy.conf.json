@@ -20,6 +20,14 @@
       "^/identity": ""
     }
   },
+  "/notification": {
+    "target": "https://localhost:44394",
+    "secure": false,
+    "ws": true,
+    "pathRewrite": {
+      "^/notification": ""
+    }
+  },
   "/ordering": {
     "target": "https://localhost:44375",
     "secure": false,

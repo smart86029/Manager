@@ -1,8 +1,7 @@
 import { CdkOverlayOrigin, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-
-import { SaveMode } from '../save-mode/save-mode.enum';
+import { SaveMode } from 'src/app/core/save-mode.enum';
 
 @Component({
   selector: 'app-inline-editor',
@@ -31,7 +30,7 @@ export class InlineEditorComponent implements OnInit {
 
   constructor(private overlay: Overlay, private viewContainerRef: ViewContainerRef) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.newValue = this.value;
     const strategy = this.overlay
       .position()
@@ -52,7 +51,7 @@ export class InlineEditorComponent implements OnInit {
     }
   }
 
-  display() {
+  display(): void {
     if (this.overlayRef && this.overlayRef.hasAttached()) {
       this.overlayRef.detach();
     } else {
@@ -60,12 +59,12 @@ export class InlineEditorComponent implements OnInit {
     }
   }
 
-  save() {
+  save(): void {
     this.valueChange.emit(this.newValue);
     this.display();
   }
 
-  back() {
+  back(): void {
     this.newValue = this.value;
     this.display();
   }
