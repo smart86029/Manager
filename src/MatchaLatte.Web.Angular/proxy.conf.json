@@ -1,0 +1,38 @@
+{
+  "/catalog": {
+    "target": "https://localhost:44320",
+    "secure": false,
+    "pathRewrite": {
+      "^/catalog": ""
+    }
+  },
+  "/humanResources": {
+    "target": "https://localhost:44316",
+    "secure": false,
+    "pathRewrite": {
+      "^/humanResources": ""
+    }
+  },
+  "/identity": {
+    "target": "https://localhost:44303",
+    "secure": false,
+    "pathRewrite": {
+      "^/identity": ""
+    }
+  },
+  "/notification": {
+    "target": "https://localhost:44394",
+    "secure": false,
+    "ws": true,
+    "pathRewrite": {
+      "^/notification": ""
+    }
+  },
+  "/ordering": {
+    "target": "https://localhost:44375",
+    "secure": false,
+    "pathRewrite": {
+      "^/ordering": ""
+    }
+  }
+}

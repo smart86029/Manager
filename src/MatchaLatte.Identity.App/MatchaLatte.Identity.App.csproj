@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyNetQ" Version="3.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MatchaLatte.Common\MatchaLatte.Common.csproj" />
   </ItemGroup>
 

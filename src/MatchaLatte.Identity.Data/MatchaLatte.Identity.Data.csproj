@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MatchaLatte.Common\MatchaLatte.Common.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Common.EntityFramework\MatchaLatte.Common.EntityFramework.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Identity.Domain\MatchaLatte.Identity.Domain.csproj" />
   </ItemGroup>
 
 </Project>
