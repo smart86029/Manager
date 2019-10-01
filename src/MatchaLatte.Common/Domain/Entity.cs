@@ -9,7 +9,7 @@ namespace MatchaLatte.Common.Domain
     /// </summary>
     public abstract class Entity
     {
-        private Queue<DomainEvent> domainEvents = new Queue<DomainEvent>();
+        private readonly List<DomainEvent> domainEvents = new List<DomainEvent>();
 
         /// <summary>
         /// 初始化 <see cref="Entity"/> 類別的新執行個體。
@@ -39,7 +39,7 @@ namespace MatchaLatte.Common.Domain
         /// <summary>
         /// 取得領域事件的集合。
         /// </summary>
-        public IReadOnlyCollection<DomainEvent> DomainEvents => domainEvents;
+        public IReadOnlyCollection<DomainEvent> DomainEvents => domainEvents.AsReadOnly();
 
         /// <summary>
         /// 引發領域事件。
@@ -47,7 +47,7 @@ namespace MatchaLatte.Common.Domain
         /// <param name="domainEvent">領域事件。</param>
         public void RaiseDomainEvent(DomainEvent domainEvent)
         {
-            domainEvents.Enqueue(domainEvent);
+            domainEvents.Add(domainEvent);
         }
 
         /// <summary>

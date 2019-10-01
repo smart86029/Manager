@@ -29,7 +29,7 @@
     }
   },
   "/ordering": {
-    "target": "https://localhost:44375",
+    "target": "https://localhost:44367",
     "secure": false,
     "pathRewrite": {
       "^/ordering": ""

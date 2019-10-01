@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace MatchaLatte.Common.Utilities
 {
@@ -15,7 +15,7 @@ namespace MatchaLatte.Common.Utilities
         /// <returns>字串。</returns>
         public static string Serialize(object value)
         {
-            return JsonSerializer.Serialize(value);
+            return JsonConvert.SerializeObject(value);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace MatchaLatte.Common.Utilities
         /// <returns>物件</returns>
         public static T Deserialize<T>(string value)
         {
-            return JsonSerializer.Deserialize<T>(value);
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace MatchaLatte.Common.Utilities
         /// <returns>物件</returns>
         public static object Deserialize(string value, Type type)
         {
-            return JsonSerializer.Deserialize(value, type);
+            return JsonConvert.DeserializeObject(value, type);
         }
     }
 }

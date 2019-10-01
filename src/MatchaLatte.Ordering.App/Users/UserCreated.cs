@@ -5,10 +5,6 @@ namespace MatchaLatte.Ordering.App.Users
 {
     public class UserCreated : Event
     {
-        private UserCreated()
-        {
-        }
-
         public UserCreated(Guid userId, string name, string displayName)
         {
             UserId = userId;

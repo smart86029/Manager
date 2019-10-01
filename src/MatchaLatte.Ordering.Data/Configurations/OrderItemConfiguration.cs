@@ -32,10 +32,6 @@ namespace MatchaLatte.Ordering.Data.Configurations
                 .WithOne()
                 .HasForeignKey(x => x.OrderItemId);
 
-            builder.Metadata
-                .FindNavigation(nameof(OrderItem.OrderItemProductAccessories))
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
-
             builder.HasData(GetSeedData());
         }
 
