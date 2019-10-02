@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
-using MatchaLatte.Notification.Service;
+using MatchaLatte.Notification.Services;
 
 namespace MatchaLatte.Notification.Api.AutofacModules
 {

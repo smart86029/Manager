@@ -1,22 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <UserSecretsId>79ad5256-8f22-490f-b4f2-ccab3a01fdd6</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MatchaLatte.Notification.App\MatchaLatte.Notification.App.csproj" />
     <ProjectReference Include="..\MatchaLatte.Notification.Data\MatchaLatte.Notification.Data.csproj" />
-    <ProjectReference Include="..\MatchaLatte.Notification.Service\MatchaLatte.Notification.Service.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Notification.Services\MatchaLatte.Notification.Services.csproj" />
   </ItemGroup>
 
 </Project>

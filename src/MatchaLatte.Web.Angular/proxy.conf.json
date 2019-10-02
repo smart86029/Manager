@@ -21,7 +21,7 @@
     }
   },
   "/notification": {
-    "target": "https://localhost:44394",
+    "target": "https://localhost:44360",
     "secure": false,
     "ws": true,
     "pathRewrite": {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MatchaLatte.Notification.App.Messages;
 using MatchaLatte.Notification.Domain.Messages;
 
-namespace MatchaLatte.Notification.Service
+namespace MatchaLatte.Notification.Services
 {
     public class MessageService : IMessageService
     {
