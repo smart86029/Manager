@@ -37,17 +37,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Catalog.Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatchaLatte.Ordering", "MatchaLatte.Ordering", "{F1FB28DA-40CA-4E0F-921A-0D1FDEB5BC33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.Api", "src\MatchaLatte.Ordering.Api\MatchaLatte.Ordering.Api.csproj", "{61C51F9B-C0C8-451C-9187-0770A043F70B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Api", "src\MatchaLatte.Ordering.Api\MatchaLatte.Ordering.Api.csproj", "{61C51F9B-C0C8-451C-9187-0770A043F70B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.App", "src\MatchaLatte.Ordering.App\MatchaLatte.Ordering.App.csproj", "{CD3D2A71-73EA-4998-9848-B9E31012C859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.App", "src\MatchaLatte.Ordering.App\MatchaLatte.Ordering.App.csproj", "{CD3D2A71-73EA-4998-9848-B9E31012C859}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.Data", "src\MatchaLatte.Ordering.Data\MatchaLatte.Ordering.Data.csproj", "{92F76147-3454-469B-8DD5-88740BB38663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Data", "src\MatchaLatte.Ordering.Data\MatchaLatte.Ordering.Data.csproj", "{92F76147-3454-469B-8DD5-88740BB38663}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.Domain", "src\MatchaLatte.Ordering.Domain\MatchaLatte.Ordering.Domain.csproj", "{AC6AEF0F-B83A-4EC2-8747-DB475AB48DD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Domain", "src\MatchaLatte.Ordering.Domain\MatchaLatte.Ordering.Domain.csproj", "{AC6AEF0F-B83A-4EC2-8747-DB475AB48DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.Events", "src\MatchaLatte.Ordering.Events\MatchaLatte.Ordering.Events.csproj", "{C2170F4C-4F80-4A87-BEF4-52FA2504651C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Events", "src\MatchaLatte.Ordering.Events\MatchaLatte.Ordering.Events.csproj", "{C2170F4C-4F80-4A87-BEF4-52FA2504651C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchaLatte.Ordering.Services", "src\MatchaLatte.Ordering.Services\MatchaLatte.Ordering.Services.csproj", "{7C5F6BB9-6B36-4C67-9715-D7A2F55286B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.Ordering.Services", "src\MatchaLatte.Ordering.Services\MatchaLatte.Ordering.Services.csproj", "{7C5F6BB9-6B36-4C67-9715-D7A2F55286B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatchaLatte.HumanResources", "MatchaLatte.HumanResources", "{48FDA153-EA72-4B2C-8BF7-ED6ABCF220B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.HumanResources.Api", "src\MatchaLatte.HumanResources.Api\MatchaLatte.HumanResources.Api.csproj", "{47EAB6AC-DDBD-4E82-BEF3-6ECF83604AE8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.HumanResources.App", "src\MatchaLatte.HumanResources.App\MatchaLatte.HumanResources.App.csproj", "{0BE8BF87-6AD6-4DA3-9CC0-A2E54F4AC2E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.HumanResources.Data", "src\MatchaLatte.HumanResources.Data\MatchaLatte.HumanResources.Data.csproj", "{9244E1A8-B2C3-407B-9A1C-990E238B1C7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.HumanResources.Domain", "src\MatchaLatte.HumanResources.Domain\MatchaLatte.HumanResources.Domain.csproj", "{00F7E933-E4E8-4743-8812-6643AA4B8060}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.HumanResources.Events", "src\MatchaLatte.HumanResources.Events\MatchaLatte.HumanResources.Events.csproj", "{E655DEE8-B5AC-4F9D-839D-E7C34079CCCF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchaLatte.HumanResources.Services", "src\MatchaLatte.HumanResources.Services\MatchaLatte.HumanResources.Services.csproj", "{C4D423B2-4269-4EF5-8F56-537C1CE15503}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +149,30 @@ Global
 		{7C5F6BB9-6B36-4C67-9715-D7A2F55286B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C5F6BB9-6B36-4C67-9715-D7A2F55286B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C5F6BB9-6B36-4C67-9715-D7A2F55286B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47EAB6AC-DDBD-4E82-BEF3-6ECF83604AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47EAB6AC-DDBD-4E82-BEF3-6ECF83604AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47EAB6AC-DDBD-4E82-BEF3-6ECF83604AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47EAB6AC-DDBD-4E82-BEF3-6ECF83604AE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE8BF87-6AD6-4DA3-9CC0-A2E54F4AC2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE8BF87-6AD6-4DA3-9CC0-A2E54F4AC2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE8BF87-6AD6-4DA3-9CC0-A2E54F4AC2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE8BF87-6AD6-4DA3-9CC0-A2E54F4AC2E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9244E1A8-B2C3-407B-9A1C-990E238B1C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9244E1A8-B2C3-407B-9A1C-990E238B1C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9244E1A8-B2C3-407B-9A1C-990E238B1C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9244E1A8-B2C3-407B-9A1C-990E238B1C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F7E933-E4E8-4743-8812-6643AA4B8060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F7E933-E4E8-4743-8812-6643AA4B8060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F7E933-E4E8-4743-8812-6643AA4B8060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F7E933-E4E8-4743-8812-6643AA4B8060}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E655DEE8-B5AC-4F9D-839D-E7C34079CCCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E655DEE8-B5AC-4F9D-839D-E7C34079CCCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E655DEE8-B5AC-4F9D-839D-E7C34079CCCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E655DEE8-B5AC-4F9D-839D-E7C34079CCCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D423B2-4269-4EF5-8F56-537C1CE15503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D423B2-4269-4EF5-8F56-537C1CE15503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D423B2-4269-4EF5-8F56-537C1CE15503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D423B2-4269-4EF5-8F56-537C1CE15503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +195,12 @@ Global
 		{AC6AEF0F-B83A-4EC2-8747-DB475AB48DD0} = {F1FB28DA-40CA-4E0F-921A-0D1FDEB5BC33}
 		{C2170F4C-4F80-4A87-BEF4-52FA2504651C} = {F1FB28DA-40CA-4E0F-921A-0D1FDEB5BC33}
 		{7C5F6BB9-6B36-4C67-9715-D7A2F55286B5} = {F1FB28DA-40CA-4E0F-921A-0D1FDEB5BC33}
+		{47EAB6AC-DDBD-4E82-BEF3-6ECF83604AE8} = {48FDA153-EA72-4B2C-8BF7-ED6ABCF220B4}
+		{0BE8BF87-6AD6-4DA3-9CC0-A2E54F4AC2E3} = {48FDA153-EA72-4B2C-8BF7-ED6ABCF220B4}
+		{9244E1A8-B2C3-407B-9A1C-990E238B1C7D} = {48FDA153-EA72-4B2C-8BF7-ED6ABCF220B4}
+		{00F7E933-E4E8-4743-8812-6643AA4B8060} = {48FDA153-EA72-4B2C-8BF7-ED6ABCF220B4}
+		{E655DEE8-B5AC-4F9D-839D-E7C34079CCCF} = {48FDA153-EA72-4B2C-8BF7-ED6ABCF220B4}
+		{C4D423B2-4269-4EF5-8F56-537C1CE15503} = {48FDA153-EA72-4B2C-8BF7-ED6ABCF220B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0AEC0AB-E2AA-41C2-A19D-D57656E6A917}

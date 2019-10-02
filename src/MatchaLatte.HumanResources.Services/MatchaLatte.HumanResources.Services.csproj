@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MatchaLatte.HumanResources.App\MatchaLatte.HumanResources.App.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.Domain\MatchaLatte.HumanResources.Domain.csproj" />
   </ItemGroup>
 
 </Project>

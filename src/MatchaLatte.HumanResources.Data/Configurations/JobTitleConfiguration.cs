@@ -1,12 +1,12 @@
-﻿using MatchaLatte.HumanResources.Domain.JobTitles;
-using Microsoft.EntityFrameworkCore;
+﻿using MatchaLatte.Common.EntityFramework.Configurations;
+using MatchaLatte.HumanResources.Domain.JobTitles;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MatchaLatte.HumanResources.Data.Configurations
 {
-    public class JobTitleConfiguration : IEntityTypeConfiguration<JobTitle>
+    public class JobTitleConfiguration : EntityConfiguration<JobTitle>
     {
-        public void Configure(EntityTypeBuilder<JobTitle> builder)
+        public override void Configure(EntityTypeBuilder<JobTitle> builder)
         {
             builder
                .Property(j => j.Name)

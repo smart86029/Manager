@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchaLatte.HumanResources.Data.Migrations
 {
     [DbContext(typeof(HumanResourcesContext))]
-    [Migration("20190823090014_Initial")]
+    [Migration("20191002025938_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,31 +18,38 @@ namespace MatchaLatte.HumanResources.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("HumanResources")
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("MatchaLatte.Common.Events.EventLog", b =>
                 {
                     b.Property<Guid>("EventId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("EventContent")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventTypeName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("EventTypeNamespace")
                         .IsRequired()
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<int>("PublishCount");
+                    b.Property<int>("PublishCount")
+                        .HasColumnType("int");
 
-                    b.Property<int>("PublishState");
+                    b.Property<int>("PublishState")
+                        .HasColumnType("int");
 
                     b.HasKey("EventId");
 
@@ -52,17 +59,22 @@ namespace MatchaLatte.HumanResources.Data.Migrations
             modelBuilder.Entity("MatchaLatte.HumanResources.Domain.Departments.Department", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsEnabled");
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
-                    b.Property<Guid?>("ParentId");
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -74,17 +86,23 @@ namespace MatchaLatte.HumanResources.Data.Migrations
             modelBuilder.Entity("MatchaLatte.HumanResources.Domain.Employees.JobChange", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("DepartmentId");
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EmployeeId");
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("EndOn");
+                    b.Property<DateTime?>("EndOn")
+                        .HasColumnType("datetime2");
 
-                    b.Property<Guid>("JobTitleId");
+                    b.Property<Guid>("JobTitleId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("StartOn");
+                    b.Property<DateTime>("StartOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -100,14 +118,18 @@ namespace MatchaLatte.HumanResources.Data.Migrations
             modelBuilder.Entity("MatchaLatte.HumanResources.Domain.JobTitles.JobTitle", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsEnabled");
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
                     b.HasKey("Id");
@@ -118,24 +140,30 @@ namespace MatchaLatte.HumanResources.Data.Migrations
             modelBuilder.Entity("MatchaLatte.HumanResources.Domain.Person", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Discriminator")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
-                    b.Property<int>("Gender");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
-                    b.Property<int>("MaritalStatus");
+                    b.Property<int>("MaritalStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
                     b.HasKey("Id");
@@ -154,10 +182,11 @@ namespace MatchaLatte.HumanResources.Data.Migrations
 
             modelBuilder.Entity("MatchaLatte.HumanResources.Domain.Employees.JobChange", b =>
                 {
-                    b.HasOne("MatchaLatte.HumanResources.Domain.Employees.Employee")
+                    b.HasOne("MatchaLatte.HumanResources.Domain.Employees.Employee", null)
                         .WithMany("JobChanges")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
