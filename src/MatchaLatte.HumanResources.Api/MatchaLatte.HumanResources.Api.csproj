@@ -1,21 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <UserSecretsId>70c29f57-81c1-4b0c-a270-256ac1bd7554</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
     <ProjectReference Include="..\MatchaLatte.HumanResources.App\MatchaLatte.HumanResources.App.csproj" />
     <ProjectReference Include="..\MatchaLatte.HumanResources.Data\MatchaLatte.HumanResources.Data.csproj" />
+    <ProjectReference Include="..\MatchaLatte.HumanResources.Events\MatchaLatte.HumanResources.Events.csproj" />
     <ProjectReference Include="..\MatchaLatte.HumanResources.Services\MatchaLatte.HumanResources.Services.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,8 @@
-﻿using MatchaLatte.HumanResources.Api.Extensions;
+using Autofac.Extensions.DependencyInjection;
+using MatchaLatte.HumanResources.Api.Extensions;
 using MatchaLatte.HumanResources.Data;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace MatchaLatte.HumanResources.Api
 {
@@ -9,14 +10,18 @@ namespace MatchaLatte.HumanResources.Api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
+            CreateHostBuilder(args)
                 .Build()
                 .MigrateDbContext<HumanResourcesContext>((context, services) => new HumanResourcesContextSeed(context).SeedAsync().Wait())
                 .Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

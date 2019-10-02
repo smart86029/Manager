@@ -1,8 +1,6 @@
-﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using MatchaLatte.HumanResources.Api.AutofacModules;
 using MatchaLatte.HumanResources.Api.Extensions;
 using MatchaLatte.HumanResources.Api.Models;
@@ -11,10 +9,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace MatchaLatte.HumanResources.Api
@@ -28,17 +26,14 @@ namespace MatchaLatte.HumanResources.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove(JwtRegisteredClaimNames.Sub);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<HumanResourcesContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("HumanResources"));
-            });
+            services.AddControllers();
+
+            services.AddDbContext<HumanResourcesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("HumanResources")));
+
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -54,36 +49,41 @@ namespace MatchaLatte.HumanResources.Api
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped<CurrentUser, CurrentUser>();
-
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
-            containerBuilder.RegisterModule(new DataModule());
-            containerBuilder.RegisterModule(new ServicesModule());
-            containerBuilder.Populate(services);
-
-            var container = containerBuilder.Build();
-
-            return new AutofacServiceProvider(container);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
+            builder.RegisterModule(new DataModule());
+            builder.RegisterModule(new EventsModule());
+            builder.RegisterModule(new ServicesModule());
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
+
+            app.UseEventBus();
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
+
             app.UseAuthentication();
-            app.UseMvc();
-            app.UseEventBus();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

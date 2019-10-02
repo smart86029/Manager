@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MatchaLatte.Catalog.Data\MatchaLatte.Catalog.Data.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Catalog.Events\MatchaLatte.Catalog.Events.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Catalog.Services\MatchaLatte.Catalog.Services.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
+  </ItemGroup>
+
+</Project>

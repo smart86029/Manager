@@ -1,12 +1,13 @@
-﻿using MatchaLatte.HumanResources.Domain;
+﻿using MatchaLatte.Common.EntityFramework.Configurations;
+using MatchaLatte.HumanResources.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MatchaLatte.HumanResources.Data.Configurations
 {
-    public class PersonConfiguration : IEntityTypeConfiguration<Person>
+    public class PersonConfiguration : EntityConfiguration<Person>
     {
-        public void Configure(EntityTypeBuilder<Person> builder)
+        public override void Configure(EntityTypeBuilder<Person> builder)
         {
             builder
                 .Property(p => p.Name)

@@ -1,12 +1,12 @@
-﻿using MatchaLatte.HumanResources.Domain.Departments;
-using Microsoft.EntityFrameworkCore;
+﻿using MatchaLatte.Common.EntityFramework.Configurations;
+using MatchaLatte.HumanResources.Domain.Departments;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MatchaLatte.HumanResources.Data.Configurations
 {
-    public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
+    public class DepartmentConfiguration : EntityConfiguration<Department>
     {
-        public void Configure(EntityTypeBuilder<Department> builder)
+        public override void Configure(EntityTypeBuilder<Department> builder)
         {
             builder
                 .Property(d => d.Name)

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MatchaLatte.Catalog.App\MatchaLatte.Catalog.App.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Catalog.Domain\MatchaLatte.Catalog.Domain.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Common\MatchaLatte.Common.csproj" />
+  </ItemGroup>
+
+</Project>
