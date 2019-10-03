@@ -32,5 +32,11 @@ namespace MatchaLatte.HumanResources.Domain.Departments
         /// </summary>
         /// <param name="department">部門。</param>
         void Update(Department department);
+
+        /// <summary>
+        /// 移除部門。
+        /// </summary>
+        /// <param name="department">部門。</param>
+        void Remove(Department department);
     }
 }

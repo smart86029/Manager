@@ -26,4 +26,12 @@ export class DepartmentService {
         })
       );
   }
+
+  createDepartment(department: Department): Observable<Department> {
+    return this.httpClient.post<Department>(`${this.departmentsUrl}`, department);
+  }
+
+  deleteDepartment(department: Department): Observable<Department> {
+    return this.httpClient.delete<Department>(`${this.departmentsUrl}/${department.id}`);
+  }
 }
