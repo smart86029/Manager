@@ -52,7 +52,7 @@ namespace MatchaLatte.HumanResources.Api
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<CurrentUser, CurrentUser>();
+            services.AddScoped<CurrentUser>();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

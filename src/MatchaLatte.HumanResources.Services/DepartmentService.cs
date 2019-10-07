@@ -60,6 +60,13 @@ namespace MatchaLatte.HumanResources.Services
             if (department == default)
                 return;
 
+            if (department.ParentId == default)
+                throw new InvalidException("根部門不可刪除");
+
+            var departments = await departmentRepository.GetDepartmentsAsync();
+            if (departments.Any(d => d.ParentId == departmentId))
+                throw new InvalidException("含有子部門不可刪除");
+
             departmentRepository.Remove(department);
             await unitOfWork.CommitAsync();
         }

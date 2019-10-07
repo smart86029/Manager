@@ -11,7 +11,7 @@
             <button mat-icon-button color="primary" matTooltip="建立部門" (click)="createDepartment(department)">
               <mat-icon>add_circle</mat-icon>
             </button>
-            <button mat-icon-button color="warn" matTooltip="刪除部門" (click)="deleteDepartment(department)">
+            <button mat-icon-button color="warn" matTooltip="刪除部門" (click)="deleteDepartment(department)" [disabled]="!department.parentId">
               <mat-icon>remove_circle</mat-icon>
             </button>
           </li>
@@ -29,9 +29,9 @@
               <button mat-icon-button color="primary" matTooltip="建立部門" (click)="createDepartment(department)">
                 <mat-icon>add_circle</mat-icon>
               </button>
-              <button mat-icon-button color="warn" matTooltip="刪除部門" (click)="deleteDepartment(department)">
-                <mat-icon>remove_circle</mat-icon>
-              </button>
+              <button mat-icon-button color="warn" matTooltip="刪除部門" (click)="deleteDepartment(department)" disabled>
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
             </div>
             <ul [class.example-tree-invisible]="!treeControl.isExpanded(department)">
               <ng-container matTreeNodeOutlet></ng-container>

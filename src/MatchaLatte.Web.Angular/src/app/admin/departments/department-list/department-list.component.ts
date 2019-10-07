@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Department } from 'src/app/core/department/department';
 import { DepartmentService } from 'src/app/core/department/department.service';
 import { Guid } from 'src/app/core/guid';
+import { ComfirmDialogComponent } from 'src/app/shared/components/comfirm-dialog/comfirm-dialog.component';
 
 import { DepartmentDetailDialogComponent } from '../department-detail-dialog/department-detail-dialog.component';
 
@@ -57,25 +58,32 @@ export class DepartmentListComponent implements OnInit {
   }
 
   createDepartment(parent: Department): void {
-    const dialogRef = this.dialog.open(DepartmentDetailDialogComponent, {
-      data: parent
-    });
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        this.departmentService
-          .createDepartment(data)
-          .subscribe({
-            next: () => window.location.reload()
-          });
-      }
-    });
+    this.dialog
+      .open(DepartmentDetailDialogComponent, { data: parent })
+      .afterClosed()
+      .subscribe(data => {
+        if (data) {
+          this.departmentService
+            .createDepartment(data)
+            .subscribe({
+              next: () => window.location.reload()
+            });
+        }
+      });
   }
 
   deleteDepartment(department: Department): void {
-    this.departmentService
-      .deleteDepartment(department)
-      .subscribe({
-        next: () => window.location.reload()
+    this.dialog
+      .open(ComfirmDialogComponent, { data: `是否刪除部門 (${department.name})?` })
+      .afterClosed()
+      .subscribe(data => {
+        if (data) {
+          this.departmentService
+            .deleteDepartment(department)
+            .subscribe({
+              next: () => window.location.reload()
+            });
+        }
       });
   }
 }
