@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewContainerRef, ViewChild, TemplateRef } from '@angular/core';
-import { NotificationService } from 'src/app/core/notification/notification.service';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { MatButton } from '@angular/material/button';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { NavigationStart, Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/notification/notification.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -24,6 +25,7 @@ export class ChatRoomComponent implements OnInit {
     private notificationService: NotificationService,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,13 @@ export class ChatRoomComponent implements OnInit {
     this.notificationService.message$.subscribe({
       next: message => this.messages += '\n' + message
     });
+    this.router.events.subscribe({
+      next: event => {
+        if (event instanceof NavigationStart) {
+          this.overlayRef.detach();
+        }
+      }
+    });
   }
 
   send(): void {
@@ -45,7 +54,7 @@ export class ChatRoomComponent implements OnInit {
   }
 
   openChatRoom(): void {
-    if (this.overlayRef && this.overlayRef.hasAttached()) {
+    if (!!this.overlayRef && this.overlayRef.hasAttached()) {
       this.overlayRef.detach();
     } else {
       this.overlayRef.attach(new TemplatePortal(this.chatRoom, this.viewContainerRef));
