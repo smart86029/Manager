@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MatchaLatte.Common.Events
 {
@@ -22,5 +23,12 @@ namespace MatchaLatte.Common.Events
         void Subscribe<TEvent, TEventHandler>()
             where TEvent : Event
             where TEventHandler : IEventHandler<TEvent>;
+
+        /// <summary>
+        /// 訂閱。
+        /// </summary>
+        /// <param name="eventType">事件類型。</param>
+        /// <param name="eventHandlerType">事件處理常式類型。</param>
+        void Subscribe(Type eventType, Type eventHandlerType);
     }
 }

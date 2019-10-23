@@ -37,6 +37,8 @@ namespace MatchaLatte.Common.RabbitMQ
                     var @event = JsonUtility.Deserialize(Encoding.UTF8.GetString(body), subscription.EventType);
                     var eventHandler = serviceProvider.GetService(subscription.EventHandlerType);
                     var concreteType = typeof(IEventHandler<>).MakeGenericType(subscription.EventType);
+                    if (eventHandler == default)
+                        return;
 
                     await Task.Yield();
                     await (Task)concreteType.GetMethod("HandleAsync").Invoke(eventHandler, new object[] { @event });
@@ -76,6 +78,14 @@ namespace MatchaLatte.Common.RabbitMQ
 
             advancedBus.Bind(exchange, queue, routingKey);
             subscriptions.Add(routingKey, new Subscription(typeof(TEvent), typeof(TEventHandler)));
+        }
+
+        public void Subscribe(Type eventType, Type eventHandlerType)
+        {
+            var routingKey = eventType.Name;
+
+            advancedBus.Bind(exchange, queue, routingKey);
+            subscriptions.Add(routingKey, new Subscription(eventType, eventHandlerType));
         }
     }
 }

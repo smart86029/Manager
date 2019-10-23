@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using Autofac;
 using MatchaLatte.Notification.Api.AutofacModules;
+using MatchaLatte.Notification.Api.Extensions;
 using MatchaLatte.Notification.Api.Hubs;
 using MatchaLatte.Notification.Api.Models;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +32,9 @@ namespace MatchaLatte.Notification.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            builder.RegisterModule(new CommonModule(Configuration.GetConnectionString("EventBus")));
             builder.RegisterModule(new DataModule(Configuration["Mongo:ConnectionString"], Configuration["Mongo:DatabaseName"]));
+            builder.RegisterModule(new EventsModule());
             builder.RegisterModule(new ServicesModule());
         }
 
@@ -41,6 +44,8 @@ namespace MatchaLatte.Notification.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseEventBus();
 
             app.UseHttpsRedirection();
 
