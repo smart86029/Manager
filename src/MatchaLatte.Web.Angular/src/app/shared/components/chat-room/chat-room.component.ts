@@ -3,7 +3,9 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { NavigationStart, Router } from '@angular/router';
+import { Member } from 'src/app/core/notification/member';
 import { NotificationService } from 'src/app/core/notification/notification.service';
+import { Room } from 'src/app/core/notification/room';
 
 @Component({
   selector: 'app-chat-room',
@@ -11,8 +13,10 @@ import { NotificationService } from 'src/app/core/notification/notification.serv
   styleUrls: ['./chat-room.component.scss']
 })
 export class ChatRoomComponent implements OnInit {
-  messages = '';
+  members: Member[] = [];
+  messages: string[] = ['a', 'b', 'c', 'd'];
   message: string;
+  rooms: Room[] = [];
   overlayRef: OverlayRef;
 
   @ViewChild('chatButton', { static: true })
@@ -36,8 +40,11 @@ export class ChatRoomComponent implements OnInit {
     this.overlayRef = this.overlay.create({
       positionStrategy: strategy
     });
+    this.notificationService.members$.subscribe({
+      next: members => this.members.push(...members)
+    });
     this.notificationService.message$.subscribe({
-      next: message => this.messages += '\n' + message
+      next: message => this.messages.push(message)
     });
     this.router.events.subscribe({
       next: event => {
@@ -48,16 +55,20 @@ export class ChatRoomComponent implements OnInit {
     });
   }
 
-  send(): void {
-    this.notificationService.send(this.message);
-    this.message = '';
-  }
-
   openChatRoom(): void {
     if (!!this.overlayRef && this.overlayRef.hasAttached()) {
       this.overlayRef.detach();
     } else {
       this.overlayRef.attach(new TemplatePortal(this.chatRoom, this.viewContainerRef));
     }
+  }
+
+  createRoom(member: Member): void {
+    //this.notificationService.createRoom(member.);
+  }
+
+  send(): void {
+    this.notificationService.send(this.message);
+    this.message = '';
   }
 }

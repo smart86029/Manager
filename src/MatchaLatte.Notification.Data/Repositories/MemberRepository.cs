@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MatchaLatte.Notification.Domain.Members;
 using MongoDB.Driver;
@@ -16,9 +15,9 @@ namespace MatchaLatte.Notification.Data.Repositories
             members = database.GetCollection<Member>("member");
         }
 
-        public Task<ICollection<Member>> GetMembersAsync()
+        public async Task<ICollection<Member>> GetMembersAsync()
         {
-            throw new NotImplementedException();
+            return await members.AsQueryable().ToListAsync();
         }
 
         public async Task AddAsync(Member member)
