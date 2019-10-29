@@ -5,7 +5,7 @@ using MatchaLatte.Ordering.Events.Orders;
 namespace MatchaLatte.Ordering.Api.AutofacModules
 {
     /// <summary>
-    /// <see cref="App"/> 模組。
+    /// <see cref="Events"/> 模組。
     /// </summary>
     public class EventsModule : Module
     {

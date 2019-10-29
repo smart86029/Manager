@@ -10,6 +10,24 @@
   @include mat-elevation(10);
   display: block;
   background: #f9f9f9;
-  padding: 16px 24px 8px;
-  min-width: 240px;
+  padding: 8px;
+  min-width: 360px;
+}
+
+.rooms {
+  min-width: 120px
+}
+
+.messages {
+  height: 160px;
+  overflow: auto;
+}
+
+.input-zone {
+  display: flex;
+  padding:  5px;
+}
+
+.message {
+  flex: 1;
 }

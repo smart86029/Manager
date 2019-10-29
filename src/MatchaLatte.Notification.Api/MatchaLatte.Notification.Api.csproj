@@ -6,12 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MatchaLatte.Common.RabbitMQ\MatchaLatte.Common.RabbitMQ.csproj" />
     <ProjectReference Include="..\MatchaLatte.Notification.App\MatchaLatte.Notification.App.csproj" />
     <ProjectReference Include="..\MatchaLatte.Notification.Data\MatchaLatte.Notification.Data.csproj" />
+    <ProjectReference Include="..\MatchaLatte.Notification.Events\MatchaLatte.Notification.Events.csproj" />
     <ProjectReference Include="..\MatchaLatte.Notification.Services\MatchaLatte.Notification.Services.csproj" />
   </ItemGroup>
 

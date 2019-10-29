@@ -12,7 +12,7 @@ namespace MatchaLatte.HumanResources.Api
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDbContext<HumanResourcesContext>((context, services) => new HumanResourcesContextSeed(context).SeedAsync().Wait())
+                .MigrateDbContext<HumanResourcesContext>((context) => new HumanResourcesContextSeed(context).SeedAsync().Wait())
                 .Run();
         }
 

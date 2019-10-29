@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState } from '@aspnet/signalr';
+import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel, HubConnectionState, HttpClient } from '@aspnet/signalr';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Member } from './member';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+  members$ = new Subject<Member[]>();
   message$ = new Subject<string>();
   private notificationUrl = 'notification/hub';
   private hubConnection: HubConnection;
 
   constructor(private authService: AuthService) {
     this.init();
+  }
+
+  getMembers(): void {
+    this.hubConnection.send('getMembers');
   }
 
   send(message: string): void {
@@ -36,7 +42,7 @@ export class NotificationService {
       .withUrl(this.notificationUrl, {
         // transport: HttpTransportType.WebSockets,
         // skipNegotiation: true,
-        // accessTokenFactory: () => this.authService.getAccessToken()
+        accessTokenFactory: () => this.authService.getAccessToken()
       })
       .configureLogging(LogLevel.Information)
       .build();
@@ -45,11 +51,17 @@ export class NotificationService {
   private establishConnection(): void {
     this.hubConnection
       .start()
-      .then(() => console.log('Hub connection started'))
+      .then(() => {
+        console.log('Hub connection started');
+        this.getMembers();
+      })
       .catch(() => console.log('Error while establishing connection'));
   }
 
   private registerHandlers(): void {
+    this.hubConnection.on('receiveMembers', members => {
+      this.members$.next(members);
+    });
     this.hubConnection.on('receiveMessage', (user, message) => {
       // this.toastr.success('Updated to status: ' + msg.status, 'Order Id: ' + msg.orderId);
       this.message$.next(message);

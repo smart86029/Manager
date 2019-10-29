@@ -3,22 +3,29 @@
 </button>
 
 <ng-template #chatRoom>
-  <div class="chat-room">
-    <form autocomplete="off">
-      <mat-form-field>
-        <textarea matInput name="messages" placeholder="備註" [(ngModel)]="messages" matTextareaAutosize></textarea>
-      </mat-form-field>
-
-      <div class="input-zone">
-        <div>
-          <mat-form-field>
-            <input matInput type="text" name="name" placeholder="訊息" [(ngModel)]="message">
-          </mat-form-field>
-        </div>
-        <button mat-button color="primary" (click)="send()">
-          <mat-icon>send</mat-icon>
+  <mat-drawer-container class="chat-room">
+    <mat-drawer mode="side" opened>
+      <mat-action-list>
+        <mat-divider class="rooms"></mat-divider>
+        <button mat-list-item *ngFor="let member of members" (click)="createRoom(member)">
+          {{member.displayName}}
         </button>
-      </div>
-    </form>
-  </div>
+      </mat-action-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <form autocomplete="off">
+        <mat-list class="messages">
+          <mat-list-item *ngFor="let message of messages">{{message}}</mat-list-item>
+        </mat-list>
+        <div class="input-zone">
+          <mat-form-field>
+            <input matInput type="text" class="message" name="name" placeholder="訊息" [(ngModel)]="message">
+          </mat-form-field>
+          <button mat-button color="primary" (click)="send()">
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </ng-template>

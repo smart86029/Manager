@@ -3,6 +3,7 @@
     <h2 class="mat-h2">{{saveMode | actionName}}店家</h2>
     <mat-card>
       <mat-card-content>
+        <app-card-loading *ngIf="isLoading"></app-card-loading>
         <mat-horizontal-stepper linear>
           <mat-step>
             <ng-template matStepLabel>店家基本資料</ng-template>
@@ -101,9 +102,6 @@
             </div>
           </mat-step>
         </mat-horizontal-stepper>
-        <div class="loading-overlay" *ngIf="isLoading">
-          <mat-spinner *ngIf="isLoading"></mat-spinner>
-        </div>
       </mat-card-content>
     </mat-card>
   </form>

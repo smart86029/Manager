@@ -20,7 +20,7 @@ namespace MatchaLatte.Identity.Services
     /// </summary>
     public class TokenService : ITokenService
     {
-        private const int AccessTokenExpireSeconds = 60 * 60;
+        private const int AccessTokenExpireSeconds = 12 * 60 * 60;
         private const int RefreshTokenExpireSeconds = 24 * 60 * 60;
 
         private readonly IIdentityUnitOfWork unitOfWork;

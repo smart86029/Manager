@@ -3,9 +3,7 @@
     <h2 class="mat-h2">{{saveMode | actionName}}職稱</h2>
     <mat-card>
       <mat-card-content>
-        <div class="loading-overlay" *ngIf="isLoading">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
+        <app-card-loading *ngIf="isLoading"></app-card-loading>
         <div>
           <mat-form-field>
             <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="jobTitle.name">

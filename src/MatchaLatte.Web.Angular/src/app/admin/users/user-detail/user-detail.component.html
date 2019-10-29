@@ -3,9 +3,7 @@
     <h2 class="mat-h2">{{saveMode | actionName}}使用者</h2>
     <mat-card>
       <mat-card-content>
-        <div class="loading-overlay" *ngIf="isLoading">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
+        <app-card-loading *ngIf="isLoading"></app-card-loading>
         <div>
           <mat-form-field>
             <input matInput type="text" name="userName" placeholder="使用者名稱" [(ngModel)]="user.userName">
@@ -31,8 +29,8 @@
         </div>
         <div>
           <p>角色</p>
-          <mat-checkbox *ngFor="let role of user.roles" class="role" name="{{role.id}}"
-            [(ngModel)]="role.isChecked">{{role.name}}</mat-checkbox>
+          <mat-checkbox *ngFor="let role of user.roles" class="role" name="{{role.id}}" [(ngModel)]="role.isChecked">
+            {{role.name}}</mat-checkbox>
         </div>
       </mat-card-content>
       <mat-card-actions>

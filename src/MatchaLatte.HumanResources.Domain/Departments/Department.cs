@@ -27,7 +27,7 @@ namespace MatchaLatte.HumanResources.Domain.Departments
             if (string.IsNullOrWhiteSpace(name))
                 throw new DomainException("名稱不能為空");
 
-            Name = name?.Trim();
+            Name = name.Trim();
             IsEnabled = isEnabled;
             ParentId = parentId == Guid.Empty ? null : parentId;
         }
@@ -61,7 +61,7 @@ namespace MatchaLatte.HumanResources.Domain.Departments
             if (string.IsNullOrWhiteSpace(name))
                 throw new DomainException("名稱不能為空");
 
-            Name = name?.Trim();
+            Name = name.Trim();
         }
 
         /// <summary>
