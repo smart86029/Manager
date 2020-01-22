@@ -1,7 +1,8 @@
 {
   "/catalog": {
     "target": "https://localhost:44398",
-    "secure": false,
+    "secure": false, 
+    "changeOrigin": true,
     "pathRewrite": {
       "^/catalog": ""
     }
@@ -15,7 +16,6 @@
   },
   "/identity": {
     "target": "https://localhost:44303",
-    "secure": false,
     "pathRewrite": {
       "^/identity": ""
     }
