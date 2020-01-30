@@ -16,6 +16,7 @@
   },
   "/identity": {
     "target": "https://localhost:44303",
+    "secure": false,
     "pathRewrite": {
       "^/identity": ""
     }
