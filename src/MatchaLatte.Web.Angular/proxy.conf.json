@@ -1,7 +1,8 @@
 {
   "/catalog": {
     "target": "https://localhost:44398",
-    "secure": false,
+    "secure": false, 
+    "changeOrigin": true,
     "pathRewrite": {
       "^/catalog": ""
     }
