@@ -18,7 +18,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns = ['rowId', 'userName', 'isEnabled', 'action'];
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(private userService: UserService) { }

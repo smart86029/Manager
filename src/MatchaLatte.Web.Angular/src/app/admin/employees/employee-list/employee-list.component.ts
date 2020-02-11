@@ -25,7 +25,7 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   departments: Department[];
   jobTitles: JobTitle[];
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(

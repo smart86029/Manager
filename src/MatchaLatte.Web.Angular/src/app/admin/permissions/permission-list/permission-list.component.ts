@@ -18,7 +18,7 @@ export class PermissionListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Permission>();
   displayedColumns = ['rowId', 'code', 'name', 'isEnabled', 'action'];
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(private permissionService: PermissionService) { }

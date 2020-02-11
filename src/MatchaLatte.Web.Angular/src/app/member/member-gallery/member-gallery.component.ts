@@ -15,7 +15,7 @@ export class MemberGalleryComponent implements OnInit, AfterViewInit {
   isGroupsLoading = false;
   groups = new PaginationResult<Group>();
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(private groupService: GroupService) { }
