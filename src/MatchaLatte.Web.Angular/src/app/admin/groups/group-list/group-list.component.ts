@@ -18,7 +18,7 @@ export class GroupListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Group>();
   displayedColumns = ['rowId', 'storeName', 'startOn', 'endOn', 'createdOn', 'action'];
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(private groupService: GroupService) { }

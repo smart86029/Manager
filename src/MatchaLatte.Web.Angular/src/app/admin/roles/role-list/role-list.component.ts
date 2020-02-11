@@ -18,7 +18,7 @@ export class RoleListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Role>();
   displayedColumns = ['rowId', 'name', 'isEnabled', 'action'];
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(private roleService: RoleService) { }

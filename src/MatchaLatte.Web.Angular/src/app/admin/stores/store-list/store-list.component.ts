@@ -18,7 +18,7 @@ export class StoreListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Store>();
   displayedColumns = ['rowId', 'name', 'createdOn', 'action'];
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(private storeService: StoreService) { }

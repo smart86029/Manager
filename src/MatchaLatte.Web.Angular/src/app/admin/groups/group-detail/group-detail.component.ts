@@ -25,7 +25,7 @@ export class GroupDetailComponent implements OnInit, AfterViewInit {
   stores = new PaginationResult<Store>();
   canSelectStore = false;
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   constructor(
