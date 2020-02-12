@@ -27,6 +27,7 @@ export class StoreDetailComponent implements OnInit {
   saveMode = SaveMode.Create;
   displayedColumns = ['name', 'price', 'action'];
   store = new Store();
+  logo: File;
   cities: City[];
   selectedCity = new City();
   selectedDistrict: District;
@@ -94,6 +95,13 @@ export class StoreDetailComponent implements OnInit {
     this.location.back();
   }
 
+  changeLogo(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    if (element.files.length > 0) {
+      this.logo = element.files[0];
+    }
+  }
+
   createProductCategory(): void {
     this.store.productCategories.push(new ProductCategory());
   }
@@ -148,7 +156,7 @@ export class StoreDetailComponent implements OnInit {
 
   private update(): void {
     this.storeService
-      .updateStore(this.store)
+      .updateStore(this.store, this.logo)
       .subscribe(store => this.location.back());
   }
 }

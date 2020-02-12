@@ -47,7 +47,10 @@ export class StoreService {
     return this.httpClient.post<Store>(`${this.storesUrl}`, store);
   }
 
-  updateStore(store: Store): Observable<Store> {
-    return this.httpClient.put<Store>(`${this.storesUrl}/${store.id}`, store);
+  updateStore(store: Store, logo: File): Observable<Store> {
+    const formData = new FormData();
+    formData.append('store', JSON.stringify(store));
+    formData.append('logo', logo);
+    return this.httpClient.put<Store>(`${this.storesUrl}/${store.id}`, formData);
   }
 }

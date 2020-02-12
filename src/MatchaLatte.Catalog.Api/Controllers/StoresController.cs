@@ -3,9 +3,12 @@ using System.IO;
 using System.Threading.Tasks;
 using MatchaLatte.Catalog.App.Stores;
 using MatchaLatte.Common.Queries;
+using MatchaLatte.Common.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace MatchaLatte.Catalog.Api.Controllers
 {
@@ -17,6 +20,8 @@ namespace MatchaLatte.Catalog.Api.Controllers
     [ApiController]
     public class StoresController : ControllerBase
     {
+        private static readonly string logoFolder = "Pictures";
+
         private readonly IWebHostEnvironment environment;
         private readonly IStoreService storeService;
 
@@ -73,11 +78,11 @@ namespace MatchaLatte.Catalog.Api.Controllers
             if (string.IsNullOrWhiteSpace(fileName))
                 return NotFound();
 
-            var extension = Path.GetExtension(fileName);
-            var mimeType = GetMimeType(extension);
-            var path = Path.Combine(environment.WebRootPath, "Pictures", fileName);
+            var path = Path.Combine(environment.WebRootPath, logoFolder, fileName);
+            var provider = new FileExtensionContentTypeProvider();
+            provider.TryGetContentType(fileName, out var contentType);
 
-            return PhysicalFile(path, mimeType);
+            return PhysicalFile(path, contentType);
         }
 
         /// <summary>
@@ -97,51 +102,27 @@ namespace MatchaLatte.Catalog.Api.Controllers
         /// 更新店家。
         /// </summary>
         /// <param name="id">店家 ID。</param>
-        /// <param name="command">更新店家命令。</param>
+        /// <param name="store">店家。</param>
+        /// <param name="logo">商標。</param>
         /// <returns>204 NoContent。</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateStoreCommand command)
+        public async Task<IActionResult> PutAsync(Guid id, [FromForm] string store, IFormFile logo)
         {
-            if (id != command.id)
+            var command = JsonUtility.Deserialize<UpdateStoreCommand>(store);
+            if (id != command.Id)
                 return BadRequest();
+
+            if (logo?.Length > 0)
+            {
+                command.LogoFileName = logo.FileName;
+                var path = Path.Combine(environment.WebRootPath, logoFolder, logo.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                    await logo.CopyToAsync(stream);
+            }
 
             await storeService.UpdateStoreAsync(command);
 
             return NoContent();
-        }
-
-        private string GetMimeType(string extension)
-        {
-            switch (extension)
-            {
-                case ".png":
-                    return "image/png";
-
-                case ".gif":
-                    return "image/gif";
-
-                case ".jpg":
-                case ".jpeg":
-                    return "image/jpeg";
-
-                case ".bmp":
-                    return "image/bmp";
-
-                case ".tiff":
-                    return "image/tiff";
-
-                case ".wmf":
-                    return "image/wmf";
-
-                case ".jp2":
-                    return "image/jp2";
-
-                case ".svg":
-                    return "image/svg+xml";
-
-                default:
-                    return "application/octet-stream";
-            }
         }
     }
 }

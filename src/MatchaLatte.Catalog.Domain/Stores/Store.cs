@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MatchaLatte.Common.Domain;
+using MatchaLatte.Common.Exceptions;
 
 namespace MatchaLatte.Catalog.Domain.Stores
 {
@@ -101,6 +102,18 @@ namespace MatchaLatte.Catalog.Domain.Stores
         public void UpdateDescription(string description)
         {
             Description = description?.Trim();
+        }
+
+        /// <summary>
+        /// 更新商標。
+        /// </summary>
+        /// <param name="logo"></param>
+        public void UpdateLogo(Picture logo)
+        {
+            if (string.IsNullOrWhiteSpace(logo.FileName))
+                throw new DomainException($"商標檔案名稱不可為空");
+
+            Logo = logo;
         }
 
         /// <summary>

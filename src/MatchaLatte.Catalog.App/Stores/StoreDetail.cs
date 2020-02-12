@@ -17,6 +17,8 @@ namespace MatchaLatte.Catalog.App.Stores
 
         public string Remark { get; set; }
 
+        public string LogoUri { get; set; }
+
         public ICollection<ProductCategoryDetail> ProductCategories { get; set; } = new List<ProductCategoryDetail>();
     }
 }

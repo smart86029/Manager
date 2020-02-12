@@ -61,6 +61,7 @@ namespace MatchaLatte.Catalog.Services
                     Street = store.Address.Street
                 },
                 Remark = store.Remark,
+                LogoUri = $"{pictureSettings.BaseUri}{store.Id}/logo",
                 ProductCategories = store.ProductCategories
                     .Select(c => new ProductCategoryDetail
                     {
@@ -144,10 +145,13 @@ namespace MatchaLatte.Catalog.Services
 
         public async Task<bool> UpdateStoreAsync(UpdateStoreCommand command)
         {
-            var store = await storeRepository.GetStoreAsync(command.id);
+            var store = await storeRepository.GetStoreAsync(command.Id);
 
             store.UpdateName(command.Name);
             store.UpdateDescription(command.Description);
+            if (!string.IsNullOrWhiteSpace(command.LogoFileName))
+                store.UpdateLogo(new Picture(command.LogoFileName));
+
             store.UpdatePhone(new Phone(command.Phone));
             store.UpdateAddress(new Address(command.Address.City, command.Address.District, command.Address.Street));
             store.UpdateRemark(command.Remark);

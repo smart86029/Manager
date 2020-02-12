@@ -68,6 +68,7 @@ namespace MatchaLatte.Catalog.Data.Repositories
             var result = await stores
                 .Where(s => s.Id == storeId)
                 .Select(s => s.Logo)
+                .AsNoTracking()
                 .SingleOrDefaultAsync();
 
             return result;
