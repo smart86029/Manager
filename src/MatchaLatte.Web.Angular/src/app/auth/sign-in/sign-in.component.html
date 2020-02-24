@@ -2,7 +2,7 @@
   <div class="full-page"></div>
   <div class="overlay"></div>
   <div class="inner">
-    <form>
+    <form (ngSubmit)="signIn()">
       <mat-card>
         <mat-card-header>
           <mat-card-title>
@@ -11,17 +11,19 @@
         </mat-card-header>
         <mat-card-content>
           <mat-form-field>
-            <input matInput type="text" class="input-text" name="userName" placeholder="帳號" [(ngModel)]="userName">
+            <mat-label>帳號</mat-label>
+            <input matInput type="text" name="userName" [(ngModel)]="userName">
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="password" class="input-text" name="password" placeholder="密碼" [(ngModel)]="password">
+            <mat-label>密碼</mat-label>
+            <input matInput type="password" name="password" [(ngModel)]="password">
           </mat-form-field>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="accent" (click)="signIn()">登入</button>
+          <button mat-raised-button type="submit" color="accent">登入</button>
         </mat-card-actions>
       </mat-card>
     </form>
   </div>
 </main>
-<footer>2018</footer>
+<footer>2020</footer>

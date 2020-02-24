@@ -2,16 +2,18 @@
   <h2 class="mat-h2">部門</h2>
   <mat-card>
     <mat-card-content>
-      <mat-tree class="example-tree" [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <mat-tree-node *matTreeNodeDef="let department" matTreeNodeToggle>
           <li class="mat-tree-node">
             <button mat-icon-button disabled></button>
             {{department.name}}
             <span class="fill-space"></span>
-            <button mat-icon-button color="primary" matTooltip="建立部門" (click)="createDepartment(department)">
+            <button mat-icon-button type="button" (click)="createDepartment(department)" color="primary"
+              matTooltip="建立部門">
               <mat-icon>add_circle</mat-icon>
             </button>
-            <button mat-icon-button color="warn" matTooltip="刪除部門" (click)="deleteDepartment(department)" [disabled]="!department.parentId">
+            <button mat-icon-button type="button" [disabled]="!department.parentId"
+              (click)="deleteDepartment(department)" color="warn" matTooltip="刪除部門">
               <mat-icon>remove_circle</mat-icon>
             </button>
           </li>
@@ -26,14 +28,16 @@
               </button>
               {{department.name}}
               <span class="fill-space"></span>
-              <button mat-icon-button color="primary" matTooltip="建立部門" (click)="createDepartment(department)">
+              <button mat-icon-button type="button" (click)="createDepartment(department)" color="primary"
+                matTooltip="建立部門">
                 <mat-icon>add_circle</mat-icon>
               </button>
-              <button mat-icon-button color="warn" matTooltip="刪除部門" (click)="deleteDepartment(department)" disabled>
-                  <mat-icon>remove_circle</mat-icon>
-                </button>
+              <button mat-icon-button type="button" disabled (click)="deleteDepartment(department)" color="warn"
+                matTooltip="刪除部門">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
             </div>
-            <ul [class.example-tree-invisible]="!treeControl.isExpanded(department)">
+            <ul [hidden]="!treeControl.isExpanded(department)">
               <ng-container matTreeNodeOutlet></ng-container>
             </ul>
           </li>

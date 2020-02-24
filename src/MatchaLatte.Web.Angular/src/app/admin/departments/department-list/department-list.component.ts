@@ -2,7 +2,8 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { map } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Department } from 'src/app/core/department/department';
 import { DepartmentService } from 'src/app/core/department/department.service';
 import { Guid } from 'src/app/core/guid';
@@ -25,10 +26,6 @@ export class DepartmentListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDepartment();
-  }
-
-  loadDepartment(): void {
     this.departmentService
       .getDepartments()
       .pipe(
@@ -44,13 +41,14 @@ export class DepartmentListComponent implements OnInit {
             }
           });
           return result;
+        }),
+        tap(departments => {
+          this.dataSource.data = departments;
+          this.treeControl.dataNodes = departments;
+          this.treeControl.expandAll();
         })
       )
-      .subscribe(departments => {
-        this.dataSource.data = departments;
-        this.treeControl.dataNodes = departments;
-        this.treeControl.expandAll();
-      });
+      .subscribe();
   }
 
   hasChild(_: number, department: Department): boolean {
@@ -61,29 +59,28 @@ export class DepartmentListComponent implements OnInit {
     this.dialog
       .open(DepartmentDetailDialogComponent, { data: parent })
       .afterClosed()
-      .subscribe(data => {
-        if (data) {
+      .pipe(
+        switchMap(data => !!data ?
           this.departmentService
             .createDepartment(data)
-            .subscribe({
-              next: () => window.location.reload()
-            });
-        }
-      });
+            .pipe(
+              tap(() => window.location.reload())) :
+          EMPTY))
+      .subscribe();
   }
 
   deleteDepartment(department: Department): void {
     this.dialog
       .open(ComfirmDialogComponent, { data: `是否刪除部門 (${department.name})?` })
       .afterClosed()
-      .subscribe(data => {
-        if (data) {
+      .pipe(
+        switchMap(data => !!data ?
           this.departmentService
             .deleteDepartment(department)
-            .subscribe({
-              next: () => window.location.reload()
-            });
-        }
-      });
+            .pipe(
+              tap(() => window.location.reload())) :
+          EMPTY)
+      )
+      .subscribe();
   }
 }

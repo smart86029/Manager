@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { from } from 'rxjs';
-import { startWith, switchMap, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, startWith, switchMap, tap } from 'rxjs/operators';
 import { PaginationResult } from 'src/app/core/pagination-result';
 import { User } from 'src/app/core/user/user';
 import { UserService } from 'src/app/core/user/user.service';
@@ -12,8 +12,9 @@ import { UserService } from 'src/app/core/user/user.service';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit, AfterViewInit {
+export class UserListComponent implements AfterViewInit, OnDestroy {
   isLoading = true;
+  isEmptyResult = false;
   users = new PaginationResult<User>();
   dataSource = new MatTableDataSource<User>();
   displayedColumns = ['rowId', 'userName', 'isEnabled', 'action'];
@@ -21,24 +22,28 @@ export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
+  private subscription = new Subscription();
+
   constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
-    from(this.paginator.page)
+    this.subscription.add(this.paginator.page
       .pipe(
         startWith({}),
         tap(() => this.isLoading = true),
         switchMap(() => this.userService.getUsers(this.paginator.pageIndex, this.paginator.pageSize)),
-        tap(() => this.isLoading = false)
-      )
-      .subscribe({
-        next: users => {
+        tap(users => {
+          this.isLoading = false;
+          this.isEmptyResult = users.itemCount === 0;
           this.users = users;
           this.dataSource.data = users.items;
-        },
-      });
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

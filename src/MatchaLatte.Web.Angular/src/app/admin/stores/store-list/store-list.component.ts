@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { from } from 'rxjs';
-import { startWith, switchMap, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, startWith, switchMap, tap } from 'rxjs/operators';
 import { PaginationResult } from 'src/app/core/pagination-result';
 import { Store } from 'src/app/core/store/store';
 import { StoreService } from 'src/app/core/store/store.service';
@@ -12,8 +12,9 @@ import { StoreService } from 'src/app/core/store/store.service';
   templateUrl: './store-list.component.html',
   styleUrls: ['./store-list.component.scss']
 })
-export class StoreListComponent implements OnInit, AfterViewInit {
+export class StoreListComponent implements AfterViewInit, OnDestroy {
   isLoading = true;
+  isEmptyResult = false;
   stores = new PaginationResult<Store>();
   dataSource = new MatTableDataSource<Store>();
   displayedColumns = ['rowId', 'name', 'createdOn', 'action'];
@@ -21,24 +22,28 @@ export class StoreListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
+  private subscription = new Subscription();
+
   constructor(private storeService: StoreService) { }
 
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
-    from(this.paginator.page)
+    this.subscription.add(this.paginator.page
       .pipe(
         startWith({}),
         tap(() => this.isLoading = true),
         switchMap(() => this.storeService.getStores(this.paginator.pageIndex, this.paginator.pageSize)),
-        tap(() => this.isLoading = false)
-      )
-      .subscribe({
-        next: stores => {
+        tap(stores => {
+          this.isLoading = false;
+          this.isEmptyResult = stores.itemCount === 0;
           this.stores = stores;
           this.dataSource.data = stores.items;
-        },
-      });
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

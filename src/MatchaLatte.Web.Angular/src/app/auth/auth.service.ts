@@ -50,10 +50,8 @@ export class AuthService {
     if (!payload || !payload.hasOwnProperty('exp')) {
       return true;
     }
-
     const date = new Date(0);
     date.setUTCSeconds(payload.exp);
-
     return new Date() < date;
   }
 
@@ -80,17 +78,14 @@ export class AuthService {
     if (accessToken == null || accessToken === '') {
       return null;
     }
-
     const parts = accessToken.split('.');
     if (parts.length !== 3) {
       throw new Error('The inspected token doesn\'t appear to be a JWT.');
     }
-
     const decoded = this.base64UrlDecode(parts[1]);
     if (!decoded) {
       throw new Error('Cannot decode the token.');
     }
-
     return JSON.parse(decoded);
   }
 
