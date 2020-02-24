@@ -200,7 +200,7 @@ namespace MatchaLatte.Catalog.Services
                     }
 
                     var productItemIdsExist = p.ProductItems.Select(x => x.Id);
-                    var productItemToRemove = product.ProductItems.Where(x => productItemIdsExist.Contains(x.Id)).ToList();
+                    var productItemToRemove = product.ProductItems.Where(x => !productItemIdsExist.Contains(x.Id)).ToList();
                     foreach (var i in productItemToRemove)
                         product.RemoveProductItem(i);
                 }
