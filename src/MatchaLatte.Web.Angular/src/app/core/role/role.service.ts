@@ -19,13 +19,14 @@ export class RoleService {
     const params = new HttpParams()
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
-
-    return this.httpClient.get<Role[]>(this.rolesUrl, { params, observe: 'response' }).pipe(
-      map(response => {
-        const itemCount = +response.headers.get('X-Total-Count');
-        return new PaginationResult<Role>(pageIndex, pageSize, itemCount, response.body);
-      })
-    );
+    return this.httpClient
+      .get<Role[]>(this.rolesUrl, { params, observe: 'response' })
+      .pipe(
+        map(response => {
+          const itemCount = +response.headers.get('X-Total-Count');
+          return new PaginationResult<Role>(pageIndex, pageSize, itemCount, response.body);
+        })
+      );
   }
 
   getRole(id: Guid): Observable<Role> {

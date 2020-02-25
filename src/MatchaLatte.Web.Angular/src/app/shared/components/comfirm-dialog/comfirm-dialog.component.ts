@@ -6,10 +6,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './comfirm-dialog.component.html',
   styleUrls: ['./comfirm-dialog.component.scss']
 })
-export class ComfirmDialogComponent implements OnInit {
-
+export class ComfirmDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public message: string) { }
-
-  ngOnInit(): void {
-  }
 }

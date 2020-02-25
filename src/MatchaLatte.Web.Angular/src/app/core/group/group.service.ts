@@ -19,7 +19,6 @@ export class GroupService {
     const params = new HttpParams()
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
-
     return this.httpClient
       .get<Group[]>(this.groupsUrl, { params, observe: 'response' })
       .pipe(
@@ -35,7 +34,6 @@ export class GroupService {
       .set('offset', '0')
       .set('limit', '10')
       .set('searchType', '1');
-
     return this.httpClient
       .get<Group[]>(this.groupsUrl, { params, observe: 'response' })
       .pipe(
@@ -53,7 +51,6 @@ export class GroupService {
   getNewGroup(storeId: Guid): Observable<Group> {
     const params = new HttpParams()
       .set('storeId', storeId.toString());
-
     return this.httpClient.get<Group>(`${this.groupsUrl}/new`, { params });
   }
 

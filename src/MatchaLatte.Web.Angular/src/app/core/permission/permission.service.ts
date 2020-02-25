@@ -19,13 +19,14 @@ export class PermissionService {
     const params = new HttpParams()
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
-
-    return this.httpClient.get<Permission[]>(this.permissionsUrl, { params, observe: 'response' }).pipe(
-      map(response => {
-        const itemCount = +response.headers.get('X-Total-Count');
-        return new PaginationResult<Permission>(pageIndex, pageSize, itemCount, response.body);
-      })
-    );
+    return this.httpClient
+      .get<Permission[]>(this.permissionsUrl, { params, observe: 'response' })
+      .pipe(
+        map(response => {
+          const itemCount = +response.headers.get('X-Total-Count');
+          return new PaginationResult<Permission>(pageIndex, pageSize, itemCount, response.body);
+        })
+      );
   }
 
   getPermission(id: Guid): Observable<Permission> {

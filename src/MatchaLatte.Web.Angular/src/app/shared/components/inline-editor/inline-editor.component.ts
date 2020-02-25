@@ -2,6 +2,7 @@ import { CdkOverlayOrigin, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { SaveMode } from 'src/app/core/save-mode.enum';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-inline-editor',
@@ -43,7 +44,10 @@ export class InlineEditorComponent implements OnInit {
     });
     this.overlayRef
       .backdropClick()
-      .subscribe(() => this.back());
+      .pipe(
+        tap(() => this.back())
+      )
+      .subscribe();
     if (!this.newValue) {
       this.display();
     } else {

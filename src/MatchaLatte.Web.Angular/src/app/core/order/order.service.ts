@@ -20,7 +20,6 @@ export class OrderService {
       .set('queryType', '0')
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
-
     return this.httpClient
       .get<Order[]>(this.ordersUrl, { params, observe: 'response' })
       .pipe(

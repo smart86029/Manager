@@ -19,7 +19,6 @@ export class UserService {
     const params = new HttpParams()
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
-
     return this.httpClient
       .get<User[]>(this.usersUrl, { params, observe: 'response' })
       .pipe(

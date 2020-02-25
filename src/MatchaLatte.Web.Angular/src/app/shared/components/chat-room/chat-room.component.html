@@ -1,4 +1,4 @@
-<button mat-fab class="chat-button" color="primary" (click)="openChatRoom()" #chatButton>
+<button mat-fab type="button" class="chat-button" (click)="openChatRoom()" color="primary" #chatButton>
   <mat-icon>chat</mat-icon>
 </button>
 
@@ -7,21 +7,22 @@
     <mat-drawer mode="side" opened>
       <mat-action-list>
         <mat-divider class="rooms"></mat-divider>
-        <button mat-list-item *ngFor="let member of members" (click)="createRoom(member)">
+        <button *ngFor="let member of members" type="button" (click)="createRoom(member)" mat-list-item>
           {{member.displayName}}
         </button>
       </mat-action-list>
     </mat-drawer>
     <mat-drawer-content>
-      <form autocomplete="off">
+      <form autocomplete="off" (ngSubmit)="send()">
         <mat-list class="messages">
           <mat-list-item *ngFor="let message of messages">{{message}}</mat-list-item>
         </mat-list>
         <div class="input-zone">
           <mat-form-field>
-            <input matInput type="text" class="message" name="name" placeholder="訊息" [(ngModel)]="message">
+            <mat-label>訊息</mat-label>
+            <input matInput type="text" class="message" name="name" [(ngModel)]="message">
           </mat-form-field>
-          <button mat-button color="primary" (click)="send()">
+          <button mat-button type="submit" color="primary">
             <mat-icon>send</mat-icon>
           </button>
         </div>
