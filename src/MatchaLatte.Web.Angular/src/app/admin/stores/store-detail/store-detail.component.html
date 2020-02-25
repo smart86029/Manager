@@ -11,30 +11,35 @@
               <div class="column">
                 <div>
                   <mat-form-field>
-                    <input type="text" name="name" placeholder="名稱" [(ngModel)]="store.name" matInput>
+                    <mat-label>名稱</mat-label>
+                    <input matInput type="text" name="name" [(ngModel)]="store.name">
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-form-field>
-                    <textarea name="description" placeholder="描述" [(ngModel)]="store.description" matInput
+                    <mat-label>描述</mat-label>
+                    <textarea matInput name="description" [(ngModel)]="store.description"
                       matTextareaAutosize></textarea>
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-form-field>
-                    <input type="tel" name="phone" placeholder="電話" [(ngModel)]="store.phone" matInput>
+                    <mat-label>電話</mat-label>
+                    <input matInput type="tel" name="phone" [(ngModel)]="store.phone">
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-form-field>
-                    <mat-select name="addressCity" placeholder="縣市" [(value)]="selectedCity">
+                    <mat-label>縣市</mat-label>
+                    <mat-select name="addressCity" [(value)]="selectedCity">
                       <mat-option *ngFor="let city of cities" [value]="city">
                         {{city.name}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field>
-                    <mat-select name="addressDistrict" placeholder="鄉鎮市區" [(value)]="selectedDistrict">
+                    <mat-label>鄉鎮市區</mat-label>
+                    <mat-select name="addressDistrict" [(value)]="selectedDistrict">
                       <mat-option *ngFor="let district of selectedCity.districts" [value]="district">
                         {{district.name}}
                       </mat-option>
@@ -43,48 +48,48 @@
                 </div>
                 <div>
                   <mat-form-field>
-                    <input type="text" name="addressStreet" placeholder="路名" [(ngModel)]="store.address.street"
-                      matInput>
+                    <mat-label>路名</mat-label>
+                    <input matInput type="text" name="addressStreet" [(ngModel)]="store.address.street">
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-form-field>
-                    <textarea name="remark" placeholder="備註" [(ngModel)]="store.remark" matInput
-                      matTextareaAutosize></textarea>
+                    <mat-label>備註</mat-label>
+                    <textarea matInput name="remark" [(ngModel)]="store.remark" matTextareaAutosize></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <div class="column">
                 <img [src]="store.logoUri" [alt]="store.name">
                 <input type="file" accept="image/*" (change)="changeLogo($event)" hidden #fileUpload />
-                <input type="text" name="logoName" [ngModel]="logo?.name" matInput>
-                <button type="button" color="primary" (click)="fileUpload.click()" mat-button>Choose Files</button>
+                <input matInput type="text" name="logoName" [ngModel]="logo?.name">
+                <button mat-button type="button" (click)="fileUpload.click()" color="primary">Choose Files</button>
               </div>
               <div>
-                <button type="button" (click)="back()" mat-button>返回</button>
-                <button type="button" mat-button color="primary" matStepperNext>下一步</button>
+                <button mat-button type="button" (click)="back()">返回</button>
+                <button mat-button type="button" matStepperNext color="primary">下一步</button>
               </div>
             </div>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>商品</ng-template>
-            <button mat-button color="primary" (click)="createProductCategory()">新增分類</button>
-            <div cdkDropList class="category-list" [cdkDropListData]="store.productCategories"
+            <button mat-button type="button" (click)="createProductCategory()" color="primary">新增分類</button>
+            <div class="category-list" cdkDropList [cdkDropListData]="store.productCategories"
               (cdkDropListDropped)="drop($event)">
-              <div cdkDrag class="category-box" *ngFor="let category of store.productCategories">
+              <div *ngFor="let category of store.productCategories" class="category-box" cdkDrag>
                 <div class="category-title">
                   <app-inline-editor name="分類名稱" [(value)]="category.name"></app-inline-editor>
-                  <button type="button" mat-button color="primary" (click)="createProduct(category)">新增商品</button>
+                  <button mat-button type="button" (click)="createProduct(category)" color="primary">新增商品</button>
                   <span class="fill-space"></span>
-                  <button type="button" mat-icon-button color="warn" matTooltip="刪除分類"
-                    (click)="deleteProductCategory(category)">
+                  <button mat-icon-button type="button" (click)="deleteProductCategory(category)" matTooltip="刪除分類"
+                    color="warn">
                     <mat-icon>remove_circle</mat-icon>
                   </button>
                 </div>
-                <div cdkDropList class="product-list" [cdkDropListData]="category.products"
+                <div class="product-list" cdkDropList [cdkDropListData]="category.products"
                   (cdkDropListDropped)="drop($event)">
-                  <div cdkDrag class="product-box" *ngFor="let product of category.products">
-                    <button type="button" mat-button (click)="updateProduct(product)">{{product.name}}</button>
+                  <div *ngFor="let product of category.products" class="product-box" cdkDrag>
+                    <button mat-button type="button" (click)="updateProduct(product)">{{product.name}}</button>
                     <span class="fill-space"></span>
                     <mat-chip-list>
                       <mat-chip *ngFor="let productItem of product.productItems">
@@ -92,8 +97,8 @@
                         {{productItem.price}}
                       </mat-chip>
                     </mat-chip-list>
-                    <button type="button" mat-icon-button color="warn" matTooltip="刪除商品項目"
-                      (click)="deleteProduct(product, category)">
+                    <button mat-icon-button type="button" (click)="deleteProduct(product, category)" matTooltip="刪除商品項目"
+                      color="warn">
                       <mat-icon>remove_circle</mat-icon>
                     </button>
                   </div>
@@ -102,16 +107,16 @@
               <p *ngIf="!isLoading && store.productCategories.length === 0" class="empty-result">查無資料</p>
             </div>
             <div>
-              <button type="button" mat-button matStepperPrevious>上一步</button>
-              <button type="button" mat-button color="primary" matStepperNext>下一步</button>
+              <button mat-button type="button" matStepperPrevious>上一步</button>
+              <button mat-button type="button" matStepperNext color="primary">下一步</button>
             </div>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>確認</ng-template>
             點擊 [{{saveMode | actionName}}] 送出
             <div>
-              <button type="button" mat-button matStepperPrevious>上一步</button>
-              <button type="submit" mat-button color="primary">{{saveMode | actionName}}</button>
+              <button mat-button type="button" matStepperPrevious>上一步</button>
+              <button mat-button type="submit" color="primary">{{saveMode | actionName}}</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>

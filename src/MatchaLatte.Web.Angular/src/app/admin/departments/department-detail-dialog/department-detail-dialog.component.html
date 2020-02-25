@@ -4,12 +4,13 @@
     上級部門: {{parent.name}}
     <div>
       <mat-form-field>
-        <input matInput type="text" name="name" placeholder="名稱" [(ngModel)]="department.name">
+        <mat-label>名稱</mat-label>
+        <input matInput type="text" name="name" [(ngModel)]="department.name">
       </mat-form-field>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button type="button" matDialogClose>返回</button>
-    <button mat-button type="submit" color="primary" [matDialogClose]="department">{{saveMode | actionName}}</button>
+    <button mat-button type="submit" [matDialogClose]="department" color="primary">{{saveMode | actionName}}</button>
   </mat-dialog-actions>
 </form>

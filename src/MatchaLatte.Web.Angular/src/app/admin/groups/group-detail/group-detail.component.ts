@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
-import { from } from 'rxjs';
-import { startWith, switchMap, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, startWith, switchMap, tap } from 'rxjs/operators';
 import { Group } from 'src/app/core/group/group';
 import { GroupService } from 'src/app/core/group/group.service';
 import { Guid } from 'src/app/core/guid';
@@ -17,16 +17,17 @@ import { StoreService } from 'src/app/core/store/store.service';
   templateUrl: './group-detail.component.html',
   styleUrls: ['./group-detail.component.scss']
 })
-export class GroupDetailComponent implements OnInit, AfterViewInit {
-  isLoading = false;
-  pageEvent: PageEvent;
+export class GroupDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+  isLoading = true;
+  canSelectStore = true;
   saveMode = SaveMode.Create;
   group = new Group();
   stores = new PaginationResult<Store>();
-  canSelectStore = false;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
+
+  private subscription = new Subscription();
 
   constructor(
     private groupService: GroupService,
@@ -35,34 +36,40 @@ export class GroupDetailComponent implements OnInit, AfterViewInit {
     private location: Location) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     if (Guid.isGuid(id)) {
+      this.isLoading = true;
+      this.canSelectStore = false;
       this.saveMode = SaveMode.Update;
       this.groupService
         .getGroup(new Guid(id))
-        .subscribe({
-          next: group => this.group = group,
-          complete: () => this.isLoading = false
-        });
-    } else {
-      this.canSelectStore = true;
+        .pipe(
+          tap(group => this.group = group),
+          finalize(() => this.isLoading = false)
+        )
+        .subscribe();
     }
   }
 
   ngAfterViewInit(): void {
     if (this.canSelectStore) {
-      from(this.paginator.page)
+      this.subscription.add(this.paginator.page
         .pipe(
           startWith({}),
           tap(() => this.isLoading = true),
           switchMap(() => this.storeService.getStores(this.paginator.pageIndex, this.paginator.pageSize)),
-          tap(() => this.isLoading = false)
+          tap(stores => {
+            this.isLoading = false;
+            this.stores = stores;
+          }),
+          finalize(() => this.isLoading = false)
         )
-        .subscribe({
-          next: stores => this.stores = stores,
-        });
+        .subscribe());
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   selectStore(store: Store): void {
@@ -70,29 +77,18 @@ export class GroupDetailComponent implements OnInit, AfterViewInit {
   }
 
   save(): void {
-    switch (this.saveMode) {
-      case SaveMode.Create:
-        this.create();
-        break;
-      case SaveMode.Update:
-        this.update();
-        break;
+    let group$ = this.groupService.createGroup(this.group);
+    if (this.saveMode === SaveMode.Update) {
+      group$ = this.groupService.updateGroup(this.group);
     }
+    group$
+      .pipe(
+        tap(() => this.back())
+      )
+      .subscribe();
   }
 
   back(): void {
     this.location.back();
-  }
-
-  private create(): void {
-    this.groupService
-      .createGroup(this.group)
-      .subscribe(group => this.location.back());
-  }
-
-  private update(): void {
-    this.groupService
-      .updateGroup(this.group)
-      .subscribe(group => this.location.back());
   }
 }
