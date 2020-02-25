@@ -4,7 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
 import { City } from 'src/app/core/city/city';
 import { CityService } from 'src/app/core/city/city.service';
 import { District } from 'src/app/core/city/district';
@@ -23,7 +24,7 @@ import { ProductDetailDialogComponent } from '../product-detail-dialog/product-d
   styleUrls: ['./store-detail.component.scss']
 })
 export class StoreDetailComponent implements OnInit {
-  isLoading = false;
+  isLoading = true;
   saveMode = SaveMode.Create;
   displayedColumns = ['name', 'price', 'action'];
   store = new Store();
@@ -45,28 +46,24 @@ export class StoreDetailComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    let store$: Observable<Store>;
     const id = this.route.snapshot.paramMap.get('id');
+    let store$ = this.storeService.getNewStore();
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.isLoading = true;
       store$ = this.storeService.getStore(new Guid(id));
-    } else {
-      store$ = this.storeService.getNewStore();
     }
-
-    forkJoin([this.cityService.getCities(), store$]).subscribe({
-      next: result => {
-        const cities = result[0];
-        const store = result[1];
-        this.cities = cities;
-        this.store = store;
-        this.selectedCity = cities.find(city => city.name === store.address.city) || this.cities[0];
-        this.selectedDistrict =
-          this.selectedCity.districts.find(district => district.name === store.address.district) || this.selectedCity.districts[0];
-      },
-      complete: () => this.isLoading = false
-    });
+    forkJoin([store$, this.cityService.getCities()])
+      .pipe(
+        tap(([store, cities]) => {
+          this.store = store;
+          this.cities = cities;
+          this.selectedCity = cities.find(city => city.name === store.address.city) || this.cities[0];
+          this.selectedDistrict =
+            this.selectedCity.districts.find(district => district.name === store.address.district) || this.selectedCity.districts[0];
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe();
 
     this.formGroup = new FormGroup({
       storeFormGroup: this.formBuilder.group({
@@ -81,14 +78,15 @@ export class StoreDetailComponent implements OnInit {
   save(): void {
     this.store.address.city = this.selectedCity.name;
     this.store.address.district = this.selectedDistrict.name;
-    switch (this.saveMode) {
-      case SaveMode.Create:
-        this.create();
-        break;
-      case SaveMode.Update:
-        this.update();
-        break;
+    let store$ = this.storeService.createStore(this.store);
+    if (this.saveMode === SaveMode.Update) {
+      store$ = this.storeService.updateStore(this.store, this.logo);
     }
+    store$
+      .pipe(
+        tap(() => this.back())
+      )
+      .subscribe();
   }
 
   back(): void {
@@ -112,31 +110,33 @@ export class StoreDetailComponent implements OnInit {
   }
 
   createProduct(category: ProductCategory): void {
-    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        category.products.push(data);
-      }
-    });
+    const dialogRef = this.dialog.open(ProductDetailDialogComponent, { data: {} });
+    dialogRef
+      .afterClosed()
+      .pipe(
+        tap((result: Product) => {
+          if (!!result) {
+            category.products.push(result);
+          }
+        })
+      )
+      .subscribe();
   }
 
   updateProduct(product: Product): void {
-    const dialogRef = this.dialog.open(ProductDetailDialogComponent, {
-      data: JSON.parse(JSON.stringify(product))
-    });
-    dialogRef.afterClosed().subscribe(value => {
-      if (!value) {
-        return;
-      }
-
-      product.name = value.name.trim();
-      product.productItems = value.productItems;
-      product.productItems.forEach(item => {
-        item.name = item.name.trim();
-      });
-    });
+    const dialogRef = this.dialog.open(ProductDetailDialogComponent, { data: JSON.parse(JSON.stringify(product)) });
+    dialogRef
+      .afterClosed()
+      .pipe(
+        tap((result: Product) => {
+          if (!!result) {
+            product.name = result.name.trim();
+            product.productItems = result.productItems;
+            product.productItems.forEach(item => item.name = item.name.trim());
+          }
+        })
+      )
+      .subscribe();
   }
 
   deleteProduct(product: Product, category: ProductCategory): void {
@@ -144,19 +144,7 @@ export class StoreDetailComponent implements OnInit {
     category.products.splice(index, 1);
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  }
-
-  private create(): void {
-    this.storeService
-      .createStore(this.store)
-      .subscribe(store => this.location.back());
-  }
-
-  private update(): void {
-    this.storeService
-      .updateStore(this.store, this.logo)
-      .subscribe(store => this.location.back());
   }
 }

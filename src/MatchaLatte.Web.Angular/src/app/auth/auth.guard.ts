@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, CanLoad, Route } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
@@ -13,9 +14,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const url = state.url;
-
-    return this.checkLogin(url);
+    return this.checkLogin(state.url);
   }
 
   canLoad(route: Route): boolean {
@@ -23,7 +22,6 @@ export class AuthGuard implements CanActivate, CanLoad {
     if (!this.checkLogin(url)) {
       return false;
     }
-
     const permissions = route.data.permissions;
     if (!this.authService.hasPermission(permissions[0])) {
       this.router.navigate(['login']);
@@ -36,12 +34,12 @@ export class AuthGuard implements CanActivate, CanLoad {
     if (this.authService.isAuthorized()) {
       return true;
     }
-
     this.authService
       .refresh()
-      .subscribe({
-        next: () => true,
-        error: () => this.router.navigate(['/auth/signin'], { queryParams: { returnUrl: url } })
-      });
+      .pipe(
+        map(() => true),
+        catchError(() => this.router.navigate(['/auth/signin'], { queryParams: { returnUrl: url } }))
+      )
+      .subscribe();
   }
 }

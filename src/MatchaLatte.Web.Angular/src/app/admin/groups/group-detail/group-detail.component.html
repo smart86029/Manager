@@ -1,5 +1,5 @@
 <div class="container">
-  <form autocomplete="off">
+  <form autocomplete="off" (ngSubmit)="save()">
     <h2 class="mat-h2">{{saveMode | actionName}}團</h2>
     <mat-card>
       <mat-card-content>
@@ -8,30 +8,32 @@
             <ng-template matStepLabel>基本設置</ng-template>
             <div>
               <mat-form-field>
-                <input matInput name="startOn" placeholder="開始時間" [(ngModel)]="group.startOn"
+                <mat-label>開始時間</mat-label>
+                <input matInput type="datetime" name="startOn" [(ngModel)]="group.startOn"
                   [matDatepicker]="pickerStartOn" [max]="group.endOn">
-                <mat-datepicker-toggle matSuffix [for]="pickerStartOn"></mat-datepicker-toggle>
+                <mat-datepicker-toggle [for]="pickerStartOn" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker type="datetime" #pickerStartOn></mat-datepicker>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field>
-                <input matInput name="endOn" placeholder="結束時間" [(ngModel)]="group.endOn" [matDatepicker]="pickerEndOn"
+                <mat-label>結束時間</mat-label>
+                <input matInput type="datetime" name="endOn" [(ngModel)]="group.endOn" [matDatepicker]="pickerEndOn"
                   [min]="group.startOn">
-                <mat-datepicker-toggle matSuffix [for]="pickerEndOn"></mat-datepicker-toggle>
+                <mat-datepicker-toggle [for]="pickerEndOn" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker type="datetime" #pickerEndOn></mat-datepicker>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field>
-                <textarea matInput name="remark" placeholder="備註" [(ngModel)]="group.remark"
-                  matTextareaAutosize></textarea>
+                <mat-label>備註</mat-label>
+                <textarea matInput name="remark" [(ngModel)]="group.remark" matTextareaAutosize></textarea>
               </mat-form-field>
             </div>
             <app-card-loading *ngIf="isLoading"></app-card-loading>
             <div class="step-commands">
-              <button mat-button (click)="back()">返回</button>
-              <button mat-button color="primary" matStepperNext>下一步</button>
+              <button mat-button type="button" (click)="back()">返回</button>
+              <button mat-button type="button" matStepperNext color="primary">下一步</button>
             </div>
           </mat-step>
           <mat-step>
@@ -43,13 +45,13 @@
               <mat-paginator [length]="stores.itemCount" [pageSize]="stores.pageSize" [pageSizeOptions]="[5, 10, 20]"
                 showFirstLastButtons></mat-paginator>
               <div class="store-list">
-                <mat-card class="store-card" *ngFor="let store of stores.items">
+                <mat-card *ngFor="let store of stores.items" class="store-card">
                   <mat-card-header>
                     <mat-card-title>
                       {{store.name}}
                     </mat-card-title>
                   </mat-card-header>
-                  <img mat-card-image src="{{store.logoUri}}" alt="{{store.name}}">
+                  <img [src]="store.logoUri" [alt]="store.name" mat-card-image>
                   <mat-card-content class="store-card-content">
                     <div>
                       Card Content Here
@@ -62,16 +64,16 @@
               </div>
             </div>
             <div class="step-commands">
-              <button mat-button matStepperPrevious>上一步</button>
-              <button mat-button color="primary" matStepperNext>下一步</button>
+              <button mat-button type="button" matStepperPrevious>上一步</button>
+              <button mat-button type="button" matStepperNext color="primary">下一步</button>
             </div>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>確認</ng-template>
             點擊 [{{saveMode | actionName}}] 送出
             <div class="step-commands">
-              <button mat-button matStepperPrevious>上一步</button>
-              <button mat-button color="primary" (click)="save()">{{saveMode | actionName}}</button>
+              <button mat-button type="button" matStepperPrevious>上一步</button>
+              <button mat-button type="submit" color="primary">{{saveMode | actionName}}</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { JobTitleService } from 'src/app/core/job-title/job-title.service';
+import { finalize, tap } from 'rxjs/operators';
 import { JobTitle } from 'src/app/core/job-title/job-title';
+import { JobTitleService } from 'src/app/core/job-title/job-title.service';
 
 @Component({
   selector: 'app-job-title-list',
@@ -9,7 +10,7 @@ import { JobTitle } from 'src/app/core/job-title/job-title';
 })
 export class JobTitleListComponent implements OnInit {
   isLoading = true;
-  isEmpty = false;
+  isEmptyResult = false;
   jobTitles: JobTitle[];
   displayedColumns = ['rowId', 'name', 'action'];
 
@@ -18,12 +19,13 @@ export class JobTitleListComponent implements OnInit {
   ngOnInit(): void {
     this.jobTitleService
       .getJobTitles()
-      .subscribe({
-        next: jobTitles => {
+      .pipe(
+        tap(jobTitles => {
           this.jobTitles = jobTitles;
-          this.isEmpty = jobTitles.length === 0;
-        },
-        complete: () => this.isLoading = false
-      });
+          this.isEmptyResult = jobTitles.length === 0;
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe();
   }
 }

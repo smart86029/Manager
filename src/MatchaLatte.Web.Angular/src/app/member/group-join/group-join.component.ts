@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Group } from 'src/app/core/group/group';
 import { GroupService } from 'src/app/core/group/group.service';
 import { Guid } from 'src/app/core/guid';
@@ -21,13 +21,15 @@ import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
   templateUrl: './group-join.component.html',
   styleUrls: ['./group-join.component.scss']
 })
-export class GroupJoinComponent implements OnInit {
-  isLoading = false;
+export class GroupJoinComponent implements OnInit, OnDestroy {
+  isLoading = true;
   group = new Group();
   store = new Store();
   order = new Order();
   orderItemsChanged$ = new Subject();
   total = 0;
+
+  private subscription = new Subscription();
 
   constructor(
     private groupService: GroupService,
@@ -36,11 +38,10 @@ export class GroupJoinComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog) {
-  }
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     this.groupService
       .getGroup(new Guid(id))
@@ -49,35 +50,39 @@ export class GroupJoinComponent implements OnInit {
           this.group = group;
           this.order.groupId = group.id;
         }),
-        switchMap(group => this.storeService.getStore(group.store.id)))
-      .subscribe({
-        next: store => this.store = store,
-        complete: () => this.isLoading = false
-      });
-    this.orderItemsChanged$
-      .subscribe({
-        next: () => {
+        switchMap(group => this.storeService.getStore(group.store.id)),
+        tap(store => this.store = store),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe();
+    this.subscription.add(this.orderItemsChanged$
+      .pipe(
+        tap(() => {
           let temp = 0;
           this.order.orderItems.map(item => temp += item.productItemPrice * item.quantity);
           this.total = temp;
-        }
-      });
+        })
+      )
+      .subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   selectProduct(product: Product): void {
     this.dialog
-      .open(OrderDialogComponent, {
-        data: product
-      })
+      .open(OrderDialogComponent, { data: product })
       .afterClosed()
-      .subscribe({
-        next: item => {
-          if (item) {
-            this.order.orderItems.push(item);
+      .pipe(
+        tap((orderItem: OrderItem) => {
+          if (orderItem) {
+            this.order.orderItems.push(orderItem);
             this.orderItemsChanged$.next();
           }
-        }
-      });
+        })
+      )
+      .subscribe();
   }
 
   deleteOrderItem(orderItem: OrderItem): void {
@@ -92,8 +97,9 @@ export class GroupJoinComponent implements OnInit {
     }
     this.orderService
       .createOrder(this.order)
-      .subscribe({
-        next: order => this.router.navigate(['orders'])
-      });
+      .pipe(
+        tap(order => this.router.navigate(['orders']))
+      )
+      .subscribe();
   }
 }

@@ -1,28 +1,28 @@
-<header class="{{themeService.theme$ | async}}">
+<header [class]="themeService.theme$ | async">
   <nav class="nav">
     <mat-toolbar color="primary">
-      <a routerLink="/" routerLinkActive="active" mat-button>{{title}}</a>
+      <a mat-button routerLink="/" routerLinkActive="active">{{title}}</a>
       <span class="fill-space"></span>
-      <button mat-icon-button [matMenuTriggerFor]="themeMenu">
+      <button mat-icon-button type="button" [matMenuTriggerFor]="themeMenu">
         <mat-icon>format_color_fill</mat-icon>
       </button>
-      <button mat-icon-button>
+      <button mat-icon-button type="button">
         <mat-icon>notifications</mat-icon>
       </button>
-      <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+      <button mat-icon-button type="button" [matMenuTriggerFor]="profileMenu">
         <mat-icon>person</mat-icon>
       </button>
     </mat-toolbar>
   </nav>
-  <mat-menu #themeMenu="matMenu" [overlapTrigger]="false">
+  <mat-menu [overlapTrigger]="false" #themeMenu="matMenu">
     <app-theme-picker></app-theme-picker>
   </mat-menu>
   <mat-menu #profileMenu="matMenu">
     <a [routerLink]="['/admin']" mat-menu-item>管理</a>
-    <button mat-menu-item (click)="signOut()">登出</button>
+    <button mat-menu-item type="button" (click)="signOut()">登出</button>
   </mat-menu>
 </header>
-<main class="{{themeService.theme$ | async}}">
+<main [class]="themeService.theme$ | async">
   <router-outlet></router-outlet>
   <app-chat-room></app-chat-room>
 </main>

@@ -10,6 +10,10 @@ body {
   font-family: "Noto Sans TC", sans-serif;
 }
 
+table {
+  width: 100%;
+}
+
 .container {
   margin: 20px;
 }
@@ -25,4 +29,8 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.empty-result {
+  text-align: center;
 }

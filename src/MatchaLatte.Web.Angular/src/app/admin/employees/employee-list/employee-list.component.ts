@@ -1,24 +1,25 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { from } from 'rxjs';
-import { startWith, switchMap, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, startWith, switchMap, tap } from 'rxjs/operators';
 import { Department } from 'src/app/core/department/department';
 import { DepartmentService } from 'src/app/core/department/department.service';
 import { Employee } from 'src/app/core/employee/employee';
 import { EmployeeService } from 'src/app/core/employee/employee.service';
+import { Guid } from 'src/app/core/guid';
+import { JobTitle } from 'src/app/core/job-title/job-title';
 import { JobTitleService } from 'src/app/core/job-title/job-title.service';
 import { PaginationResult } from 'src/app/core/pagination-result';
-import { JobTitle } from 'src/app/core/job-title/job-title';
-import { Guid } from 'src/app/core/guid';
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.scss']
 })
-export class EmployeeListComponent implements OnInit, AfterViewInit {
+export class EmployeeListComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = true;
+  isEmptyResult = false;
   employees = new PaginationResult<Employee>();
   dataSource = new MatTableDataSource<Employee>();
   displayedColumns = ['rowId', 'name', 'displayName', 'department', 'jobTitle', 'action'];
@@ -28,30 +29,47 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
+  private subscription = new Subscription();
+
   constructor(
     private employeeService: EmployeeService,
     private departmentService: DepartmentService,
     private jobTitleService: JobTitleService) { }
 
   ngOnInit(): void {
-    this.departmentService.getDepartments().subscribe(departments => this.departments = departments);
-    this.jobTitleService.getJobTitles().subscribe(jobTitles => this.jobTitles = jobTitles);
+    this.departmentService
+      .getDepartments()
+      .pipe(
+        tap(departments => this.departments = departments)
+      )
+      .subscribe();
+    this.jobTitleService
+      .getJobTitles()
+      .pipe(
+        tap(jobTitles => this.jobTitles = jobTitles)
+      )
+      .subscribe();
   }
 
   ngAfterViewInit(): void {
-    from(this.paginator.page)
+    this.subscription.add(this.paginator.page
       .pipe(
         startWith({}),
         tap(() => this.isLoading = true),
         switchMap(() => this.employeeService.getEmployees(this.paginator.pageIndex, this.paginator.pageSize)),
-        tap(() => this.isLoading = false)
-      )
-      .subscribe({
-        next: employees => {
+        tap(employees => {
+          this.isLoading = false;
+          this.isEmptyResult = employees.itemCount === 0;
           this.employees = employees;
           this.dataSource.data = employees.items;
-        },
-      });
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getDepartmentName(departmentId: Guid): string {

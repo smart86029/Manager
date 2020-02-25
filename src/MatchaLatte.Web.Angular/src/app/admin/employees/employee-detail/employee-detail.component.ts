@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
 import { Department } from 'src/app/core/department/department';
 import { DepartmentService } from 'src/app/core/department/department.service';
 import { Employee } from 'src/app/core/employee/employee';
@@ -19,14 +20,14 @@ import { SaveMode } from 'src/app/core/save-mode.enum';
   styleUrls: ['./employee-detail.component.scss']
 })
 export class EmployeeDetailComponent implements OnInit {
-  isLoading: boolean;
+  isLoading = true;
   saveMode = SaveMode.Create;
   employee = new Employee();
   departments: Department[];
   jobTitles: JobTitle[];
   gender = Gender;
   maritalStatus = MaritalStatus;
-  canAssignJob = false;
+  canAssignJob = true;
   now = new Date();
 
   constructor(
@@ -36,52 +37,39 @@ export class EmployeeDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location) { }
 
-  ngOnInit() {
-    let employee$: Observable<Employee>;
+  ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
+    let employee$ = of(this.employee);
     if (Guid.isGuid(id)) {
-      this.isLoading = true;
       this.saveMode = SaveMode.Update;
+      this.canAssignJob = false;
       employee$ = this.employeeService.getEmployee(new Guid(id));
-    } else {
-      employee$ = of(this.employee);
-      this.canAssignJob = true;
     }
-
-    forkJoin(this.departmentService.getDepartments(), this.jobTitleService.getJobTitles(), employee$).subscribe({
-      next: result => {
-        this.departments = result[0];
-        this.jobTitles = result[1];
-        this.employee = result[2];
-      },
-      complete: () => this.isLoading = false
-    });
+    forkJoin([employee$, this.departmentService.getDepartments(), this.jobTitleService.getJobTitles()])
+      .pipe(
+        tap(([employee, departments, jobTitles]) => {
+          this.employee = employee;
+          this.departments = departments;
+          this.jobTitles = jobTitles;
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe();
   }
 
   save(): void {
-    switch (this.saveMode) {
-      case SaveMode.Create:
-        this.create();
-        break;
-      case SaveMode.Update:
-        this.update();
-        break;
+    let employee$ = this.employeeService.createEmployee(this.employee);
+    if (this.saveMode === SaveMode.Update) {
+      employee$ = this.employeeService.updateEmployee(this.employee);
     }
+    employee$
+      .pipe(
+        tap(() => this.back())
+      )
+      .subscribe();
   }
 
   back(): void {
     this.location.back();
-  }
-
-  private create(): void {
-    this.employeeService
-      .createEmployee(this.employee)
-      .subscribe(employee => this.back());
-  }
-
-  private update(): void {
-    this.employeeService
-      .updateEmployee(this.employee)
-      .subscribe(employee => this.back());
   }
 }

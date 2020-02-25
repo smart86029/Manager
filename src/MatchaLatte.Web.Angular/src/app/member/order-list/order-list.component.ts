@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from 'src/app/core/order/order.service';
+import { finalize, tap } from 'rxjs/operators';
 import { Order } from 'src/app/core/order/order';
-import { MatTableDataSource } from '@angular/material/table';
-import { PaginationResult } from 'src/app/core/pagination-result';
+import { OrderService } from 'src/app/core/order/order.service';
 
 @Component({
   selector: 'app-order-list',
@@ -10,21 +9,22 @@ import { PaginationResult } from 'src/app/core/pagination-result';
   styleUrls: ['./order-list.component.scss']
 })
 export class OrderListComponent implements OnInit {
-  isLoading = false;
+  isLoading = true;
+  isEmptyResult = false;
   orders: Order[] = [];
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
-    this.loadOrders();
-  }
-
-  loadOrders() {
     this.orderService
       .getMyOrders()
-      .subscribe({
-        next: orders => this.orders = orders,
-        complete: () => this.isLoading = false
-      });
+      .pipe(
+        tap(orders => {
+          this.orders = orders;
+          this.isEmptyResult = orders.length === 0;
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe();
   }
 }

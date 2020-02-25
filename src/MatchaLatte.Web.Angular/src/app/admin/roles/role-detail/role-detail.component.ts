@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { finalize, tap } from 'rxjs/operators';
 import { Guid } from 'src/app/core/guid';
 import { Role } from 'src/app/core/role/role';
 import { RoleService } from 'src/app/core/role/role.service';
@@ -12,57 +13,43 @@ import { SaveMode } from 'src/app/core/save-mode.enum';
   styleUrls: ['./role-detail.component.scss']
 })
 export class RoleDetailComponent implements OnInit {
-  isLoading = false;
+  isLoading = true;
   saveMode = SaveMode.Create;
   role = new Role();
 
-  constructor(private roleService: RoleService, private route: ActivatedRoute, private location: Location) { }
+  constructor(
+    private roleService: RoleService,
+    private route: ActivatedRoute,
+    private location: Location) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
+    let role$ = this.roleService.getNewRole();
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.roleService
-        .getRole(new Guid(id))
-        .subscribe({
-          next: role => this.role = role,
-          complete: () => this.isLoading = false
-        });
-    } else {
-      this.roleService
-        .getNewRole()
-        .subscribe({
-          next: role => this.role = role,
-          complete: () => this.isLoading = false
-        });
+      role$ = this.roleService.getRole(new Guid(id));
     }
+    role$
+      .pipe(
+        tap(role => this.role = role),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe();
   }
 
   save(): void {
-    switch (this.saveMode) {
-      case SaveMode.Create:
-        this.create();
-        break;
-      case SaveMode.Update:
-        this.update();
-        break;
+    let role$ = this.roleService.createRole(this.role);
+    if (this.saveMode === SaveMode.Update) {
+      role$ = this.roleService.updateRole(this.role);
     }
+    role$
+      .pipe(
+        tap(() => this.back())
+      )
+      .subscribe();
   }
 
   back(): void {
     this.location.back();
-  }
-
-  private create(): void {
-    this.roleService
-      .createRole(this.role)
-      .subscribe(role => this.location.back());
-  }
-
-  private update(): void {
-    this.roleService
-      .updateRole(this.role)
-      .subscribe(role => this.location.back());
   }
 }

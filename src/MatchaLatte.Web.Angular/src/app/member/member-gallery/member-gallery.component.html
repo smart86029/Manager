@@ -3,17 +3,15 @@
   <mat-paginator [length]="groups.itemCount" [pageSize]="groups.pageSize" [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons></mat-paginator>
   <div class="group-list">
-    <mat-card class="group-card" *ngFor="let group of groups.items">
+    <mat-card *ngFor="let group of groups.items" class="group-card">
       <mat-card-header>
         <mat-card-title>
           {{group.store.name}}
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src="{{group.store.logoUri}}" alt="{{group.store.name}}">
+      <img [src]="group.store.logoUri" [alt]="group.store.name" mat-card-image>
       <mat-card-content class="group-card-content">
-        <div>
-          截止日期: {{group.endOn | date:'yyyy-MM-dd HH:mm:ss'}}
-        </div>
+        <div>截止日期: {{group.endOn | date:'yyyy-MM-dd HH:mm:ss'}}</div>
       </mat-card-content>
       <a class="group-card-overlay" [routerLink]="['../groups', group.id, 'join']">
         <mat-icon class="no-select" inline>add_shopping_cart</mat-icon>

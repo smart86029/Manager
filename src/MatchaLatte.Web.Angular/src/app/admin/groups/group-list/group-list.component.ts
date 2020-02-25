@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { from } from 'rxjs';
-import { startWith, switchMap, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, startWith, switchMap, tap } from 'rxjs/operators';
 import { Group } from 'src/app/core/group/group';
 import { GroupService } from 'src/app/core/group/group.service';
 import { PaginationResult } from 'src/app/core/pagination-result';
@@ -12,8 +12,9 @@ import { PaginationResult } from 'src/app/core/pagination-result';
   templateUrl: './group-list.component.html',
   styleUrls: ['./group-list.component.scss']
 })
-export class GroupListComponent implements OnInit, AfterViewInit {
+export class GroupListComponent implements AfterViewInit, OnDestroy {
   isLoading = true;
+  isEmptyResult = false;
   groups = new PaginationResult<Group>();
   dataSource = new MatTableDataSource<Group>();
   displayedColumns = ['rowId', 'storeName', 'startOn', 'endOn', 'createdOn', 'action'];
@@ -21,24 +22,28 @@ export class GroupListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
+  private subscription = new Subscription();
+
   constructor(private groupService: GroupService) { }
 
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
-    from(this.paginator.page)
+    this.subscription.add(this.paginator.page
       .pipe(
         startWith({}),
         tap(() => this.isLoading = true),
         switchMap(() => this.groupService.getGroups(this.paginator.pageIndex, this.paginator.pageSize)),
-        tap(() => this.isLoading = false)
-      )
-      .subscribe({
-        next: groups => {
+        tap(groups => {
+          this.isLoading = false;
+          this.isEmptyResult = groups.itemCount === 0;
           this.groups = groups;
           this.dataSource.data = groups.items;
-        },
-      });
+        }),
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,12 +20,12 @@ export class SignInComponent implements OnInit {
   signIn(): void {
     this.authService
       .signIn(this.userName, this.password)
-      .subscribe({
-        next: () => {
+      .pipe(
+        tap(() => {
           const redirect = this.route.snapshot.queryParams.returnUrl || '/';
           this.router.navigate([redirect]);
-        }
-      });
+        }))
+      .subscribe();
   }
 
   signOut(): void {

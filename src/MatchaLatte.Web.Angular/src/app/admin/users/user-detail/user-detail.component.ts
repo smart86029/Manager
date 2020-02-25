@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { finalize, tap } from 'rxjs/operators';
 import { Guid } from 'src/app/core/guid';
 import { SaveMode } from 'src/app/core/save-mode.enum';
 import { User } from 'src/app/core/user/user';
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/core/user/user.service';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-  isLoading = false;
+  isLoading = true;
   saveMode = SaveMode.Create;
   user = new User();
 
@@ -22,50 +23,32 @@ export class UserDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
+    let user$ = this.userService.getNewUser();
     if (Guid.isGuid(id)) {
       this.saveMode = SaveMode.Update;
-      this.userService
-        .getUser(new Guid(id))
-        .subscribe({
-          next: user => this.user = user,
-          complete: () => this.isLoading = false
-        });
-    } else {
-      this.userService
-        .getNewUser()
-        .subscribe({
-          next: user => this.user = user,
-          complete: () => this.isLoading = false
-        });
+      user$ = this.userService.getUser(new Guid(id));
     }
+    user$
+      .pipe(
+        tap(user => this.user = user),
+        finalize(() => this.isLoading = false))
+      .subscribe();
   }
 
   save(): void {
-    switch (this.saveMode) {
-      case SaveMode.Create:
-        this.create();
-        break;
-      case SaveMode.Update:
-        this.update();
-        break;
+    let user$ = this.userService.createUser(this.user);
+    if (this.saveMode === SaveMode.Update) {
+      user$ = this.userService.updateUser(this.user);
     }
+    user$
+      .pipe(
+        tap(() => this.back())
+      )
+      .subscribe();
   }
 
   back(): void {
     this.location.back();
-  }
-
-  private create(): void {
-    this.userService
-      .createUser(this.user)
-      .subscribe(user => this.location.back());
-  }
-
-  private update(): void {
-    this.userService
-      .updateUser(this.user)
-      .subscribe(user => this.location.back());
   }
 }

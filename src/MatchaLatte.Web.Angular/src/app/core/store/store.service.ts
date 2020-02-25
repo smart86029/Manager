@@ -20,7 +20,6 @@ export class StoreService {
     const params = new HttpParams()
       .set('offset', (pageIndex * pageSize).toString())
       .set('limit', pageSize.toString());
-
     return this.httpClient
       .get<Store[]>(this.storesUrl, { params, observe: 'response' })
       .pipe(

@@ -1,11 +1,11 @@
-<form>
+<form autocomplete="off">
   <h2 matDialogTitle>{{product.name}}</h2>
   <mat-dialog-content class="order-item">
     <div>
       商品項目
       <mat-radio-group class="product-items" name="productItems" [ngModel]="product.productItems[0]"
         (change)="selectProductItem($event.value)">
-        <mat-radio-button class="product-item" *ngFor="let productItem of product.productItems" [value]="productItem">
+        <mat-radio-button *ngFor="let productItem of product.productItems" class="product-item" [value]="productItem">
           {{productItem.name}} {{productItem.price}}
         </mat-radio-button>
       </mat-radio-group>
@@ -14,11 +14,11 @@
       數量
       <div>
         <mat-form-field>
-          <button mat-icon-button matPrefix (click)="minusQuantity()">
+          <button mat-icon-button type="button" (click)="minusQuantity()" matPrefix>
             <mat-icon color="primary">remove</mat-icon>
           </button>
           <input matInput type="number" class="quantity" name="quantity" min="1" [(ngModel)]="orderItem.quantity">
-          <button mat-icon-button matSuffix (click)="addQuantity()">
+          <button mat-icon-button type="button" (click)="addQuantity()" matSuffix>
             <mat-icon color="primary">add</mat-icon>
           </button>
         </mat-form-field>
@@ -27,6 +27,6 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button type="button" matDialogClose>返回</button>
-    <button mat-button type="submit" color="primary" [matDialogClose]="orderItem">加到購物車</button>
+    <button mat-button type="submit" [matDialogClose]="orderItem" color="primary">加到購物車</button>
   </mat-dialog-actions>
 </form>
