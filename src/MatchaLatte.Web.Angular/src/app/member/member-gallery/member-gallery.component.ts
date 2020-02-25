@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { from } from 'rxjs';
-import { startWith, switchMap, tap } from 'rxjs/operators';
+import { from, Subscription } from 'rxjs';
+import { startWith, switchMap, tap, finalize } from 'rxjs/operators';
 import { Group } from 'src/app/core/group/group';
 import { GroupService } from 'src/app/core/group/group.service';
 import { PaginationResult } from 'src/app/core/pagination-result';
@@ -11,28 +11,33 @@ import { PaginationResult } from 'src/app/core/pagination-result';
   templateUrl: './member-gallery.component.html',
   styleUrls: ['./member-gallery.component.scss']
 })
-export class MemberGalleryComponent implements OnInit, AfterViewInit {
+export class MemberGalleryComponent implements AfterViewInit, OnDestroy {
   isGroupsLoading = false;
   groups = new PaginationResult<Group>();
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
+  private subscription = new Subscription();
+
   constructor(private groupService: GroupService) { }
 
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
-    from(this.paginator.page)
+    this.subscription.add(this.paginator.page
       .pipe(
         startWith({}),
         tap(() => this.isGroupsLoading = true),
         switchMap(() => this.groupService.getActiveGroups(this.paginator.pageIndex, this.paginator.pageSize)),
-        tap(() => this.isGroupsLoading = false)
+        tap(groups => {
+          this.isGroupsLoading = false;
+          this.groups = groups;
+        }),
+        finalize(() => this.isGroupsLoading = false)
       )
-      .subscribe({
-        next: groups => this.groups = groups,
-      });
+      .subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

@@ -1,8 +1,8 @@
 <div class="container">
   <div class="store-container">
     <h2 class="mat-h2">{{store.name}}</h2>
-    <div class="category-list" *ngIf="store.productCategories?.length > 1">
-      <mat-card class="category-card" *ngFor="let category of store.productCategories">
+    <div *ngIf="store.productCategories?.length > 1" class="category-list">
+      <mat-card *ngFor="let category of store.productCategories" class="category-card">
         <mat-card-header>
           <mat-card-title>
             {{category.name}}
@@ -28,29 +28,34 @@
     </div>
   </div>
   <div class="order-container">
-    <mat-card class="order-card">
-      <mat-card-header>
-        <mat-card-title>
-          我的訂單
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="order-card-content">
-        <mat-list>
-          <mat-list-item *ngFor="let orderItem of order.orderItems">
-            <button mat-icon-button color="warn" matTooltip="刪除商品項目" (click)="deleteOrderItem(orderItem)">
-              <mat-icon>remove_circle</mat-icon>
-            </button>
-            <span matLine>{{orderItem.productName}}</span>
-            <span matLine>{{orderItem.productItemName}} ${{orderItem.productItemPrice}} X {{orderItem.quantity}}</span>
-          </mat-list-item>
-        </mat-list>
-        <div class="total">
-          總額: ${{total}}
-        </div>
-        <div class="submit-order">
-          <button mat-button color="primary" (click)="save()">送出訂單</button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <form autocomplete="off" (ngSubmit)="save()">
+      <mat-card class="order-card">
+        <mat-card-header>
+          <mat-card-title>
+            我的訂單
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="order-card-content">
+          <mat-list>
+            <mat-list-item *ngFor="let orderItem of order.orderItems">
+              <button mat-icon-button type="button" (click)="deleteOrderItem(orderItem)" matTooltip="刪除商品項目"
+                color="warn">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+              <span matLine>{{orderItem.productName}}</span>
+              <span matLine>
+                {{orderItem.productItemName}} ${{orderItem.productItemPrice}} X {{orderItem.quantity}}
+              </span>
+            </mat-list-item>
+          </mat-list>
+          <div class="total">
+            總額: ${{total}}
+          </div>
+          <div class="submit-order">
+            <button mat-button type="button" color="primary">送出訂單</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
   </div>
 </div>
