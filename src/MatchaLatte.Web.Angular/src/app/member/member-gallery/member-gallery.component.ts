@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { from, Subscription } from 'rxjs';
-import { startWith, switchMap, tap, finalize } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, startWith, switchMap, tap } from 'rxjs/operators';
 import { Group } from 'src/app/core/group/group';
 import { GroupService } from 'src/app/core/group/group.service';
 import { PaginationResult } from 'src/app/core/pagination-result';

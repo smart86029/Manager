@@ -1,0 +1,36 @@
+$breakpoints: (xsmall: '(max-width: 599.99px)',
+  small: '(min-width: 600px) and (max-width: 959.99px)',
+  medium: '(min-width: 960px) and (max-width: 1279.99px)',
+  large: '(min-width: 1280px) and (max-width: 1919.99px)',
+  xlarge: '(min-width: 1920px)'
+);
+
+@mixin xsmall {
+  @media (max-width: 599.99px) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (min-width: 600px) and (max-width: 959.99px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: 960px) and (max-width: 1279.99px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: 1280px) and (max-width: 1919.99px) {
+    @content;
+  }
+}
+
+@mixin xlarge {
+  @media (min-width: 1920px) {
+    @content;
+  }
+}

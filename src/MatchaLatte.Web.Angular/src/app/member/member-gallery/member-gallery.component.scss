@@ -1,7 +1,21 @@
+@import 'responsive.scss';
+
 .group-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 12px 12px;
+  grid-gap: 12px;
+
+  @include xsmall {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @include small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include medium {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .group-card-overlay {

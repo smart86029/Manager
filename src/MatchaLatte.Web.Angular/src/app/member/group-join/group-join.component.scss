@@ -1,3 +1,5 @@
+@import 'responsive.scss';
+
 .container {
   display: flex;
 }
@@ -11,10 +13,37 @@
   margin-left: 20px;
 }
 
-.category-list {
+.categories {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 12px 12px;
+  grid-gap: 12px;
+
+  @include xsmall {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @include small {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @include medium {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.category-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-item-list {
+  display: inline-flex;
+  text-align: right;
+
+  .product-item {
+    flex: 0 0 2rem;
+    margin-left: 5px;
+  }
 }
 
 .total,

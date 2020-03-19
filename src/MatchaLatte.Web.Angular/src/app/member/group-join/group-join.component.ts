@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class GroupJoinComponent implements OnInit, OnDestroy {
   group = new Group();
   store = new Store();
   order = new Order();
+  productItemNames: string[] = [];
   orderItemsChanged$ = new Subject();
   total = 0;
 
@@ -51,7 +52,10 @@ export class GroupJoinComponent implements OnInit, OnDestroy {
           this.order.groupId = group.id;
         }),
         switchMap(group => this.storeService.getStore(group.store.id)),
-        tap(store => this.store = store),
+        tap(store => {
+          this.store = store;
+          this.mapProductItem()
+        }),
         finalize(() => this.isLoading = false)
       )
       .subscribe();
@@ -101,5 +105,26 @@ export class GroupJoinComponent implements OnInit, OnDestroy {
         tap(order => this.router.navigate(['orders']))
       )
       .subscribe();
+  }
+
+  getPrice(name: string, product: Product): string {
+    return product.productItems.find(x => x.name === name)?.price.toString() || '';
+  }
+
+  private mapProductItem(): void {
+    const all = this.store.productCategories
+      .flatMap(category => category.products)
+      .flatMap(product => product.productItems)
+      .map(productItem => productItem.name);
+    const distincted = new Set(all);
+    if (distincted.size < 5) {
+      this.productItemNames = [...distincted];
+      for (let i = 0; i < 5 - distincted.size; i++) {
+        this.productItemNames.unshift('');
+      }
+    } else {
+      this.productItemNames = [...distincted].slice(0, 4);
+      this.productItemNames.push('...');
+    }
   }
 }

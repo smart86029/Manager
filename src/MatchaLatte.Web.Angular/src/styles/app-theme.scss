@@ -44,5 +44,9 @@ $app-themes:
     .mat-list-item.primary {
       color: mat-color($primary);
     }
+
+    .mat-card-header-text {
+      width: 100%;
+    }
   }
 }
