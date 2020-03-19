@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MatchaLatte": {
+    "matcha-latte": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -33,7 +33,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/MatchaLatte",
+            "outputPath": "dist/matcha-latte",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -47,7 +47,13 @@
               "src/styles.scss",
               "src/styles/app-theme.scss"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
+            "scripts": [
+            ]
           },
           "configurations": {
             "production": {
@@ -86,22 +92,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "MatchaLatte:build",
+            "browserTarget": "matcha-latte:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "MatchaLatte:build:production"
+              "browserTarget": "matcha-latte:build:production"
             },
             "zh-Hant": {
-              "browserTarget": "MatchaLatte:build:zh-Hant"
+              "browserTarget": "matcha-latte:build:zh-Hant"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MatchaLatte:build"
+            "browserTarget": "matcha-latte:build"
           }
         },
         "lint": {
@@ -117,5 +123,5 @@
         }
       }
     }},
-  "defaultProject": "MatchaLatte"
+  "defaultProject": "matcha-latte"
 }

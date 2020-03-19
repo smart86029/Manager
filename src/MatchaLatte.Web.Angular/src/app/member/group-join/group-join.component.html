@@ -1,28 +1,32 @@
 <div class="container">
   <div class="store-container">
     <h2 class="mat-h2">{{store.name}}</h2>
-    <div *ngIf="store.productCategories?.length > 1" class="category-list">
+    <div *ngIf="store.productCategories?.length > 1" class="categories">
       <mat-card *ngFor="let category of store.productCategories" class="category-card">
         <mat-card-header>
-          <mat-card-title>
+          <mat-card-title class="category-title">
             {{category.name}}
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="category-card-content">
-          <div>
-            <mat-list>
-              <mat-list-item *ngFor="let product of category.products" (click)="selectProduct(product)">
-                <span>{{product.name}}</span>
-                <span class="fill-space"></span>
-                <mat-chip-list>
-                  <mat-chip *ngFor="let productItem of product.productItems">
-                    <span *ngIf="productItem.name">{{productItem.name}}:</span>
-                    {{productItem.price}}
-                  </mat-chip>
-                </mat-chip-list>
-              </mat-list-item>
-            </mat-list>
-          </div>
+          <mat-list>
+            <mat-list-item class="product-item-list">
+              <span class="fill-space"></span>
+              <span *ngFor="let productItemName of productItemNames" class="product-item">
+                {{productItemName}}
+              </span>
+            </mat-list-item>
+          </mat-list>
+          <mat-action-list>
+            <mat-list-item *ngFor="let product of category.products" class="product-item-list"
+              (click)="selectProduct(product)">
+              <span>{{product.name}}</span>
+              <span class="fill-space"></span>
+              <span *ngFor="let productItemName of productItemNames" class="product-item">
+                {{getPrice(productItemName, product)}}
+              </span>
+            </mat-list-item>
+          </mat-action-list>
         </mat-card-content>
       </mat-card>
     </div>
